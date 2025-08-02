@@ -13,7 +13,6 @@ if [ "$SENDER" == "mouse.entered" ]; then
   sketchybar --set "$NAME" \
     background.drawing=on \
     label.color="$LABEL_COLOR" \
-    icon.color="$ICON_COLOR" \
     background.color="$PURE_BLACK"
   exit 0
 fi
@@ -25,7 +24,6 @@ if [ "$SENDER" == "mouse.exited" ]; then
   sketchybar --set "$NAME" \
     background.drawing=off \
     label.color="$LABEL_COLOR" \
-    icon.color="$ICON_COLOR" \
     background.color="$PURE_BLACK"
   exit 0
 fi
@@ -36,8 +34,8 @@ APPS_INFO=$(aerospace list-windows --workspace "$1" --json --format "%{monitor-a
 
 IFS=$'\n'
 for sid in $(echo "$APPS_INFO" | jq -r "map ( .\"app-name\" ) | .[]"); do
-  icons+=$("$CONFIG_DIR/plugins/icon_map_fn.sh" "$sid")
-  icons+="  "
+  icons+=$sid
+  icons+=" "
 done
 
 for monitor_id in $(echo "$APPS_INFO" | jq -r "map ( .\"monitor-appkit-nsscreen-screens-id\" ) | .[]"); do
@@ -61,7 +59,6 @@ if [ -z "$icons" ]; then
       drawing=on \
       label="$icons" \
       label.color="$LABEL_COLOR" \
-      icon.color="$ICON_COLOR" \
       background.color="$BAR_COLOR"
   else
     sketchybar --set "$NAME" drawing=off
@@ -78,7 +75,6 @@ else
       drawing=on \
       label="$icons" \
       label.color="$LABEL_COLOR" \
-      icon.color="$ICON_COLOR" \
       icon.font.size=14 \
       background.color="$BAR_COLOR"
   else
@@ -88,8 +84,7 @@ else
       label="$icons" \
       background.drawing=off \
       label.color="$LABEL_COLOR" \
-      icon.color="$ICON_COLOR" \
       icon.font.size=14 \
-      background.color="$BAR_COLOR"
+      background.color="$BACKGROUND_1"
   fi
 fi
