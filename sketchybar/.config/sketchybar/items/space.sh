@@ -18,8 +18,11 @@ for sid in $(aerospace list-workspaces --all); do
   elif [ "$sid" = "3" ]; then
     icon=" "
     iconColor="$YELLOW"
+  elif [ "$sid" = "4" ]; then
+    icon="󰹕"
+    iconColor="$ORANGE"
   else 
-    icon="$sid"
+    icon=""
     iconColor="$ICON_COLOR"
   fi
 
