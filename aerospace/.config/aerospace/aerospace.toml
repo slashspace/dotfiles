@@ -1,0 +1,213 @@
+# 参考: https://nikitabobko.github.io/AeroSpace/guide
+# 参考: https://blog.einverne.info/post/2025/04/aerospace-tiling-window-manager.html
+
+# 开机启动
+start-at-login = true
+
+# 开机启动后要执行的命令
+# 'start-at-login' 需要设置为 'true' 才能使用 'after-login-command'
+after-login-command = []
+
+# AeroSpace 启动后要执行的命令
+# 'after-startup-command' 在 'after-login-command' 之后执行
+after-startup-command = [
+    # 'exec-and-forget sketchybar',
+]
+
+# 当工作区切换时，通知 sketchybar 更新状态栏(高亮显示当前工作区)
+exec-on-workspace-change = ['/bin/bash', '-c',
+    'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE'
+]
+
+
+# Normalizations. See: https://nikitabobko.github.io/AeroSpace/guide#normalization
+enable-normalization-flatten-containers = true
+enable-normalization-opposite-orientation-for-nested-containers = true
+
+# 默认显示模式 : tiles(平铺)|accordion(手风琴)
+default-root-container-layout = 'accordion'
+
+# 手风琴模式下，设置手风琴的间距: 0 表示禁用
+accordion-padding = 10
+
+
+# 默认显示方向 : horizontal(水平)|vertical(垂直)|auto(自动)
+# 'auto' 表示: 宽屏显示器(宽度大于高度)显示为水平方向，高屏显示器(高度大于宽度)显示为垂直方向
+default-root-container-orientation = 'auto'
+
+# Possible values: (qwerty|dvorak)
+# See https://nikitabobko.github.io/AeroSpace/guide#key-mapping
+[key-mapping]
+  preset = 'qwerty'
+
+
+# 设置窗口间隔
+[gaps.inner]
+  inner.horizontal = 10
+  inner.vertical = 10
+  outer.left = 10
+  outer.bottom = 10
+  outer.top = 10
+  outer.right = 10
+
+# 'main' binding mode declaration
+# See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
+# 'main' binding mode must be always presented
+[mode.main.binding]
+  # All possible keys:
+  # - Letters.        a, b, c, ..., z
+  # - Numbers.        0, 1, 2, ..., 9
+  # - Keypad numbers. keypad0, keypad1, keypad2, ..., keypad9
+  # - F-keys.         f1, f2, ..., f20
+  # - Special keys.   minus, equal, period, comma, slash, backslash, quote, semicolon, backtick,
+  #                   leftSquareBracket, rightSquareBracket, space, enter, esc, backspace, tab
+  # - Keypad special. keypadClear, keypadDecimalMark, keypadDivide, keypadEnter, keypadEqual,
+  #                   keypadMinus, keypadMultiply, keypadPlus
+  # - Arrows.         left, down, up, right
+
+  # All possible modifiers: cmd, alt, ctrl, shift
+
+  # All possible commands: https://nikitabobko.github.io/AeroSpace/commands
+
+  # You can uncomment this line to open up terminal with alt + enter shortcut
+  # See: https://nikitabobko.github.io/AeroSpace/commands#exec-and-forget
+  # alt-enter = 'exec-and-forget open -n /System/Applications/Utilities/Terminal.app'
+
+  # 切换显示模式: tiles(平铺)|accordion(手风琴)
+  alt-slash = 'layout tiles horizontal vertical'
+  alt-comma = 'layout accordion horizontal vertical'
+
+  # 聚焦到 h(左)|j(下)|k(上)|l(右)
+  alt-h = 'focus left'
+  alt-j = 'focus down'
+  alt-k = 'focus up'
+  alt-l = 'focus right'
+
+  # 将当前聚焦的应用移动到当前workspace的 h(左)|j(下)|k(上)|l(右)
+  alt-shift-h = 'move left'
+  alt-shift-j = 'move down'
+  alt-shift-k = 'move up'
+  alt-shift-l = 'move right'
+
+  # 切换到 workspace 1|2|3|4|5|6|7|8|9|B|F|M|N|T
+  alt-1 = 'workspace 1'
+  alt-2 = 'workspace 2'
+  alt-3 = 'workspace 3'
+  alt-4 = 'workspace 4'
+  # alt-5 = 'workspace 5'
+  # alt-6 = 'workspace 6'
+  # alt-7 = 'workspace 7'
+  alt-8 = 'workspace 8'
+  alt-9 = 'workspace 9'
+  alt-b = 'workspace B' # for browser
+  # alt-e = 'workspace E' # 
+  alt-f = 'workspace F' # for finder
+  alt-m = 'workspace M' #
+  alt-n = 'workspace N' # for notes
+  # alt-p = 'workspace P'
+  alt-t = 'workspace T' # for terminal shell
+  # alt-v = 'workspace V'
+
+  # 将当前聚焦的应用移动到 workspace 1|2|3|4|5|6|7|8|9|B|F|M|N|T
+  alt-shift-1 = 'move-node-to-workspace 1'
+  alt-shift-2 = 'move-node-to-workspace 2'
+  alt-shift-3 = 'move-node-to-workspace 3'
+  alt-shift-4 = 'move-node-to-workspace 4'
+  # alt-shift-5 = 'move-node-to-workspace 5'
+  # alt-shift-6 = 'move-node-to-workspace 6'
+  # alt-shift-7 = 'move-node-to-workspace 7'
+  alt-shift-8 = 'move-node-to-workspace 8'
+  alt-shift-9 = 'move-node-to-workspace 9'
+  alt-shift-b = 'move-node-to-workspace B'
+  # alt-shift-e = 'move-node-to-workspace E'
+  alt-shift-f = 'move-node-to-workspace F'
+  alt-shift-m = 'move-node-to-workspace M'
+  alt-shift-n = 'move-node-to-workspace N'
+  # alt-shift-p = 'move-node-to-workspace P'
+  alt-shift-t = 'move-node-to-workspace T'
+  # alt-shift-v = 'move-node-to-workspace V'
+
+
+  # 在最近两个工作区切换 See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
+  alt-tab = 'workspace-back-and-forth'
+  # 将当前窗口移动到另外显示器 See: https://nikitabobko.github.io/AeroSpace/commands#move-workspace-to-monitor
+  alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
+
+  # [WARNING]: 组合快捷键
+  # alt + shift + ; 进入 service 模式
+  alt-shift-semicolon = 'mode service'
+  # alt + shift + r 进入 resize 模式
+  alt-shift-r = 'mode resize'
+
+# resize 模式: 按完 alt+shift+r后再按 h/j/k/l/b 
+[mode.resize.binding]
+  # 宽度 -50
+  h = 'resize width -50'
+  # 高度 +50
+  j = 'resize height +50'
+  # 高度 -50
+  k = 'resize height -50'
+  # 宽度 +50
+  l = 'resize width +50'
+  # 平均分布
+  b = 'balance-sizes'
+
+  # See: https://nikitabobko.github.ir/AeroSpace/commands#resize
+  minus = 'resize smart -50'
+  equal = 'resize smart +50'
+
+  enter = 'mode main'
+  esc = 'mode main'
+
+# service 模式: 按完 alt+shift+; 后再按 esc/r/f/backspace/h/j/k/l/b/minus/equal
+[mode.service.binding]
+  # 重新加载配置
+  esc = ['reload-config', 'mode main']
+  # 重置布局
+  r = ['flatten-workspace-tree', 'mode main'] 
+  # 在当前 workspace 中切换到浮动布局
+  f = ['layout floating tiling', 'mode main']
+  # 关闭除当前窗口外的所有窗口
+  backspace = ['close-all-windows-but-current', 'mode main']
+
+  # 将当前窗口与左侧窗口合并
+  alt-shift-h = ['join-with left', 'mode main']
+  alt-shift-j = ['join-with down', 'mode main']
+  alt-shift-k = ['join-with up', 'mode main']
+  alt-shift-l = ['join-with right', 'mode main']
+
+
+## 回调事件: 获取应用的 app-id 和 app-name 可以执行命令 aerospace list-apps
+# 当打开 finder 时，以浮动方式打开
+[[on-window-detected]]
+if.app-name-regex-substring = 'finder'
+run = 'layout floating'
+# 当打开 Shottr 时，以浮动方式打开
+[[on-window-detected]]
+if.app-name-regex-substring = 'Shottr'
+run = 'layout floating'
+
+# 当打开 ghostty 终端时，将终端移动到工作区 T
+[[on-window-detected]]
+if.app-id = 'com.mitchellh.ghostty'
+run = "move-node-to-workspace T"
+
+# 当打开 浏览器时，将浏览器移动到工作区 B
+[[on-window-detected]]
+if.app-id = 'com.google.Chrome'
+run = "move-node-to-workspace B"
+# 打开 Arc 浏览器时，将浏览器移动到工作区 B
+[[on-window-detected]]
+if.app-id = 'company.thebrowser.Browser'
+run = "move-node-to-workspace B"
+
+# 当打开 finder 时，将 finder 移动到工作区 F
+[[on-window-detected]]
+if.app-id = 'com.apple.finder'
+run = "move-node-to-workspace F"
+
+# 当打开 notion 时，将 notion 移动到工作区 N
+[[on-window-detected]]
+if.app-id = 'notion.id'
+run = "move-node-to-workspace N"
+
