@@ -1,5 +1,7 @@
 # https://github.com/FelixKratz/dotfiles
 
+# 监听事件
+sketchybar --add event aerospace_workspace_change
 # 字体
 FONT="Hack Nerd Font"
 # 定义项目目录和插件目录

@@ -1,19 +1,6 @@
 #!/bin/bash
 
 
-# aerospace 模式
-aerospace_mode=(
-  icon=""
-  icon.color="$ORANGE"
-  background.color="$PURE_BLACK"
-  icon.padding_left=4
-  script="$PLUGIN_DIR/aerospace_mode.sh"
-)
-sketchybar --add item aerospace_mode left \
-  --subscribe aerospace_mode aerospace_mode_change \
-  --set aerospace_mode "${aerospace_mode[@]}"
-
-
 # aerospace 工作区
 for sid in $(aerospace list-workspaces --all); do
   monitor=$(aerospace list-windows --workspace "$sid" --format "%{monitor-appkit-nsscreen-screens-id}")
@@ -22,16 +9,31 @@ for sid in $(aerospace list-workspaces --all); do
     monitor="1"
   fi
 
+  if [ "$sid" = "1" ]; then
+    icon=" "
+    iconColor="$GREEN"
+  elif [ "$sid" = "2" ]; then
+    icon=" "
+    iconColor="$BLUE"
+  elif [ "$sid" = "3" ]; then
+    icon=" "
+    iconColor="$YELLOW"
+  else 
+    icon="$sid"
+    iconColor="$ICON_COLOR"
+  fi
+
   sketchybar --add item space."$sid" left \
     --subscribe space."$sid" aerospace_workspace_change display_change system_woke mouse.entered mouse.exited \
     --set space."$sid" \
     display="$monitor" \
     padding_right=0 \
-    icon="$sid" \
+    icon="$icon" \
     label.padding_right=7 \
     icon.padding_left=7 \
     icon.font="$FONT:Regular:19.0" \
     icon.padding_right=4 \
+    icon.color="$iconColor" \
     background.drawing=on \
     background.color="$PURE_BLACK" \
     background.corner_radius=5 \
@@ -43,6 +45,3 @@ done
 
 
 
-# 监听事件
-sketchybar --add event aerospace_workspace_change
-sketchybar --add event aerospace_mode_change
