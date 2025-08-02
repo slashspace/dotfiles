@@ -1,6 +1,6 @@
 #!/bin/bash
-## 定义媒体块
 
+## 定义媒体块
 # 加载电池、wifi、音量、麦克风和CPU使用率
 source "$ITEM_DIR/battery.sh"
 source "$ITEM_DIR/wifi.sh"

@@ -1,56 +1,28 @@
 # https://github.com/FelixKratz/dotfiles
 
-# 加载颜色
-source "$CONFIG_DIR/colors.sh"
-# 加载图标
-source "$CONFIG_DIR/icons.sh" 
-
+# 字体
+FONT="Hack Nerd Font"
 # 定义项目目录和插件目录
 ITEM_DIR="$CONFIG_DIR/items"
 PLUGIN_DIR="$CONFIG_DIR/plugins"
 
-# 字体
-FONT="Hack Nerd Font"
 
-# 设置栏的位置、高度、模糊半径和颜色
-sketchybar --bar position=top height=40 blur_radius=0 color="$TRANSPARENT"
+# 加载颜色
+source "$CONFIG_DIR/colors.sh"
+# 加载图标
+source "$CONFIG_DIR/icons.sh" 
+# 加载初始化设置
+source "$CONFIG_DIR/default.sh"
 
-default=(
-        padding_left=3
-        padding_right=3
-        background.color="$ITEM_BG_COLOR"
-        background.corner_radius=5
-        background.height=25
-        icon.color=$WHITE
-        icon.y_offset=1
-        label.color=$WHITE
-        label.y_offset=1
-        icon.padding_left=10
-        icon.padding_right=4
-        label.padding_left=4
-        label.padding_right=10
-)
-sketchybar --default "${default[@]}"
-sketchybar --add event aerospace_workspace_change
-
-# --- Left Side Items ---
+# 左侧项目 ---
 source "$ITEM_DIR/space.sh"
-# adds layout background for workspaces
-sketchybar --add bracket workspaces space.1 space.2 space.3 space.4 space.8 space.9 space.B space.F space.M space.N space.T \
-           --set workspaces background.color="$PURE_BLACK" \
-
-source "$ITEM_DIR/front_app.sh"
-
-# --- Right Side Items ---
+# source "$ITEM_DIR/front_app.sh"
+# --- 右侧项目 
 source "$ITEM_DIR/clock.sh"
-
 source "$ITEM_DIR/media_block.sh"
-
 source "$ITEM_DIR/cpu.sh"
 source "$ITEM_DIR/ram.sh"
 
+# 热更新
 sketchybar --hotload on
-##### Force all scripts to run the first time (never do this in a script) #####
 sketchybar --update
-
-echo "sketchybar configuation loaded.."

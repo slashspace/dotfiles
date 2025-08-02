@@ -1,29 +1,48 @@
 #!/bin/bash
 
-# Define custom labels/icons for your workspaces
-SPACE_ICONS=("1" "2" "3" "4" "8" "9" "B" "F" "M" "N" "T")
-# background.color=0x44ffffff \
 
-for i in "${!SPACE_ICONS[@]}"; do
-  id="${SPACE_ICONS[i]}"
+# aerospace 模式
+aerospace_mode=(
+  icon=""
+  icon.color="$ORANGE"
+  background.color="$PURE_BLACK"
+  icon.padding_left=4
+  script="$PLUGIN_DIR/aerospace_mode.sh"
+)
+sketchybar --add item aerospace_mode left \
+  --subscribe aerospace_mode aerospace_mode_change \
+  --set aerospace_mode "${aerospace_mode[@]}"
 
-  space_item=(
-    icon="$id"
-    icon.padding_left=7
-    icon.padding_right=7
-    icon.y_offset=1
-    label.drawing=off
-    background.color=0xff939ab7
-    background.corner_radius=3
-    background.padding_left=5
-    background.padding_right=5
-    background.height=20
-    drawing=on
-    script="$CONFIG_DIR/plugins/aerospace.sh $id"
-    click_script="aerospace workspace $id"
-  )
 
-  sketchybar --add item space.$id left \
-             --set space.$id "${space_item[@]}" \
-             --subscribe space.$id aerospace_workspace_change
+# aerospace 工作区
+for sid in $(aerospace list-workspaces --all); do
+  monitor=$(aerospace list-windows --workspace "$sid" --format "%{monitor-appkit-nsscreen-screens-id}")
+
+  if [ -z "$monitor" ]; then
+    monitor="1"
+  fi
+
+  sketchybar --add item space."$sid" left \
+    --subscribe space."$sid" aerospace_workspace_change display_change system_woke mouse.entered mouse.exited \
+    --set space."$sid" \
+    display="$monitor" \
+    padding_right=0 \
+    icon="$sid" \
+    label.padding_right=7 \
+    icon.padding_left=7 \
+    icon.font="$FONT:Regular:19.0" \
+    icon.padding_right=4 \
+    background.drawing=on \
+    background.color="$PURE_BLACK" \
+    background.corner_radius=5 \
+    background.height=25 \
+    label.drawing=on \
+    click_script="aerospace workspace $sid" \
+    script="$PLUGIN_DIR/aerospace.sh $sid"
 done
+
+
+
+# 监听事件
+sketchybar --add event aerospace_workspace_change
+sketchybar --add event aerospace_mode_change

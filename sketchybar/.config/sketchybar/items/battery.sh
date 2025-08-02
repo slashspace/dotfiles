@@ -1,7 +1,6 @@
 #!/bin/sh
 
 battery=(
-  script="$PLUGIN_DIR/battery.sh"
   icon.font="$FONT:Regular:19.0"
   background.color="$PURE_BLACK"
   icon.font.size=19

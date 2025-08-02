@@ -1,5 +1,6 @@
 #!/bin/sh
 
+# 音量滑块
 volume_slider=(
   script="$PLUGIN_DIR/volume.sh"
   updates=on
@@ -18,6 +19,7 @@ volume_slider=(
   slider.knob.drawing=on
 )
 
+# 音量图标
 volume_icon=(
   click_script="$PLUGIN_DIR/volume_click.sh"
   padding_left=5

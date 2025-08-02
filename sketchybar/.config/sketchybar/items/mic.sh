@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# 麦克风
 mic=(
   update_freq=3
   script="$PLUGIN_DIR/mic.sh"
