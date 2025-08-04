@@ -196,6 +196,7 @@ run = "move-node-to-workspace 3"
 [[on-window-detected]]
 if.app-id = 'com.google.Chrome'
 run = "move-node-to-workspace 1"
+
 [[on-window-detected]]
 if.app-id = 'company.thebrowser.Browser'
 run = "move-node-to-workspace 1"
@@ -205,8 +206,22 @@ run = "move-node-to-workspace 1"
 #if.app-id = 'com.apple.finder'
 #run = "move-node-to-workspace F"
 
-# 当打开 notion 时，将 notion 移动到工作区 N
-# [[on-window-detected]]
-#if.app-id = 'notion.id'
-#run = "move-node-to-workspace N"
+# 当打开 notion 时，将 notion 移动到工作区 4
+[[on-window-detected]]
+if.app-id = 'notion.id'
+run = "move-node-to-workspace 4"
+
+# 当打开 微信 slack Discord 时，将微信移动到工作区 5
+[[on-window-detected]]
+if.app-id = 'com.hnc.Discord'
+run = "move-node-to-workspace 5"
+
+[[on-window-detected]]
+if.app-id = 'com.tinyspeck.slackmacgap'
+run = "move-node-to-workspace 5"
+
+[[on-window-detected]]
+if.app-id = 'com.tencent.xinWeChat'
+run = "move-node-to-workspace 5"
+
 
