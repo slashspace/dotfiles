@@ -10,7 +10,8 @@ cursor-style = block
 cursor-style-blink = false
 cursor-invert-fg-bg = true
 
-macos-titlebar-style = hidden
+# tabs|hidden|navtive|transparent
+macos-titlebar-style = transparent
 macos-option-as-alt = true
 mouse-hide-while-typing = true
 

@@ -187,19 +187,18 @@ run = 'layout floating'
 if.app-name-regex-substring = 'Shottr'
 run = 'layout floating'
 
-# 当打开 ghostty 终端时，将终端移动到工作区 T
-# [[on-window-detected]]
-#if.app-id = 'com.mitchellh.ghostty'
-#run = "move-node-to-workspace T"
+# 当打开 ghostty 终端时，将终端移动到工作区 3
+[[on-window-detected]]
+if.app-id = 'com.mitchellh.ghostty'
+run = "move-node-to-workspace 3"
 
-# 当打开 浏览器时，将浏览器移动到工作区 B
-# [[on-window-detected]]
-#if.app-id = 'com.google.Chrome'
-#run = "move-node-to-workspace B"
-# 打开 Arc 浏览器时，将浏览器移动到工作区 B
-# [[on-window-detected]]
-#if.app-id = 'company.thebrowser.Browser'
-#run = "move-node-to-workspace B"
+# 当打开 浏览器时，将浏览器移动到工作区 1
+[[on-window-detected]]
+if.app-id = 'com.google.Chrome'
+run = "move-node-to-workspace 1"
+[[on-window-detected]]
+if.app-id = 'company.thebrowser.Browser'
+run = "move-node-to-workspace 1"
 
 # 当打开 finder 时，将 finder 移动到工作区 F
 # [[on-window-detected]]
