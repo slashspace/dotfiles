@@ -1,7 +1,13 @@
 #!/bin/bash
 
+# 通过 aerospace --help 获取所有相关命令
+# aerospace list-workspaces --all (获取所有工作区  1 2 3 4 5 6 7 8 9 10)
+# aerospace list-windows --workspace 1 (获取工作区 1 的窗口)
+  # 11881 | Cursor | Command.ts — tcpro
+  # 14519 | Cursor | space.sh — dotfiles
 
-# aerospace 工作区
+
+# aerospace 工作区 1 2 3 4 5 6 7 8 9 10
 for sid in $(aerospace list-workspaces --all); do
   monitor=$(aerospace list-windows --workspace "$sid" --format "%{monitor-appkit-nsscreen-screens-id}")
 
@@ -21,6 +27,9 @@ for sid in $(aerospace list-workspaces --all); do
   elif [ "$sid" = "4" ]; then
     icon="󰹕"
     iconColor="$ORANGE"
+  elif [ "$sid" = "5" ]; then
+    icon="💬"
+    iconColor="$RED"
   else 
     icon=""
     iconColor="$ICON_COLOR"
