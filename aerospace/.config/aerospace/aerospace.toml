@@ -28,7 +28,7 @@ enable-normalization-opposite-orientation-for-nested-containers = true
 default-root-container-layout = 'accordion'
 
 # 手风琴模式下，设置手风琴的间距: 0 表示禁用
-accordion-padding = 10
+accordion-padding = 30
 
 
 # 默认显示方向 : horizontal(水平)|vertical(垂直)|auto(自动)
@@ -47,7 +47,7 @@ default-root-container-orientation = 'auto'
   inner.vertical = 10
   outer.left = 10
   outer.bottom = 10
-  outer.top = 10
+  outer.top = 40
   outer.right = 10
 
 # 'main' binding mode declaration
@@ -99,14 +99,7 @@ default-root-container-orientation = 'auto'
   alt-7 = 'workspace 7'
   alt-8 = 'workspace 8'
   alt-9 = 'workspace 9'
-  # alt-b = 'workspace B' # for browser
-  # alt-e = 'workspace E' # 
-  # alt-f = 'workspace F' # for finder
-  # alt-m = 'workspace M' #
-  # alt-n = 'workspace N' # for notes
-  # alt-p = 'workspace P'
-  # alt-t = 'workspace T' # for terminal shell
-  # alt-v = 'workspace V'
+
 
   # 将当前聚焦的应用移动到 workspace 1|2|3|4|5|6|7|8|9|B|F|M|N|T
   alt-shift-1 = 'move-node-to-workspace 1'
@@ -118,14 +111,6 @@ default-root-container-orientation = 'auto'
   alt-shift-7 = 'move-node-to-workspace 7'
   alt-shift-8 = 'move-node-to-workspace 8'
   alt-shift-9 = 'move-node-to-workspace 9'
-  # alt-shift-b = 'move-node-to-workspace B'
-  # alt-shift-e = 'move-node-to-workspace E'
-  # alt-shift-f = 'move-node-to-workspace F'
-  # alt-shift-m = 'move-node-to-workspace M'
-  # alt-shift-n = 'move-node-to-workspace N'
-  # alt-shift-p = 'move-node-to-workspace P'
-  # alt-shift-t = 'move-node-to-workspace T'
-  # alt-shift-v = 'move-node-to-workspace V'
 
 
   # 在最近两个工作区切换 See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
@@ -187,10 +172,6 @@ run = 'layout floating'
 if.app-name-regex-substring = 'Shottr'
 run = 'layout floating'
 
-# 当打开 ghostty 终端时，将终端移动到工作区 3
-[[on-window-detected]]
-if.app-id = 'com.mitchellh.ghostty'
-run = "move-node-to-workspace 3"
 
 # 当打开 浏览器时，将浏览器移动到工作区 1
 [[on-window-detected]]
@@ -201,10 +182,22 @@ run = "move-node-to-workspace 1"
 if.app-id = 'company.thebrowser.Browser'
 run = "move-node-to-workspace 1"
 
-# 当打开 finder 时，将 finder 移动到工作区 F
-# [[on-window-detected]]
-#if.app-id = 'com.apple.finder'
-#run = "move-node-to-workspace F"
+[[on-window-detected]]
+if.app-id = 'org.mozilla.firefox'
+run = "move-node-to-workspace 1"
+
+# 当打开 Cursor 时，将 Cursor 移动到工作区 2
+[[on-window-detected]]
+if.app-name-regex-substring = 'Cursor'
+run = "move-node-to-workspace 2"
+
+# 当打开 ghostty 终端时，将终端移动到工作区 3
+[[on-window-detected]]
+if.app-id = 'com.mitchellh.ghostty'
+run = "move-node-to-workspace 3"
+[[on-window-detected]]
+if.app-name-regex-substring = 'Terminus'
+run = "move-node-to-workspace 3"
 
 # 当打开 notion 时，将 notion 移动到工作区 4
 [[on-window-detected]]
