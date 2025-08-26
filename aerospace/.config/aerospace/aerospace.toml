@@ -41,14 +41,21 @@ default-root-container-orientation = 'auto'
   preset = 'qwerty'
 
 
-# 设置窗口间™
+# 设置窗口间
+# Possible values:
+# - Constant:     gaps.outer.top = 8
+# - Per monitor:  gaps.outer.top = [{ monitor.main = 16 }, { monitor."some-pattern" = 32 }, 24]
+#                 In this example, 24 is a default value when there is no match.
+#                 Monitor pattern is the same as for 'workspace-to-monitor-force-assignment'.
+#                 See:
+#                 https://nikitabobko.github.io/AeroSpace/guide#assign-workspaces-to-monitors
 [gaps]
-  inner.horizontal = 10
-  inner.vertical = 10
-  outer.left = 10
-  outer.bottom = 10
-  outer.top = 40
-  outer.right = 10
+  inner.horizontal = 5
+  inner.vertical = 5
+  outer.left = 5 
+  outer.bottom = 5 
+  outer.top = [{ monitor."built-in"= 10 }, { monitor."LG" = 35 }, 24] 
+  outer.right = 5 
 
 # 'main' binding mode declaration
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
