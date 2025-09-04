@@ -49,7 +49,6 @@ for sid in $(aerospace list-workspaces --all); do
     icon.padding_right=4 \
     icon.color="$iconColor" \
     background.drawing=on \
-    background.color="$PURE_BLACK" \
     background.corner_radius=5 \
     background.height=25 \
     background.border_width="$backgroundBorderWidth" \
