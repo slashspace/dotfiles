@@ -7,14 +7,16 @@ bar=(
   height=40
   blur_radius=0
   color="$TRANSPARENT"
+  padding_left=5
+  padding_right=5
 )
 sketchybar --bar "${bar[@]}"
 
 # 设置栏的默认样式
 # 参考： https://felixkratz.github.io/SketchyBar/config/items#changing-the-default-values-for-all-further-items
 default=(
-  padding_left=3
-  padding_right=3
+  padding_left=4
+  padding_right=4
   background.color="$ITEM_BG_COLOR"
   background.corner_radius=5
   background.height=25

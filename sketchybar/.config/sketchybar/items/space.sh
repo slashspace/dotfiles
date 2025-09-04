@@ -6,7 +6,7 @@
   # 11881 | Cursor | Command.ts — tcpro
   # 14519 | Cursor | space.sh — dotfiles
 
-
+backgroundBorderWidth=1
 # aerospace 工作区 1 2 3 4 5 6 7 8 9 10
 for sid in $(aerospace list-workspaces --all); do
   monitor=$(aerospace list-windows --workspace "$sid" --format "%{monitor-appkit-nsscreen-screens-id}")
@@ -33,7 +33,11 @@ for sid in $(aerospace list-workspaces --all); do
   else 
     icon=""
     iconColor="$ICON_COLOR"
+    backgroundBorderWidth=0
   fi
+
+
+
 
   sketchybar --add item space."$sid" left \
     --subscribe space."$sid" aerospace_workspace_change display_change system_woke mouse.entered mouse.exited \
@@ -41,15 +45,16 @@ for sid in $(aerospace list-workspaces --all); do
     display="$monitor" \
     padding_right=0 \
     icon="$icon" \
-    label.padding_right=7 \
-    icon.padding_left=7 \
-    icon.font="$FONT:Regular:19.0" \
+    icon.padding_left=4 \
     icon.padding_right=4 \
     icon.color="$iconColor" \
     background.drawing=on \
     background.color="$PURE_BLACK" \
     background.corner_radius=5 \
     background.height=25 \
+    background.border_width="$backgroundBorderWidth" \
+    background.border_color="$SUBTEXT_1" \
+    label.padding_right=7 \
     label.drawing=on \
     click_script="aerospace workspace $sid" \
     script="$PLUGIN_DIR/aerospace.sh $sid"
