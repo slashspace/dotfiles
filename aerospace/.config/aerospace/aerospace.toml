@@ -172,12 +172,16 @@ default-root-container-orientation = 'auto'
 ## 回调事件: 获取应用的 app-id 和 app-name 可以执行命令 aerospace list-apps
 # 当打开 finder 时，以浮动方式打开
 [[on-window-detected]]
-if.app-name-regex-substring = 'finder'
-run = 'layout floating'
+if.app-id = 'com.apple.finder'
+run = ['layout floating']  
 # 当打开 Shottr 时，以浮动方式打开
 [[on-window-detected]]
 if.app-name-regex-substring = 'Shottr'
-run = 'layout floating'
+run = ['layout floating']  
+# 当打开系统偏好设置时，以浮动方式打开
+[[on-window-detected]]
+if.app-id = 'com.apple.systempreferences'
+run = ['layout floating']  
 
 
 # 当打开 浏览器时，将浏览器移动到工作区 1
@@ -196,6 +200,9 @@ run = "move-node-to-workspace 1"
 # 当打开 Cursor 时，将 Cursor 移动到工作区 2
 [[on-window-detected]]
 if.app-name-regex-substring = 'Cursor'
+run = "move-node-to-workspace 2"
+[[on-window-detected]]
+if.app-id = 'io.dcloud.HBuilderX'
 run = "move-node-to-workspace 2"
 
 # 当打开 ghostty 终端时，将终端移动到工作区 3
@@ -225,3 +232,12 @@ if.app-id = 'com.tencent.xinWeChat'
 run = "move-node-to-workspace 5"
 
 
+# 金融投资区
+# ihpne 镜像
+[[on-window-detected]]
+if.app-id = 'com.apple.ScreenContinuity'
+run = ['move-node-to-workspace 9']  
+# 京东金融
+[[on-window-detected]]
+if.app-id = 'com.jdjr.huangjin'
+run = ['move-node-to-workspace 9']  
