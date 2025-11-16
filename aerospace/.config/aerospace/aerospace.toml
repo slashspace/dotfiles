@@ -28,7 +28,7 @@ enable-normalization-opposite-orientation-for-nested-containers = true
 default-root-container-layout = 'accordion'
 
 # 手风琴模式下，设置手风琴的间距: 0 表示禁用
-accordion-padding = 30
+accordion-padding = 10
 
 
 # 默认显示方向 : horizontal(水平)|vertical(垂直)|auto(自动)
@@ -107,6 +107,8 @@ default-root-container-orientation = 'auto'
   alt-7 = 'workspace 7'
   alt-8 = 'workspace 8'
   alt-9 = 'workspace 9'
+  alt-0 = 'workspace 0'
+
 
 
   # 将当前聚焦的应用移动到 workspace 1|2|3|4|5|6|7|8|9|B|F|M|N|T
