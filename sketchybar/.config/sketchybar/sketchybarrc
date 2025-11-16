@@ -22,8 +22,8 @@ source "$ITEM_DIR/space.sh"
 # --- 右侧项目 
 source "$ITEM_DIR/clock.sh"
 source "$ITEM_DIR/media_block.sh"
-source "$ITEM_DIR/cpu.sh"
-source "$ITEM_DIR/ram.sh"
+# source "$ITEM_DIR/cpu.sh"
+# source "$ITEM_DIR/ram.sh"
 
 # 热更新
 sketchybar --hotload on

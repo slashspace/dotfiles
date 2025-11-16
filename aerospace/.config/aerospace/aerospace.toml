@@ -15,9 +15,9 @@ after-startup-command = [
 ]
 
 # 当工作区切换时，通知 sketchybar 更新状态栏(高亮显示当前工作区)
-exec-on-workspace-change = ['/bin/bash', '-c',
-    'sketchybar --trigger aerospace_workspace_change'
-]
+# exec-on-workspace-change = ['/bin/bash', '-c',
+#     'sketchybar --trigger aerospace_workspace_change'
+# ]
 
 
 # Normalizations. See: https://nikitabobko.github.io/AeroSpace/guide#normalization
@@ -50,12 +50,13 @@ default-root-container-orientation = 'auto'
 #                 See:
 #                 https://nikitabobko.github.io/AeroSpace/guide#assign-workspaces-to-monitors
 [gaps]
-  inner.horizontal = 5
-  inner.vertical = 5
-  outer.left = 5 
-  outer.bottom = 5 
-  outer.top = [{ monitor."built-in"= 10 }, { monitor."LG" = 35 }, 5] 
-  outer.right = 5 
+  inner.horizontal = 0
+  inner.vertical = 0
+  outer.left = 0
+  outer.bottom = 0
+  # outer.top = [{ monitor."built-in"= 10 }, { monitor."LG" = 35 }, 5]
+  outer.top = 0
+  outer.right = 0
 
 # 'main' binding mode declaration
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
@@ -118,6 +119,7 @@ default-root-container-orientation = 'auto'
   alt-shift-7 = 'move-node-to-workspace 7'
   alt-shift-8 = 'move-node-to-workspace 8'
   alt-shift-9 = 'move-node-to-workspace 9'
+  alt-shift-0 = 'move-node-to-workspace 0'
 
 
   # 在最近两个工作区切换 See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
@@ -131,7 +133,7 @@ default-root-container-orientation = 'auto'
   # alt + shift + r 进入 resize 模式
   alt-shift-r = 'mode resize'
 
-# resize 模式: 按完 alt+shift+r后再按 h/j/k/l/b 
+# resize 模式: 按完 alt+shift+r后再按 h/j/k/l/b
 [mode.resize.binding]
   # 宽度 -50
   h = 'resize width -50'
@@ -156,7 +158,7 @@ default-root-container-orientation = 'auto'
   # 重新加载配置
   esc = ['reload-config', 'mode main']
   # 重置布局
-  r = ['flatten-workspace-tree', 'mode main'] 
+  r = ['flatten-workspace-tree', 'mode main']
   # 在当前 workspace 中切换到浮动布局
   f = ['layout floating tiling', 'mode main']
   # 关闭除当前窗口外的所有窗口
@@ -173,15 +175,15 @@ default-root-container-orientation = 'auto'
 # 当打开 finder 时，以浮动方式打开
 [[on-window-detected]]
 if.app-id = 'com.apple.finder'
-run = ['layout floating']  
+run = ['layout floating']
 # 当打开 Shottr 时，以浮动方式打开
 [[on-window-detected]]
 if.app-name-regex-substring = 'Shottr'
-run = ['layout floating']  
+run = ['layout floating']
 # 当打开系统偏好设置时，以浮动方式打开
 [[on-window-detected]]
 if.app-id = 'com.apple.systempreferences'
-run = ['layout floating']  
+run = ['layout floating']
 
 
 # 当打开 浏览器时，将浏览器移动到工作区 1
@@ -197,47 +199,54 @@ run = "move-node-to-workspace 1"
 if.app-id = 'org.mozilla.firefox'
 run = "move-node-to-workspace 1"
 
-# 当打开 Cursor 时，将 Cursor 移动到工作区 2
+[[on-window-detected]]
+if.app-id = 'com.vivaldi.Vivaldi'
+run = "move-node-to-workspace 1"
+
+# 当打开 Cursor 时，将 Cursor 移动到工作区 0
 [[on-window-detected]]
 if.app-name-regex-substring = 'Cursor'
-run = "move-node-to-workspace 2"
+run = "move-node-to-workspace 0"
 [[on-window-detected]]
 if.app-id = 'io.dcloud.HBuilderX'
-run = "move-node-to-workspace 2"
+run = "move-node-to-workspace 0"
 
-# 当打开 ghostty 终端时，将终端移动到工作区 3
+# 当打开 ghostty 终端时，将终端移动到工作区 9
 [[on-window-detected]]
 if.app-id = 'com.mitchellh.ghostty'
-run = "move-node-to-workspace 3"
+run = "move-node-to-workspace 9"
 [[on-window-detected]]
 if.app-name-regex-substring = 'Terminus'
-run = "move-node-to-workspace 3"
+run = "move-node-to-workspace 9"
 
-# 当打开 notion 时，将 notion 移动到工作区 4
+# 当打开 notion 时，将 notion 移动到工作区 2
 [[on-window-detected]]
 if.app-id = 'notion.id'
-run = "move-node-to-workspace 4"
+run = "move-node-to-workspace 2"
+[[on-window-detected]]
+if.app-id = 'md.obsidian'
+run = "move-node-to-workspace 2"
 
-# 当打开 微信 slack Discord 时，将微信移动到工作区 5
+# 当打开 微信 slack Discord 时，将微信移动到工作区 3
 [[on-window-detected]]
 if.app-id = 'com.hnc.Discord'
-run = "move-node-to-workspace 5"
+run = "move-node-to-workspace 3"
 
 [[on-window-detected]]
 if.app-id = 'com.tinyspeck.slackmacgap'
-run = "move-node-to-workspace 5"
+run = "move-node-to-workspace 3"
 
 [[on-window-detected]]
 if.app-id = 'com.tencent.xinWeChat'
-run = "move-node-to-workspace 5"
+run = "move-node-to-workspace 3"
 
 
 # 金融投资区
 # ihpne 镜像
 [[on-window-detected]]
 if.app-id = 'com.apple.ScreenContinuity'
-run = ['move-node-to-workspace 9']  
+run = ['move-node-to-workspace 4']
 # 京东金融
 [[on-window-detected]]
 if.app-id = 'com.jdjr.huangjin'
-run = ['move-node-to-workspace 9']  
+run = ['move-node-to-workspace 4']
