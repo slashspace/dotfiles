@@ -1,36 +1,37 @@
-# By default Reload config with shft + cmd + , 
-config-file = themes/rosepine 
+# By default Reload config with shft + cmd + ,
+config-file = themes/active
 background = #000000
 background-opacity = 0.75
 background-blur-radius = 23
 
-font-family = JetBrainsMonoNL Nerd Font 
-font-size = 18
+font-family = JetBrainsMonoNL Nerd Font
+font-size = 15
+
 cursor-style = block
 cursor-style-blink = false
 cursor-invert-fg-bg = true
 
 # tabs|hidden|navtive|transparent
-macos-titlebar-style = transparent
+macos-titlebar-style = hidden
 macos-option-as-alt = true
+macos-icon = official
 mouse-hide-while-typing = true
 
 confirm-close-surface = false
 window-decoration = auto
-window-padding-x = 10
-window-padding-y = 10
-window-padding-balance = false
+window-padding-x = 4,2
+window-padding-y = 6,0
 
 auto-update = check
 auto-update-channel = stable
 
 # extras
-shell-integration-features = no-cursor 
+shell-integration-features = no-cursor
 copy-on-select = clipboard
 
 # Custom Keybinds & Config (super represents cmd key on mac)
 # For Simple Keybinds
-# keybind = super+r=reload_config 
+# keybind = super+r=reload_config
 keybind = super+i=inspector:toggle
 keybind = super+b>,=toggle_quick_terminal
 
@@ -40,7 +41,7 @@ keybind = super+b>r=reload_config
 keybind = super+b>x=close_surface
 # this only works if you have `macos-titlebar-style = tabs or native or transparent`
 # else it behaves like new window
-keybind = super+b>c=new_tab 
+keybind = super+b>c=new_tab
 keybind = super+b>n=new_window
 
 # tab nav
@@ -66,5 +67,9 @@ keybind = super+b>k=goto_split:top
 keybind = super+b>l=goto_split:right
 
 #Shaders
+# 查看更多着色器 : https://github.com/hackrmomo/ghostty-shaders
+custom-shader = shaders/bloom025.glsl
+custom-shader = shaders/cursor_blaze_no_trail.glsl
+custom-shader = shaders/cursor_smear.glsl
 # custom-shader = shaders/bettercrt.glsl
 # custom-shader = shaders/retro-terminal.glsl

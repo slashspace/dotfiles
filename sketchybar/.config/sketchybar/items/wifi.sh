@@ -1,19 +1,17 @@
 #!/bin/bash
 
+# Filename: ~/github/dotfiles-latest/sketchybar/felixkratz-linkarzu/items/wifi.sh
+
+source "$CONFIG_DIR/icons.sh"
+
 wifi=(
-    script="$PLUGIN_DIR/wifi.sh"
-    icon=$WIFI_CONNECTED
-    label.drawing=off
-    background.color="$PURE_BLACK"
-    icon.align=center
-    icon.padding_left=8
-    icon.padding_right=8
-    padding_left=0
-    padding_right=0
-    background.drawing=off
-    icon.color=0xff58d1fc
-    update_freq=10
+  padding_right=6
+  padding_left=1
+  label.width=0
+  icon="$WIFI_DISCONNECTED"
+  script="$PLUGIN_DIR/wifi.sh"
 )
 
 sketchybar --add item wifi right \
-           --set wifi "${wifi[@]}"
+  --set wifi "${wifi[@]}" \
+  --subscribe wifi wifi_change mouse.clicked
