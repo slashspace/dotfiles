@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Filename: ~/github/dotfiles-latest/sketchybar/felixkratz/items/volume.sh
+# Filename: ~/dotfiles/sketchybar/felixkratz/items/volume.sh
 
 volume_slider=(
   script="$PLUGIN_DIR/volume.sh"

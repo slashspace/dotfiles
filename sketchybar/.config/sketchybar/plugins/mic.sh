@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Filename: ~/github/dotfiles-latest/sketchybar/felixkratz-linkarzu/plugins/mic.sh
-# ~/github/dotfiles-latest/sketchybar/felixkratz-linkarzu/plugins/mic.sh
+# Filename: ~/dotfiles/sketchybar/felixkratz-linkarzu/plugins/mic.sh
+# ~/dotfiles/sketchybar/felixkratz-linkarzu/plugins/mic.sh
 
 # https://github.com/FelixKratz/SketchyBar/discussions/12#discussioncomment-1216899
 
@@ -37,7 +37,7 @@ fi
 VALIDATED_MIC_NAME=$(echo "$MAIN_MIC_NAME" | iconv -f UTF-8 -t UTF-8//IGNORE)
 # echo "VALIDATED_MIC_NAME=$VALIDATED_MIC_NAME" >>/tmp/mic.sh.log
 
-# I'll be using this in ~/github/dotfiles-latest/scripts/macos/mac/misc/200-micMute.sh
+# I'll be using this in ~/dotfiles/scripts/macos/mac/misc/200-micMute.sh
 # That file will have something like "Yeti" or "AirPods"
 echo "$VALIDATED_MIC_NAME" >"$MIC_NAME_FILE"
 

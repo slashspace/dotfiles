@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-# Filename: ~/github/dotfiles-latest/colorscheme/list/catppuccin-macchiato.sh
-# ~/github/dotfiles-latest/colorscheme/list/catppuccin-macchiato.sh
+# Filename: ~/dotfiles/colorscheme/list/catppuccin-macchiato.sh
+# ~/dotfiles/colorscheme/list/catppuccin-macchiato.sh
 
 # Lighter markdown headings
 # 4 colors to the right for these ligher headings

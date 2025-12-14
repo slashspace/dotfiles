@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Filename: ~/github/dotfiles-latest/sketchybar/felixkratz/items/github.sh
+# Filename: ~/dotfiles/sketchybar/felixkratz/items/github.sh
 
 POPUP_CLICK_SCRIPT="sketchybar --set \$NAME popup.drawing=toggle"
 

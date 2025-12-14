@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Filename: ~/github/dotfiles-latest/sketchybar/felixkratz-linkarzu/plugins/mikrotik.sh
-# ~/github/dotfiles-latest/sketchybar/felixkratz-linkarzu/plugins/mikrotik.sh
+# Filename: ~/dotfiles/sketchybar/felixkratz-linkarzu/plugins/mikrotik.sh
+# ~/dotfiles/sketchybar/felixkratz-linkarzu/plugins/mikrotik.sh
 
 # echo "" >/tmp/mikrotik.sh.log
 

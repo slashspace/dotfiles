@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Filename: ~/github/dotfiles-latest/sketchybar/felixkratz-linkarzu/plugins/wifi.sh
+# Filename: ~/dotfiles/sketchybar/felixkratz-linkarzu/plugins/wifi.sh
 
 update() {
   source "$CONFIG_DIR/icons.sh"

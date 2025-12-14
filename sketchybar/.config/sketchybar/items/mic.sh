@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Filename: ~/github/dotfiles-latest/sketchybar/felixkratz-linkarzu/items/mic.sh
-# ~/github/dotfiles-latest/sketchybar/felixkratz-linkarzu/items/mic.sh
+# Filename: ~/dotfiles/sketchybar/felixkratz-linkarzu/items/mic.sh
+# ~/dotfiles/sketchybar/felixkratz-linkarzu/items/mic.sh
 
 mic=(
   updates=on

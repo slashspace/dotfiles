@@ -4,10 +4,11 @@ format = """
 $username\
 $hostname\
 $time\
-$all\
 $directory
 $character
 """
+
+right_format = """"""
 
 [character]
 success_symbol = '[❯❯❯❯](#04d1f9 bold)'
@@ -33,7 +34,7 @@ time_format = '%y/%m/%d'
 [username]
 style_user = '#37f499 bold'
 style_root = 'white bold'
-format = '[$user]($style).@.'
+format = '[$user]($style) '
 show_always = true
 
 [hostname]

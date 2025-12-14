@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-# Filename: ~/github/dotfiles-latest/colorscheme/list/eldritch-colors.sh
-# ~/github/dotfiles-latest/colorscheme/list/eldritch-colors.sh
+# Filename: ~/dotfiles/colorscheme/list/eldritch-colors.sh
+# ~/dotfiles/colorscheme/list/eldritch-colors.sh
 
 # Lighter markdown headings
 # 4 colors to the right for these ligher headings

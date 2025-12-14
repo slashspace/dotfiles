@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Filename: ~/github/dotfiles-latest/sketchybar/felixkratz-linkarzu/items/custom_text.sh
-# ~/github/dotfiles-latest/sketchybar/felixkratz-linkarzu/items/custom_text.sh
+# Filename: ~/dotfiles/sketchybar/felixkratz-linkarzu/items/custom_text.sh
+# ~/dotfiles/sketchybar/felixkratz-linkarzu/items/custom_text.sh
 
 custom_text=(
   updates=on

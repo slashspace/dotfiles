@@ -196,10 +196,11 @@ format = """
 \$username\\
 \$hostname\\
 \$time\\
-\$all\\
 \$directory
 \$character
 """
+
+right_format = """$all"""
 
 [character]
 success_symbol = '[❯❯❯❯](${linkarzu_color02} bold)'
@@ -225,7 +226,7 @@ time_format = '%y/%m/%d'
 [username]
 style_user = '${linkarzu_color04} bold'
 style_root = 'white bold'
-format = '[\$user](\$style).@.'
+format = '[\$user](\$style) '
 show_always = true
 
 [hostname]

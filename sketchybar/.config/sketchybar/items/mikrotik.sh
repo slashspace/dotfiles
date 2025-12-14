@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Filename: ~/github/dotfiles-latest/sketchybar/felixkratz-linkarzu/items/mikrotik.sh
-# ~/github/dotfiles-latest/sketchybar/felixkratz-linkarzu/items/mikrotik.sh
+# Filename: ~/dotfiles/sketchybar/felixkratz-linkarzu/items/mikrotik.sh
+# ~/dotfiles/sketchybar/felixkratz-linkarzu/items/mikrotik.sh
 
 mikrotik=(
   updates=on

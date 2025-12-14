@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Filename: ~/github/dotfiles-latest/sketchybar/felixkratz/icons.sh
+# Filename: ~/dotfiles/sketchybar/felixkratz/icons.sh
 
 # General Icons
 LOADING=􀖇

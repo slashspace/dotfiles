@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#Filename: ~/github/dotfiles-latest/sketchybar/felixkratz/items/calendar.sh
+#Filename: ~/dotfiles/sketchybar/felixkratz/items/calendar.sh
 
 calendar=(
 	icon=cal

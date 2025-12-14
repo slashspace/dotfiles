@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-# Filename: ~/github/dotfiles-latest/colorscheme/list/darkppuccin.sh
-# ~/github/dotfiles-latest/colorscheme/list/darkppuccin.sh
+# Filename: ~/dotfiles/colorscheme/list/darkppuccin.sh
+# ~/dotfiles/colorscheme/list/darkppuccin.sh
 
 # These files have to be executable
 

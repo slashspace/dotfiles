@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Filename: ~/github/dotfiles-latest/sketchybar/felixkratz/plugins/volume.sh
+# Filename: ~/dotfiles/sketchybar/felixkratz/plugins/volume.sh
 
 WIDTH=100
 

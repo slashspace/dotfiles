@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Filename: ~/github/dotfiles-latest/sketchybar/felixkratz-linkarzu/items/dnd.sh
-# ~/github/dotfiles-latest/sketchybar/felixkratz-linkarzu/items/dnd.sh
+# Filename: ~/dotfiles/sketchybar/felixkratz-linkarzu/items/dnd.sh
+# ~/dotfiles/sketchybar/felixkratz-linkarzu/items/dnd.sh
 
 dnd=(
   updates=on

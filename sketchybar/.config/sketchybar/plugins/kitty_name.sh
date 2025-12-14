@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Filename: ~/github/dotfiles-latest/sketchybar/felixkratz-linkarzu/plugins/kitty_name.sh
-# ~/github/dotfiles-latest/sketchybar/felixkratz-linkarzu/plugins/kitty_name.sh
+# Filename: ~/dotfiles/sketchybar/felixkratz-linkarzu/plugins/kitty_name.sh
+# ~/dotfiles/sketchybar/felixkratz-linkarzu/plugins/kitty_name.sh
 
 # Sketchybar won't be able to get the kitty title name, unless the socket is
 # used. This gets the kitty title when I do cmd+tab from another app

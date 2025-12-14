@@ -1,14 +1,14 @@
 #!/bin/bash
 
-# Filename: ~/github/dotfiles-latest/sketchybar/felixkratz-linkarzu/plugins/mic_click.sh
-# ~/github/dotfiles-latest/sketchybar/felixkratz-linkarzu/plugins/mic_click.sh
+# Filename: ~/dotfiles/sketchybar/felixkratz-linkarzu/plugins/mic_click.sh
+# ~/dotfiles/sketchybar/felixkratz-linkarzu/plugins/mic_click.sh
 
 # https://github.com/FelixKratz/SketchyBar/discussions/12#discussioncomment-1216899
 
 source "$CONFIG_DIR/colors.sh"
 
 # This is basically the same as the `toggle_devices()` function in:
-# ~/github/dotfiles-latest/sketchybar/felixkratz/plugins/volume_click.sh
+# ~/dotfiles/sketchybar/felixkratz/plugins/volume_click.sh
 toggle_mics() {
   which SwitchAudioSource >/dev/null || exit 0
   source "$CONFIG_DIR/colors.sh"

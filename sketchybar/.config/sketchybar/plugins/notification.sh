@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Filename: ~/github/dotfiles-latest/sketchybar/felixkratz-linkarzu/plugins/notification.sh
-# ~/github/dotfiles-latest/sketchybar/felixkratz-linkarzu/plugins/notification.sh
+# Filename: ~/dotfiles/sketchybar/felixkratz-linkarzu/plugins/notification.sh
+# ~/dotfiles/sketchybar/felixkratz-linkarzu/plugins/notification.sh
 
 source "$CONFIG_DIR/colors.sh"
 

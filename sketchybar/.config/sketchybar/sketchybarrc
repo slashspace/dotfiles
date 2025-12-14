@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Filename: ~/github/dotfiles-latest/sketchybar/felixkratz/sketchybarrc
+# Filename: ~/dotfiles/sketchybar/felixkratz/sketchybarrc
 
 source "$CONFIG_DIR/colors.sh" # Loads all defined colors
 source "$CONFIG_DIR/icons.sh"  # Loads all defined icons
@@ -25,7 +25,7 @@ killall helper
 $CONFIG_DIR/helper/helper $HELPER >/dev/null 2>&1 &
 
 # Unload the macOS on screen indicator overlay for volume change
-# launchctl unload -F /System/Library/LaunchAgents/com.apple.OSDUIHelper.plist >/dev/null 2>&1 &
+launchctl unload -F /System/Library/LaunchAgents/com.apple.OSDUIHelper.plist >/dev/null 2>&1 &
 
 # Setting up the general bar appearance of the bar
 bar=(
@@ -96,7 +96,6 @@ source "$ITEM_DIR/front_app.sh"
 # Shows you the value of the input volume level
 source "$ITEM_DIR/mic.sh"
 
-source "$ITEM_DIR/mikrotik.sh"
 
 ###############################################################################
 #                                 Center
@@ -148,14 +147,14 @@ source "$ITEM_DIR/volume.sh"
 # CPU usage indicator
 source "$ITEM_DIR/cpu.sh"
 
-source "$ITEM_DIR/timer.sh"
+# source "$ITEM_DIR/timer.sh"
 
 ###############################################################################
 #                            Community plugins
 ###############################################################################
 
-source "$ITEM_DIR/custom_text.sh"
-source "$ITEM_DIR/notification.sh"
+# source "$ITEM_DIR/custom_text.sh"
+# source "$ITEM_DIR/notification.sh"
 
 ###############################################################################
 
