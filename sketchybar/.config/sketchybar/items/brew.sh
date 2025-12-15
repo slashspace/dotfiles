@@ -10,7 +10,8 @@ brew=(
   label=?
   # Set update frequency to 30 min (30*60=1800)
   update_freq=1800
-  padding_right=12
+  padding_right=8
+  padding_left=2
   label.padding_left=2
   script="$PLUGIN_DIR/brew.sh"
 )

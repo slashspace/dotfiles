@@ -7,7 +7,7 @@ volume_slider=(
   updates=on
   label.drawing=off
   icon.drawing=off
-  padding_right=3
+  padding_left=0
   slider.highlight_color=$BLUE
   slider.background.height=5
   slider.background.corner_radius=3
@@ -18,7 +18,7 @@ volume_slider=(
 
 volume_icon=(
   click_script="$PLUGIN_DIR/volume_click.sh"
-  padding_left=10
+  padding_left=8
   icon=$VOLUME_100
   icon.width=0
   icon.align=left

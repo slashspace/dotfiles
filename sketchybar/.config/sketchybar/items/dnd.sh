@@ -7,9 +7,8 @@ dnd=(
   updates=on
   label.font="$FONT:Regular:8.0"
   update_freq=10
-  padding_right=2
-  padding_left=4
-  label.padding_left=0
+  padding_left=10
+  label.padding_left=4
   label.drawing=on
   script="$PLUGIN_DIR/dnd.sh"
 )
