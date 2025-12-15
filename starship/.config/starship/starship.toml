@@ -4,16 +4,15 @@ format = """
 $username\
 $hostname\
 $time\
+$all\
 $directory
 $character
 """
 
-right_format = """"""
-
 [character]
-success_symbol = '[❯❯❯❯](#04d1f9 bold)'
-error_symbol = '[XXXX](#026072 bold)'
-vicmd_symbol = '[❮❮❮❮](#37f499 bold)'
+success_symbol = '[❯❯❯❯](#37f499 bold)'
+error_symbol = '[XXXX](#f16c75 bold)'
+vicmd_symbol = '[❮❮❮❮](#a48cf2 bold)'
 
 [battery]
 disabled = true
@@ -22,7 +21,7 @@ disabled = true
 disabled = true
 
 [time]
-style = '#37f499 bold'
+style = '#a48cf2 bold'
 disabled = false
 format = '[\[$time\]]($style) '
 # https://docs.rs/chrono/0.4.7/chrono/format/strftime/index.html
@@ -32,17 +31,17 @@ time_format = '%y/%m/%d'
 
 
 [username]
-style_user = '#37f499 bold'
+style_user = '#a48cf2 bold'
 style_root = 'white bold'
 format = '[$user]($style) '
 show_always = true
 
 [hostname]
 ssh_only = true
-format = '(white bold)[$hostname](#04d1f9 bold)'
+format = '(white bold)[$hostname](#37f499 bold)'
 
 [directory]
-style = '#81f8bf bold'
+style = '#04d1f9 bold'
 truncation_length = 0
 truncate_to_repo = false
 

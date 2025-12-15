@@ -11,15 +11,16 @@ ZSH_COMPDUMP=$HOME/.cache/zsh/zcompdump-$ZSH_VERSION
 source $ZSH/oh-my-zsh.sh
 # ------------------------End of ZSH Configuration--------------------------
 
-
 # ----------------------------Paths(追加环境变量)-----------------------------
 alias path='echo -e ${PATH//:/\\n}'
 
-export PATH="$HOME/Library/pnpm:$PATH"
+export PNPM_HOME="$HOME/Library/pnpm"
+export PATH="$PNPM_HOME:$PATH"
 export PATH="/opt/homebrew/bin:$PATH"
 export PATH="/opt/homebrew/opt/git/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 # ----------------------------End of Paths-------------------------------------
+
 
 
 # ----------------------------Load common modules(加载通用模块)----------------
@@ -135,6 +136,8 @@ fi
 
 
 #----------------------------End of Command line tools------------------------
+
+
 
 
 

@@ -196,11 +196,10 @@ format = """
 \$username\\
 \$hostname\\
 \$time\\
+\$all\\
 \$directory
 \$character
 """
-
-right_format = """$all"""
 
 [character]
 success_symbol = '[❯❯❯❯](${linkarzu_color02} bold)'
