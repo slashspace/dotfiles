@@ -4,6 +4,7 @@
 
 POPUP_CLICK_SCRIPT="sketchybar --set \$NAME popup.drawing=toggle"
 
+# github.bell 是 github 通知的 铃铛图标和数量
 github_bell=(
   padding_right=0
   padding_left=2

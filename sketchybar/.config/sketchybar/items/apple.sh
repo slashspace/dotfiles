@@ -32,14 +32,12 @@ apple_lock=(
   click_script="pmset displaysleepnow; $POPUP_OFF"
 )
 
-apple_bluetooth=(
-  icon=$BLUETOOTH
-  label="BT Restart"
-  click_script="open btt://execute_assigned_actions_for_trigger/?uuid=A85489BC-14EE-4332-9985-EF0C39F97389; $POPUP_OFF"
-)
+
 
 sketchybar --add item apple.logo left \
   --set apple.logo "${apple_logo[@]}" \
+  --default background.padding_left=5  \
+            background.padding_right=5 \
   \
   --add item apple.prefs popup.apple.logo \
   --set apple.prefs "${apple_prefs[@]}" \
@@ -49,7 +47,5 @@ sketchybar --add item apple.logo left \
   \
   --add item apple.lock popup.apple.logo \
   --set apple.lock "${apple_lock[@]}" \
-  \
-  --add item apple.bluetooth popup.apple.logo \
-  --set apple.bluetooth "${apple_bluetooth[@]}" \
+
 
