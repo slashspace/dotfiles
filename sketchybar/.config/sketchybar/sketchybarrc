@@ -143,6 +143,10 @@ source "$ITEM_DIR/battery.sh"
 # right click to switch audio sources, you need switchaudio-osx
 source "$ITEM_DIR/volume.sh"
 
+
+# memory usage indicator
+source "$ITEM_DIR/memory.sh"
+
 # CPU usage indicator
 source "$ITEM_DIR/cpu.sh"
 
