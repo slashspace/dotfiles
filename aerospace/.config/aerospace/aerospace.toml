@@ -10,16 +10,13 @@ after-login-command = []
 
 # AeroSpace 启动后要执行的命令
 # 'after-startup-command' 在 'after-login-command' 之后执行
-after-startup-command = [
-    # 设置窗口边框颜色 需要退出aerospace后重新启动才能生效
-    # 'exec-and-forget borders active_color=0xFFFFD43B inactive_color=0xff494d64 width=4.0 style=round hidpi=on'
-]
+after-startup-command = ['exec-and-forget sketchybar']
+
 
 # 当工作区切换时，通知 sketchybar 更新状态栏(高亮显示当前工作区)
 exec-on-workspace-change = ['/bin/bash', '-c',
-    # 'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE; aerospace list-windows --all | grep "zsh" | cut -d"|" -f1 | xargs aerospace move-node-to-workspace $AEROSPACE_FOCUSED_WORKSPACE --window-id',
+    'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE'
 ]
-
 
 # Normalizations. See: https://nikitabobko.github.io/AeroSpace/guide#normalization
 enable-normalization-flatten-containers = true
@@ -58,7 +55,7 @@ on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
   inner.vertical = 10
   outer.top = [
     { monitor."built-in" = 10 },
-    { monitor.main= 35 },
+    { monitor.main= 40 },
     # { monitor."secondary" = 10 },
     20
   ]

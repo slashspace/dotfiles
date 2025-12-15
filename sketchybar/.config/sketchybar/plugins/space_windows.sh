@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ "$SENDER" = "space_windows_change" ]; then
+if [ "$SENDER" = "aerospace_workspace_change" ]; then
   space="$(echo "$INFO" | jq -r '.space')"
   apps="$(echo "$INFO" | jq -r '.apps | keys[]')"
 
