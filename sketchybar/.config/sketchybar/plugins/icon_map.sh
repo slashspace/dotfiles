@@ -341,7 +341,7 @@ function icon_map() {
   "Reeder")
     icon_result=":reeder5:"
     ;;
-  "Code" | "Code - Insiders")
+  "Code" | "Code - Insiders" | "Cursor")
     icon_result=":code:"
     ;;
   "Notion")
