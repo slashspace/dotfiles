@@ -97,14 +97,12 @@ for i in 1 2 3 4 5; do
   if [ "$idx" -lt "${#apps_list[@]}" ]; then
     app_name="${apps_list[$idx]}"
     is_focused="off"
-    bg_color="$BACKGROUND_2"
-    [ -n "$focused_app" ] && [ "$app_name" = "$focused_app" ] && is_focused="on" && bg_color="$BACKGROUND_1"
+    [ -n "$focused_app" ] && [ "$app_name" = "$focused_app" ] && is_focused="on"
     sketchybar --animate "$ANIM" "$DUR" --set "space.app.${i}" \
       drawing=on \
       label="$app_name" \
       label.highlight="$is_focused" \
-      icon.background.image="app.$app_name" \
-      background.color="$bg_color"
+      icon.background.image="app.$app_name"
   else
     sketchybar --animate "$ANIM" "$DUR" --set "space.app.${i}" drawing=off
   fi

@@ -62,7 +62,7 @@ sketchybar --add item space.active left \
   background.padding_right=2 \
   drawing=off
 
-# Current workspace apps: each slot = front_app style; focused app gets label.highlight + background highlight.
+# Current workspace apps: icon + label only (no item background/border).
 for i in 1 2 3 4 5; do
   sketchybar --add item "space.app.${i}" left \
     --set "space.app.${i}" \
@@ -71,11 +71,7 @@ for i in 1 2 3 4 5; do
     label.font="$FONT:Regular:11.0" \
     label.highlight_color="$YELLOW" \
     icon.background.drawing=on \
-    icon.background.image.scale=0.72 \
-    background.drawing=on \
-    background.color="$BACKGROUND_2" \
-    background.height=20 \
-    background.corner_radius=6 \
-    background.border_width=0 \
+    icon.background.image.scale=0.62 \
+    background.drawing=off \
     drawing=off
 done
