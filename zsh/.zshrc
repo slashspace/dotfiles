@@ -44,7 +44,7 @@ source "$DOTFILES_DIR/support/colorscheme/colorscheme-vars.sh"
 if command -v starship &>/dev/null; then
   type starship_zle-keymap-select >/dev/null ||
     {
-      export STARSHIP_CONFIG=$HOME/dotfiles/starship/.config/starship/starship.toml
+      export STARSHIP_CONFIG="$DOTFILES_DIR/starship/.config/starship/starship.toml"
       eval "$(starship init zsh)" >/dev/null 2>&1
     }
 fi
@@ -69,7 +69,7 @@ if command -v fzf &>/dev/null; then
 
   alias f='fzf'
   alias fman="compgen -c | fzf | xargs man"
-  alias nlof="~/dotfiles/support/scripts/fzf_listoldfiles.sh"
+  alias nlof="$DOTFILES_DIR/support/scripts/fzf_listoldfiles.sh"
 fi
 
 # Tool 3: eza
