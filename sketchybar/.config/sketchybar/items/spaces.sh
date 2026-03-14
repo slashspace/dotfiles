@@ -45,7 +45,7 @@ sketchybar --add item space.sep left \
   background.corner_radius=0 \
   drawing=off
 
-# Active workspace (right): inverted style (light bg, dark number); same square shape.
+# Active workspace (right): same dark bg as inactive; plugin sets accent color (YELLOW) for icon + border.
 sketchybar --add item space.active left \
   --set space.active \
   icon="" \
@@ -57,7 +57,7 @@ sketchybar --add item space.active left \
   background.height=20 \
   background.width=20 \
   background.corner_radius=6 \
-  background.border_width=0 \
+  background.border_width=1 \
   background.padding_left=2 \
   background.padding_right=2 \
   drawing=off

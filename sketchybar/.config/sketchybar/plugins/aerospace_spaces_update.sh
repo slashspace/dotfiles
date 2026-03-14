@@ -37,7 +37,7 @@ for i in 1 2 3 4 5 6 7 8 9; do
       icon="$w" \
       icon.color="$GREY" \
       background.color="$BACKGROUND_2" \
-      background.border_color="$GREY" \
+      background.border_color="$BLACK" \
       background.corner_radius=4 \
       click_script="$click_script"
   else
@@ -47,18 +47,19 @@ done
 
 # Separator: show only when there are inactives.
 if [ "${#inactive_list[@]}" -gt 0 ]; then
-  sketchybar --animate "$ANIM" "$DUR" --set space.sep drawing=on background.color="$GREY"
+  sketchybar --animate "$ANIM" "$DUR" --set space.sep drawing=on background.color="$BLACK"
 else
   sketchybar --animate "$ANIM" "$DUR" --set space.sep drawing=off
 fi
 
-# Active workspace (right): white bg, dark number (inverted).
+# Active workspace (right): same dark bg as inactive; YELLOW for number + border.
 if [ -n "$focused_ws" ]; then
   sketchybar --animate "$ANIM" "$DUR" --set space.active \
     drawing=on \
     icon="$focused_ws" \
     icon.color="$BLACK" \
     background.color="$WHITE" \
+    background.border_color="$BLACK" \
     background.corner_radius=4
 else
   sketchybar --animate "$ANIM" "$DUR" --set space.active drawing=off
