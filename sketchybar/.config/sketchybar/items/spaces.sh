@@ -41,7 +41,7 @@ sketchybar --add item space.sep left \
   label.drawing=off \
   background.drawing=on \
   background.height=20 \
-  background.width=2 \
+  background.width=1 \
   background.corner_radius=0 \
   drawing=off
 
