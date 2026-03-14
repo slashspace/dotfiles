@@ -9,14 +9,14 @@ start-at-login = true
 after-login-command = []
 
 
-# AeroSpace 启动后要执行的命令
-# 'after-startup-command' 在 'after-login-command' 之后执行
-after-startup-command = ['exec-and-forget sketchybar']
+# AeroSpace 启动后要执行的命令（绝对路径避免 PATH 为空；Intel Homebrew 可改为 /usr/local/bin/sketchybar）
+after-startup-command = ['exec-and-forget', '/opt/homebrew/bin/sketchybar']
 
 
 # 当工作区切换时，通知 sketchybar 更新状态栏(高亮显示当前工作区)
+# 必须使用绝对路径，否则 AeroSpace 回调时 PATH 可能为空，事件不会触发
 exec-on-workspace-change = ['/bin/bash', '-c',
-    'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE'
+    '/opt/homebrew/bin/sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE 2>/dev/null || /usr/local/bin/sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE'
 ]
 
 # Normalizations. See: https://nikitabobko.github.io/AeroSpace/guide#normalization

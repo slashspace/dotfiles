@@ -121,7 +121,7 @@ stow zsh starship ghostty
 
 - `support/` 现在承载了辅助脚本与状态文件，后续还会继续收敛生成产物与临时文件边界。
 - 部分主题产物是由脚本生成后写回到仓库中的，容易造成 Git 变更噪音。
-- `SketchyBar` 虽然已经接入 `AeroSpace` 事件，但 workspace 展示还没有完全启用。
+- `SketchyBar` 的 AeroSpace workspace 条已启用（focused/occupied/empty 状态、点击切换），多显示器下仅展示当前显示器上的 workspace。
 
 ## Stow 边界保护
 

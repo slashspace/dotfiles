@@ -77,12 +77,7 @@ sketchybar --default "${defaults[@]}"
 # If you click on it, you can see preferences, activity and lock screen
 source "$ITEM_DIR/apple.sh"
 
-# source "$ITEM_DIR/spaces.sh"
-
-# I use yabai, but not sure what this does, I don't see a difference
-# Not sure if related to "skhd shortcuts should trigger the sketchybar event" in
-# the owner dotfiles
-# source "$ITEM_DIR/yabai.sh"
+source "$ITEM_DIR/spaces.sh"
 
 # Shows the name and icon of the app currently focused
 # Clicking it opens mission control (can be customized)
@@ -165,5 +160,8 @@ sketchybar --hotload on
 
 # Forcing all item scripts to run (never do this outside of sketchybarrc)
 sketchybar --update
+
+# Initial workspace strip state (AeroSpace triggers this on workspace change)
+sketchybar --trigger aerospace_workspace_change
 
 echo "sketchybar configuation loaded.."
