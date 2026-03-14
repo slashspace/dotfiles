@@ -1,10 +1,8 @@
 #!/bin/bash
 
-# Filename: ~/dotfiles/sketchybar/felixkratz-linkarzu/colors.sh
-# ~/dotfiles/sketchybar/felixkratz-linkarzu/colors.sh
-
-# Source the colorscheme file
-source "$HOME/dotfiles/support/colorscheme/active/active-colorscheme.sh"
+# Source the active colorscheme (DOTFILES_DIR defaults to ~/dotfiles if unset)
+DOTFILES_DIR="${DOTFILES_DIR:-$HOME/dotfiles}"
+source "$DOTFILES_DIR/support/colorscheme/active/active-colorscheme.sh"
 
 export MIC_LEVEL=40
 

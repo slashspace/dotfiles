@@ -43,16 +43,18 @@
 
 当前 colorscheme 的工作链路如下：
 
-```text
-support/colorscheme/list/*.sh
-  -> support/zsh/colorscheme-set.sh
-  -> support/colorscheme/active/active-colorscheme.sh
-  -> ghostty/.config/ghostty/themes/active
-  -> starship/.config/starship/starship.toml
-  -> sketchybar reload
+```mermaid
+flowchart LR
+  listSh["list/*.sh"]
+  colorschemeSet["colorscheme-set.sh"]
+  activeFile["active-colorscheme.sh"]
+  ghosttyActive["ghostty/themes/active"]
+  starshipToml["starship.toml"]
+  sketchybarReload["sketchybar reload"]
+  listSh --> colorschemeSet --> activeFile --> ghosttyActive --> starshipToml --> sketchybarReload
 ```
 
-`zsh/.zshrc` 会在 shell 启动时读取 `support/colorscheme/colorscheme-vars.sh`，并调用 `support/zsh/colorscheme-set.sh` 应用当前主题。
+`zsh/.zshrc` 会在 shell 启动时读取 `support/colorscheme/colorscheme-vars.sh` 得到当前主题名，并调用 `support/zsh/colorscheme-set.sh`。仅当所选主题与 `active` 不一致时才会重新生成 Ghostty/Starship 并 reload SketchyBar；用 selector 切换主题后会把选择写回 `colorscheme-vars.sh`，因此重开 Ghostty 或新开终端会保持同一主题。仓库路径可通过环境变量 `DOTFILES_DIR` 覆盖（默认 `~/dotfiles`）。
 
 ## 依赖清单
 

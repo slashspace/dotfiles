@@ -4,6 +4,9 @@
 # 立即退出脚本，如果任何命令返回非零状态
 set -e
 
+# 仓库根目录，便于克隆到非 ~/dotfiles 时通过环境变量覆盖
+DOTFILES_DIR="${DOTFILES_DIR:-$HOME/dotfiles}"
+
 # Function to display error messages
 # 定义一个错误处理函数，用于显示错误消息并退出脚本
 error() {
@@ -23,8 +26,9 @@ colorscheme_profile="$1"
 
 # Define paths
 # 定义颜色方案文件和当前活跃的颜色方案文件的路径
-colorscheme_file="$HOME/dotfiles/support/colorscheme/list/$colorscheme_profile"
-active_file="$HOME/dotfiles/support/colorscheme/active/active-colorscheme.sh"
+colorscheme_file="$DOTFILES_DIR/support/colorscheme/list/$colorscheme_profile"
+active_file="$DOTFILES_DIR/support/colorscheme/active/active-colorscheme.sh"
+vars_file="$DOTFILES_DIR/support/colorscheme/colorscheme-vars.sh"
 
 # Check if the colorscheme file exists
 # 检查颜色方案文件是否存在
@@ -49,7 +53,7 @@ else
 fi
 
 generate_ghostty_config() {
-  ghostty_conf_file="$HOME/dotfiles/ghostty/.config/ghostty/themes/active"
+  ghostty_conf_file="$DOTFILES_DIR/ghostty/.config/ghostty/themes/active"
 
   cat >"$ghostty_conf_file" <<EOF
 background = $linkarzu_color10
@@ -186,7 +190,7 @@ EOF
 
 generate_starship_config() {
   # Define the path to the active-config.toml
-  starship_conf_file="$HOME/dotfiles/starship/.config/starship/starship.toml"
+  starship_conf_file="$DOTFILES_DIR/starship/.config/starship/starship.toml"
 
   # Generate the Starship configuration file
   cat >"$starship_conf_file" <<EOF
@@ -259,6 +263,16 @@ EOF
   echo "Starship configuration updated at '$starship_conf_file'."
 }
 
+# Persist the selected profile to colorscheme-vars.sh so the next shell (e.g. after
+# reopening Ghostty) uses the same theme and does not overwrite with an old default.
+# 将当前选中的主题写回 colorscheme-vars.sh，避免新开终端/重开 Ghostty 时用旧默认覆盖。
+# Only replace the single uncommented colorscheme_profile= line.
+persist_colorscheme_profile() {
+  [ ! -f "$vars_file" ] && return
+  tmp=$(mktemp)
+  sed '/^[[:space:]]*colorscheme_profile=/s/.*/colorscheme_profile="'"$colorscheme_profile"'"/' "$vars_file" > "$tmp" && mv "$tmp" "$vars_file"
+}
+
 # If there's an update, replace the active colorscheme and perform necessary actions
 # 如果存在更新，则替换当前活跃的颜色方案并执行必要的操作
 if [ "$UPDATED" = true ]; then
@@ -268,19 +282,13 @@ if [ "$UPDATED" = true ]; then
   # 将颜色方案文件复制到当前活跃的颜色方案文件
   cp "$colorscheme_file" "$active_file"
 
-  # I want to copy the colorscheme_file to my neobean config for folks that
-  # don't use my colorscheme selector
-  # cp "$colorscheme_file" "$HOME/dotfiles/neovim/neobean/lua/config/active-colorscheme.sh"
+  # Persist selected profile so reopening Ghostty/terminal keeps this theme
+  # 持久化当前选择，重开 Ghostty 或新开终端时不会用旧默认覆盖
+  persist_colorscheme_profile
 
   # Source the active colorscheme to load variables
   # source 当前活跃的颜色方案文件以加载变量
   source "$active_file"
-
-  # Set the tmux colors
-  # 设置 tmux 颜色
-  # $HOME/dotfiles/tmux/tools/linkarzu/set_tmux_colors.sh
-  # tmux source-file ~/.tmux.conf
-  # echo "Tmux colors set and tmux configuration reloaded."
 
   # Set sketchybar colors
   # 重新加载 sketchybar

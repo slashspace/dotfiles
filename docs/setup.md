@@ -99,21 +99,23 @@ stow zsh starship ghostty
 - 显式写出 package 名称
 - 或使用 `support/scripts/stow-packages.sh`
 
-## 首次主题同步
+## 首次主题同步与持久化
 
 主题切换相关入口如下：
 
-- `support/colorscheme/colorscheme-vars.sh`: 默认主题变量
+- `support/colorscheme/colorscheme-vars.sh`: 当前选中的主题名（用 selector 切换时会写回此文件）
 - `support/colorscheme/colorscheme-selector.sh`: 交互式切换入口
 - `support/zsh/colorscheme-set.sh`: 应用主题并生成目标配置
 
-首次进入 shell 时，`zsh/.zshrc` 会调用 `zsh/colorscheme-set.sh`，根据当前主题生成以下内容：
+首次进入 shell 或切换主题后，`colorscheme-set.sh` 会在「所选主题与 active 不一致」时重新生成：
 
 - `support/colorscheme/active/active-colorscheme.sh`
 - `ghostty/.config/ghostty/themes/active`
 - `starship/.config/starship/starship.toml`
 
-并在需要时 reload `SketchyBar`。
+并 reload SketchyBar，同时把当前选择写回 `colorscheme-vars.sh`，因此**重开 Ghostty 或新开终端会保持同一主题**，不会用旧默认覆盖。
+
+若仓库不在 `~/dotfiles`，可设置 `export DOTFILES_DIR=/path/to/repo`（例如写在 `.zshrc` 的 colorscheme 块之前）。
 
 ## 常用维护命令
 
@@ -144,4 +146,4 @@ bash support/scripts/stow-packages.sh --delete
 - `fzf` 不存在时，`support/colorscheme/colorscheme-selector.sh` 无法工作
 - `oh-my-zsh` 不存在时，`zsh/.zshrc` 会在启动时报错
 - `SketchyBar` 或 `AeroSpace` 缺失时，对应的桌面联动不会生效
-- 如果主题脚本报错，优先检查仓库路径是否仍为 `$HOME/dotfiles`
+- 如果主题脚本报错，检查仓库路径是否为 `$HOME/dotfiles`，或设置 `DOTFILES_DIR`

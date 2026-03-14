@@ -53,16 +53,20 @@
 
 当前 colorscheme 系统大致分成 3 层：
 
-```text
-source
-  support/colorscheme/list/*.sh
-
-state
-  support/colorscheme/active/active-colorscheme.sh
-
-generated
-  ghostty/.config/ghostty/themes/active
-  starship/.config/starship/starship.toml
+```mermaid
+flowchart TB
+  subgraph sourceLayer [source]
+    listSh["support/colorscheme/list/*.sh"]
+  end
+  subgraph stateLayer [state]
+    activeSh["support/colorscheme/active/active-colorscheme.sh"]
+  end
+  subgraph generatedLayer [generated]
+    ghosttyActive["ghostty/.config/ghostty/themes/active"]
+    starshipToml["starship/.config/starship/starship.toml"]
+  end
+  sourceLayer --> stateLayer
+  stateLayer --> generatedLayer
 ```
 
 执行入口主要有两个：
@@ -70,20 +74,26 @@ generated
 - `support/colorscheme/colorscheme-selector.sh`: 使用 `fzf` 选择主题
 - `support/zsh/colorscheme-set.sh`: 应用主题并刷新目标配置
 
+应用主题时会写回 `support/colorscheme/colorscheme-vars.sh`，使重开 Ghostty/新开终端后仍使用同一主题；仅当所选主题与 active 不一致时才重新生成 Ghostty/Starship 并 reload SketchyBar。路径可通过 `DOTFILES_DIR` 覆盖（默认 `~/dotfiles`）。
+
 ## 模块关系
 
-```text
-zsh/.zshrc
-  -> source support/colorscheme/colorscheme-vars.sh
-  -> run support/zsh/colorscheme-set.sh
-  -> generate theme outputs
-  -> reload sketchybar
-```
-
-```text
-aerospace/.config/aerospace/aerospace.toml
-  -> trigger sketchybar event on workspace change
-  -> sketchybar plugins update workspace state
+```mermaid
+flowchart TB
+  subgraph zshChain [zsh 启动链]
+    zshrc["zsh/.zshrc"]
+    sourceVars["source colorscheme-vars.sh"]
+    runSet["run colorscheme-set.sh"]
+    generate["generate theme outputs"]
+    reload["reload sketchybar"]
+    zshrc --> sourceVars --> runSet --> generate --> reload
+  end
+  subgraph aeroChain [AeroSpace 与 SketchyBar]
+    aeroToml["aerospace.toml"]
+    triggerEvent["trigger sketchybar event on workspace change"]
+    sketchybarUpdate["sketchybar plugins update workspace state"]
+    aeroToml --> triggerEvent --> sketchybarUpdate
+  end
 ```
 
 ## 当前维护风险

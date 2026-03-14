@@ -1,12 +1,15 @@
 #!/usr/bin/env bash
 
+# 仓库根目录，与 colorscheme-set.sh 一致
+DOTFILES_DIR="${DOTFILES_DIR:-$HOME/dotfiles}"
+
 # Path to the directory containing color scheme scripts
 # 颜色方案脚本所在目录的路径
-COLORSCHEME_DIR=$HOME/dotfiles/support/colorscheme/list
+COLORSCHEME_DIR="$DOTFILES_DIR/support/colorscheme/list"
 
 # Path to the colorscheme-set.sh script
 # 颜色方案设置脚本的路径
-COLORSCHEME_SET_SCRIPT=$HOME/dotfiles/support/zsh/colorscheme-set.sh
+COLORSCHEME_SET_SCRIPT="$DOTFILES_DIR/support/zsh/colorscheme-set.sh"
 
 # Ensure fzf is installed
 # 确保 fzf 已安装
