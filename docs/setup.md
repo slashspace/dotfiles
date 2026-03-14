@@ -6,7 +6,54 @@
 - `zsh`
 - GNU Stow 管理软链接
 
-## 建议先安装的基础依赖
+## Bootstrap（推荐）
+
+仓库根目录提供 `bootstrap.sh`，用于一次性完成环境准备与链接：
+
+1. **Xcode Command Line Tools**：未安装时会触发安装并退出，安装完成后需重新执行。
+2. **Homebrew**：未安装时自动安装。
+3. **brew bundle**：根据根目录 [Brewfile](../Brewfile) 安装 CLI 与 cask 依赖。
+4. **Oh My Zsh**：未检测到时会提示安装命令（需自行执行）。
+5. **Stow**：先 dry-run 再 apply，使用 `support/scripts/stow-packages.sh`。
+
+```bash
+cd "$HOME/dotfiles"
+./bootstrap.sh
+```
+
+若仓库不在 `~/dotfiles`，可设置 `DOTFILES_DIR`：
+
+```bash
+DOTFILES_DIR=/path/to/dotfiles ./bootstrap.sh
+```
+
+## Brewfile
+
+根目录 [Brewfile](../Brewfile) 列出本仓库依赖，便于复现环境：
+
+- **tap**：`FelixKratz/formulae`（SketchyBar）、`nikitabobko/tap`（AeroSpace）。
+- **brew**：git、stow、fzf、starship、eza、bat、zoxide、jq、switchaudio-osx、sketchybar。
+- **cask**：aerospace、ghostty、karabiner-elements。
+
+可选工具在 Brewfile 中已注释，按需取消注释后执行 `brew bundle`：
+
+- **shellcheck**、**shfmt**：脚本静态检查与格式化，建议在修改 `support/` 下 shell 脚本时使用。
+- **mise**、**atuin**、**direnv**：版本/环境管理与 shell 增强，可按需启用。
+
+仅安装依赖、不执行 stow：
+
+```bash
+cd "$HOME/dotfiles"
+brew bundle
+```
+
+检查当前环境是否满足 Brewfile（不安装）：
+
+```bash
+brew bundle check
+```
+
+## 建议先安装的基础依赖（手动安装时）
 
 ### 必需
 
@@ -31,7 +78,9 @@
 - `Ghostty`
 - `Karabiner-Elements`
 
-## 安装顺序
+## 安装顺序（手动）
+
+若不用 `./bootstrap.sh`，可按以下顺序操作。
 
 ### 1. 克隆仓库
 
@@ -42,17 +91,19 @@ cd "$HOME/dotfiles"
 
 ### 2. 安装基础工具
 
-如果已安装 Homebrew，可以先安装最小依赖集：
+若已安装 Homebrew，可执行 `brew bundle` 或最小依赖集：
 
 ```bash
+brew bundle
+# 或
 brew install git stow fzf starship eza bat zoxide jq
 brew install --cask ghostty karabiner-elements
 ```
 
 说明：
 
-- `AeroSpace`、`SketchyBar` 的安装方式可以按你的本机环境补充。
-- `oh-my-zsh` 需要单独安装，因为 `zsh/.zshrc` 依赖它的目录结构。
+- `AeroSpace`、`SketchyBar` 通过 Brewfile 的 tap 安装；若需手动安装见各项目文档。
+- `oh-my-zsh` 需单独安装，因为 `zsh/.zshrc` 依赖其目录结构。
 
 ### 3. 先 dry-run，再 stow
 
@@ -140,6 +191,12 @@ bash support/scripts/stow-packages.sh --delete
 - `support/scripts/stow-packages.sh --dry-run`: 预览受支持 package 的统一安装结果
 - `support/scripts/stow-packages.sh --apply`: 统一安装受支持 package
 - `support/scripts/stow-packages.sh --delete`: 统一删除受支持 package
+
+## Shell 脚本质量与可选工具
+
+- **shellcheck**：对 `support/` 及 package 内 shell 脚本做静态检查：`shellcheck support/scripts/*.sh support/zsh/*.sh`。
+- **shfmt**：格式化脚本：`shfmt -w -i 2 -ci support/scripts/*.sh`（按需调整参数）。
+- **mise** / **atuin** / **direnv**：Brewfile 中已注释；若启用，需自行配置与文档对齐。
 
 ## 排查建议
 

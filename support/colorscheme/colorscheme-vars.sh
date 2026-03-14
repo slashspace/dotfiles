@@ -7,7 +7,7 @@
 # colorscheme_profile="linkarzu-colors.sh"
 # colorscheme_profile="star-saber.sh"
 # colorscheme_profile="eldritch-colors.sh"
-colorscheme_profile="pikachu.sh"
+colorscheme_profile="radioactive-fiambre.sh"
 # colorscheme_profile="catppuccin-mocha.sh"
 # colorscheme_profile="catppuccin-macchiato.sh"
 # colorscheme_profile="pastel-fiambre.sh"

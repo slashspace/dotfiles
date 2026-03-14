@@ -85,17 +85,15 @@ flowchart LR
 
 ## 快速开始
 
-推荐按下面的顺序初始化，而不是直接执行 `stow .`：
+**一键初始化**（推荐）：安装 Xcode CLI、Homebrew、`brew bundle` 依赖并执行 stow：
 
 ```bash
 git clone <your-repo-url> "$HOME/dotfiles"
 cd "$HOME/dotfiles"
-
-stow -nv aerospace ghostty karabiner sketchybar starship zsh
-stow aerospace ghostty karabiner sketchybar starship zsh
+./bootstrap.sh
 ```
 
-也可以使用仓库内置脚本：
+手动分步：先安装依赖后，再 stow（见 [docs/setup.md](docs/setup.md)）：
 
 ```bash
 cd "$HOME/dotfiles"
@@ -114,7 +112,7 @@ stow zsh starship ghostty
 ## 文档导航
 
 - 架构与目录边界：`docs/architecture.md`
-- 安装与初始化：`docs/setup.md`
+- 安装与初始化（含 Bootstrap、Brewfile、工具链）：`docs/setup.md`
 - colorscheme 系统说明：`support/colorscheme/README.md`
 
 ## 当前已知限制
