@@ -6,7 +6,7 @@ COLORSCHEME_DIR=$HOME/dotfiles/colorscheme/list
 
 # Path to the colorscheme-set.sh script
 # 颜色方案设置脚本的路径
-COLORSCHEME_SET_SCRIPT=$HOME/dotfiles/zsh/.zshrc/colorscheme-set.sh
+COLORSCHEME_SET_SCRIPT=$HOME/dotfiles/zsh/colorscheme-set.sh
 
 # Ensure fzf is installed
 # 确保 fzf 已安装
