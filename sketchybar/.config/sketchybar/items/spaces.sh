@@ -11,7 +11,7 @@ sketchybar --add item spaces.manager left \
   script="$PLUGIN_DIR/aerospace_spaces_update.sh" \
   updates=on \
   drawing=off
-sketchybar --subscribe spaces.manager aerospace_workspace_change
+sketchybar --subscribe spaces.manager aerospace_workspace_change front_app_switched
 
 # One item per workspace (0-9); state and visibility set by aerospace_spaces_update.sh
 for ws in 1 2 3 4 5 6 7 8 9 0; do
@@ -32,13 +32,14 @@ for ws in 1 2 3 4 5 6 7 8 9 0; do
     drawing=off
 done
 
-# Current workspace apps: each slot = front_app style (icon.background.image + label), max 5 slots; smaller icon via scale.
+# Current workspace apps: each slot = front_app style; focused app gets label.highlight + background highlight.
 for i in 1 2 3 4 5; do
   sketchybar --add item "space.app.${i}" left \
     --set "space.app.${i}" \
     label.padding_left=4 \
     label.padding_right=10 \
     label.font="$FONT:Bold:14.0" \
+    label.highlight_color="$YELLOW" \
     icon.background.drawing=on \
     icon.background.image.scale=0.72 \
     background.drawing=on \

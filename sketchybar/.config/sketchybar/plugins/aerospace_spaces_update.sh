@@ -66,7 +66,16 @@ for ws in "${WORKSPACES[@]}"; do
   fi
 done
 
-# space.app.1..5: each slot = front_app style (icon + name) for one app in focused workspace
+# Focused app in current workspace (for highlighting); from AeroSpace or from front_app_switched $INFO
+focused_app=""
+if command -v aerospace &>/dev/null; then
+  focused_app=$(aerospace list-windows --focused --format "%{app-name}" 2>/dev/null | head -1)
+  focused_app=$(echo "$focused_app" | xargs)
+  focused_app="${focused_app#:}"
+fi
+[ -z "$focused_app" ] && [ -n "${INFO:-}" ] && focused_app=$(echo "$INFO" | xargs)
+
+# space.app.1..5: each slot = front_app style (icon + name); highlight the focused app
 apps_list=()
 if [ -n "$focused_ws" ] && command -v aerospace &>/dev/null; then
   while read -r app; do
@@ -89,10 +98,15 @@ for i in 1 2 3 4 5; do
   idx=$((i - 1))
   if [ "$idx" -lt "${#apps_list[@]}" ]; then
     app_name="${apps_list[$idx]}"
+    is_focused="off"
+    bg_color="$BACKGROUND_2"
+    [ -n "$focused_app" ] && [ "$app_name" = "$focused_app" ] && is_focused="on" && bg_color="$BACKGROUND_1"
     sketchybar --animate "$ANIM" "$DUR" --set "space.app.${i}" \
       drawing=on \
       label="$app_name" \
-      icon.background.image="app.$app_name"
+      label.highlight="$is_focused" \
+      icon.background.image="app.$app_name" \
+      background.color="$bg_color"
   else
     sketchybar --animate "$ANIM" "$DUR" --set "space.app.${i}" drawing=off
   fi
