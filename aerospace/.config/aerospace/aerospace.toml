@@ -56,7 +56,7 @@ on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
   inner.vertical = 10
   outer.top = [
     { monitor."built-in" = 10 },
-    { monitor."^LG Ultra HD$"= 20 },
+    { monitor."^LG Ultra HD$"= 40 },
     40
   ]
   # gaps between tiles
