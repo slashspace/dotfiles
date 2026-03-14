@@ -9,8 +9,8 @@ start-at-login = true
 after-login-command = []
 
 
-# AeroSpace 启动后要执行的命令（单字符串格式；Intel Homebrew 改为 exec-and-forget /usr/local/bin/sketchybar）
-after-startup-command = ['exec-and-forget /opt/homebrew/bin/sketchybar']
+# AeroSpace 启动后要执行的命令
+after-startup-command = ['exec-and-forget sketchyba']
 
 
 # 当工作区切换时，通知 sketchybar 更新状态栏(高亮显示当前工作区)

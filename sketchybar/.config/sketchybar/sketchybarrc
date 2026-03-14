@@ -83,10 +83,7 @@ source "$ITEM_DIR/spaces.sh"
 # Clicking it opens mission control (can be customized)
 # source "$ITEM_DIR/front_app.sh"
 
-# Community plugin that I modified, so that it shows you the mic name
-# If you right click it you can change the mic.
-# Shows you the value of the input volume level
-source "$ITEM_DIR/mic.sh"
+
 
 # source "$ITEM_DIR/mikrotik.sh"
 
@@ -138,12 +135,17 @@ source "$ITEM_DIR/battery.sh"
 # right click to switch audio sources, you need switchaudio-osx
 source "$ITEM_DIR/volume.sh"
 
+# Community plugin that I modified, so that it shows you the mic name
+# If you right click it you can change the mic.
+# Shows you the value of the input volume level
+# source "$ITEM_DIR/mic.sh"
+
 
 # memory usage indicator
-# source "$ITEM_DIR/memory.sh"
+source "$ITEM_DIR/memory.sh"
 
 # CPU usage indicator
-# source "$ITEM_DIR/cpu.sh"
+source "$ITEM_DIR/cpu.sh"
 
 # source "$ITEM_DIR/timer.sh"
 
