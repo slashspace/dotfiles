@@ -81,7 +81,7 @@ source "$ITEM_DIR/spaces.sh"
 
 # Shows the name and icon of the app currently focused
 # Clicking it opens mission control (can be customized)
-source "$ITEM_DIR/front_app.sh"
+# source "$ITEM_DIR/front_app.sh"
 
 # Community plugin that I modified, so that it shows you the mic name
 # If you right click it you can change the mic.

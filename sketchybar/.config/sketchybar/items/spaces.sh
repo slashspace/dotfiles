@@ -32,18 +32,19 @@ for ws in 1 2 3 4 5 6 7 8 9 0; do
     drawing=off
 done
 
-# Window icons for the focused workspace (updated by aerospace_spaces_update.sh only).
-# icon.drawing=off so the empty icon does not reserve space and cause a large gap left of the label.
-sketchybar --add item space.windows left \
-  --set space.windows \
-  icon="" \
-  icon.drawing=off \
-  label.font="$FONT:Regular:11.0" \
-  label.color="$GREY" \
-  label.padding_left=4 \
-  label.padding_right=6 \
-  background.drawing=on \
-  background.color="$BACKGROUND_2" \
-  background.height=20 \
-  background.corner_radius=6 \
-  background.border_width=0
+# Current workspace apps: each slot = front_app style (icon.background.image + label), max 5 slots; smaller icon via scale.
+for i in 1 2 3 4 5; do
+  sketchybar --add item "space.app.${i}" left \
+    --set "space.app.${i}" \
+    label.padding_left=4 \
+    label.padding_right=10 \
+    label.font="$FONT:Bold:14.0" \
+    icon.background.drawing=on \
+    icon.background.image.scale=0.72 \
+    background.drawing=on \
+    background.color="$BACKGROUND_2" \
+    background.height=20 \
+    background.corner_radius=6 \
+    background.border_width=0 \
+    drawing=off
+done

@@ -66,22 +66,34 @@ for ws in "${WORKSPACES[@]}"; do
   fi
 done
 
-# 更新 space.windows 标签（当前工作区窗口的图标）
-apps="—"
+# space.app.1..5: each slot = front_app style (icon + name) for one app in focused workspace
+apps_list=()
 if [ -n "$focused_ws" ] && command -v aerospace &>/dev/null; then
-  windows_raw=$(aerospace list-windows --workspace "$focused_ws" --format "%{app-name}" 2>/dev/null)
-  if [ -n "$windows_raw" ]; then
-    apps=""
-    while read -r app; do
-      app=$(echo "$app" | xargs)
-      app="${app#:}"
-      [ -z "$app" ] && continue
-      icon=$("$CONFIG_DIR/plugins/icon_map.sh" "$app" 2>/dev/null)
-      icon="${icon#:}"
-      [ -n "$icon" ] && apps="${apps}${icon}"
-    done <<< "$windows_raw"
-    [ -z "$apps" ] && apps="—"
-  fi
+  while read -r app; do
+    app=$(echo "$app" | xargs)
+    app="${app#:}"
+    [ -z "$app" ] && continue
+    apps_list+=("$app")
+  done < <(aerospace list-windows --workspace "$focused_ws" --format "%{app-name}" 2>/dev/null)
+  # unique by order of first occurrence
+  seen=()
+  for a in "${apps_list[@]}"; do
+    if [[ " ${seen[*]} " != *" ${a} "* ]]; then
+      seen+=("$a")
+    fi
+  done
+  apps_list=("${seen[@]}")
 fi
 
-sketchybar --animate "$ANIM" "$DUR" --set space.windows label="$apps"
+for i in 1 2 3 4 5; do
+  idx=$((i - 1))
+  if [ "$idx" -lt "${#apps_list[@]}" ]; then
+    app_name="${apps_list[$idx]}"
+    sketchybar --animate "$ANIM" "$DUR" --set "space.app.${i}" \
+      drawing=on \
+      label="$app_name" \
+      icon.background.image="app.$app_name"
+  else
+    sketchybar --animate "$ANIM" "$DUR" --set "space.app.${i}" drawing=off
+  fi
+done
