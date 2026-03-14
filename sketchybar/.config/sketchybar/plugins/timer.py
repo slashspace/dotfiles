@@ -6,9 +6,10 @@ import os
 import sys
 import time
 
-# Prefer theme colors from environment (set when sketchybar loads colors.sh)
-WHITE = os.environ.get("WHITE", "0xffe0e0e0")
-RED = os.environ.get("RED", "0xffed8796")
+# Prefer theme colors from environment (set when sketchybar loads colors.sh).
+# Use fallback when key is missing or empty (e.g. source colors.sh failed).
+WHITE = os.environ.get("WHITE") or "0xffe0e0e0"
+RED = os.environ.get("RED") or "0xffed8796"
 
 
 # main function:
