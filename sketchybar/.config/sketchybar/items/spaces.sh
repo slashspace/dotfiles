@@ -38,7 +38,7 @@ for i in 1 2 3 4 5; do
     --set "space.app.${i}" \
     label.padding_left=4 \
     label.padding_right=10 \
-    label.font="$FONT:Bold:14.0" \
+    label.font="$FONT:Regular:11.0" \
     label.highlight_color="$YELLOW" \
     icon.background.drawing=on \
     icon.background.image.scale=0.72 \
