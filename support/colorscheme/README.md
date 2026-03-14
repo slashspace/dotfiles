@@ -33,3 +33,10 @@ flowchart TB
 - `support/zsh/colorscheme-set.sh` - 颜色方案应用脚本（仅在与 active 不一致时重新生成 Ghostty/Starship 并 reload SketchyBar）
 
 仓库路径默认 `~/dotfiles`，可通过环境变量 `DOTFILES_DIR` 覆盖。
+
+## 生成产物
+
+以下文件由 `colorscheme-set.sh` 在切换主题时生成，请勿手改以保持与当前主题一致：
+
+- `ghostty/.config/ghostty/themes/active`
+- `starship/.config/starship/starship.toml`

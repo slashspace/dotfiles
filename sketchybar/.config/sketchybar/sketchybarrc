@@ -15,7 +15,7 @@ FONT="JetBrainsMono Nerd Font"
 PADDINGS=1
 
 # Setting up and starting the helper process (export colors so helper gets theme)
-export RED ORANGE YELLOW LABEL_COLOR
+export RED ORANGE YELLOW LABEL_COLOR WHITE
 HELPER=git.felix.helper
 killall helper
 (cd $CONFIG_DIR/helper && make)

@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
+# Timer plugin: uses theme colors from env (RED, WHITE) when set by sketchybar
+# colors.sh; fallback to Catppuccin-like values if not set.
 
-# import libs:
-import sys
 import os
+import sys
 import time
 
-
-# define colours:
-WHITE = str("0xffcad3f5")
-RED = str("0xffed8796")
+# Prefer theme colors from environment (set when sketchybar loads colors.sh)
+WHITE = os.environ.get("WHITE", "0xffe0e0e0")
+RED = os.environ.get("RED", "0xffed8796")
 
 
 # main function:

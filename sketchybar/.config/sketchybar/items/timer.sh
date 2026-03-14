@@ -8,43 +8,45 @@ timer=(
   click_script="sketchybar --set timer popup.drawing=toggle ; sketchybar --trigger reset_timer"
 )
 
+# Theme-aware timer: source colors.sh so RED/WHITE are passed to timer.py
+# (CONFIG_DIR/PLUGIN_DIR expanded when this item is loaded)
 stopwatch=(
-  click_script="sketchybar --set timer popup.drawing=toggle ; python3 ${PLUGIN_DIR}/timer.py"
+  click_script="sketchybar --set timer popup.drawing=toggle ; source \"$CONFIG_DIR/colors.sh\" 2>/dev/null; export RED WHITE; python3 \"$PLUGIN_DIR/timer.py\""
   label="SW Mode"
 )
 
 preset0=(
-  click_script="sketchybar --set timer popup.drawing=toggle ; python3 ${PLUGIN_DIR}/timer.py 60"
+  click_script="sketchybar --set timer popup.drawing=toggle ; source \"$CONFIG_DIR/colors.sh\" 2>/dev/null; export RED WHITE; python3 \"$PLUGIN_DIR/timer.py\" 60"
   label="1 min"
 )
 
 preset1=(
-  click_script="sketchybar --set timer popup.drawing=toggle ; python3 ${PLUGIN_DIR}/timer.py 180"
+  click_script="sketchybar --set timer popup.drawing=toggle ; source \"$CONFIG_DIR/colors.sh\" 2>/dev/null; export RED WHITE; python3 \"$PLUGIN_DIR/timer.py\" 180"
   label="3 min"
 )
 
 preset2=(
-  click_script="sketchybar --set timer popup.drawing=toggle ; python3 ${PLUGIN_DIR}/timer.py 300"
+  click_script="sketchybar --set timer popup.drawing=toggle ; source \"$CONFIG_DIR/colors.sh\" 2>/dev/null; export RED WHITE; python3 \"$PLUGIN_DIR/timer.py\" 300"
   label="5 min"
 )
 
 preset3=(
-  click_script="sketchybar --set timer popup.drawing=toggle ; python3 ${PLUGIN_DIR}/timer.py 1800"
+  click_script="sketchybar --set timer popup.drawing=toggle ; source \"$CONFIG_DIR/colors.sh\" 2>/dev/null; export RED WHITE; python3 \"$PLUGIN_DIR/timer.py\" 1800"
   label="30 min"
 )
 
 preset4=(
-  click_script="sketchybar --set timer popup.drawing=toggle ; python3 ${PLUGIN_DIR}/timer.py 2400"
+  click_script="sketchybar --set timer popup.drawing=toggle ; source \"$CONFIG_DIR/colors.sh\" 2>/dev/null; export RED WHITE; python3 \"$PLUGIN_DIR/timer.py\" 2400"
   label="40 min"
 )
 
 preset5=(
-  click_script="sketchybar --set timer popup.drawing=toggle ; python3 ${PLUGIN_DIR}/timer.py 3600"
+  click_script="sketchybar --set timer popup.drawing=toggle ; source \"$CONFIG_DIR/colors.sh\" 2>/dev/null; export RED WHITE; python3 \"$PLUGIN_DIR/timer.py\" 3600"
   label="60 min"
 )
 
 preset6=(
-  click_script="sketchybar --set timer popup.drawing=toggle ; python3 ${PLUGIN_DIR}/timer.py 4800"
+  click_script="sketchybar --set timer popup.drawing=toggle ; source \"$CONFIG_DIR/colors.sh\" 2>/dev/null; export RED WHITE; python3 \"$PLUGIN_DIR/timer.py\" 4800"
   label="80 min"
 )
 
