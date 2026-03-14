@@ -24,13 +24,13 @@ export PATH="$HOME/.local/bin:$PATH"
 
 
 # ----------------------------Load common modules(加载通用模块)----------------
-source ~/dotfiles/support/zsh/zshrc-common.sh
+# 仓库根目录，克隆到非 ~/dotfiles 时可设置 export DOTFILES_DIR=...
+export DOTFILES_DIR="${DOTFILES_DIR:-$HOME/dotfiles}"
+source "$DOTFILES_DIR/support/zsh/zshrc-common.sh"
 # ----------------------------End of Load common modules------------------------
 
 
 # -------------------------Colorscheme configuration(颜色方案配置)------------
-# 仓库根目录，克隆到非 ~/dotfiles 时可设置 export DOTFILES_DIR=...
-export DOTFILES_DIR="${DOTFILES_DIR:-$HOME/dotfiles}"
 # load colorscheme_profile from support/colorscheme/colorscheme-vars.sh
 source "$DOTFILES_DIR/support/colorscheme/colorscheme-vars.sh"
 # set colorscheme (only regenerates when selected theme differs from active)
