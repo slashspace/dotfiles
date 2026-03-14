@@ -10,7 +10,7 @@ after-login-command = []
 
 
 # AeroSpace 启动后要执行的命令（绝对路径避免 PATH 为空；Intel Homebrew 可改为 /usr/local/bin/sketchybar）
-after-startup-command = ['exec-and-forget', '/opt/homebrew/bin/sketchybar']
+after-startup-command = ['exec-and-forget']
 
 
 # 当工作区切换时，通知 sketchybar 更新状态栏(高亮显示当前工作区)

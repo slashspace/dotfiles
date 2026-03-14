@@ -6,8 +6,12 @@ export PATH="/usr/local/bin:/opt/homebrew/bin:$PATH"
 
 source "$CONFIG_DIR/colors.sh"
 
+# 工作区列表
 WORKSPACES=(0 1 2 3 4 5 6 7 8 9)
+
+# 动画效果
 ANIM="sin"
+# 动画持续时间
 DUR="10"
 
 sleep 0.15
@@ -34,6 +38,7 @@ for ws in "${WORKSPACES[@]}"; do
   fi
 
   if [ "$focused_ws" = "$ws" ]; then
+    # 当前激活的工作区
     sketchybar --animate "$ANIM" "$DUR" --set "space.${ws}" \
       icon="$ws" \
       icon.color="$YELLOW" \
@@ -41,6 +46,7 @@ for ws in "${WORKSPACES[@]}"; do
       background.color="$BACKGROUND_1" \
       background.corner_radius=4
   elif [ "${count:-0}" -gt 0 ]; then
+    # 有窗口的工作区
     sketchybar --animate "$ANIM" "$DUR" --set "space.${ws}" \
       icon="$ws" \
       icon.color="$WHITE" \
@@ -49,6 +55,7 @@ for ws in "${WORKSPACES[@]}"; do
       background.corner_radius=4 \
       background.border_color="$BACKGROUND_2"
   else
+    # 空的工作区
     sketchybar --animate "$ANIM" "$DUR" --set "space.${ws}" \
       icon="$ws" \
       icon.color="$GREY" \
@@ -59,8 +66,8 @@ for ws in "${WORKSPACES[@]}"; do
   fi
 done
 
-# Update space.windows label (icons for apps in focused workspace)
-apps=" —"
+# 更新 space.windows 标签（当前工作区窗口的图标）
+apps="—"
 if [ -n "$focused_ws" ] && command -v aerospace &>/dev/null; then
   windows_raw=$(aerospace list-windows --workspace "$focused_ws" --format "%{app-name}" 2>/dev/null)
   if [ -n "$windows_raw" ]; then
@@ -71,9 +78,9 @@ if [ -n "$focused_ws" ] && command -v aerospace &>/dev/null; then
       [ -z "$app" ] && continue
       icon=$("$CONFIG_DIR/plugins/icon_map.sh" "$app" 2>/dev/null)
       icon="${icon#:}"
-      [ -n "$icon" ] && apps="${apps} ${icon}"
+      [ -n "$icon" ] && apps="${apps}${icon}"
     done <<< "$windows_raw"
-    [ -z "$apps" ] && apps=" —"
+    [ -z "$apps" ] && apps="—"
   fi
 fi
 

@@ -32,13 +32,16 @@ for ws in 1 2 3 4 5 6 7 8 9 0; do
     drawing=off
 done
 
-# Window icons for the focused workspace (updated by aerospace_spaces_update.sh only)
+# Window icons for the focused workspace (updated by aerospace_spaces_update.sh only).
+# icon.drawing=off so the empty icon does not reserve space and cause a large gap left of the label.
 sketchybar --add item space.windows left \
   --set space.windows \
   icon="" \
+  icon.drawing=off \
   label.font="$FONT:Regular:11.0" \
   label.color="$GREY" \
-  padding_left=8 \
+  label.padding_left=4 \
+  label.padding_right=6 \
   background.drawing=on \
   background.color="$BACKGROUND_2" \
   background.height=20 \
