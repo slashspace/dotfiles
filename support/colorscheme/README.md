@@ -25,8 +25,8 @@ colorscheme-set.sh (应用颜色方案)
 ```
 
 ## 文件结构
-- `colorscheme/list/` - 所有可用的颜色方案文件（如 `batman.sh`, `catppuccin-mocha.sh` 等）
-- `colorscheme/active/active-colorscheme.sh` - 当前激活的颜色方案
-- `colorscheme/colorscheme-vars.sh` - 颜色方案变量定义（指定默认方案）
-- `colorscheme/colorscheme-selector.sh` - 交互式颜色方案选择器
-- `zsh/colorscheme-set.sh` - 颜色方案应用脚本
+- `support/colorscheme/list/` - 所有可用的颜色方案文件（如 `batman.sh`, `catppuccin-mocha.sh` 等）
+- `support/colorscheme/active/active-colorscheme.sh` - 当前激活的颜色方案
+- `support/colorscheme/colorscheme-vars.sh` - 颜色方案变量定义（指定默认方案）
+- `support/colorscheme/colorscheme-selector.sh` - 交互式颜色方案选择器
+- `support/zsh/colorscheme-set.sh` - 颜色方案应用脚本

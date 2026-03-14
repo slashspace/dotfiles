@@ -23,8 +23,8 @@ colorscheme_profile="$1"
 
 # Define paths
 # 定义颜色方案文件和当前活跃的颜色方案文件的路径
-colorscheme_file="$HOME/dotfiles/colorscheme/list/$colorscheme_profile"
-active_file="$HOME/dotfiles/colorscheme/active/active-colorscheme.sh"
+colorscheme_file="$HOME/dotfiles/support/colorscheme/list/$colorscheme_profile"
+active_file="$HOME/dotfiles/support/colorscheme/active/active-colorscheme.sh"
 
 # Check if the colorscheme file exists
 # 检查颜色方案文件是否存在

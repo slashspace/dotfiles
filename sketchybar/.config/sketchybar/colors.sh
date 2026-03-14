@@ -4,7 +4,7 @@
 # ~/dotfiles/sketchybar/felixkratz-linkarzu/colors.sh
 
 # Source the colorscheme file
-source "$HOME/dotfiles/colorscheme/active/active-colorscheme.sh"
+source "$HOME/dotfiles/support/colorscheme/active/active-colorscheme.sh"
 
 export MIC_LEVEL=40
 

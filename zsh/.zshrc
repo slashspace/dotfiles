@@ -24,15 +24,15 @@ export PATH="$HOME/.local/bin:$PATH"
 
 
 # ----------------------------Load common modules(加载通用模块)----------------
-source ~/dotfiles/zsh/zshrc-common.sh
+source ~/dotfiles/support/zsh/zshrc-common.sh
 # ----------------------------End of Load common modules------------------------
 
 
 # -------------------------Colorscheme configuration(颜色方案配置)------------
-# load colorscheme_profile from ~/dotfiles/colorscheme/colorscheme-vars.sh
-source ~/dotfiles/colorscheme/colorscheme-vars.sh
+# load colorscheme_profile from ~/dotfiles/support/colorscheme/colorscheme-vars.sh
+source ~/dotfiles/support/colorscheme/colorscheme-vars.sh
 # set colorscheme
-~/dotfiles/zsh/colorscheme-set.sh "$colorscheme_profile"
+~/dotfiles/support/zsh/colorscheme-set.sh "$colorscheme_profile"
 # -------------------------End of Colorscheme configuration----------------------
 
 
@@ -67,7 +67,7 @@ if command -v fzf &>/dev/null; then
 
   alias f='fzf'
   alias fman="compgen -c | fzf | xargs man"
-  alias nlof="~/dotfiles/scripts/fzf_listoldfiles.sh"
+  alias nlof="~/dotfiles/support/scripts/fzf_listoldfiles.sh"
 fi
 
 # Tool 3: eza
