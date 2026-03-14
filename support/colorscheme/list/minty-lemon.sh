@@ -65,5 +65,3 @@ linkarzu_color16=#ccfce5
 # Cursor color, color04 9 tones to the left in colorhexa
 linkarzu_color24=#06743f
 
-# Wallpaper for this colorscheme
-wallpaper="$HOME/Library/Mobile Documents/com~apple~CloudDocs/Images/wallpapers/official/minty-lemon.jpg"
