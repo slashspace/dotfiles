@@ -10,27 +10,20 @@ if [ -z "$PAGE_SIZE" ] || [ -z "$TOTAL_BYTES" ]; then
 fi
 
 VM_STAT=$(vm_stat 2>/dev/null)
+[ -z "$VM_STAT" ] && exit 0
 
-if [ -z "$VM_STAT" ]; then
-  exit 0
-fi
-
-FREE_PAGES=$(printf "%s\n" "$VM_STAT" | awk '/Pages free/ {gsub("\\.","",$3); print $3}')
-SPEC_PAGES=$(printf "%s\n" "$VM_STAT" | awk '/Pages speculative/ {gsub("\\.","",$3); print $3}')
-INACTIVE_PAGES=$(printf "%s\n" "$VM_STAT" | awk '/Pages inactive/ {gsub("\\.","",$3); print $3}')
-
-[ -z "$FREE_PAGES" ] && FREE_PAGES=0
-[ -z "$SPEC_PAGES" ] && SPEC_PAGES=0
-[ -z "$INACTIVE_PAGES" ] && INACTIVE_PAGES=0
-
-FREE_BYTES=$(( (FREE_PAGES + SPEC_PAGES + INACTIVE_PAGES) * PAGE_SIZE ))
-USED_BYTES=$(( TOTAL_BYTES - FREE_BYTES ))
-
-if [ "$USED_BYTES" -le 0 ] || [ "$TOTAL_BYTES" -le 0 ]; then
-  exit 0
-fi
-
-PERCENT=$(awk -v used="$USED_BYTES" -v total="$TOTAL_BYTES" 'BEGIN { printf "%.0f", used / total * 100 }')
+# Single awk: parse vm_stat and compute used % in one pass (fewer process spawns)
+PERCENT=$(printf "%s\n" "$VM_STAT" | awk -v ps="$PAGE_SIZE" -v total="$TOTAL_BYTES" '
+  /Pages free/       { gsub(/\./,"",$3); free += $3 }
+  /Pages speculative/{ gsub(/\./,"",$3); spec += $3 }
+  /Pages inactive/   { gsub(/\./,"",$3); inactive += $3 }
+  END {
+    free_bytes = (free + spec + inactive) * ps
+    used = total - free_bytes
+    if (total > 0 && used > 0) printf "%.0f", used / total * 100
+    else print 0
+  }
+')
 
 COLOR=$GREEN
 if [ "$PERCENT" -ge 80 ]; then

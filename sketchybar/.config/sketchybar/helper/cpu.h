@@ -1,13 +1,16 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <unistd.h>
 #include <mach/mach.h>
 #include <stdbool.h>
 #include <time.h>
 
-#define MAX_TOPPROC_LEN 28
 
-static const char TOPPROC[] = { "/bin/ps -Aceo pid,pcpu,comm -r" }; 
+#define MAX_TOPPROC_LEN 28
+#define TOPPROC_INTERVAL 4  /* run ps only every N updates to reduce CPU cost */
+
+static const char TOPPROC[] = { "/bin/ps -Aceo pid,pcpu,comm -r" };
 static const char FILTER_PATTERN[] = { "com.apple." };
 
 struct cpu {
@@ -16,7 +19,8 @@ struct cpu {
   host_cpu_load_info_data_t load;
   host_cpu_load_info_data_t prev_load;
   bool has_prev_load;
-
+  uint32_t update_count;
+  char last_topproc[MAX_TOPPROC_LEN + 4];
   char command[256];
 };
 
@@ -24,6 +28,8 @@ static inline void cpu_init(struct cpu* cpu) {
   cpu->host = mach_host_self();
   cpu->count = HOST_CPU_LOAD_INFO_COUNT;
   cpu->has_prev_load = false;
+  cpu->update_count = 0;
+  snprintf(cpu->last_topproc, sizeof(cpu->last_topproc), "-");
   snprintf(cpu->command, 100, "");
 }
 
@@ -58,50 +64,46 @@ static inline void cpu_update(struct cpu* cpu) {
 
     double total_perc = user_perc + sys_perc;
 
-    FILE* file;
-    char line[1024];
+    cpu->update_count++;
+    bool run_ps = (cpu->update_count % TOPPROC_INTERVAL == 1);
 
-    file = popen(TOPPROC, "r");
-    if (!file) {
-      printf("Error: TOPPROC command errored out...\n" );
-      return;
+    if (run_ps) {
+      FILE* file = popen(TOPPROC, "r");
+      if (file) {
+        char line[1024];
+        fgets(line, sizeof(line), file);
+        fgets(line, sizeof(line), file);
+        char* start = strstr(line, FILTER_PATTERN);
+        uint32_t caret = 0;
+        size_t len = strlen(line);
+        for (size_t i = 0; i < len && caret <= MAX_TOPPROC_LEN + 2; i++) {
+          if (start && i == (size_t)(start - line)) {
+            i += 8;
+            continue;
+          }
+          if (caret >= MAX_TOPPROC_LEN && caret <= MAX_TOPPROC_LEN + 2) {
+            cpu->last_topproc[caret++] = '.';
+            continue;
+          }
+          cpu->last_topproc[caret++] = line[i];
+          if (line[i] == '\0') break;
+        }
+        cpu->last_topproc[MAX_TOPPROC_LEN + 3] = '\0';
+        pclose(file);
+      }
     }
 
-    fgets(line, sizeof(line), file);
-    fgets(line, sizeof(line), file);
-
-    char* start = strstr(line, FILTER_PATTERN);
-    char topproc[MAX_TOPPROC_LEN + 4];
-    uint32_t caret = 0;
-    for (int i = 0; i < sizeof(line); i++) {
-      if (start && i == start - line) {
-        i+=9;
-        continue;
-      }
-
-      if (caret >= MAX_TOPPROC_LEN && caret <= MAX_TOPPROC_LEN + 2) {
-        topproc[caret++] = '.';
-        continue;
-      }
-      if (caret > MAX_TOPPROC_LEN + 2) break;
-      topproc[caret++] = line[i];
-      if (line[i] == '\0') break;
-    }
-
-    topproc[MAX_TOPPROC_LEN + 3] = '\0';
-
-    pclose(file);
-
-    char color[16];
+    const char* c = NULL;
     if (total_perc >= .7) {
-      snprintf(color, 16, "%s", getenv("RED"));
+      c = getenv("RED");
     } else if (total_perc >= .3) {
-      snprintf(color, 16, "%s", getenv("ORANGE"));
+      c = getenv("ORANGE");
     } else if (total_perc >= .1) {
-      snprintf(color, 16, "%s", getenv("YELLOW"));
+      c = getenv("YELLOW");
     } else {
-      snprintf(color, 16, "%s", getenv("LABEL_COLOR"));
+      c = getenv("LABEL_COLOR");
     }
+    if (!c) c = "0xffe0e0e0";
 
     snprintf(cpu->command, 256, "--push cpu.sys %.2f "
                                 "--push cpu.user %.2f "
@@ -109,9 +111,9 @@ static inline void cpu_update(struct cpu* cpu) {
                                 "--set cpu.percent label=%.0f%% label.color=%s ",
                                 sys_perc,
                                 user_perc,
-                                topproc,
-                                total_perc*100.,
-                                color          );
+                                cpu->last_topproc,
+                                total_perc * 100.,
+                                c);
   }
   else {
     snprintf(cpu->command, 256, "");

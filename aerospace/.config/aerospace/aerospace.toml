@@ -10,7 +10,7 @@ after-login-command = []
 
 
 # AeroSpace 启动后要执行的命令
-after-startup-command = ['exec-and-forget sketchyba']
+after-startup-command = ['exec-and-forget /opt/homebrew/bin/sketchybar']
 
 
 # 当工作区切换时，通知 sketchybar 更新状态栏(高亮显示当前工作区)
