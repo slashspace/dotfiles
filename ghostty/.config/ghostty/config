@@ -12,7 +12,7 @@ cursor-style-blink = false
 cursor-invert-fg-bg = true
 
 # tabs|hidden|navtive|transparent
-macos-titlebar-style = hidden
+macos-titlebar-style = native
 macos-option-as-alt = true
 macos-icon = official
 mouse-hide-while-typing = true
@@ -24,6 +24,10 @@ window-padding-y = 6,0
 
 auto-update = check
 auto-update-channel = stable
+
+# 非聚焦 Tab 的背景透明度
+unfocused-split-opacity = 0.4
+split-divider-color= #CBA6F7
 
 # extras
 shell-integration-features = no-cursor

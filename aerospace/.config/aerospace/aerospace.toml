@@ -8,6 +8,7 @@ start-at-login = true
 # 'start-at-login' 需要设置为 'true' 才能使用 'after-login-command'
 after-login-command = []
 
+
 # AeroSpace 启动后要执行的命令
 # 'after-startup-command' 在 'after-login-command' 之后执行
 after-startup-command = ['exec-and-forget sketchybar']
@@ -55,9 +56,8 @@ on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
   inner.vertical = 10
   outer.top = [
     { monitor."built-in" = 10 },
-    { monitor.main= 40 },
-    # { monitor."secondary" = 10 },
-    20
+    { monitor."^LG Ultra HD$"= 20 },
+    40
   ]
   # gaps between tiles
   outer.right= 10
@@ -113,7 +113,7 @@ on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 
   # 在最近两个工作区切换 See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
   alt-tab = 'workspace-back-and-forth'
-  # 将当前窗口移动到另外显示器 See: https://nikitabobko.github.io/AeroSpace/commands#move-workspace-to-monitor
+  # 将当前窗口移动到 下一个 显示器 See: https://nikitabobko.github.io/AeroSpace/commands#move-workspace-to-monitor
   alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
 
   # [WARNING]: 组合快捷键

@@ -119,7 +119,8 @@
                         "product_id": 12292,
                         "vendor_id": 14000
                     },
-                    "ignore": false
+                    "ignore": false,
+                    "treat_as_built_in_keyboard": true
                 }
             ],
             "name": "默认配置",
