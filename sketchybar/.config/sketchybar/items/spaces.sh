@@ -66,8 +66,10 @@ sketchybar --add item space.active left \
 for i in 1 2 3 4 5; do
   sketchybar --add item "space.app.${i}" left \
     --set "space.app.${i}" \
-    label.padding_left=4 \
-    label.padding_right=10 \
+    padding_left=2 \
+    padding_right=2 \
+    label.padding_left=2 \
+    label.padding_right=2 \
     label.font="$FONT:Regular:12.0" \
     label.highlight_color="$YELLOW" \
     icon.background.drawing=on \
