@@ -34,9 +34,14 @@ if command -v fzf &>/dev/null; then
   export FZF_DEFAULT_OPTS='--color=fg:#ebfafa,bg:#09090d,hl:#37f499 --color=fg+:#ebfafa,bg+:#0D1116,hl+:#37f499 --color=info:#04d1f9,prompt:#04d1f9,pointer:#7081d0 --color=marker:#7081d0,spinner:#f7c67f,header:#323449'
 
   alias f='fzf'
+  # 选中后只输出“命令部分”（去掉 zsh history 默认的行号前缀）
+  alias fh="history | sed -E 's/^[[:space:]]*[0-9]+[[:space:]]+//' | fzf"
+  # 查找各种命令的 man 页面
   alias fman="compgen -c | fzf | xargs man"
+  # 列出最近打开的文件
   alias nlof="$DOTFILES_DIR/support/scripts/fzf_listoldfiles.sh"
-  alias nzo="$DOTFILES_DIR/support/scripts/zoxide_openfiles_nvim.sh"
+  # 🥇🥇🥇 左侧搜索当前目录文件， 右侧预览文件内容
+  alias nvimf="$DOTFILES_DIR/support/scripts/zoxide_openfiles_nvim.sh"
 fi
 
 # Tool 3: eza
