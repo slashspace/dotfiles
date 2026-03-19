@@ -3,6 +3,7 @@
 # ============================================================================
 
 # Common aliases
+alias path='echo -e ${PATH//:/\\n}'
 alias c='clear'
 alias ..='cd ..'
 alias ...='cd ../../'

@@ -15,8 +15,8 @@ source "$ITEM_DIR/github.sh"
 source "$ITEM_DIR/wifi.sh"
 source "$ITEM_DIR/battery.sh"
 source "$ITEM_DIR/volume.sh"
-source "$ITEM_DIR/memory.sh"
-source "$ITEM_DIR/cpu.sh"
+# source "$ITEM_DIR/memory.sh"
+# source "$ITEM_DIR/cpu.sh"
 
 ###############################################################################
 # Experimental — 可选模块，需要时取消下面注释
