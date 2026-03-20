@@ -7,6 +7,7 @@ PACKAGES=(
   aerospace
   ghostty
   karabiner
+  nvim
   sketchybar
   starship
   zsh

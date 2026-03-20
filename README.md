@@ -14,6 +14,7 @@
   - `aerospace`
   - `ghostty`
   - `karabiner`
+  - `nvim`
   - `sketchybar`
   - `starship`
   - `zsh`
@@ -32,6 +33,7 @@
 - `aerospace`: 平铺窗口管理器配置，负责 workspace、窗口布局、应用分配规则。
 - `ghostty`: 终端配置、shader 和活动主题文件。
 - `karabiner`: 键盘映射与复杂规则。
+- `nvim`: Neovim 配置（`~/.config/nvim`，含 Lua 模块化入口与 lazy.nvim 锁文件；插件本体在 `~/.local/share/nvim`）。
 - `sketchybar`: 菜单栏模块、插件、颜色和 helper。
 - `starship`: Shell prompt 展示配置。
 - `zsh`: shell 启动逻辑、常用 alias、工具初始化、colorscheme 应用入口。

@@ -52,8 +52,8 @@ if [ -f "$REPO_DIR/support/scripts/stow-packages.sh" ]; then
   DOTFILES_DIR="$REPO_DIR" bash "$REPO_DIR/support/scripts/stow-packages.sh" --apply
 else
   echo "==> Stow packages (fallback):"
-  stow -d "$REPO_DIR" -t "$HOME" -nv aerospace ghostty karabiner sketchybar starship zsh
-  stow -d "$REPO_DIR" -t "$HOME" aerospace ghostty karabiner sketchybar starship zsh
+  stow -d "$REPO_DIR" -t "$HOME" -nv aerospace ghostty karabiner nvim sketchybar starship zsh
+  stow -d "$REPO_DIR" -t "$HOME" aerospace ghostty karabiner nvim sketchybar starship zsh
 fi
 
 echo "==> Bootstrap done. Restart the shell or run: source ~/.zshrc"

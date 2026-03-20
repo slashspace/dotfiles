@@ -112,8 +112,8 @@ brew install --cask ghostty karabiner-elements
 ```bash
 cd "$HOME/dotfiles"
 
-stow -nv aerospace ghostty karabiner sketchybar starship zsh
-stow aerospace ghostty karabiner sketchybar starship zsh
+stow -nv aerospace ghostty karabiner nvim sketchybar starship zsh
+stow aerospace ghostty karabiner nvim sketchybar starship zsh
 ```
 
 或者使用仓库脚本：
