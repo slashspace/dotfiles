@@ -115,6 +115,7 @@ stow zsh starship ghostty
 
 - 架构与目录边界：`docs/architecture.md`
 - 安装与初始化（含 Bootstrap、Brewfile、工具链）：`docs/setup.md`
+- Neovim 借鉴笔记（wsdjeg/nvim-config）：[`docs/nvim-inspiration-wsdjeg.md`](docs/nvim-inspiration-wsdjeg.md)
 - colorscheme 系统说明：`support/colorscheme/README.md`
 
 ## 当前已知限制

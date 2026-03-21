@@ -1,51 +1,48 @@
--- Basic editor options (terminal defaults).
--- vscode-neovim will still set vim.g.vscode; we keep options lightweight to avoid visual/perf issues.
+-- 基础编辑器选项
+
+-- 设置 leader 键
+vim.g.mapleader = " "
 
 local opt = vim.opt
+-- 设置 timeout 和 timeoutlen，用于设置等待按键组合的时间
+opt.timeout = true
+opt.timeoutlen = 500
 
--- UI
+-- 界面
 opt.number = true
 opt.cursorline = true
 opt.laststatus = 2
 opt.showcmd = true
 opt.ruler = true
-opt.cmdheight = 3
-opt.mouse = "a"
-
--- Editing behavior
-opt.autoread = true
-opt.autoindent = true
-opt.smartindent = true
-opt.ignorecase = true
-opt.hlsearch = true
-opt.incsearch = true
 opt.wrap = false
 
--- Indentation
+-- 缩进
+opt.autoindent = true
+opt.smartindent = true
+opt.expandtab = true
 opt.tabstop = 4
 opt.shiftwidth = 4
 opt.softtabstop = 4
 
--- Search / selection
+-- 搜索时高亮显示
+opt.hlsearch = true
+opt.incsearch = true
+-- 括号/匹配符短暂跳转匹配（有助于成对符号检查）
+opt.showmatch = true
+-- 搜索时忽略大小写
+opt.ignorecase = true
+-- 若搜索模式里含大写字母，则不再忽略大小写
+opt.smartcase = true
+
+
+-- 选择
 opt.selection = "exclusive"
 opt.selectmode = { "mouse", "key" }
-opt.showmatch = true
 
--- Clipboard: macOS + terminal
--- Prefer unnamedplus so it works with system clipboard providers.
+
+-- 与系统剪贴板互通
 opt.clipboard = { "unnamedplus" }
 
--- Disable swap/backup noise
+-- 关闭 swap/backup，减少干扰
 opt.swapfile = false
 opt.backup = false
-
--- Colorscheme
-pcall(vim.cmd.colorscheme, "desert")
-
--- iTerm2 cursor shape (optional; no effect in other terminals)
-if vim.env.TERM_PROGRAM and vim.env.TERM_PROGRAM:match("iTerm") then
-  -- Use the same escape sequences as the legacy vimrc.
-  -- ESC ] 50 ; CursorShape = 1 BEL  / 0 for normal mode
-  vim.o.t_SI = "\x1b]50;CursorShape=1\x07" -- insert mode
-  vim.o.t_EI = "\x1b]50;CursorShape=0\x07" -- normal mode
-end

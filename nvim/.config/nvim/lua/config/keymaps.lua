@@ -1,14 +1,24 @@
--- Keymaps for terminal Neovim only.
 
-local map = vim.keymap.set
+-- { 模式, lhs, rhs [, 额外 opts 表，如 { desc = "..." } ] }
+local keymaps = {
+  { "o", "L", "g_", { desc = "操作模式移动到行尾" } },
+  { "o", "H", "^", { desc = "操作模式：移动到行首" } },
+  { "n", "J", "5j", { desc = "普通模式：向下移动 5 行" } },
+  { "n", "K", "5k", { desc = "普通模式：向上移动 5 行" } },
+  { "n", "<esc>", "<cmd>nohlsearch<cr>", { desc = "普通模式：退出时清除搜索高亮" } },
+  { "n", "<leader>s", "<cmd>w<cr>", { desc = "普通模式：保存文件" } },
+}
 
--- VSCode Neovim extension sets vim.g.vscode=true.
-local is_vscode = vim.g.vscode == true
+for _, m in ipairs(keymaps) do
+  vim.keymap.set(
+    m[1],
+    m[2],
+    m[3],
+    vim.tbl_extend("force", { noremap = true, silent = true }, m[4] or {})
+  )
+end
 
--- Escape helper: jj -> <Esc>
--- Only enable in terminal to avoid double-binding in vscode-neovim.
-if not is_vscode then
-  vim.o.timeout = true
-  vim.o.timeoutlen = 300
-  map("i", "jj", "<Esc>", { silent = true, noremap = true })
+-- 终端 Neovim（非 vscode）下生效：jj -> <Esc>
+if not vim.g.vscode then
+  vim.keymap.set("i", "jj", "<Esc>", { noremap = true, silent = true, desc = "插入模式：退出插入模式" })
 end
