@@ -12,6 +12,7 @@ end
 -- { mode, key, vscode command, description }
 local vscode_mappings = {
   { "n", "u", "undo", { desc = "VS Code 撤销" } },
+  { 'n', '<leader>rw', 'workbench.action.reloadWindow', { desc = "重新加载窗口" } },
 
   -- 按「词段」移动光标
   { 'n', 'w', 'cursorWordPartRight', { desc = "按词段向右移动光标" } },
@@ -41,17 +42,12 @@ local vscode_mappings = {
   { 'n', '<leader>qf', 'editor.action.quickFix', { desc = "快速修复" } },
   { 'n', '<leader>sg', 'editor.action.triggerSuggest', { desc = "触发建议" } },
 
-  -- 文件与工作区
-  { 'n', '<leader>cp', 'copyFilePath', { desc = "复制文件路径" } },
-  { 'n', '<leader>cr', 'copyRelativeFilePath', { desc = "复制相对文件路径" } },
-  { 'n', '<leader>rl', 'workbench.action.openRecent', { desc = "打开最近文件" } },
-  { 'n', '<leader>cf', 'workbench.action.closeActiveEditor', { desc = "关闭活动编辑器" } },
-  { 'n', '<leader>fa', 'workbench.action.closeAllEditors', { desc = "关闭所有编辑器" } },
-  { 'n', '<leader>rw', 'workbench.action.reloadWindow', { desc = "重新加载窗口" } },
-
-  -- 编辑器标签页（当前组内）
-  { 'n', '<leader>tj', 'workbench.action.nextEditor', { desc = "下一个标签页" } },
-  { 'n', '<leader>tk', 'workbench.action.previousEditor', { desc = "上一个标签页" } },
+  -- 编辑器标签页
+  { 'n', '<leader>el', 'workbench.action.nextEditor', { desc = "右侧标签页" } },
+  { 'n', '<leader>eh', 'workbench.action.previousEditor', { desc = "左侧标签页" } },
+  { 'n', '<leader>ec', 'workbench.action.closeActiveEditor', { desc = "关闭活动编辑器" } },
+  { 'n', '<leader>eca', 'workbench.action.closeAllEditors', { desc = "关闭Group所有编辑器" } },
+  { 'n', '<leader>eco', 'workbench.action.closeOtherEditors', { desc = "关闭Group其它编辑器" } },
 
   -- 窗口布局
   { 'n', '<leader>w\\', 'workbench.action.splitEditor', { desc = "水平分割编辑器" } },

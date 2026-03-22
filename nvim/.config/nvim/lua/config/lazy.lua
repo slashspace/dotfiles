@@ -1,25 +1,25 @@
 -- 插件入口：只负责安装并启动 lazy.nvim；具体插件在 lua/plugins/ 下拆分维护。
-
--- lazy.nvim 安装路径
+--
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-
--- 如果 lazy.nvim 不存在，则克隆仓库
-if vim.fn.isdirectory(lazypath) == 0 then
-  vim.fn.system({
-    "git",
-    "clone",
-    "--filter=blob:none",
-    "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable",
-    lazypath,
-  })
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+  local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+  local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+  if vim.v.shell_error ~= 0 then
+    vim.api.nvim_echo({
+      { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
+      { out, "WarningMsg" },
+      { "\nPress any key to exit..." },
+    }, true, {})
+    vim.fn.getchar()
+    os.exit(1)
+  end
 end
-vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
+vim.opt.rtp:prepend(lazypath)
 
--- 启动 lazy.nvim
+
 require("lazy").setup({
   spec = {
-    -- 插件列表
+    -- 插件在 lua/plugins/ 下拆分维护
     { import = "plugins" },
   },
 })
