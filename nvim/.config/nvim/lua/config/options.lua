@@ -6,11 +6,13 @@ vim.g.mapleader = " "
 local opt = vim.opt
 -- 设置 timeout 和 timeoutlen，用于设置等待按键组合的时间
 opt.timeout = true
-opt.timeoutlen = 500
+opt.timeoutlen = 1000
 
 -- 界面
 opt.number = true
 opt.cursorline = true
+-- 缓冲区随光标滚动时逐行平滑滚动（需 Neovim 0.10+；终端里光标仍是按格移动）
+opt.smoothscroll = true
 opt.laststatus = 2
 opt.showcmd = true
 opt.ruler = true
