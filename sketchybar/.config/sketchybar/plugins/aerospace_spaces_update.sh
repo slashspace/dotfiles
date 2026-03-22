@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# AeroSpace workspace strip: [inactive 1..9] | [active]. Updates on aerospace_workspace_change.
+# AeroSpace workspace strip: 0–9 in order; focused workspace highlighted in place.
+# Updates on aerospace_workspace_change and front_app_switched.
 
 export PATH="/usr/local/bin:/opt/homebrew/bin:$PATH"
 
@@ -8,7 +9,10 @@ source "$CONFIG_DIR/colors.sh"
 ANIM="sin"
 DUR="10"
 
-sleep 0.15
+# Only debounce workspace events (AeroSpace can lag slightly). App switches stay instant.
+if [ "${SENDER:-}" = "aerospace_workspace_change" ]; then
+  sleep 0.05
+fi
 
 focused_ws=$(aerospace list-workspaces --focused 2>/dev/null | head -1)
 [ -z "$focused_ws" ] && focused_ws="${FOCUSED_WORKSPACE:-}"
@@ -18,61 +22,46 @@ if command -v aerospace &>/dev/null; then
   on_monitor=$(aerospace list-workspaces --monitor focused 2>/dev/null)
 fi
 
-# Build ordered list of workspaces on this monitor; put focused last (so it appears on the right).
-inactive_list=()
-for ws in 0 1 2 3 4 5 6 7 8 9; do
-  echo "$on_monitor" | grep -q "^${ws}$" || continue
-  [ "$ws" = "$focused_ws" ] && continue
-  inactive_list+=("$ws")
-done
-
-# Inactive slots (left): dark grey bg, light grey border, light grey number; click switches workspace.
-for i in 1 2 3 4 5 6 7 8 9; do
-  idx=$((i - 1))
-  if [ "$idx" -lt "${#inactive_list[@]}" ]; then
-    w="${inactive_list[$idx]}"
+# Full workspace strip refresh (skip on front_app_switched — only app highlight changes).
+if [ "${SENDER:-}" != "front_app_switched" ]; then
+  for w in 0 1 2 3 4 5 6 7 8 9; do
     click_script="/opt/homebrew/bin/aerospace workspace ${w} 2>/dev/null || /usr/local/bin/aerospace workspace ${w}"
-    sketchybar --animate "$ANIM" "$DUR" --set "space.inactive.${i}" \
-      drawing=on \
-      icon="$w" \
-      icon.color="$GREY" \
-      background.color="$BACKGROUND_2" \
-      background.border_color="$BLACK" \
-      background.corner_radius=4 \
-      click_script="$click_script"
-  else
-    sketchybar --animate "$ANIM" "$DUR" --set "space.inactive.${i}" drawing=off
-  fi
-done
-
-# Separator: show only when there are inactives.
-if [ "${#inactive_list[@]}" -gt 0 ]; then
-  sketchybar --animate "$ANIM" "$DUR" --set space.sep drawing=on background.color="$BLACK"
-else
-  sketchybar --animate "$ANIM" "$DUR" --set space.sep drawing=off
+    if echo "$on_monitor" | grep -q "^${w}$"; then
+      if [ -n "$focused_ws" ] && [ "$w" = "$focused_ws" ]; then
+        sketchybar --animate "$ANIM" "$DUR" --set "space.ws.${w}" \
+          drawing=on \
+          icon="$w" \
+          icon.color="$BLACK" \
+          background.color="$GREEN" \
+          background.border_color="$BLACK" \
+          background.corner_radius=4 \
+          click_script="$click_script"
+      else
+        sketchybar --animate "$ANIM" "$DUR" --set "space.ws.${w}" \
+          drawing=on \
+          icon="$w" \
+          icon.color="$GREY" \
+          background.color="$BACKGROUND_2" \
+          background.border_color="$BLACK" \
+          background.corner_radius=4 \
+          click_script="$click_script"
+      fi
+    else
+      sketchybar --animate "$ANIM" "$DUR" --set "space.ws.${w}" drawing=off
+    fi
+  done
 fi
 
-# Active workspace (right): same dark bg as inactive; YELLOW for number + border.
-if [ -n "$focused_ws" ]; then
-  sketchybar --animate "$ANIM" "$DUR" --set space.active \
-    drawing=on \
-    icon="$focused_ws" \
-    icon.color="$BLACK" \
-    background.color="$WHITE" \
-    background.border_color="$BLACK" \
-    background.corner_radius=4
-else
-  sketchybar --animate "$ANIM" "$DUR" --set space.active drawing=off
-fi
-
-# Focused app in current workspace (for highlighting); from AeroSpace or from front_app_switched $INFO
+# Focused app: prefer $INFO on front_app_switched (no CLI wait); else ask AeroSpace.
 focused_app=""
-if command -v aerospace &>/dev/null; then
+if [ -n "${INFO:-}" ]; then
+  focused_app=$(echo "$INFO" | xargs)
+fi
+if [ -z "$focused_app" ] && command -v aerospace &>/dev/null; then
   focused_app=$(aerospace list-windows --focused --format "%{app-name}" 2>/dev/null | head -1)
   focused_app=$(echo "$focused_app" | xargs)
   focused_app="${focused_app#:}"
 fi
-[ -z "$focused_app" ] && [ -n "${INFO:-}" ] && focused_app=$(echo "$INFO" | xargs)
 
 # space.app.1..5: each slot = front_app style (icon + name); highlight the focused app
 apps_list=()
@@ -93,18 +82,19 @@ if [ -n "$focused_ws" ] && command -v aerospace &>/dev/null; then
   apps_list=("${seen[@]}")
 fi
 
+# No --animate here: highlight / label color should update immediately on app switch.
 for i in 1 2 3 4 5; do
   idx=$((i - 1))
   if [ "$idx" -lt "${#apps_list[@]}" ]; then
     app_name="${apps_list[$idx]}"
     is_focused="off"
     [ -n "$focused_app" ] && [ "$app_name" = "$focused_app" ] && is_focused="on"
-    sketchybar --animate "$ANIM" "$DUR" --set "space.app.${i}" \
+    sketchybar --set "space.app.${i}" \
       drawing=on \
       label="$app_name" \
       label.highlight="$is_focused" \
       icon.background.image="app.$app_name"
   else
-    sketchybar --animate "$ANIM" "$DUR" --set "space.app.${i}" drawing=off
+    sketchybar --set "space.app.${i}" drawing=off
   fi
 done

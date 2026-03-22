@@ -27,7 +27,7 @@ enable-normalization-opposite-orientation-for-nested-containers = true
 default-root-container-layout = 'accordion'
 
 # 手风琴模式下，设置手风琴的间距: 0 表示禁用
-accordion-padding = 0
+accordion-padding = 10
 
 # 默认显示方向 : horizontal(水平)|vertical(垂直)|auto(自动)
 # 'auto' 表示: 宽屏显示器(宽度大于高度)显示为水平方向，高屏显示器(高度大于宽度)显示为垂直方向
@@ -117,8 +117,6 @@ on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
   alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
 
   # [WARNING]: 组合快捷键
-  # alt + shift + ; 进入 service 模式
-  alt-shift-semicolon = 'mode service'
   # alt + shift + r 进入 resize 模式
   alt-shift-r = 'mode resize'
 
@@ -143,6 +141,8 @@ on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
   esc = 'mode main'
 
 # service 模式: 按完 alt+shift+; 后再按 esc/r/f/backspace/h/j/k/l/b/minus/equal
+# alt + shift + ; 进入 service 模式
+alt-shift-semicolon = 'mode service'
 [mode.service.binding]
   # 重新加载配置
   esc = ['reload-config', 'mode main']
