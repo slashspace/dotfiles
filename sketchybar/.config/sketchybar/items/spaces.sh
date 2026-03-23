@@ -31,6 +31,16 @@ for i in 0 1 2 3 4 5 6 7 8 9; do
     drawing=off
 done
 
+# Focused workspace root layout: h_/v_ = 横向/纵向，accordion|tiles from AeroSpace CLI.
+sketchybar --add item space.layout left \
+  --set space.layout \
+  label.font="$FONT:Semibold:11.0" \
+  label.color="$YELLOW" \
+  label.padding_left=4 \
+  label.padding_right=4 \
+  icon.drawing=off \
+  drawing=off
+
 # Current workspace apps: icon + label only (no item background/border).
 for i in 1 2 3 4 5; do
   sketchybar --add item "space.app.${i}" left \

@@ -98,3 +98,21 @@ for i in 1 2 3 4 5; do
     sketchybar --set "space.app.${i}" drawing=off
   fi
 done
+
+# Root container layout for focused workspace (h_* = 横向, v_* = 纵向). Skip on app-only refresh.
+if [ "${SENDER:-}" != "front_app_switched" ] && command -v aerospace &>/dev/null; then
+  root_layout=$(aerospace list-workspaces --focused --format '%{workspace-root-container-layout}' 2>/dev/null | head -1)
+  root_layout=$(echo "$root_layout" | xargs)
+  layout_label=""
+  case "$root_layout" in
+    h_accordion) layout_label="风琴·横" ;;
+    v_accordion) layout_label="风琴·纵" ;;
+    h_tiles) layout_label="平铺·横" ;;
+    v_tiles) layout_label="平铺·纵" ;;
+  esac
+  if [ -n "$layout_label" ]; then
+    sketchybar --set space.layout drawing=on label="$layout_label"
+  else
+    sketchybar --set space.layout drawing=off label=""
+  fi
+fi

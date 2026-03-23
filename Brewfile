@@ -22,6 +22,7 @@ brew "switchaudio-osx"
 
 # Menu bar and tiling (optional: comment out if you install manually)
 brew "sketchybar"
+brew "borders" # JankyBorders: window focus borders (FelixKratz/formulae)
 cask "nikitabobko/tap/aerospace"
 
 # GUI apps (cask)
