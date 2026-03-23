@@ -31,28 +31,25 @@ for i in 0 1 2 3 4 5 6 7 8 9; do
     drawing=off
 done
 
-# Focused workspace root layout: h_/v_ = 横向/纵向，accordion|tiles from AeroSpace CLI.
+# 布局图标：与 space.ws.* 同高（20pt）、同圆角与边框，具体颜色由 plugin 更新
 sketchybar --add item space.layout left \
   --set space.layout \
-  label.font="$FONT:Semibold:11.0" \
-  label.color="$YELLOW" \
-  label.padding_left=4 \
-  label.padding_right=4 \
-  icon.drawing=off \
+  icon.font="$FONT:Semibold:12.0" \
+  icon.color="$BLACK" \
+  icon.width=16 \
+  icon.height=16 \
+  label.drawing=off \
   drawing=off
 
-# Current workspace apps: icon + label only (no item background/border).
+# 当前 workspace 应用列表：背景高度与 space.ws.* 一致（由 plugin 上色）
 for i in 1 2 3 4 5; do
   sketchybar --add item "space.app.${i}" left \
     --set "space.app.${i}" \
-    padding_left=2 \
-    padding_right=2 \
-    label.padding_left=2 \
-    label.padding_right=2 \
-    label.font="$FONT:Regular:12.0" \
-    label.highlight_color="$GREEN" \
+    label.font="$FONT:Regular:14.0" \
+    label.color="$BLUE" \
     icon.background.drawing=on \
-    icon.background.image.scale=0.6 \
-    background.drawing=off \
+    icon.background.height=20 \
+    icon.background.width=20 \
+    icon.background.image.scale=0.65 \
     drawing=off
 done
