@@ -15,10 +15,10 @@ local vscode_mappings = {
   { 'n', '<leader>rw', 'workbench.action.reloadWindow', { desc = "重新加载窗口" } },
 
   -- 按「词段」移动光标
-  { 'n', 'w', 'cursorWordPartRight', { desc = "按词段向右移动光标" } },
-  { 'n', 'b', 'cursorWordPartLeft', { desc = "按词段向左移动光标" } },
-  { 'v', 'w', 'cursorWordPartRightSelect', { desc = "按词段向右选择" } },
-  { 'v', 'b', 'cursorWordPartLeftSelect', { desc = "按词段向左选择" } },
+  -- { 'n', 'w', 'cursorWordPartRight', { desc = "按词段向右移动光标" } },
+  -- { 'n', 'b', 'cursorWordPartLeft', { desc = "按词段向左移动光标" } },
+  -- { 'v', 'w', 'cursorWordPartRightSelect', { desc = "按词段向右选择" } },
+  -- { 'v', 'b', 'cursorWordPartLeftSelect', { desc = "按词段向左选择" } },
 
   -- 代码跳转
   { 'n', '<leader>gh', 'editor.action.showHover', { desc = "显示悬浮提示" } },

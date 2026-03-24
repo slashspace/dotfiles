@@ -37,8 +37,8 @@ opt.ignorecase = true
 opt.smartcase = true
 
 
--- 选择
-opt.selection = "exclusive"
+-- 选择（inclusive：yank/鼠标复制包含选区末端字符；exclusive 会少最后一个字符）
+opt.selection = "inclusive"
 opt.selectmode = { "mouse", "key" }
 
 

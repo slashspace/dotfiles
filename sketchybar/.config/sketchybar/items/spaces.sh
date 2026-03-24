@@ -35,7 +35,7 @@ done
 sketchybar --add item space.layout left \
   --set space.layout \
   icon.font="$FONT:Semibold:12.0" \
-  icon.color="$BLACK" \
+  icon.color="$BLUE" \
   icon.width=16 \
   icon.height=16 \
   label.drawing=off \
@@ -46,7 +46,8 @@ for i in 1 2 3 4 5; do
   sketchybar --add item "space.app.${i}" left \
     --set "space.app.${i}" \
     label.font="$FONT:Regular:14.0" \
-    label.color="$BLUE" \
+    label.color="$WHITE" \
+    label.highlight_color="$GREEN" \
     icon.background.drawing=on \
     icon.background.height=20 \
     icon.background.width=20 \
