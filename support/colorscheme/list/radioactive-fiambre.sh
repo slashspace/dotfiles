@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-# Filename: ~/dotfiles/colorscheme/list/linkarzu-colors.sh
-# ~/dotfiles/colorscheme/list/linkarzu-colors.sh
+# Filename: ~/github/dotfiles-latest/colorscheme/list/linkarzu-colors.sh
+# ~/github/dotfiles-latest/colorscheme/list/linkarzu-colors.sh
 
 # These files have to be executable
 
@@ -64,3 +64,5 @@ linkarzu_color16=#e9b3fd
 # Cursor color
 linkarzu_color24=#f94dff
 
+# Wallpaper for this colorscheme
+wallpaper="$HOME/Library/Mobile Documents/com~apple~CloudDocs/Images/wallpapers/official/skyrim-dragon-4.webp"
