@@ -65,5 +65,3 @@ linkarzu_color16=#b8ffb8
 # Cursor color, color04 9 tones to the left in colorhexa
 linkarzu_color24=#00cc4f
 
-# Wallpaper for this colorscheme
-wallpaper="$HOME/Library/Mobile Documents/com~apple~CloudDocs/Images/wallpapers/batman/batman-darker.png"

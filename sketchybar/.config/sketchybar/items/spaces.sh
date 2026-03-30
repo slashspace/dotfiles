@@ -39,6 +39,15 @@ sketchybar --add item space.layout left \
   icon.width=16 \
   icon.height=16 \
   label.drawing=off \
+  background.drawing=on \
+  background.height=20 \
+  background.width=20 \
+  background.corner_radius=6 \
+  background.border_width=1 \
+  background.color="$BAR_COLOR" \
+  background.border_color="$BLACK" \
+  background.padding_left=2 \
+  background.padding_right=2 \
   drawing=off
 
 # 当前 workspace 应用列表：背景高度与 space.ws.* 一致（由 plugin 上色）

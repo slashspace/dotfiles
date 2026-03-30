@@ -1,9 +1,7 @@
 #!/usr/bin/env bash
 
-# Filename: ~/github/dotfiles-latest/colorscheme/list/retro-phosphor.sh
-# ~/github/dotfiles-latest/colorscheme/list/retro-phosphor.sh
-
-# These files have to be executable
+# Filename: ~/dotfiles/colorscheme/list/catppuccin-mocha.sh
+# ~/dotfiles/colorscheme/list/catppuccin-mocha.sh
 
 # Lighter markdown headings
 # 4 colors to the right for these ligher headings
@@ -14,56 +12,74 @@
 # C (#37f499) becomes when darkened 4 steps to the right.
 #
 # Markdown heading 1 - color04
-linkarzu_color18=#0f3d21
+linkarzu_color18="#796394"
 # Markdown heading 2 - color02
-linkarzu_color19=#124726
+linkarzu_color19="#526c96"
 # Markdown heading 3 - color03
-linkarzu_color20=#18522d
+linkarzu_color20="#648861"
 # Markdown heading 4 - color01
-linkarzu_color21=#1d5c33
+linkarzu_color21="#8d6067"
 # Markdown heading 5 - color05
-linkarzu_color22=#226739
+linkarzu_color22="#6c7298"
 # Markdown heading 6 - color08
-# Also inactive tmux window, make it 6 darker to the right
-linkarzu_color23=#0a2615
+linkarzu_color23="#966b51"
 # Markdown heading foreground
 # usually set to color10 which is the terminal background
-linkarzu_color26=#000000
+linkarzu_color26=#1e1e2e
 
-linkarzu_color04=#00ff66
-linkarzu_color02=#00e65c
-linkarzu_color03=#66ff99
-linkarzu_color01=#7dff7d
-linkarzu_color05=#39ff88
-linkarzu_color08=#98ff98
-linkarzu_color06=#caffca
-
-# Colors to the right from https://www.colorhexa.com
-# Terminal and neovim background
-linkarzu_color10=#000000
-# Lualine across, 1 color to the right of background
-linkarzu_color17=#061006
-# Markdown codeblock, 2 to the right of background
-linkarzu_color07=#0b180b
-# Background of inactive tmux pane, 3 to the right of background
-linkarzu_color25=#102210
-# line across cursor, 5 to the right of background
-linkarzu_color13=#183818
-# Tmux inactive windows, 7 colors to the right of background
-linkarzu_color15=#245224
-
+# Mauve
+linkarzu_color04="#cba6f7"
+# Blue
+linkarzu_color02="#89b4fa"
+# Green
+linkarzu_color03="#a6e3a1"
+# Maroon
+linkarzu_color01="#eba0ac"
+# Lavender
+linkarzu_color05="#b4befe"
+# Peach
+linkarzu_color08="#fab387"
+# Sapphire
+linkarzu_color06="#74c7ec"
+# Surface 0
+# Markdown codeblock
+linkarzu_color07="#313244"
+# Subtext0
 # Comments
-linkarzu_color09=#4e6f4e
-# Underline spellbad, color02 7 tones to the left in colorhexa
-linkarzu_color11=#0f7a37
-# Underline spellcap, color04 7 tones to the left in colorhexa
-linkarzu_color12=#148f45
+linkarzu_color09="#a6adc8"
+# Base
+# Terminal and neovim background
+linkarzu_color10="#1e1e2e"
+# Red
+# Underline spellbad
+linkarzu_color11="#f38ba8"
+# Yellow
+# Underline spellcap
+linkarzu_color12="#f9e2af"
+# Surface2
+# line across cursor
+linkarzu_color13="#585b70"
+# Text
 # Cursor and tmux windows text
-linkarzu_color14=#d8ffd8
+linkarzu_color14="#cdd6f4"
+# Surface1
+# Tmux inactive windows
+linkarzu_color15="#314430"
+# Flamingo
 # Selected text
-linkarzu_color16=#b8ffb8
-# Cursor color, color04 9 tones to the left in colorhexa
-linkarzu_color24=#00cc4f
-
-# Wallpaper for this colorscheme
-wallpaper="$HOME/Library/Mobile Documents/com~apple~CloudDocs/Images/wallpapers/batman/batman-darker.png"
+linkarzu_color16="#f2cdcd"
+# Lualine across
+linkarzu_color17="#313244"
+# Cursor color
+linkarzu_color24="#F712FF"
+# https://www.colorhexa.com/1e1e2e
+# #0f0f16
+# #161622
+# #1e1e2e
+# #26263a
+# #2d2d46
+# #353552
+# #3d3d5d
+# #454569
+# Background of inactive tmux pane
+linkarzu_color25=#232e3b

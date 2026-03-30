@@ -298,3 +298,9 @@ source "$active_file"
 generate_starship_config
 generate_ghostty_config
 # generate_btop_config
+
+# Keep JankyBorders (borders) active color in sync with the active colorscheme.
+# Uses linkarzu_color02 by default (same as SketchyBar GREEN).
+if [ -x "$DOTFILES_DIR/support/borders/apply-from-colorscheme.sh" ]; then
+  "$DOTFILES_DIR/support/borders/apply-from-colorscheme.sh" || true
+fi

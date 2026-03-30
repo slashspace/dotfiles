@@ -32,9 +32,9 @@ if [ "${SENDER:-}" != "front_app_switched" ]; then
           drawing=on \
           icon="$w" \
           icon.color="$BLACK" \
-          background.color="$BLUE" \
+          background.color="$GREEN" \
           background.border_color="$BLACK" \
-          background.corner_radius=4 \
+          background.corner_radius=6 \
           click_script="$click_script"
       else
         sketchybar --animate "$ANIM" "$DUR" --set "space.ws.${w}" \
@@ -43,7 +43,7 @@ if [ "${SENDER:-}" != "front_app_switched" ]; then
           icon.color="$GREY" \
           background.color="$BACKGROUND_2" \
           background.border_color="$BLACK" \
-          background.corner_radius=4 \
+          background.corner_radius=6 \
           click_script="$click_script"
       fi
     else
@@ -118,7 +118,15 @@ if [ "${SENDER:-}" != "front_app_switched" ] && command -v aerospace &>/dev/null
   if [ -n "$layout_icon" ]; then
     sketchybar --set space.layout \
       drawing=on \
-      icon="$layout_icon"
+      icon="$layout_icon" \
+      icon.color="$BLUE" \
+      background.drawing=on \
+      background.height=20 \
+      background.width=20 \
+      background.corner_radius=6 \
+      background.border_width=1 \
+      background.color="$BAR_COLOR" \
+      background.border_color="$BLACK"
   else
     sketchybar --set space.layout drawing=off background.drawing=off icon=""
   fi
