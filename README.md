@@ -14,6 +14,7 @@
   - `aerospace`
   - `ghostty`
   - `karabiner`
+  - `tmux`
   - `nvim`
   - `sketchybar`
   - `starship`
@@ -33,6 +34,7 @@
 - `aerospace`: 平铺窗口管理器配置，负责 workspace、窗口布局、应用分配规则；并按 [JankyBorders 官方说明](https://github.com/FelixKratz/JankyBorders#bootstrap-with-aerospace) 在 `after-startup-command` 内联启动 `borders`（焦点描边，无单独 `bordersrc`）。
 - `ghostty`: 终端配置、shader 和活动主题文件。
 - `karabiner`: 键盘映射与复杂规则。
+- `tmux`: 终端多路复用器配置，包含 TPM 插件管理与自定义 session/popup 交互（详见 `tmux/README.md`）。
 - `nvim`: Neovim 配置（`~/.config/nvim`，含 Lua 模块化入口与 lazy.nvim 锁文件；插件本体在 `~/.local/share/nvim`）。
 - `sketchybar`: 菜单栏模块、插件、颜色和 helper。
 - `starship`: Shell prompt 展示配置。
@@ -72,6 +74,7 @@ flowchart LR
 - `bat`
 - `zoxide`
 - `sketchybar`
+- `tmux`
 - `borders`（`brew install borders`，需 `FelixKratz/formulae` tap，见 Brewfile）
 - `AeroSpace`
 - `Ghostty`

@@ -17,6 +17,7 @@
 - `aerospace`
 - `ghostty`
 - `karabiner`
+- `tmux`
 - `sketchybar`
 - `starship`
 - `zsh`

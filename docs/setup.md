@@ -32,7 +32,7 @@ DOTFILES_DIR=/path/to/dotfiles ./bootstrap.sh
 根目录 [Brewfile](../Brewfile) 列出本仓库依赖，便于复现环境：
 
 - **tap**：`FelixKratz/formulae`（SketchyBar）、`nikitabobko/tap`（AeroSpace）。
-- **brew**：git、stow、fzf、starship、eza、bat、zoxide、jq、switchaudio-osx、sketchybar。
+- **brew**：git、stow、fzf、starship、eza、bat、zoxide、jq、switchaudio-osx、sketchybar。（tmux 已安装时可跳过）
 - **cask**：aerospace、ghostty、karabiner-elements。
 
 可选工具在 Brewfile 中已注释，按需取消注释后执行 `brew bundle`：
@@ -61,6 +61,7 @@ brew bundle check
 - Homebrew
 - `git`
 - `stow`
+- `tmux`
 - `zsh`
 - `oh-my-zsh`
 - `fzf`
@@ -112,8 +113,8 @@ brew install --cask ghostty karabiner-elements
 ```bash
 cd "$HOME/dotfiles"
 
-stow -nv aerospace ghostty karabiner nvim sketchybar starship zsh
-stow aerospace ghostty karabiner nvim sketchybar starship zsh
+stow -nv aerospace ghostty karabiner tmux nvim sketchybar starship zsh
+stow aerospace ghostty karabiner tmux nvim sketchybar starship zsh
 ```
 
 或者使用仓库脚本：
