@@ -11,6 +11,7 @@ brew "stow"
 brew "fzf"
 
 # Terminal / prompt
+brew "gitmux" # tmux status git (catppuccin gitmux module)
 brew "starship"
 brew "eza"
 brew "bat"

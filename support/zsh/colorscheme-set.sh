@@ -212,8 +212,12 @@ success_symbol = "[[󰄛](green) ❯](peach)"
 error_symbol = "[[󰄛](red) ❯](peach)"
 vimcmd_symbol = "[󰄛 ❮](subtext0)" # For use with zsh-vi-mode
 
+# Git 改在 tmux status（gitmux）；右侧不再重复分支/状态
 [git_branch]
-style = "bold pink"
+disabled = true
+
+[git_status]
+disabled = true
 
 [directory]
 truncation_length = 4
@@ -255,6 +259,17 @@ EOF
 
   echo "Starship configuration updated at '$starship_conf_file'."
 }
+
+
+# 生成 gitmux 配置
+generate_gitmux_config() {
+  gitmux_conf_file="$DOTFILES_DIR/gitmux/.gitmux.conf"
+  cat >"$gitmux_conf_file" <<EOF
+EOF
+  echo "Gitmux configuration updated at '$gitmux_conf_file'."
+}
+
+
 
 # Persist the selected profile to colorscheme-vars.sh so the next shell (e.g. after
 # reopening Ghostty) uses the same theme and does not overwrite with an old default.
