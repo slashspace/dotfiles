@@ -7,12 +7,12 @@ background-blur-radius = 23
 font-family = JetBrainsMonoNL Nerd Font
 font-size = 15
 
+# 光标
 cursor-style = block
-cursor-style-blink = false
-cursor-invert-fg-bg = true
+cursor-style-blink = true
 
 # tabs|hidden|navtive|transparent
-macos-titlebar-style = native
+macos-titlebar-style = hidden
 macos-option-as-alt = true
 macos-icon = official
 mouse-hide-while-typing = true
@@ -27,7 +27,7 @@ auto-update-channel = stable
 
 # 非聚焦 Tab 的背景透明度
 unfocused-split-opacity = 0.4
-split-divider-color= #CBA6F7
+# split-divider-color= #CBA6F7
 
 # extras
 shell-integration-features = no-cursor
@@ -72,8 +72,8 @@ keybind = super+b>l=goto_split:right
 
 #Shaders
 # 查看更多着色器 : https://github.com/hackrmomo/ghostty-shaders
-custom-shader = shaders/bloom025.glsl
-custom-shader = shaders/cursor_blaze_no_trail.glsl
+# custom-shader = shaders/bloom025.glsl
+# custom-shader = shaders/cursor_blaze_no_trail.glsl
 custom-shader = shaders/cursor_smear.glsl
 # custom-shader = shaders/bettercrt.glsl
 # custom-shader = shaders/retro-terminal.glsl

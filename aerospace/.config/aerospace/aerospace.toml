@@ -15,7 +15,7 @@ after-login-command = []
 after-startup-command = [
   'exec-and-forget /opt/homebrew/bin/sketchybar',
   # borders: active_color follows active colorscheme (linkarzu_color02 / GREEN)
-  'exec-and-forget /bin/bash /Users/dingsheng/dotfiles/support/borders/apply-from-colorscheme.sh',
+  # 'exec-and-forget /bin/bash /Users/dingsheng/dotfiles/support/borders/apply-from-colorscheme.sh',
 ]
 
 
