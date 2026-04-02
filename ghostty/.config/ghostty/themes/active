@@ -1,10 +1,10 @@
-background = #1e1e2e
+background = #161622
 foreground = #cdd6f4
 
 cursor-color = #fab387
 
 # black
-palette = 0=#1e1e2e
+palette = 0=#161622
 palette = 8=#fab387
 # red
 palette = 1=#f38ba8

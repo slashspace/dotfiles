@@ -202,7 +202,7 @@ add_newline = false
 format = """$directory$character"""
 palette = "catppuccin_mocha"
 # move the rest of the prompt to the right
-right_format = """$all"""
+right_format = ""
 command_timeout = 1000
 
 # Starship modules

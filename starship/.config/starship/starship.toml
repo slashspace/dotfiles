@@ -5,7 +5,7 @@ add_newline = false
 format = """$directory$character"""
 palette = "catppuccin_mocha"
 # move the rest of the prompt to the right
-right_format = """$all"""
+right_format = ""
 command_timeout = 1000
 
 # Starship modules
@@ -45,11 +45,11 @@ text = "#cdd6f4"
 subtext1 = "#a6adc8"
 subtext0 = "#a6adc8"
 overlay2 = "#314430"
-overlay1 = "#585b70"
+overlay1 = "#3d3d5d"
 overlay0 = "#232e3b"
-surface2 = "#585b70"
-surface1 = "#313244"
+surface2 = "#3d3d5d"
+surface1 = "#26263a"
 surface0 = "#232e3b"
-base = "#1e1e2e"
-mantle = "#585b70"
-crust = "#313244"
+base = "#161622"
+mantle = "#3d3d5d"
+crust = "#1e1e2e"
