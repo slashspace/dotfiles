@@ -1,0 +1,18 @@
+[user]
+  # Set your name and email in ~/.gitconfig.local
+[core]
+  editor = nvim
+  pager = bat --paging=always
+[init]
+  defaultBranch = main
+[pull]
+  rebase = true
+[push]
+  autoSetupRemote = true
+[alias]
+  s = status -s
+  l = log --oneline --graph --all
+  d = diff
+  ds = diff --staged
+[include]
+  path = ~/.gitconfig.local

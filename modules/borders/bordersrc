@@ -1,0 +1,8 @@
+#!/bin/bash
+# JankyBorders configuration
+# Colors are set by the theme system via CLI args when borders is launched
+# See: system/themes/renderers/borders.sh
+DOTFILES_DIR="${DOTFILES_DIR:-$HOME/dotfiles}"
+if [[ -f "$DOTFILES_DIR/system/themes/generated/borders-colors.sh" ]]; then
+  source "$DOTFILES_DIR/system/themes/generated/borders-colors.sh"
+fi

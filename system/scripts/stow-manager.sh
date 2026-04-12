@@ -1,0 +1,121 @@
+#!/usr/bin/env bash
+# Stow package manager with per-package target mapping
+set -euo pipefail
+
+DOTFILES_DIR="${DOTFILES_DIR:-$HOME/dotfiles}"
+
+# shellcheck source=../lib/log.sh
+source "$DOTFILES_DIR/system/lib/log.sh"
+
+# Package registry: "name:target"
+CORE_PACKAGES=(
+  "git:$HOME"
+  "zsh:$HOME"
+  "tmux:$HOME/.config/tmux"
+  "nvim:$HOME/.config/nvim"
+  "starship:$HOME/.config/starship"
+)
+
+MACOS_PACKAGES=(
+  "aerospace:$HOME/.config/aerospace"
+  "ghostty:$HOME/.config/ghostty"
+  "karabiner:$HOME/.config/karabiner"
+  "sketchybar:$HOME/.config/sketchybar"
+  "borders:$HOME/.config/borders"
+  "gitmux:$HOME"
+)
+
+usage() {
+  cat <<'EOF'
+Usage:
+  stow-manager.sh apply --core          Stow all core packages
+  stow-manager.sh apply --modules       Stow all platform modules
+  stow-manager.sh apply --all           Stow everything
+  stow-manager.sh delete --core         Unstow all core packages
+  stow-manager.sh delete --modules      Unstow all platform modules
+  stow-manager.sh delete --all          Unstow everything
+  stow-manager.sh dry-run --core        Preview core stow operations
+  stow-manager.sh dry-run --modules     Preview module stow operations
+  stow-manager.sh dry-run --all         Preview all stow operations
+EOF
+}
+
+_stow_packages() {
+  local action="$1"   # stow or delete
+  local flag="$2"     # -v for dry-run, empty for real
+  local packages=()
+
+  case "$3" in
+    --core)
+      packages=("${CORE_PACKAGES[@]}")
+      ;;
+    --modules)
+      packages=("${MACOS_PACKAGES[@]}")
+      ;;
+    --all)
+      packages=("${CORE_PACKAGES[@]}" "${MACOS_PACKAGES[@]}")
+      ;;
+    *)
+      usage
+      exit 1
+      ;;
+  esac
+
+  for entry in "${packages[@]}"; do
+    local name="${entry%%:*}"
+    local target="${entry#*:}"
+
+    # Determine the stow dir based on which list the package is in
+    local stow_dir=""
+    for c in "${CORE_PACKAGES[@]}"; do
+      if [[ "$c" == "$name:"* ]]; then
+        stow_dir="$DOTFILES_DIR/core"
+        break
+      fi
+    done
+    if [[ -z "$stow_dir" ]]; then
+      stow_dir="$DOTFILES_DIR/modules"
+    fi
+
+    if [[ ! -d "$stow_dir/$name" ]]; then
+      log_warn "Package directory not found: $stow_dir/$name"
+      continue
+    fi
+
+    # Ensure target directory exists
+    mkdir -p "$target"
+
+    local stow_action="-S"
+    if [[ "$action" == "delete" ]]; then
+      stow_action="-D"
+    fi
+
+    log_step "$action $name -> $target"
+    stow --dir="$stow_dir" --target="$target" $stow_action $flag "$name" 2>&1 || true
+  done
+}
+
+if [[ $# -lt 2 ]]; then
+  usage
+  exit 1
+fi
+
+ACTION="$1"
+SCOPE="$2"
+FLAG=""
+
+case "$ACTION" in
+  apply)
+    _stow_packages "stow" "" "$SCOPE"
+    ;;
+  delete)
+    _stow_packages "delete" "" "$SCOPE"
+    ;;
+  dry-run)
+    _stow_packages "stow" "-vn" "$SCOPE"
+    ;;
+  *)
+    usage
+    exit 1
+    ;;
+esac

@@ -1,0 +1,19 @@
+add_newline = false
+format = """$directory$character"""
+right_format = ""
+command_timeout = 1000
+
+[character]
+success_symbol = "[❯](green)"
+error_symbol = "[❯](red)"
+vimcmd_symbol = "[❮](dimmed)"
+
+[git_branch]
+disabled = true
+
+[git_status]
+disabled = true
+
+[directory]
+truncation_length = 4
+style = "bold blue"
