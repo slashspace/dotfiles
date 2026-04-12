@@ -1,6 +1,187 @@
 # dotfiles 使用指南
 
-本文档面向想要使用这套 dotfiles 配置的开发者，详细说明安装流程、日常使用和自定义方式。
+模块化的 macOS 开发环境配置系统。三层架构，统一主题引擎，一键安装。
+
+[English](README.md)
+
+## 目录结构
+
+```
+dotfiles/
+├── core/              跨平台核心工具
+│   ├── git/             Git 配置
+│   ├── zsh/             Shell 配置（zinit）
+│   ├── nvim/            Neovim 配置（lazy.nvim）
+│   ├── tmux/            Tmux 配置
+│   └── starship/        提示符配置
+│
+├── modules/           macOS 平台模块
+│   ├── aerospace/       窗口管理器
+│   ├── ghostty/         终端模拟器
+│   ├── karabiner/       键盘映射
+│   ├── sketchybar/      状态栏
+│   ├── borders/         窗口边框
+│   └── gitmux/          Tmux Git 状态
+│
+└── system/            引擎
+    ├── themes/          主题系统（可选）
+    ├── lib/             共享库与 Zsh 模块
+    ├── scripts/         安装与管理脚本
+    └── packages/        Brewfile 依赖声明
+```
+
+## 架构总览
+
+```mermaid
+flowchart TB
+    subgraph bootstrap ["Bootstrap (system/scripts/bootstrap.sh)"]
+        B1["1. Xcode CLI"]
+        B2["2. Homebrew"]
+        B3["3. Brew Bundle"]
+        B4["4. zinit"]
+        B5["5. Stow core/"]
+        B6["6. Theme apply"]
+        B1 --> B2 --> B3 --> B4 --> B5 --> B6
+    end
+
+    subgraph layers ["三层结构"]
+        direction LR
+        CORE["core/<br/>git · zsh · nvim · tmux · starship"]
+        MODS["modules/<br/>aerospace · ghostty · karabiner<br/>sketchybar · borders · gitmux"]
+        SYS["system/<br/>themes · lib · scripts · packages"]
+    end
+
+    subgraph stow ["Stow 管理"]
+        SM["stow-manager.sh"]
+        SM -->|"--target $HOME"| CORE
+        SM -->|"--target $HOME/.config/..."| MODS
+    end
+
+    subgraph theme ["主题引擎"]
+        direction TB
+        TL["themes/list/*.sh<br/>语义颜色定义"]
+        TR["themes/renderers/<br/>ghostty · starship · sketchybar · tmux · borders"]
+        TG["themes/generated/<br/>工具配置（gitignore）"]
+        CLI["themes/bin/theme<br/>CLI: list · apply · current"]
+        TL --> CLI --> TR --> TG
+    end
+
+    bootstrap --> layers
+    layers --> stow
+    SYS --> theme
+    TG -.->|"source / include"| CORE
+    TG -.->|"source / include"| MODS
+```
+
+## 主题系统流程
+
+```mermaid
+flowchart LR
+    subgraph source ["主题源文件"]
+        T1["darkppuccin.sh"]
+        T2["catppuccin-mocha.sh"]
+        T3["batman.sh"]
+        T4["... 另外 11 个"]
+    end
+
+    subgraph apply ["theme apply <名称>"]
+        S["Source 主题文件<br/>（加载 THEME_* 变量）"]
+        R["运行所有渲染器"]
+        P["持久化到 .current-theme"]
+    end
+
+    subgraph generated ["生成产物（gitignore）"]
+        G1["ghostty-theme"]
+        G2["starship.toml"]
+        G3["sketchybar-colors.sh"]
+        G4["tmux-colors.conf"]
+        G5["borders-colors.sh"]
+    end
+
+    subgraph tools ["工具集成"]
+        GT["Ghostty<br/>config-file = themes/active"]
+        ST["Starship<br/>STARSHIP_CONFIG 环境变量"]
+        SB["SketchyBar<br/>source colors.sh"]
+        TM["Tmux<br/>source-file tmux-colors.conf"]
+        BD["Borders<br/>CLI 参数传入颜色"]
+    end
+
+    source --> S --> R --> P
+    R --> generated
+    G1 --> GT
+    G2 --> ST
+    G3 --> SB
+    G4 --> TM
+    G5 --> BD
+```
+
+## Zsh 启动流程
+
+```mermaid
+flowchart TB
+    ZSHRC[".zshrc"]
+    ZSHENV[".zshenv（PATH, DOTFILES_DIR）"]
+    ZINIT["zinit（插件管理器）"]
+    PLUGINS["插件<br/>zsh-syntax-highlighting<br/>zsh-autosuggestions<br/>jeffreytse/zsh-vi-mode<br/>zsh-completions"]
+
+    subgraph modules ["系统模块"]
+        ALIAS["alias.sh"]
+        HIST["history.sh"]
+        CLR["colors.sh（调色板默认值）"]
+        TOOL["tools.sh（starship, fzf, eza, bat, zoxide）"]
+    end
+
+    LOCAL["~/.zshrc.local（可选）"]
+
+    ZSHRC --> ZSHENV
+    ZSHENV --> ZINIT
+    ZINIT --> PLUGINS
+    PLUGINS --> ALIAS
+    ALIAS --> HIST --> CLR --> TOOL
+    TOOL --> LOCAL
+```
+
+## Stow 包映射
+
+```mermaid
+flowchart LR
+    subgraph core_pkgs ["core/"]
+        direction TB
+        CG["git/.gitconfig"]
+        CZ["zsh/.zshrc .zshenv"]
+        CN["nvim/init.lua lua/..."]
+        CT["tmux/tmux.conf"]
+        CS["starship/starship.toml"]
+    end
+
+    subgraph module_pkgs ["modules/"]
+        direction TB
+        MA["aerospace/aerospace.toml"]
+        MG["ghostty/config themes/ shaders/"]
+        MK["karabiner/karabiner.json assets/"]
+        MS["sketchybar/sketchybarrc items/ plugins/"]
+        MB["borders/bordersrc"]
+        MX["gitmux/.gitmux.conf"]
+    end
+
+    subgraph targets ["目标路径"]
+        T1["$HOME/.gitconfig"]
+        T2["$HOME/.zshrc"]
+        T3["$HOME/.config/nvim/"]
+        T4["$HOME/.config/tmux/"]
+        T5["$HOME/.config/aerospace/"]
+        T6["$HOME/.config/ghostty/"]
+        T7["$HOME/.config/sketchybar/"]
+    end
+
+    CG -->|"--target=$HOME"| T1
+    CZ -->|"--target=$HOME"| T2
+    CN -->|"--target=$HOME/.config/nvim"| T3
+    CT -->|"--target=$HOME/.config/tmux"| T4
+    MA -->|"--target=$HOME/.config/aerospace"| T5
+    MG -->|"--target=$HOME/.config/ghostty"| T6
+    MS -->|"--target=$HOME/.config/sketchybar"| T7
+```
 
 ## 系统要求
 
@@ -84,17 +265,10 @@ exec zsh
 主题系统让你一键切换全局配色，所有工具同步生效。
 
 ```bash
-# 列出所有可用主题
-theme list
-
-# 应用指定主题
-theme apply darkppuccin
-
-# 交互式选择（需要 fzf）
-theme apply
-
-# 查看当前主题
-theme current
+theme list              # 列出所有可用主题
+theme apply darkppuccin # 应用指定主题
+theme apply             # 交互式选择（需要 fzf）
+theme current           # 查看当前主题
 ```
 
 切换主题后，Ghostty、Starship、SketchyBar、Tmux、Borders 会自动刷新。新开的终端也会使用同一主题。
@@ -256,22 +430,25 @@ git clone https://github.com/zdharma-continuum/zinit.git ~/.local/share/zinit/zi
 如果 stow 报告文件冲突，说明目标位置已有非 symlink 文件。手动处理后重试：
 
 ```bash
-# 查看冲突文件
-ls -la ~/.gitconfig
-
-# 备份并删除
 mv ~/.gitconfig ~/.gitconfig.bak
-
-# 重新 stow
 ~/dotfiles/system/scripts/stow-manager.sh apply --core
 ```
 
 ### 主题不生效
-
-确认主题已应用：
 
 ```bash
 theme current
 # 如果显示 (none)
 theme apply darkppuccin
 ```
+
+## 依赖
+
+核心依赖通过 Homebrew 管理，声明在 `system/packages/Brewfile` 中：
+
+| 类别 | 工具 |
+|------|------|
+| 核心 | git, stow, fzf |
+| Shell | starship, zinit, eza, bat, zoxide |
+| 终端 | tmux, gitmux, nvim |
+| 桌面 | aerospace, ghostty, karabiner-elements, sketchybar, borders |
