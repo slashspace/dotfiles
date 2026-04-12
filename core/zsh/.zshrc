@@ -24,7 +24,7 @@ source "${ZINIT_HOME}/zinit.zsh"
 zinit light-mode for \
   zsh-users/zsh-syntax-highlighting \
   zsh-users/zsh-autosuggestions \
-  zsh-vi-mode \
+  jeffreytse/zsh-vi-mode \
   atload"zicompinit; zicdreplay" \
   blockf \
   zsh-users/zsh-completions

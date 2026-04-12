@@ -91,6 +91,7 @@ _stow_packages() {
     fi
 
     log_step "$action $name -> $target"
+
     stow --dir="$stow_dir" --target="$target" $stow_action $flag "$name" 2>&1 || true
   done
 }

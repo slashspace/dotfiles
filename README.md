@@ -1,140 +1,156 @@
 # dotfiles
 
-这个仓库用于统一管理我的 macOS 开发环境配置，核心目标有 3 个：
+一套模块化的 macOS 开发环境配置系统。三层架构，统一主题，一键安装。
 
-- 用 GNU Stow 管理各模块的软链接。
-- 用统一 colorscheme 驱动终端、提示符和状态栏的配色。
-- 围绕 `AeroSpace`、`SketchyBar`、`Ghostty`、`zsh` 组织一套可维护的桌面工作流。
+## 目录结构
 
-## 仓库概览
-
-当前仓库可以分成两类内容：
-
-- Stow package
-  - `aerospace`
-  - `ghostty`
-  - `karabiner`
-  - `tmux`
-  - `nvim`
-  - `sketchybar`
-  - `starship`
-  - `zsh`
-- 支持目录
-  - `support`: 主题源文件、状态文件、辅助脚本和安装脚本
-  - `README.md`: 文档入口
-
-重点说明：
-
-- 只有真正镜像 `$HOME` 目录结构的目录，才应该被当作 Stow package 使用。
-- `support/` 是统一的支持目录，不属于 Stow package。
-- 当前主题链路会从 `support/colorscheme` 生成并刷新 `Ghostty`、`Starship`、`SketchyBar` 的部分配置。
-
-## 模块说明
-
-- `aerospace`: 平铺窗口管理器配置，负责 workspace、窗口布局、应用分配规则；并按 [JankyBorders 官方说明](https://github.com/FelixKratz/JankyBorders#bootstrap-with-aerospace) 在 `after-startup-command` 内联启动 `borders`（焦点描边，无单独 `bordersrc`）。
-- `ghostty`: 终端配置、shader 和活动主题文件。
-- `karabiner`: 键盘映射与复杂规则。
-- `tmux`: 终端多路复用器配置，包含 TPM 插件管理与自定义 session/popup 交互（详见 `tmux/README.md`）。
-- `nvim`: Neovim 配置（`~/.config/nvim`，含 Lua 模块化入口与 lazy.nvim 锁文件；插件本体在 `~/.local/share/nvim`）。
-- `sketchybar`: 菜单栏模块、插件、颜色和 helper。
-- `starship`: Shell prompt 展示配置。
-- `zsh`: shell 启动逻辑、常用 alias、工具初始化、colorscheme 应用入口。
-- `support/colorscheme`: 配色方案源文件、当前激活配色、交互式切换入口。
-- `support/scripts`: 独立工具脚本，例如 fzf / zoxide / git 辅助脚本。
-- `support/zsh`: 供 `zsh` package 调用的辅助脚本与模块。
-
-## 主题流转
-
-当前 colorscheme 的工作链路如下：
-
-```mermaid
-flowchart LR
-  listSh["list/*.sh"]
-  colorschemeSet["colorscheme-set.sh"]
-  activeFile["active-colorscheme.sh"]
-  ghosttyActive["ghostty/themes/active"]
-  starshipToml["starship.toml"]
-  sketchybarReload["sketchybar reload"]
-  listSh --> colorschemeSet --> activeFile --> ghosttyActive --> starshipToml --> sketchybarReload
 ```
-
-`zsh/.zshrc` 会在 shell 启动时读取 `support/colorscheme/colorscheme-vars.sh` 得到当前主题名，并调用 `support/zsh/colorscheme-set.sh`。仅当所选主题与 `active` 不一致时才会重新生成 Ghostty/Starship 并 reload SketchyBar；用 selector 切换主题后会把选择写回 `colorscheme-vars.sh`，因此重开 Ghostty 或新开终端会保持同一主题。仓库路径可通过环境变量 `DOTFILES_DIR` 覆盖（默认 `~/dotfiles`）。
-
-## 依赖清单
-
-这个仓库默认运行在 macOS 上，建议至少具备以下依赖：
-
-- `git`
-- `stow`
-- `zsh`
-- `oh-my-zsh`
-- `fzf`
-- `starship`
-- `eza`
-- `bat`
-- `zoxide`
-- `sketchybar`
-- `tmux`
-- `borders`（`brew install borders`，需 `FelixKratz/formulae` tap，见 Brewfile）
-- `AeroSpace`
-- `Ghostty`
-- `Karabiner-Elements`
-- `jq`
-- `SwitchAudioSource`
-
-其中有些工具是“核心依赖”，有些是“功能增强”：
-
-- 核心依赖：`stow`、`zsh`、`oh-my-zsh`、`fzf`
-- 桌面工作流：`AeroSpace`、`SketchyBar`、`Ghostty`、`Karabiner-Elements`
-- 终端增强：`starship`、`eza`、`bat`、`zoxide`
-- 插件依赖：`jq`、`SwitchAudioSource`
+dotfiles/
+├── core/           跨平台核心工具
+│   ├── git/          Git 配置
+│   ├── zsh/          Shell 配置（zinit 驱动）
+│   ├── nvim/         Neovim 配置（lazy.nvim）
+│   ├── tmux/         Tmux 配置
+│   └── starship/     提示符配置
+│
+├── modules/        macOS 平台模块
+│   ├── aerospace/    窗口管理器
+│   ├── ghostty/      终端模拟器
+│   ├── karabiner/    键盘映射
+│   ├── sketchybar/   状态栏
+│   ├── borders/      窗口边框
+│   └── gitmux/       Tmux Git 状态
+│
+└── system/         引擎代码
+    ├── themes/       主题系统（可选）
+    ├── lib/          共享库与 Zsh 模块
+    ├── scripts/      安装与管理脚本
+    └── packages/     Brewfile 依赖声明
+```
 
 ## 快速开始
 
-**一键初始化**（推荐）：安装 Xcode CLI、Homebrew、`brew bundle` 依赖并执行 stow：
+### 1. 克隆仓库
 
 ```bash
-git clone <your-repo-url> "$HOME/dotfiles"
-cd "$HOME/dotfiles"
-./bootstrap.sh
+git clone <repo-url> ~/dotfiles
 ```
 
-手动分步：先安装依赖后，再 stow（见 [docs/setup.md](docs/setup.md)）：
+### 2. 一键安装核心工具
 
 ```bash
-cd "$HOME/dotfiles"
-bash support/scripts/stow-packages.sh --dry-run
-bash support/scripts/stow-packages.sh --apply
+~/dotfiles/system/scripts/bootstrap.sh
 ```
 
-如果你只想先启用 shell 和终端部分：
+这个脚本会自动：
+- 安装 Xcode CLI Tools（如缺失）
+- 安装 Homebrew（如缺失）
+- 通过 Brewfile 安装所有依赖
+- 安装 zinit（Zsh 插件管理器）
+- Stow 所有核心包（git、zsh、nvim、tmux、starship）
+- 应用 darkppuccin 默认主题
+
+### 3. 安装 macOS 模块（可选）
 
 ```bash
-cd "$HOME/dotfiles"
-stow -nv zsh starship ghostty
-stow zsh starship ghostty
+~/dotfiles/system/scripts/install-modules.sh
 ```
 
-## 文档导航
+安装 AeroSpace、Ghostty、Karabiner、SketchyBar、Borders、gitmux。
 
-- 架构与目录边界：`docs/architecture.md`
-- 安装与初始化（含 Bootstrap、Brewfile、工具链）：`docs/setup.md`
-- Neovim 借鉴笔记（wsdjeg/nvim-config）：[`docs/nvim-inspiration-wsdjeg.md`](docs/nvim-inspiration-wsdjeg.md)
-- colorscheme 系统说明：`support/colorscheme/README.md`
+### 4. 设置 macOS 偏好（可选）
 
-## 当前已知限制
+```bash
+~/dotfiles/system/scripts/macos-defaults.sh
+```
 
-- `support/` 现在承载了辅助脚本与状态文件，后续还会继续收敛生成产物与临时文件边界。
-- 部分主题产物是由脚本生成后写回到仓库中的，容易造成 Git 变更噪音。
-- `SketchyBar` 的 AeroSpace workspace 条已启用（focused/occupied/empty 状态、点击切换），多显示器下仅展示当前显示器上的 workspace。
+配置键盘重复速率、Dock 自动隐藏、Finder 显示隐藏文件等。
 
-## Stow 边界保护
+### 5. 重启 Shell
 
-仓库根目录现在包含 `.stow-local-ignore`，其目的是让误执行 `stow .` 时不要把整个仓库根目录当成一个 package 链接进 `$HOME`。
+```bash
+exec zsh
+```
 
-推荐做法仍然是二选一：
+## 主题系统
 
-- 显式写出 package 名称执行 `stow`
-- 使用 `support/scripts/stow-packages.sh`
+主题系统是可选的——不运行 `theme apply`，所有工具使用各自默认配置。
 
-后续优化会继续围绕这些边界问题展开。
+### 可用命令
+
+```bash
+theme list              # 列出所有主题
+theme current           # 显示当前主题
+theme apply darkppuccin # 应用指定主题
+theme apply             # 交互式选择（fzf）
+```
+
+### 工作原理
+
+1. 每个主题文件定义 29 个语义颜色变量（参考 [Catppuccin](https://catppuccin.com) 命名体系）
+2. 渲染器将语义颜色转换为各工具的配置格式
+3. 生成产物存放在 `system/themes/generated/`（已 gitignore）
+4. 各工具通过 source/include 指向生成产物
+
+### 当前主题列表
+
+darkppuccin · catppuccin-mocha · catppuccin-macchiato · batman · eldritch-colors · linkarzu-colors · linkarzu-new-headings · minty-lemon · pastel-fiambre · pikachu · radioactive-fiambre · retro-phosphor · star-saber · star-saber-dark
+
+### 自定义主题
+
+在 `system/themes/list/` 下创建新的 `.sh` 文件，导出全部 `THEME_*` 变量即可。参考 `system/themes/palette.sh` 中的变量定义。
+
+## Stow 管理
+
+```bash
+# 预览（不实际操作）
+~/dotfiles/system/scripts/stow-manager.sh dry-run --core
+~/dotfiles/system/scripts/stow-manager.sh dry-run --modules
+
+# 安装
+~/dotfiles/system/scripts/stow-manager.sh apply --core
+~/dotfiles/system/scripts/stow-manager.sh apply --modules
+
+# 卸载
+~/dotfiles/system/scripts/stow-manager.sh delete --core
+~/dotfiles/system/scripts/stow-manager.sh delete --modules
+```
+
+## 本地覆盖
+
+- `~/.zshrc.local` — Zsh 本地配置（不纳入 Git）
+- `~/.gitconfig.local` — Git 用户名/邮箱等敏感信息
+
+## Git 配置
+
+共享 Git 配置在 `core/git/.gitconfig`，包含常用 alias 和设置。
+
+在 `~/.gitconfig.local` 中设置个人信息：
+
+```gitconfig
+[user]
+    name = Your Name
+    email = you@example.com
+```
+
+## 依赖
+
+核心依赖通过 Homebrew 管理，声明在 `system/packages/Brewfile` 中：
+
+| 类别 | 工具 |
+|------|------|
+| 核心 | git, stow, fzf |
+| Shell | starship, zinit, eza, bat, zoxide |
+| 终端 | tmux, gitmux, nvim |
+| 桌面 | aerospace, ghostty, karabiner-elements, sketchybar, borders |
+
+## 平台支持
+
+当前仅支持 macOS。架构上预留了 Linux 扩展能力：
+- `system/lib/platform.sh` — 平台检测
+- `system/lib/package.sh` — 包管理抽象（Homebrew / apt / pacman）
+- 后续可在 `modules/` 下新增 `linux/` 模块
+
+## License
+
+MIT
