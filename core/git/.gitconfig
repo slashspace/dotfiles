@@ -1,5 +1,3 @@
-[user]
-  # Set your name and email in ~/.gitconfig.local
 [core]
   editor = nvim
   pager = bat --paging=always
@@ -15,4 +13,5 @@
   d = diff
   ds = diff --staged
 [include]
+  # Set your name and email in ~/.gitconfig.local
   path = ~/.gitconfig.local
