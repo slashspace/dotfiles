@@ -167,22 +167,30 @@ alt-shift-semicolon = 'mode service'
 
 
 ## 回调事件: 获取应用的 app-id 和 app-name 可以执行命令 aerospace list-apps
-# 当打开 finder 时，以浮动方式打开
+
+# 以浮动方式打开
 [[on-window-detected]]
 if.app-id = 'com.apple.finder'
 run = ['layout floating']
 [[on-window-detected]]
+if.app-id = 'com.apple.TextEdit'
+run = ['layout floating']
+[[on-window-detected]]
 if.app-name-regex-substring = 'Shottr'
 run = ['layout floating']
-
-
-# 当打开 FortiClient 时，以浮动方式打开，并移动到工作区 9
 [[on-window-detected]]
 if.app-id = 'com.fortinet.FortiClient '
-run = ['layout floating', 'move-node-to-workspace 8']
+run = ['layout floating']
 [[on-window-detected]]
 if.app-id = 'com.apple.systempreferences'
 run = ['layout floating']
+[[on-window-detected]]
+if.app-id = 'com.apple.reminders'
+run = 'layout floating'
+[[on-window-detected]]
+if.app-name-regex-substring = 'Clash'
+run = 'layout floating'
+
 
 # 当打开 浏览器时，将浏览器移动到工作区 1
 [[on-window-detected]]
@@ -197,22 +205,31 @@ run = "move-node-to-workspace 1"
 [[on-window-detected]]
 if.app-id = 'com.vivaldi.Vivaldi'
 run = "move-node-to-workspace 1"
+[[on-window-detected]]
+if.app-id = 'net.imput.helium'
+run = "move-node-to-workspace 1"
 
-# 当打开 Cursor 时，将 Cursor 移动到工作区 0
+# 当打开 代码编辑器时，移动到工作区 0
 [[on-window-detected]]
 if.app-name-regex-substring = 'Cursor'
 run = "move-node-to-workspace 0"
 [[on-window-detected]]
 if.app-id = 'io.dcloud.HBuilderX'
 run = "move-node-to-workspace 0"
+[[on-window-detected]]
+if.app-id = 'dev.zed.Zed'
+run = "move-node-to-workspace 0"
 
 
-# 当打开 notion 时，将 notion 移动到工作区 2
+# 当打开 笔记软件时，移动到工作区 2
 [[on-window-detected]]
 if.app-id = 'notion.id'
 run = "move-node-to-workspace 2"
 [[on-window-detected]]
 if.app-id = 'md.obsidian'
+run = "move-node-to-workspace 2"
+[[on-window-detected]]
+if.app-id = 'com.apple.Notes'
 run = "move-node-to-workspace 2"
 
 # 当打开 微信 slack Discord 时，将微信移动到工作区 3
@@ -227,12 +244,13 @@ if.app-id = 'com.tinyspeck.slackmacgap'
 run = "move-node-to-workspace 3"
 
 
+# 当打开命令行时，将命令行移动到工作区 9
 [[on-window-detected]]
 if.app-id = 'com.mitchellh.ghostty'
 run = ['move-node-to-workspace 9']
 
 
-# 喜马拉雅
+#
 [[on-window-detected]]
 if.app-id = 'com.gemd.iting'
 run = "move-node-to-workspace 4"
@@ -245,4 +263,3 @@ run = ['move-node-to-workspace 4']
 [[on-window-detected]]
 if.app-id = 'com.jdjr.huangjin'
 run = ['move-node-to-workspace 4']
-
