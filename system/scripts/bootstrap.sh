@@ -35,13 +35,12 @@ fi
 log_info "Installing packages"
 pkg_bundle "$DOTFILES_DIR/system/packages/Brewfile"
 
-# 4. Zinit
-ZINIT_HOME="${HOME}/.local/share/zinit/zinit.git"
-if [[ ! -d "$ZINIT_HOME" ]]; then
-  log_info "Installing zinit"
-  mkdir -p "$(dirname "$ZINIT_HOME")"
-  git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+# 4. Sheldon (plugin manager)
+if ! command -v sheldon &>/dev/null; then
+  log_warn "Sheldon not found. Run 'brew install sheldon' and re-run bootstrap."
 fi
+log_info "Locking Sheldon plugins"
+sheldon lock --update
 
 # 5. Stow core
 log_info "Stowing core packages"

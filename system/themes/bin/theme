@@ -68,12 +68,7 @@ _apply() {
   # 5. Persist current theme name
   echo "$theme_name" > "$CURRENT_FILE"
 
-  # 6. Create ghostty theme symlink (themes/active -> generated/ghostty-theme)
-  local ghostty_themes_dir="$DOTFILES_DIR/modules/ghostty/themes"
-  mkdir -p "$ghostty_themes_dir"
-  ln -sf "$GENERATED_DIR/ghostty-theme" "$ghostty_themes_dir/active"
-
-  # 7. Reload sketchybar
+  # 6. Reload sketchybar
   if command -v sketchybar &>/dev/null; then
     log_step "Reloading sketchybar"
     sketchybar --reload 2>/dev/null || true

@@ -1,5 +1,5 @@
 # ============================================
-# Zsh Configuration — powered by zinit
+# Zsh Configuration — powered by Sheldon
 # ============================================
 
 # --- Environment ---
@@ -12,22 +12,8 @@ export PATH="/opt/homebrew/opt/git/bin:$PATH"
 export PATH="$HOME/Library/pnpm:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 
-# --- Zinit ---
-ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
-if [[ ! -d "$ZINIT_HOME" ]]; then
-  mkdir -p "$(dirname $ZINIT_HOME)"
-  git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
-fi
-source "${ZINIT_HOME}/zinit.zsh"
-
-# --- Plugins ---
-zinit light-mode for \
-  zsh-users/zsh-syntax-highlighting \
-  zsh-users/zsh-autosuggestions \
-  jeffreytse/zsh-vi-mode \
-  atload"zicompinit; zicdreplay" \
-  blockf \
-  zsh-users/zsh-completions
+# --- Sheldon (plugin manager) ---
+eval "$(sheldon source)"
 
 # --- Completion ---
 mkdir -p "${ZSH_COMPDUMP%/*}"

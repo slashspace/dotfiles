@@ -11,6 +11,7 @@ source "$DOTFILES_DIR/system/lib/log.sh"
 CORE_PACKAGES=(
   "git:$HOME"
   "zsh:$HOME"
+  "sheldon:$HOME/.config/sheldon"
   "tmux:$HOME/.config/tmux"
   "nvim:$HOME/.config/nvim"
   "starship:$HOME/.config/starship"

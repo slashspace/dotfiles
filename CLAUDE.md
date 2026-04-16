@@ -36,7 +36,7 @@ brew bundle --file=~/dotfiles/system/packages/Brewfile
 
 | Layer | Purpose | Target |
 |-------|---------|--------|
-| `core/` | Cross-platform essentials (git, zsh, nvim, tmux, starship) | `$HOME` or `$HOME/.config/...` |
+| `core/` | Cross-platform essentials (git, zsh, sheldon, nvim, tmux, starship) | `$HOME` or `$HOME/.config/...` |
 | `modules/` | macOS-specific (aerospace, ghostty, karabiner, sketchybar, borders, gitmux) | `$HOME/.config/...` |
 | `system/` | Engine: themes, shared libs, scripts, packages | N/A |
 
@@ -46,11 +46,11 @@ Each package maps a source directory to a target. Core packages live in `core/`,
 
 ### Theme Engine
 
-Themes in `system/themes/list/*.sh` export 29 `THEME_*` semantic color variables. The `theme apply` command sources a theme, then runs all renderers in `system/themes/renderers/` which write tool-specific configs to `system/themes/generated/` (gitignored). Renderers cover: ghostty, starship, sketchybar, tmux, borders.
+Themes in `system/themes/list/*.sh` export 29 `THEME_*` semantic color variables. The `theme apply` command sources a theme, then runs all renderers in `system/themes/renderers/` which write tool-specific configs to `system/themes/generated/` (gitignored). Renderers cover: starship, sketchybar, tmux, borders.
 
 ### Zsh Startup Chain
 
-`.zshrc` → zinit plugins → `system/lib/modules/` (alias, history, colors, tools) → `~/.zshrc.local`
+`.zshrc` → Sheldon (`eval "$(sheldon source)"`) → `system/lib/modules/` (alias, history, colors, tools) → `~/.zshrc.local`
 
 ### Shared Libraries
 

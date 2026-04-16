@@ -1,0 +1,45 @@
+# ============================================================================
+# Sheldon Plugin Configuration (中文：Sheldon 插件管理配置)
+# ============================================================================
+# Docs: https://sheldon.cli.rs
+# Run `sheldon lock --update` after editing this file.
+
+shell = "zsh"
+
+# Custom templates (中文：自定义模板)
+[templates]
+defer = "{{ hooks?.pre | nl }}{% for file in files %}zsh-defer source \"{{ file }}\"\n{% endfor %}{{ hooks?.post | nl }}"
+
+# --- Deferred loading engine (must be first) ---
+# 延迟加载引擎，必须在最前面
+[plugins.zsh-defer]
+github = "romkatv/zsh-defer"
+
+# --- Vi mode (must load early) ---
+# Vi 模式，必须尽早加载
+[plugins.zsh-vi-mode]
+github = "jeffreytse/zsh-vi-mode"
+
+# --- Extra completions (fpath only, not sourced) ---
+# 额外补全定义，仅添加到 fpath
+[plugins.zsh-completions]
+github = "zsh-users/zsh-completions"
+apply = ["fpath"]
+
+# --- Syntax highlighting (deferred) ---
+# 语法高亮，延迟加载以加快启动速度
+[plugins.zsh-syntax-highlighting]
+github = "zsh-users/zsh-syntax-highlighting"
+apply = ["defer"]
+
+# --- Fish-like autosuggestions (deferred) ---
+# Fish 风格自动建议，延迟加载
+[plugins.zsh-autosuggestions]
+github = "zsh-users/zsh-autosuggestions"
+apply = ["defer"]
+
+# --- Auto-close brackets and quotes (deferred) ---
+# 自动补全括号和引号，延迟加载
+[plugins.zsh-autopair]
+github = "hlissner/zsh-autopair"
+apply = ["defer"]

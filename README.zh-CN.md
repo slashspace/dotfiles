@@ -10,7 +10,8 @@
 dotfiles/
 ├── core/              跨平台核心工具
 │   ├── git/             Git 配置
-│   ├── zsh/             Shell 配置（zinit）
+│   ├── zsh/             Shell 配置（Sheldon）
+│   ├── sheldon/         插件管理器配置
 │   ├── nvim/            Neovim 配置（lazy.nvim）
 │   ├── tmux/            Tmux 配置
 │   └── starship/        提示符配置
@@ -38,7 +39,7 @@ flowchart TB
         B1["1. Xcode CLI"]
         B2["2. Homebrew"]
         B3["3. Brew Bundle"]
-        B4["4. zinit"]
+        B4["4. Sheldon"]
         B5["5. Stow core/"]
         B6["6. Theme apply"]
         B1 --> B2 --> B3 --> B4 --> B5 --> B6
@@ -46,7 +47,7 @@ flowchart TB
 
     subgraph layers ["三层结构"]
         direction LR
-        CORE["core/<br/>git · zsh · nvim · tmux · starship"]
+        CORE["core/<br/>git · zsh · sheldon · nvim · tmux · starship"]
         MODS["modules/<br/>aerospace · ghostty · karabiner<br/>sketchybar · borders · gitmux"]
         SYS["system/<br/>themes · lib · scripts · packages"]
     end
@@ -60,7 +61,7 @@ flowchart TB
     subgraph theme ["主题引擎"]
         direction TB
         TL["themes/list/*.sh<br/>语义颜色定义"]
-        TR["themes/renderers/<br/>ghostty · starship · sketchybar · tmux · borders"]
+        TR["themes/renderers/<br/>starship · sketchybar · tmux · borders"]
         TG["themes/generated/<br/>工具配置（gitignore）"]
         CLI["themes/bin/theme<br/>CLI: list · apply · current"]
         TL --> CLI --> TR --> TG
@@ -91,15 +92,13 @@ flowchart LR
     end
 
     subgraph generated ["生成产物（gitignore）"]
-        G1["ghostty-theme"]
-        G2["starship.toml"]
-        G3["sketchybar-colors.sh"]
-        G4["tmux-colors.conf"]
-        G5["borders-colors.sh"]
+        G1["starship.toml"]
+        G2["sketchybar-colors.sh"]
+        G3["tmux-colors.conf"]
+        G4["borders-colors.sh"]
     end
 
     subgraph tools ["工具集成"]
-        GT["Ghostty<br/>config-file = themes/active"]
         ST["Starship<br/>STARSHIP_CONFIG 环境变量"]
         SB["SketchyBar<br/>source colors.sh"]
         TM["Tmux<br/>source-file tmux-colors.conf"]
@@ -108,11 +107,10 @@ flowchart LR
 
     source --> S --> R --> P
     R --> generated
-    G1 --> GT
-    G2 --> ST
-    G3 --> SB
-    G4 --> TM
-    G5 --> BD
+    G1 --> ST
+    G2 --> SB
+    G3 --> TM
+    G4 --> BD
 ```
 
 ## Zsh 启动流程
@@ -120,9 +118,8 @@ flowchart LR
 ```mermaid
 flowchart TB
     ZSHRC[".zshrc"]
-    ZSHENV[".zshenv（PATH, DOTFILES_DIR）"]
-    ZINIT["zinit（插件管理器）"]
-    PLUGINS["插件<br/>zsh-syntax-highlighting<br/>zsh-autosuggestions<br/>jeffreytse/zsh-vi-mode<br/>zsh-completions"]
+    SHELDON["Sheldon（插件管理器）"]
+    PLUGINS["插件<br/>zsh-vi-mode（同步）<br/>zsh-defer（同步）<br/>zsh-syntax-highlighting（延迟）<br/>zsh-autosuggestions（延迟）<br/>zsh-autopair（延迟）<br/>zsh-completions（fpath）"]
 
     subgraph modules ["系统模块"]
         ALIAS["alias.sh"]
@@ -133,9 +130,8 @@ flowchart TB
 
     LOCAL["~/.zshrc.local（可选）"]
 
-    ZSHRC --> ZSHENV
-    ZSHENV --> ZINIT
-    ZINIT --> PLUGINS
+    ZSHRC --> SHELDON
+    SHELDON --> PLUGINS
     PLUGINS --> ALIAS
     ALIAS --> HIST --> CLR --> TOOL
     TOOL --> LOCAL
@@ -148,7 +144,8 @@ flowchart LR
     subgraph core_pkgs ["core/"]
         direction TB
         CG["git/.gitconfig"]
-        CZ["zsh/.zshrc .zshenv"]
+        CZ["zsh/.zshrc"]
+        CSD["sheldon/plugins.toml"]
         CN["nvim/init.lua lua/..."]
         CT["tmux/tmux.conf"]
         CS["starship/starship.toml"]
@@ -157,7 +154,7 @@ flowchart LR
     subgraph module_pkgs ["modules/"]
         direction TB
         MA["aerospace/aerospace.toml"]
-        MG["ghostty/config themes/ shaders/"]
+        MG["ghostty/config"]
         MK["karabiner/karabiner.json assets/"]
         MS["sketchybar/sketchybarrc items/ plugins/"]
         MB["borders/bordersrc"]
@@ -216,7 +213,7 @@ DOTFILES_DIR="$DOTFILES" "$DOTFILES/system/scripts/bootstrap.sh"
 1. **Xcode CLI Tools** — 检测并安装（如缺失）
 2. **Homebrew** — 检测并安装（如缺失）
 3. **Brew Bundle** — 根据 `system/packages/Brewfile` 安装所有依赖
-4. **zinit** — 安装 Zsh 插件管理器
+4. **Sheldon** — 锁定 Zsh 插件
 5. **Stow 核心包** — 创建 git、zsh、nvim、tmux、starship 的 symlink
 6. **默认主题** — 应用 darkppuccin 主题
 
@@ -232,7 +229,7 @@ DOTFILES_DIR="$DOTFILES" "$DOTFILES/system/scripts/bootstrap.sh"
 
 这会安装以下模块的 symlink：
 - **AeroSpace** — 平铺窗口管理器
-- **Ghostty** — 终端模拟器（含主题和 shader）
+- **Ghostty** — 终端模拟器
 - **Karabiner-Elements** — 键盘映射
 - **SketchyBar** — macOS 状态栏
 - **Borders** — 窗口焦点边框
@@ -256,7 +253,7 @@ DOTFILES_DIR="$DOTFILES" "$DOTFILES/system/scripts/bootstrap.sh"
 exec zsh
 ```
 
-首次启动时 zinit 会自动下载 4 个插件（zsh-syntax-highlighting、zsh-autosuggestions、zsh-vi-mode、zsh-completions）。
+首次启动时 Sheldon 会自动加载所有已锁定的插件。
 
 ## 日常使用
 
@@ -271,7 +268,7 @@ theme apply             # 交互式选择（需要 fzf）
 theme current           # 查看当前主题
 ```
 
-切换主题后，Ghostty、Starship、SketchyBar、Tmux、Borders 会自动刷新。新开的终端也会使用同一主题。
+切换主题后，Starship、SketchyBar、Tmux、Borders 会自动刷新。新开的终端也会使用同一主题。
 
 ### Shell 快捷键
 
@@ -402,8 +399,8 @@ export THEME_CURSOR="#f5e0dc"
 # 删除仓库
 rm -rf ~/dotfiles
 
-# 删除 zinit
-rm -rf ~/.local/share/zinit
+# 删除 Sheldon 数据
+rm -rf ~/.local/share/sheldon
 
 # 删除本地覆盖文件（如果有）
 rm -f ~/.zshrc.local ~/.gitconfig.local
@@ -413,16 +410,10 @@ rm -f ~/.zshrc.local ~/.gitconfig.local
 
 ### Shell 启动报错
 
-检查 zinit 是否安装成功：
+检查 Sheldon 是否已安装并锁定插件：
 
 ```bash
-ls ~/.local/share/zinit/zinit.git/zinit.zsh
-```
-
-如果文件不存在，手动安装：
-
-```bash
-git clone https://github.com/zdharma-continuum/zinit.git ~/.local/share/zinit/zinit.git
+command -v sheldon && sheldon lock --update
 ```
 
 ### Stow 冲突
@@ -449,6 +440,6 @@ theme apply darkppuccin
 | 类别 | 工具 |
 |------|------|
 | 核心 | git, stow, fzf |
-| Shell | starship, zinit, eza, bat, zoxide |
+| Shell | starship, sheldon, eza, bat, zoxide |
 | 终端 | tmux, gitmux, nvim |
 | 桌面 | aerospace, ghostty, karabiner-elements, sketchybar, borders |

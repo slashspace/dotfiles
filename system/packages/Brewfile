@@ -16,6 +16,7 @@ brew "starship"
 brew "eza"
 brew "bat"
 brew "zoxide"
+brew "sheldon"
 
 # Plugins and helpers
 brew "jq"

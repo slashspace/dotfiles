@@ -8,7 +8,8 @@ A modular macOS development environment configuration system. Three-layer archit
 dotfiles/
 ├── core/              Cross-platform essentials
 │   ├── git/             Git config
-│   ├── zsh/             Shell config (zinit)
+│   ├── zsh/             Shell config (Sheldon)
+│   ├── sheldon/         Plugin manager config
 │   ├── nvim/            Neovim config (lazy.nvim)
 │   ├── tmux/            Tmux config
 │   └── starship/        Prompt config
@@ -36,7 +37,7 @@ flowchart TB
         B1["1. Xcode CLI"]
         B2["2. Homebrew"]
         B3["3. Brew Bundle"]
-        B4["4. zinit"]
+        B4["4. Sheldon"]
         B5["5. Stow core/"]
         B6["6. Theme apply"]
         B1 --> B2 --> B3 --> B4 --> B5 --> B6
@@ -44,7 +45,7 @@ flowchart TB
 
     subgraph layers ["Three-Layer Structure"]
         direction LR
-        CORE["core/<br/>git · zsh · nvim · tmux · starship"]
+        CORE["core/<br/>git · zsh · sheldon · nvim · tmux · starship"]
         MODS["modules/<br/>aerospace · ghostty · karabiner<br/>sketchybar · borders · gitmux"]
         SYS["system/<br/>themes · lib · scripts · packages"]
     end
@@ -58,7 +59,7 @@ flowchart TB
     subgraph theme ["Theme Engine"]
         direction TB
         TL["themes/list/*.sh<br/>Semantic color definitions"]
-        TR["themes/renderers/<br/>ghostty · starship · sketchybar · tmux · borders"]
+        TR["themes/renderers/<br/>starship · sketchybar · tmux · borders"]
         TG["themes/generated/<br/>Tool-specific configs (gitignored)"]
         CLI["themes/bin/theme<br/>CLI: list · apply · current"]
         TL --> CLI --> TR --> TG
@@ -89,15 +90,13 @@ flowchart LR
     end
 
     subgraph generated ["Generated (gitignored)"]
-        G1["ghostty-theme"]
-        G2["starship.toml"]
-        G3["sketchybar-colors.sh"]
-        G4["tmux-colors.conf"]
-        G5["borders-colors.sh"]
+        G1["starship.toml"]
+        G2["sketchybar-colors.sh"]
+        G3["tmux-colors.conf"]
+        G4["borders-colors.sh"]
     end
 
     subgraph tools ["Tool Integration"]
-        GT["Ghostty<br/>config-file = themes/active"]
         ST["Starship<br/>STARSHIP_CONFIG env var"]
         SB["SketchyBar<br/>source colors.sh"]
         TM["Tmux<br/>source-file tmux-colors.conf"]
@@ -106,11 +105,10 @@ flowchart LR
 
     source --> S --> R --> P
     R --> generated
-    G1 --> GT
-    G2 --> ST
-    G3 --> SB
-    G4 --> TM
-    G5 --> BD
+    G1 --> ST
+    G2 --> SB
+    G3 --> TM
+    G4 --> BD
 ```
 
 ## Zsh Startup Flow
@@ -118,9 +116,8 @@ flowchart LR
 ```mermaid
 flowchart TB
     ZSHRC[".zshrc"]
-    ZSHENV[".zshenv (PATH, DOTFILES_DIR)"]
-    ZINIT["zinit (plugin manager)"]
-    PLUGINS["Plugins<br/>zsh-syntax-highlighting<br/>zsh-autosuggestions<br/>jeffreytse/zsh-vi-mode<br/>zsh-completions"]
+    SHELDON["Sheldon (plugin manager)"]
+    PLUGINS["Plugins<br/>zsh-vi-mode (sync)<br/>zsh-defer (sync)<br/>zsh-syntax-highlighting (deferred)<br/>zsh-autosuggestions (deferred)<br/>zsh-autopair (deferred)<br/>zsh-completions (fpath)"]
 
     subgraph modules ["System Modules"]
         ALIAS["alias.sh"]
@@ -131,9 +128,8 @@ flowchart TB
 
     LOCAL["~/.zshrc.local (optional)"]
 
-    ZSHRC --> ZSHENV
-    ZSHENV --> ZINIT
-    ZINIT --> PLUGINS
+    ZSHRC --> SHELDON
+    SHELDON --> PLUGINS
     PLUGINS --> ALIAS
     ALIAS --> HIST --> CLR --> TOOL
     TOOL --> LOCAL
@@ -146,7 +142,8 @@ flowchart LR
     subgraph core_pkgs ["core/"]
         direction TB
         CG["git/.gitconfig"]
-        CZ["zsh/.zshrc .zshenv"]
+        CZ["zsh/.zshrc"]
+        CSD["sheldon/plugins.toml"]
         CN["nvim/init.lua lua/..."]
         CT["tmux/tmux.conf"]
         CS["starship/starship.toml"]
@@ -155,7 +152,7 @@ flowchart LR
     subgraph module_pkgs ["modules/"]
         direction TB
         MA["aerospace/aerospace.toml"]
-        MG["ghostty/config themes/ shaders/"]
+        MG["ghostty/config"]
         MK["karabiner/karabiner.json assets/"]
         MS["sketchybar/sketchybarrc items/ plugins/"]
         MB["borders/bordersrc"]
@@ -195,7 +192,7 @@ git clone <repo-url> ~/dotfiles
 ~/dotfiles/system/scripts/bootstrap.sh
 ```
 
-Automatically: Xcode CLI → Homebrew → Brew Bundle → zinit → Stow core → Apply default theme.
+Automatically: Xcode CLI → Homebrew → Brew Bundle → Sheldon lock → Stow core → Apply default theme.
 
 ### 3. macOS Modules (optional)
 
@@ -264,7 +261,7 @@ Managed via Homebrew, declared in `system/packages/Brewfile`:
 | Category | Tools |
 |----------|-------|
 | Core | git, stow, fzf |
-| Shell | starship, zinit, eza, bat, zoxide |
+| Shell | starship, sheldon, eza, bat, zoxide |
 | Terminal | tmux, gitmux, nvim |
 | Desktop | aerospace, ghostty, karabiner-elements, sketchybar, borders |
 

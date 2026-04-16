@@ -28,3 +28,5 @@ setopt incappendhistory
 setopt histignoredups
 # Exclude commands that start with a space(中文：忽略以空格开头的命令，可用于隐藏敏感命令(如密码))
 setopt histignorespace
+# Automatically cd when typing a directory name(中文：输入目录名时自动切换到该目录，如输入 ~ 回车即进入 home)
+setopt autocd
