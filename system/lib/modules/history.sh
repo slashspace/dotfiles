@@ -30,3 +30,11 @@ setopt histignoredups
 setopt histignorespace
 # Automatically cd when typing a directory name(中文：输入目录名时自动切换到该目录，如输入 ~ 回车即进入 home)
 setopt autocd
+
+# Prefix-based history search with up/down arrows
+# 中文：按上/下箭头根据当前输入的前缀搜索历史命令
+autoload -Uz history-search-end
+zle -N history-beginning-search-backward-end history-search-end
+zle -N history-beginning-search-forward-end history-search-end
+bindkey '^[[A' history-beginning-search-backward-end
+bindkey '^[[B' history-beginning-search-forward-end

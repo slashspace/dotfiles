@@ -19,7 +19,7 @@ if command -v fzf &>/dev/null; then
   export FZF_COMPLETION_TRIGGER='::'
   export FZF_DEFAULT_OPTS='--color=fg:#ebfafa,bg:#09090d,hl:#37f499 --color=fg+:#ebfafa,bg+:#0D1116,hl+:#37f499 --color=info:#04d1f9,prompt:#04d1f9,pointer:#7081d0 --color=marker:#7081d0,spinner:#f7c67f,header:#323449'
   alias f='fzf'
-  alias fh="history | sed -E 's/^[[:space:]]*[0-9]+[[:space:]]+//' | fzf"
+  alias fh="history 1 | sed -E 's/^[[:space:]]*[0-9]+[[:space:]]+//' | fzf"
   alias fman="compgen -c | fzf | xargs man"
   alias nlof="$DOTFILES_DIR/system/lib/scripts/fzf_listoldfiles.sh"
   alias nvimf="$DOTFILES_DIR/system/lib/scripts/zoxide_openfiles_nvim.sh"
