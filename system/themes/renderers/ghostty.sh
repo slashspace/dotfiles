@@ -4,7 +4,8 @@
 
 set -euo pipefail
 
-GHOSTTY_CONFIG="$HOME/.config/ghostty/config"
+# Modify the source config directly (not through symlink)
+GHOSTTY_CONFIG="${DOTFILES_DIR}/modules/ghostty/config"
 
 if [[ ! -f "$GHOSTTY_CONFIG" ]]; then
   echo "Ghostty config not found: $GHOSTTY_CONFIG" >&2
@@ -31,7 +32,6 @@ esac
 if grep -q "^theme\s*=" "$GHOSTTY_CONFIG" 2>/dev/null; then
   sed -i '' "s|^theme\s*=.*|theme = $ghostty_theme|" "$GHOSTTY_CONFIG"
 else
-  # If no theme line exists, add one at the top
   sed -i '' "1i\\
 theme = $ghostty_theme" "$GHOSTTY_CONFIG"
 fi
