@@ -77,10 +77,10 @@ flowchart TB
 ```mermaid
 flowchart LR
     subgraph source ["Source"]
-        T1["darkppuccin.sh"]
-        T2["catppuccin-mocha.sh"]
-        T3["batman.sh"]
-        T4["... 11 more"]
+        T1["catppuccin-mocha.sh"]
+        T2["dracula.sh"]
+        T3["tokyo-night.sh"]
+        T4["... 9 more"]
     end
 
     subgraph apply ["theme apply <name>"]
@@ -206,9 +206,10 @@ Automatically: Xcode CLI → Homebrew → Brew Bundle → Sheldon lock → Stow 
 ~/dotfiles/system/scripts/macos-defaults.sh
 ```
 
-### 5. Restart Shell
+### 5. Verify & Restart
 
 ```bash
+~/dotfiles/system/scripts/doctor.sh  # Check everything is working
 exec zsh
 ```
 
@@ -227,11 +228,19 @@ Each theme defines 29 semantic color variables (inspired by [Catppuccin](https:/
 
 ### Available Themes
 
-darkppuccin · catppuccin-mocha · catppuccin-macchiato · batman · eldritch-colors · linkarzu-colors · linkarzu-new-headings · minty-lemon · pastel-fiambre · pikachu · radioactive-fiambre · retro-phosphor · star-saber · star-saber-dark
+catppuccin-mocha · catppuccin-macchiato · dracula · gruvbox-dark · tokyo-night · kanagawa · nord · rose-pine · everforest · solarized-dark · retro-phosphor
 
 ### Custom Theme
 
 Create a `.sh` file in `system/themes/list/` exporting all `THEME_*` variables. See `system/themes/palette.sh` for the full variable list.
+
+## Health Check
+
+```bash
+~/dotfiles/system/scripts/doctor.sh
+```
+
+Checks: dependencies, config files, theme status, known references.
 
 ## Stow Management
 
@@ -264,6 +273,7 @@ Managed via Homebrew, declared in `system/packages/Brewfile`:
 | Shell | starship, sheldon, eza, bat, zoxide |
 | Terminal | tmux, gitmux, nvim |
 | Desktop | aerospace, ghostty, karabiner-elements, sketchybar, borders |
+| Dev tools | shellcheck, shfmt |
 
 ## Platform Support
 

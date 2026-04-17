@@ -79,10 +79,10 @@ flowchart TB
 ```mermaid
 flowchart LR
     subgraph source ["主题源文件"]
-        T1["darkppuccin.sh"]
-        T2["catppuccin-mocha.sh"]
-        T3["batman.sh"]
-        T4["... 另外 11 个"]
+        T1["catppuccin-mocha.sh"]
+        T2["dracula.sh"]
+        T3["tokyo-night.sh"]
+        T4["... 另外 9 个"]
     end
 
     subgraph apply ["theme apply <名称>"]
@@ -374,6 +374,14 @@ export THEME_CURSOR="#f5e0dc"
 
 然后运行 `theme apply my-theme`。
 
+## 健康检查
+
+```bash
+~/dotfiles/system/scripts/doctor.sh
+```
+
+检查项目：依赖安装、配置文件存在性、主题状态、已知引用有效性。
+
 ### 管理 Stow 包
 
 ```bash
@@ -443,3 +451,4 @@ theme apply darkppuccin
 | Shell | starship, sheldon, eza, bat, zoxide |
 | 终端 | tmux, gitmux, nvim |
 | 桌面 | aerospace, ghostty, karabiner-elements, sketchybar, borders |
+| 开发工具 | shellcheck, shfmt |
