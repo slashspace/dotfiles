@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # Terminal ANSI colors (theme-independent)
 boldGreen="\033[1;32m"
 boldYellow="\033[1;33m"

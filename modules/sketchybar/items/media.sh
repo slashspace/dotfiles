@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 media=(
   icon.background.drawing=on
   icon.background.image=media.artwork

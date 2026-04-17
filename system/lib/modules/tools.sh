@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 DOTFILES_DIR="${DOTFILES_DIR:-$HOME/dotfiles}"
 
 # Starship
