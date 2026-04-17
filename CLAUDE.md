@@ -44,7 +44,7 @@ Each package maps a source directory to a target. Core packages live in `core/`,
 
 ### Theme Engine
 
-Themes in `system/themes/list/*.sh` export 29 `THEME_*` semantic color variables. The `dotfiles theme apply` command sources a theme, then runs all renderers in `system/themes/renderers/` which write tool-specific configs to `system/themes/generated/` (gitignored). Renderers cover: starship, sketchybar, tmux, borders.
+Themes in `system/themes/list/*.sh` export 29 `THEME_*` semantic color variables. The `dotfiles theme apply` command sources a theme, then runs all renderers in `system/themes/renderers/` which write tool-specific configs to `system/themes/generated/` (gitignored). Renderers cover: starship, sketchybar, tmux, borders, ghostty. The ghostty renderer writes to `modules/ghostty/themes/my-theme` instead of `system/themes/generated/`.
 
 ### Zsh Startup Chain
 

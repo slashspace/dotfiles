@@ -49,14 +49,8 @@ _apply() {
 
   # 3. Run all renderers
   for renderer in "$THEMES_DIR"/renderers/*.sh; do
-    log_step "Running renderer: $(basename "$renderer")"
     "$renderer"
   done
-
-  # 4. Run borders renderer with --apply to restart borders process
-  if [[ -f "$THEMES_DIR/renderers/borders.sh" ]]; then
-    "$THEMES_DIR/renderers/borders.sh" --apply
-  fi
 
   # 5. Persist current theme name
   echo "$theme_name" > "$CURRENT_FILE"

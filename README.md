@@ -59,7 +59,7 @@ flowchart TB
     subgraph theme ["Theme Engine"]
         direction TB
         TL["themes/list/*.sh<br/>Semantic color definitions"]
-        TR["themes/renderers/<br/>starship · sketchybar · tmux · borders"]
+        TR["themes/renderers/<br/>starship · sketchybar · tmux · borders · ghostty"]
         TG["themes/generated/<br/>Tool-specific configs (gitignored)"]
         CLI["dotfiles theme<br/>CLI: list · apply · select · current"]
         TL --> CLI --> TR --> TG
@@ -94,6 +94,7 @@ flowchart LR
         G2["sketchybar-colors.sh"]
         G3["tmux-colors.conf"]
         G4["borders-colors.sh"]
+        G5["ghostty/my-theme"]
     end
 
     subgraph tools ["Tool Integration"]
@@ -101,6 +102,7 @@ flowchart LR
         SB["SketchyBar<br/>source colors.sh"]
         TM["Tmux<br/>source-file tmux-colors.conf"]
         BD["Borders<br/>CLI args from colors"]
+        GT["Ghostty<br/>theme = my-theme"]
     end
 
     source --> S --> R --> P
@@ -109,6 +111,7 @@ flowchart LR
     G2 --> SB
     G3 --> TM
     G4 --> BD
+    G5 --> GT
 ```
 
 ## Zsh Startup Flow

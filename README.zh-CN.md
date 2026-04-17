@@ -61,7 +61,7 @@ flowchart TB
     subgraph theme ["主题引擎"]
         direction TB
         TL["themes/list/*.sh<br/>语义颜色定义"]
-        TR["themes/renderers/<br/>starship · sketchybar · tmux · borders"]
+        TR["themes/renderers/<br/>starship · sketchybar · tmux · borders · ghostty"]
         TG["themes/generated/<br/>工具配置（gitignore）"]
         CLI["dotfiles theme<br/>CLI: list · apply · select · current"]
         TL --> CLI --> TR --> TG
@@ -96,6 +96,7 @@ flowchart LR
         G2["sketchybar-colors.sh"]
         G3["tmux-colors.conf"]
         G4["borders-colors.sh"]
+        G5["ghostty/my-theme"]
     end
 
     subgraph tools ["工具集成"]
@@ -103,6 +104,7 @@ flowchart LR
         SB["SketchyBar<br/>source colors.sh"]
         TM["Tmux<br/>source-file tmux-colors.conf"]
         BD["Borders<br/>CLI 参数传入颜色"]
+        GT["Ghostty<br/>theme = my-theme"]
     end
 
     source --> S --> R --> P
@@ -111,6 +113,7 @@ flowchart LR
     G2 --> SB
     G3 --> TM
     G4 --> BD
+    G5 --> GT
 ```
 
 ## Zsh 启动流程
