@@ -15,6 +15,7 @@
 [include]
   # Set your name and email in ~/.gitconfig.local
   path = ~/.gitconfig.local
-[user]
-	name = dingsheng
-	email = dingsheng1214@gmail.com
+# Set your name and email in ~/.gitconfig.local (not tracked):
+# [user]
+#   name = Your Name
+#   email = your@email.com
