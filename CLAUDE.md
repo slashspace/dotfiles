@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with th
 
 ## Overview
 
-macOS dotfiles managed with **GNU Stow** for symlink management and a custom **theme engine** with semantic color variables. Three-layer architecture: `core/` (cross-platform essentials), `modules/` (macOS-specific), `system/` (engine/libs/scripts).
+macOS dotfiles managed with **GNU Stow** for symlink management and a custom **theme engine** with semantic color variables. Three-layer architecture: `core/` (cross-platform essentials), `modules/` (macOS-specific), `system/` (engine/libs/bin/).
 
 ## Key Commands
 

@@ -8,14 +8,9 @@
 [push]
   autoSetupRemote = true
 [alias]
-  s = status -s
   l = log --oneline --graph --all
   d = diff
   ds = diff --staged
 [include]
   # Set your name and email in ~/.gitconfig.local
   path = ~/.gitconfig.local
-# Set your name and email in ~/.gitconfig.local (not tracked):
-# [user]
-#   name = Your Name
-#   email = your@email.com
