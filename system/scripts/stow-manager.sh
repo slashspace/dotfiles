@@ -45,6 +45,7 @@ _stow_packages() {
   local action="$1"   # stow or delete
   local flag="$2"     # -v for dry-run, empty for real
   local packages=()
+  local failed=0
 
   case "$3" in
     --core)
@@ -93,8 +94,17 @@ _stow_packages() {
 
     log_step "$action $name -> $target"
 
-    stow --dir="$stow_dir" --target="$target" $stow_action $flag "$name" 2>&1 || true
+    local output
+    if ! output=$(stow --dir="$stow_dir" --target="$target" $stow_action $flag "$name" 2>&1); then
+      log_error "Failed to $action $name: $output"
+      failed=1
+    fi
   done
+
+  if [[ $failed -ne 0 ]]; then
+    log_error "One or more packages failed to $action"
+    return 1
+  fi
 }
 
 if [[ $# -lt 2 ]]; then
