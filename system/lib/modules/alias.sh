@@ -12,7 +12,7 @@ alias ...='cd ../../'
 
 # Git alias
 alias ga="git add ."
-alias gs="git status"
+alias gss='git status -s'
 alias gc='git commit -m'
 alias glog='git log --oneline --graph --all'
 

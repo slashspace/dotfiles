@@ -17,7 +17,7 @@ PADDINGS=1
 # Setting up and starting the helper process (export colors so helper gets theme)
 export RED ORANGE YELLOW LABEL_COLOR WHITE
 HELPER=git.felix.helper
-killall helper
+pkill -f "$CONFIG_DIR/helper/helper" 2>/dev/null || true
 (cd $CONFIG_DIR/helper && make)
 $CONFIG_DIR/helper/helper $HELPER >/dev/null 2>&1 &
 
