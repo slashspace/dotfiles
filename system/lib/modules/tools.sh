@@ -19,7 +19,20 @@ if command -v fzf &>/dev/null; then
     --preview 'bat -n --color=always {}'
     --bind 'ctrl-/:change-preview-window(down|hidden|)'"
   export FZF_COMPLETION_TRIGGER='::'
-  export FZF_DEFAULT_OPTS='--color=fg:#ebfafa,bg:#09090d,hl:#37f499 --color=fg+:#ebfafa,bg+:#0D1116,hl+:#37f499 --color=info:#04d1f9,prompt:#04d1f9,pointer:#7081d0 --color=marker:#7081d0,spinner:#f7c67f,header:#323449'
+  # FZF colors derived from theme palette (fall back to defaults when no theme active)
+  _fg="${THEME_TEXT:-#ffffff}"
+  _bg="${THEME_BASE:-#0D1116}"
+  _green="${THEME_GREEN:-#37f499}"
+  _red="${THEME_RED:-#f16c75}"
+  _yellow="${THEME_YELLOW:-#f5c542}"
+  _muted="${THEME_OVERLAY0:-#6b7a8d}"
+  export FZF_DEFAULT_OPTS=" \
+    --color=fg:${_fg},bg:${_bg},hl:${_green} \
+    --color=fg+:${_fg},bg+:${_bg},hl+:${_green} \
+    --color=info:${_muted},prompt:${_red},pointer:${_yellow} \
+    --color=marker:${_muted},spinner:${_yellow},header:${_yellow} \
+    --height=90% --reverse --border=rounded --padding=1 \
+    --bind=ctrl-j:down,ctrl-k:up"
   alias f='fzf'
   alias fh="history 1 | sed -E 's/^[[:space:]]*[0-9]+[[:space:]]+//' | fzf"
   alias fman="compgen -c | fzf | xargs man"
