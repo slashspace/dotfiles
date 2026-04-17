@@ -75,8 +75,8 @@ on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 # 'main' binding mode must be always presented
 [mode.main.binding]
   # 切换显示模式: tiles(平铺)|accordion(手风琴)；随后刷新 sketchybar 布局指示（布局变化不会触发 exec-on-workspace-change）
-  alt-slash = ['layout tiles horizontal vertical', 'exec-and-forget /Users/dingsheng/dotfiles/sketchybar/.config/sketchybar/plugins/trigger_workspace_sketchybar.sh']
-  alt-comma = ['layout accordion horizontal vertical', 'exec-and-forget /Users/dingsheng/dotfiles/sketchybar/.config/sketchybar/plugins/trigger_workspace_sketchybar.sh']
+  alt-slash = ['layout tiles horizontal vertical', 'exec-and-forget /Users/dingsheng/dotfiles/modules/sketchybar/plugins/trigger_workspace_sketchybar.sh']
+  alt-comma = ['layout accordion horizontal vertical', 'exec-and-forget /Users/dingsheng/dotfiles/modules/sketchybar/plugins/trigger_workspace_sketchybar.sh']
 
   # 聚焦到 h(左)|j(下)|k(上)|l(右)
   alt-h = 'focus left'
@@ -188,8 +188,19 @@ run = ['layout floating']
 if.app-id = 'com.apple.reminders'
 run = 'layout floating'
 [[on-window-detected]]
+if.app-id = 'com.parallels.macvm'
+run = 'layout floating'
+[[on-window-detected]]
 if.app-name-regex-substring = 'Clash'
 run = 'layout floating'
+
+# 当打开 代码编辑器时，移动到工作区 0
+[[on-window-detected]]
+if.app-name-regex-substring = 'Cursor'
+run = "move-node-to-workspace 0"
+[[on-window-detected]]
+if.app-id = 'dev.zed.Zed'
+run = "move-node-to-workspace 0"
 
 
 # 当打开 浏览器时，将浏览器移动到工作区 1
@@ -203,22 +214,8 @@ run = "move-node-to-workspace 1"
 if.app-id = 'org.mozilla.firefox'
 run = "move-node-to-workspace 1"
 [[on-window-detected]]
-if.app-id = 'com.vivaldi.Vivaldi'
-run = "move-node-to-workspace 1"
-[[on-window-detected]]
 if.app-id = 'net.imput.helium'
 run = "move-node-to-workspace 1"
-
-# 当打开 代码编辑器时，移动到工作区 0
-[[on-window-detected]]
-if.app-name-regex-substring = 'Cursor'
-run = "move-node-to-workspace 0"
-[[on-window-detected]]
-if.app-id = 'io.dcloud.HBuilderX'
-run = "move-node-to-workspace 0"
-[[on-window-detected]]
-if.app-id = 'dev.zed.Zed'
-run = "move-node-to-workspace 0"
 
 
 # 当打开 笔记软件时，移动到工作区 2
@@ -232,7 +229,7 @@ run = "move-node-to-workspace 2"
 if.app-id = 'com.apple.Notes'
 run = "move-node-to-workspace 2"
 
-# 当打开 微信 slack Discord 时，将微信移动到工作区 3
+# 当打开聊天软件时， 移动到工作区 3
 [[on-window-detected]]
 if.app-id = 'com.tencent.xinWeChat'
 run = "move-node-to-workspace 3"
@@ -242,6 +239,9 @@ run = "move-node-to-workspace 3"
 [[on-window-detected]]
 if.app-id = 'com.tinyspeck.slackmacgap'
 run = "move-node-to-workspace 3"
+[[on-window-detected]]
+if.app-id = 'com.microsoft.teams2'
+run = "move-node-to-workspace 3"
 
 
 # 当打开命令行时，将命令行移动到工作区 9
@@ -250,7 +250,7 @@ if.app-id = 'com.mitchellh.ghostty'
 run = ['move-node-to-workspace 9']
 
 
-#
+# 杂项
 [[on-window-detected]]
 if.app-id = 'com.gemd.iting'
 run = "move-node-to-workspace 4"
