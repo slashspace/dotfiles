@@ -3,10 +3,8 @@
 DOTFILES_DIR="${DOTFILES_DIR:-$HOME/dotfiles}"
 if command -v dotfiles &>/dev/null; then
   exec dotfiles theme "$@"
-elif [[ -x "$HOME/.local/bin/dotfiles" ]]; then
-  exec "$HOME/.local/bin/dotfiles" theme "$@"
-elif [[ -x "$DOTFILES_DIR/core/bin/dotfiles" ]]; then
-  exec "$DOTFILES_DIR/core/bin/dotfiles" theme "$@"
+elif [[ -x "$DOTFILES_DIR/system/bin/dotfiles" ]]; then
+  exec "$DOTFILES_DIR/system/bin/dotfiles" theme "$@"
 else
   echo "Error: 'dotfiles' CLI not found. Please run 'dotfiles stow apply --core'." >&2
   exit 1

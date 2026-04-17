@@ -4,7 +4,7 @@ set -euo pipefail
 
 DOTFILES_DIR="${DOTFILES_DIR:-$HOME/dotfiles}"
 
-# shellcheck source=../lib/log.sh
+# shellcheck source=../../system/lib/log.sh
 source "$DOTFILES_DIR/system/lib/log.sh"
 
 # Package registry: "name:target"
@@ -68,16 +68,20 @@ _stow_packages() {
     local name="${entry%%:*}"
     local target="${entry#*:}"
 
-    # Determine the stow dir based on which list the package is in
+    # Determine the stow dir based on which package this is
     local stow_dir=""
-    for c in "${CORE_PACKAGES[@]}"; do
-      if [[ "$c" == "$name:"* ]]; then
-        stow_dir="$DOTFILES_DIR/core"
-        break
+    if [[ "$name" == "bin" ]]; then
+      stow_dir="$DOTFILES_DIR/system"
+    else
+      for c in "${CORE_PACKAGES[@]}"; do
+        if [[ "$c" == "$name:"* ]]; then
+          stow_dir="$DOTFILES_DIR/core"
+          break
+        fi
+      done
+      if [[ -z "$stow_dir" ]]; then
+        stow_dir="$DOTFILES_DIR/modules"
       fi
-    done
-    if [[ -z "$stow_dir" ]]; then
-      stow_dir="$DOTFILES_DIR/modules"
     fi
 
     if [[ ! -d "$stow_dir/$name" ]]; then
