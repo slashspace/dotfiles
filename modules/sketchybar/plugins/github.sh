@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# Filename: ~/dotfiles/sketchybar/felixkratz/plugins/github.sh
 
 update() {
   source "$CONFIG_DIR/colors.sh"

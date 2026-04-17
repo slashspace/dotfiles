@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# Filename: ~/dotfiles/sketchybar/felixkratz/plugins/volume_click.sh
 
 WIDTH=100
 

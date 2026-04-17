@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Script to find every single file and opens in neovim
-# alias set as nzo in .zshrc
+# alias set as nvimf in tools.sh
 search_with_zoxide() {
 	if [ -z "$1" ]; then
 		# use fd with fzf to select & open a file when no arg are provided

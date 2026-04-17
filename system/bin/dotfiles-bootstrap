@@ -56,7 +56,7 @@ log_info "Stowing core packages"
 # 6. Apply default theme
 log_info "Applying default theme"
 if command -v dotfiles &>/dev/null; then
-  dotfiles theme select catppuccin-mocha 2>/dev/null || true
+  dotfiles theme apply catppuccin-mocha 2>/dev/null || true
 else
   "$DOTFILES_DIR/system/themes/bin/theme" apply catppuccin-mocha 2>/dev/null || true
 fi

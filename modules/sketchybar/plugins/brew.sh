@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# Filename: ~/dotfiles/sketchybar/felixkratz-linkarzu/plugins/brew.sh
 
 source "$CONFIG_DIR/colors.sh"
 

@@ -27,7 +27,6 @@ source "$DOTFILES_DIR/system/lib/modules/tools.sh"
 
 # --- Theme (optional) ---
 # If a theme has been applied, the starship config points to the generated file
-# No need to run colorscheme-set.sh on every shell startup anymore
 
 # --- Local overrides ---
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local

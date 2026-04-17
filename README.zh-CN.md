@@ -28,7 +28,6 @@ dotfiles/
     ├── bin/             CLI 入口（dotfiles, dotfiles-theme, ...）
     ├── themes/          主题系统（可选）
     ├── lib/             共享库与 Zsh 模块
-    ├── scripts/         兼容性包装脚本
     └── packages/        Brewfile 依赖声明
 ```
 
@@ -50,7 +49,7 @@ flowchart TB
         direction LR
         CORE["core/<br/>git · zsh · sheldon · nvim · tmux · starship"]
         MODS["modules/<br/>aerospace · ghostty · karabiner<br/>sketchybar · borders · gitmux"]
-        SYS["system/<br/>themes · lib · scripts · packages"]
+        SYS["system/<br/>themes · lib · bin · packages"]
     end
 
     subgraph stow ["Stow 管理"]
@@ -162,7 +161,13 @@ flowchart LR
         MX["gitmux/.gitmux.conf"]
     end
 
+    subgraph system_pkgs ["system/"]
+        direction TB
+        CB["bin/ (dotfiles CLI)"]
+    end
+
     subgraph targets ["目标路径"]
+        direction TB
         T1["$HOME/.gitconfig"]
         T2["$HOME/.zshrc"]
         T3["$HOME/.config/nvim/"]
@@ -170,6 +175,7 @@ flowchart LR
         T5["$HOME/.config/aerospace/"]
         T6["$HOME/.config/ghostty/"]
         T7["$HOME/.config/sketchybar/"]
+        T8["$HOME/.local/bin/ (CLI)"]
     end
 
     CG -->|"--target=$HOME"| T1
@@ -179,6 +185,7 @@ flowchart LR
     MA -->|"--target=$HOME/.config/aerospace"| T5
     MG -->|"--target=$HOME/.config/ghostty"| T6
     MS -->|"--target=$HOME/.config/sketchybar"| T7
+    CB -->|"--target=$HOME/.local/bin"| T8
 ```
 
 ## 系统要求

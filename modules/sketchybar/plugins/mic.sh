@@ -3,8 +3,6 @@
 # 麦克风插件 using switchaudio-osx to get the device nam
 # brew install switchaudio-osx
 
-# Filename: ~/dotfiles/sketchybar/felixkratz-linkarzu/plugins/mic.sh
-# ~/dotfiles/sketchybar/felixkratz-linkarzu/plugins/mic.sh
 
 # https://github.com/FelixKratz/SketchyBar/discussions/12#discussioncomment-1216899
 

@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# Filename: ~/dotfiles/sketchybar/felixkratz-linkarzu/plugins/zen.sh
-# ~/dotfiles/sketchybar/felixkratz-linkarzu/plugins/zen.sh
 
 zen_on() {
   sketchybar --set apple.logo drawing=on \

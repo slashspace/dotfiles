@@ -14,8 +14,6 @@ after-login-command = []
 # https://github.com/FelixKratz/JankyBorders#bootstrap-with-aerospace — 使用绝对路径：回调里 PATH 可能为空
 after-startup-command = [
   'exec-and-forget /opt/homebrew/bin/sketchybar',
-  # borders: active_color follows active colorscheme (linkarzu_color02 / GREEN)
-  # 'exec-and-forget /bin/bash /Users/dingsheng/dotfiles/support/borders/apply-from-colorscheme.sh',
 ]
 
 

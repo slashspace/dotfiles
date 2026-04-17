@@ -26,7 +26,6 @@ dotfiles/
     ├── bin/             CLI entry point (dotfiles, dotfiles-theme, ...)
     ├── themes/          Theme system (optional)
     ├── lib/             Shared libs & Zsh modules
-    ├── scripts/         Compatibility wrappers
     └── packages/        Brewfile dependency manifest
 ```
 
@@ -48,7 +47,7 @@ flowchart TB
         direction LR
         CORE["core/<br/>git · zsh · sheldon · nvim · tmux · starship"]
         MODS["modules/<br/>aerospace · ghostty · karabiner<br/>sketchybar · borders · gitmux"]
-        SYS["system/<br/>themes · lib · scripts · packages"]
+        SYS["system/<br/>themes · lib · bin · packages"]
     end
 
     subgraph stow ["Stow Manager"]
@@ -160,7 +159,13 @@ flowchart LR
         MX["gitmux/.gitmux.conf"]
     end
 
+    subgraph system_pkgs ["system/"]
+        direction TB
+        CB["bin/ (dotfiles CLI)"]
+    end
+
     subgraph targets ["~ (Home)"]
+        direction TB
         T1["$HOME/.gitconfig"]
         T2["$HOME/.zshrc"]
         T3["$HOME/.config/nvim/"]
@@ -168,6 +173,7 @@ flowchart LR
         T5["$HOME/.config/aerospace/"]
         T6["$HOME/.config/ghostty/"]
         T7["$HOME/.config/sketchybar/"]
+        T8["$HOME/.local/bin/ (CLI)"]
     end
 
     CG -->|"stow --target=$HOME"| T1
@@ -177,6 +183,7 @@ flowchart LR
     MA -->|"stow --target=$HOME/.config/aerospace"| T5
     MG -->|"stow --target=$HOME/.config/ghostty"| T6
     MS -->|"stow --target=$HOME/.config/sketchybar"| T7
+    CB -->|"stow --target=$HOME/.local/bin"| T8
 ```
 
 ## Quick Start
