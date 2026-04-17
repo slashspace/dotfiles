@@ -14,7 +14,7 @@ check() {
   shift
   if "$@" &>/dev/null; then
     log_info "✓ $desc"
-    ((passed++)) || true || true
+    ((passed++)) || true
   else
     log_error "✗ $desc"
     ((failed++)) || true

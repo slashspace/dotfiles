@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Script to find every single file and opens in neovim
 # alias set as nzo in .zshrc

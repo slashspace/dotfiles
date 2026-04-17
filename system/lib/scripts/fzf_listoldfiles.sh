@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Script to list recent files and open nvim using fzf
 # set to an alias nlof in .zshrc
