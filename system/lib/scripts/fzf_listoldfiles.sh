@@ -5,7 +5,7 @@
 
 list_oldfiles() {
 	# Get the oldfiles list from Neovim
-	local oldfiles=($(vim -u NONE --headless +'lua io.write(table.concat(vim.v.oldfiles, "\n") .. "\n")' +qa))
+	local oldfiles=($(nvim -u NONE --headless +'lua io.write(table.concat(vim.v.oldfiles, "\n") .. "\n")' +qa))
 	# Filter invalid paths or files not found
 	local valid_files=()
 	for file in "${oldfiles[@]}"; do
@@ -22,7 +22,7 @@ list_oldfiles() {
 		--layout=default))
 
 	# Open selected files in Neovim
-	[[ ${#files[@]} -gt 0 ]] && vim "${files[@]}"
+	[[ ${#files[@]} -gt 0 ]] && nvim "${files[@]}"
 }
 
 # Call the function
