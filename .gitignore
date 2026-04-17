@@ -1,5 +1,6 @@
 *.log
 system/themes/generated/
+modules/ghostty/themes/my-theme
 modules/karabiner/automatic_backups/
 
 # Sketchybar compiled helper
