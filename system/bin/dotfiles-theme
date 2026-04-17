@@ -44,6 +44,9 @@ _apply() {
   # 2. Ensure generated directory exists
   mkdir -p "$GENERATED_DIR"
 
+  # Export THEME_NAME for renderers that need it
+  export THEME_NAME="$theme_name"
+
   # 3. Run all renderers
   for renderer in "$THEMES_DIR"/renderers/*.sh; do
     log_step "Running renderer: $(basename "$renderer")"
@@ -70,13 +73,9 @@ _apply() {
     tmux source-file "$GENERATED_DIR/tmux-colors.conf" 2>/dev/null || true
   fi
 
-  # 8. Symlink Ghostty colors and reload
+  # 8. Ghostty theme updated (Ghostty auto-reloads on config change)
   if command -v ghostty &>/dev/null; then
-    local ghostty_colors="$HOME/.config/ghostty/colors.conf"
-    mkdir -p "$HOME/.config/ghostty"
-    ln -sf "$GENERATED_DIR/ghostty-colors.conf" "$ghostty_colors"
-    log_step "Reloading Ghostty colors"
-    # Ghostty auto-reloads when config changes
+    log_step "Ghostty config updated (reload on next launch)"
   fi
 
   log_info "Theme '$theme_name' applied successfully"
