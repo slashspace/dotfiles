@@ -23,9 +23,10 @@ dotfiles/
 │   └── gitmux/          Tmux git status
 │
 └── system/            Engine
+    ├── bin/             CLI entry point (dotfiles, dotfiles-theme, ...)
     ├── themes/          Theme system (optional)
     ├── lib/             Shared libs & Zsh modules
-    ├── scripts/         Install & management scripts
+    ├── scripts/         Compatibility wrappers
     └── packages/        Brewfile dependency manifest
 ```
 
@@ -33,7 +34,7 @@ dotfiles/
 
 ```mermaid
 flowchart TB
-    subgraph bootstrap ["Bootstrap (system/scripts/bootstrap.sh)"]
+    subgraph bootstrap ["Bootstrap (dotfiles bootstrap)"]
         B1["1. Xcode CLI"]
         B2["2. Homebrew"]
         B3["3. Brew Bundle"]
@@ -51,7 +52,7 @@ flowchart TB
     end
 
     subgraph stow ["Stow Manager"]
-        SM["stow-manager.sh"]
+        SM["dotfiles stow"]
         SM -->|"--target $HOME"| CORE
         SM -->|"--target $HOME/.config/..."| MODS
     end
@@ -61,7 +62,7 @@ flowchart TB
         TL["themes/list/*.sh<br/>Semantic color definitions"]
         TR["themes/renderers/<br/>starship · sketchybar · tmux · borders"]
         TG["themes/generated/<br/>Tool-specific configs (gitignored)"]
-        CLI["themes/bin/theme<br/>CLI: list · apply · current"]
+        CLI["dotfiles theme<br/>CLI: list · apply · select · current"]
         TL --> CLI --> TR --> TG
     end
 
@@ -189,7 +190,7 @@ git clone <repo-url> ~/dotfiles
 ### 2. Bootstrap
 
 ```bash
-~/dotfiles/system/scripts/bootstrap.sh
+dotfiles bootstrap
 ```
 
 Automatically: Xcode CLI → Homebrew → Brew Bundle → Sheldon lock → Stow core → Apply default theme.
@@ -197,32 +198,54 @@ Automatically: Xcode CLI → Homebrew → Brew Bundle → Sheldon lock → Stow 
 ### 3. macOS Modules (optional)
 
 ```bash
-~/dotfiles/system/scripts/install-modules.sh
+dotfiles modules install
 ```
 
 ### 4. macOS Defaults (optional)
 
 ```bash
-~/dotfiles/system/scripts/macos-defaults.sh
+dotfiles defaults
 ```
 
 ### 5. Verify & Restart
 
 ```bash
-~/dotfiles/system/scripts/doctor.sh  # Check everything is working
+dotfiles doctor             # Check everything is working
 exec zsh
 ```
+
+## dotfiles CLI
+
+All commands are available via `dotfiles help`:
+
+```bash
+dotfiles theme list                  # List available themes
+dotfiles theme apply <name>          # Apply a theme
+dotfiles theme select [name]         # Interactive selection (fzf) or by name
+dotfiles theme current               # Show current theme
+dotfiles stow apply --core           # Symlink core packages
+dotfiles stow apply --modules        # Symlink macOS modules
+dotfiles stow apply --all            # Symlink everything
+dotfiles stow delete --core          # Remove core symlinks
+dotfiles stow dry-run --core         # Preview stow operations
+dotfiles doctor                      # Run health checks
+dotfiles bootstrap                   # One-time setup
+dotfiles modules install             # Install macOS modules
+dotfiles defaults                    # Apply macOS system defaults
+```
+
+After running `dotfiles stow apply --core`, all commands are available at `~/.local/bin/dotfiles`.
 
 ## Theme CLI
 
 ```bash
-theme list              # List all themes
-theme current           # Show current theme
-theme apply darkppuccin # Apply a theme
-theme apply             # Interactive selection (fzf)
+dotfiles theme list              # List all themes
+dotfiles theme current           # Show current theme
+dotfiles theme apply catppuccin-mocha # Apply a theme
+dotfiles theme select            # Interactive selection (fzf)
 ```
 
-The theme system is optional — without running `theme apply`, all tools use their default configs.
+The theme system is optional — without running `dotfiles theme apply`, all tools use their default configs.
 
 Each theme defines 29 semantic color variables (inspired by [Catppuccin](https://catppuccin.com) naming). Renderers convert these to tool-specific formats stored in `system/themes/generated/` (gitignored).
 
@@ -237,26 +260,10 @@ Create a `.sh` file in `system/themes/list/` exporting all `THEME_*` variables. 
 ## Health Check
 
 ```bash
-~/dotfiles/system/scripts/doctor.sh
+dotfiles doctor
 ```
 
 Checks: dependencies, config files, theme status, known references.
-
-## Stow Management
-
-```bash
-# Preview
-~/dotfiles/system/scripts/stow-manager.sh dry-run --core
-~/dotfiles/system/scripts/stow-manager.sh dry-run --modules
-
-# Apply
-~/dotfiles/system/scripts/stow-manager.sh apply --core
-~/dotfiles/system/scripts/stow-manager.sh apply --modules
-
-# Remove
-~/dotfiles/system/scripts/stow-manager.sh delete --core
-~/dotfiles/system/scripts/stow-manager.sh delete --modules
-```
 
 ## Local Overrides
 

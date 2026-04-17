@@ -25,9 +25,10 @@ dotfiles/
 │   └── gitmux/          Tmux Git 状态
 │
 └── system/            引擎
+    ├── bin/             CLI 入口（dotfiles, dotfiles-theme, ...）
     ├── themes/          主题系统（可选）
     ├── lib/             共享库与 Zsh 模块
-    ├── scripts/         安装与管理脚本
+    ├── scripts/         兼容性包装脚本
     └── packages/        Brewfile 依赖声明
 ```
 
@@ -35,7 +36,7 @@ dotfiles/
 
 ```mermaid
 flowchart TB
-    subgraph bootstrap ["Bootstrap (system/scripts/bootstrap.sh)"]
+    subgraph bootstrap ["Bootstrap (dotfiles bootstrap)"]
         B1["1. Xcode CLI"]
         B2["2. Homebrew"]
         B3["3. Brew Bundle"]
@@ -53,7 +54,7 @@ flowchart TB
     end
 
     subgraph stow ["Stow 管理"]
-        SM["stow-manager.sh"]
+        SM["dotfiles stow"]
         SM -->|"--target $HOME"| CORE
         SM -->|"--target $HOME/.config/..."| MODS
     end
@@ -63,7 +64,7 @@ flowchart TB
         TL["themes/list/*.sh<br/>语义颜色定义"]
         TR["themes/renderers/<br/>starship · sketchybar · tmux · borders"]
         TG["themes/generated/<br/>工具配置（gitignore）"]
-        CLI["themes/bin/theme<br/>CLI: list · apply · current"]
+        CLI["dotfiles theme<br/>CLI: list · apply · select · current"]
         TL --> CLI --> TR --> TG
     end
 
@@ -199,13 +200,13 @@ git clone <repo-url> ~/dotfiles
 ```bash
 export DOTFILES=/your/custom/path
 git clone <repo-url> "$DOTFILES"
-DOTFILES_DIR="$DOTFILES" "$DOTFILES/system/scripts/bootstrap.sh"
+DOTFILES_DIR="$DOTFILES" "$DOTFILES/system/bin/dotfiles-bootstrap"
 ```
 
 ### 第二步：一键安装
 
 ```bash
-~/dotfiles/system/scripts/bootstrap.sh
+dotfiles bootstrap
 ```
 
 脚本按顺序执行：
@@ -215,7 +216,7 @@ DOTFILES_DIR="$DOTFILES" "$DOTFILES/system/scripts/bootstrap.sh"
 3. **Brew Bundle** — 根据 `system/packages/Brewfile` 安装所有依赖
 4. **Sheldon** — 锁定 Zsh 插件
 5. **Stow 核心包** — 创建 git、zsh、nvim、tmux、starship 的 symlink
-6. **默认主题** — 应用 darkppuccin 主题
+6. **默认主题** — 应用 catppuccin-mocha 主题
 
 脚本会在最后提示下一步操作。
 
@@ -224,7 +225,7 @@ DOTFILES_DIR="$DOTFILES" "$DOTFILES/system/scripts/bootstrap.sh"
 核心包安装后，你的 Shell 和终端已经可以工作了。macOS 桌面工具是可选的：
 
 ```bash
-~/dotfiles/system/scripts/install-modules.sh
+dotfiles modules install
 ```
 
 这会安装以下模块的 symlink：
@@ -238,7 +239,7 @@ DOTFILES_DIR="$DOTFILES" "$DOTFILES/system/scripts/bootstrap.sh"
 ### 第四步：设置 macOS 系统偏好（可选）
 
 ```bash
-~/dotfiles/system/scripts/macos-defaults.sh
+dotfiles defaults
 ```
 
 配置项目包括：
@@ -262,10 +263,10 @@ exec zsh
 主题系统让你一键切换全局配色，所有工具同步生效。
 
 ```bash
-theme list              # 列出所有可用主题
-theme apply darkppuccin # 应用指定主题
-theme apply             # 交互式选择（需要 fzf）
-theme current           # 查看当前主题
+dotfiles theme list              # 列出所有可用主题
+dotfiles theme apply catppuccin-mocha # 应用指定主题
+dotfiles theme select            # 交互式选择（需要 fzf）
+dotfiles theme current           # 查看当前主题
 ```
 
 切换主题后，Starship、SketchyBar、Tmux、Borders 会自动刷新。新开的终端也会使用同一主题。
@@ -372,37 +373,41 @@ export THEME_LAVENDER="#b4befe"
 export THEME_CURSOR="#f5e0dc"
 ```
 
-然后运行 `theme apply my-theme`。
+然后运行 `dotfiles theme apply my-theme`。
 
 ## 健康检查
 
 ```bash
-~/dotfiles/system/scripts/doctor.sh
+dotfiles doctor
 ```
 
 检查项目：依赖安装、配置文件存在性、主题状态、已知引用有效性。
 
-### 管理 Stow 包
+## dotfiles CLI
 
 ```bash
-# 查看当前 symlink 状态
-~/dotfiles/system/scripts/stow-manager.sh dry-run --core
-
-# 重新链接（修改配置后）
-~/dotfiles/system/scripts/stow-manager.sh apply --core
-
-# 卸载所有核心包
-~/dotfiles/system/scripts/stow-manager.sh delete --core
-
-# 仅卸载模块
-~/dotfiles/system/scripts/stow-manager.sh delete --modules
+dotfiles theme list                  # 列出可用主题
+dotfiles theme apply <name>          # 应用主题
+dotfiles theme select [name]         # 交互式选择（fzf）或按名称
+dotfiles theme current               # 显示当前主题
+dotfiles stow apply --core           # 创建核心包 symlink
+dotfiles stow apply --modules        # 创建 macOS 模块 symlink
+dotfiles stow apply --all            # 创建全部 symlink
+dotfiles stow delete --core          # 删除核心包 symlink
+dotfiles stow dry-run --core         # 预览 stow 操作
+dotfiles doctor                      # 运行健康检查
+dotfiles bootstrap                   # 一键安装
+dotfiles modules install             # 安装 macOS 模块
+dotfiles defaults                    # 设置 macOS 系统偏好
 ```
+
+运行 `dotfiles stow apply --core` 后，所有命令都可在 `~/.local/bin/dotfiles` 中使用。
 
 ## 卸载
 
 ```bash
 # 卸载所有 symlink
-~/dotfiles/system/scripts/stow-manager.sh delete --all
+dotfiles stow delete --all
 
 # 删除仓库
 rm -rf ~/dotfiles
@@ -430,15 +435,15 @@ command -v sheldon && sheldon lock --update
 
 ```bash
 mv ~/.gitconfig ~/.gitconfig.bak
-~/dotfiles/system/scripts/stow-manager.sh apply --core
+dotfiles stow apply --core
 ```
 
 ### 主题不生效
 
 ```bash
-theme current
+dotfiles theme current
 # 如果显示 (none)
-theme apply darkppuccin
+dotfiles theme apply catppuccin-mocha
 ```
 
 ## 依赖
