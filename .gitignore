@@ -1,3 +1,6 @@
 *.log
 system/themes/generated/
 modules/karabiner/automatic_backups/
+
+# Sketchybar compiled helper
+modules/sketchybar/helper/helper

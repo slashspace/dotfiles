@@ -42,6 +42,12 @@ fi
 log_info "Locking Sheldon plugins"
 sheldon lock --update
 
+# Build sketchybar helper
+if [[ -f "$DOTFILES_DIR/modules/sketchybar/helper/makefile" ]]; then
+  log_step "Building sketchybar helper"
+  make -C "$DOTFILES_DIR/modules/sketchybar/helper" 2>/dev/null || log_warn "Failed to build sketchybar helper"
+fi
+
 # 5. Stow core
 log_info "Stowing core packages"
 "$DOTFILES_DIR/system/scripts/stow-manager.sh" apply --core
