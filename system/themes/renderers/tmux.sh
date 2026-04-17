@@ -43,4 +43,4 @@ set -g @thm_mantle "${THEME_MANTLE}"
 set -g @thm_crust "${THEME_CRUST}"
 EOF
 
-echo "Generated $OUTPUT"
+echo "  ✨ tmux-colors.conf"

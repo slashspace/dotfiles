@@ -35,4 +35,4 @@ selection-background = ${THEME_SURFACE1}
 selection-foreground = ${THEME_TEXT}
 EOF
 
-echo "Generated $OUTPUT"
+echo "  ✨ ghostty/themes/my-theme"

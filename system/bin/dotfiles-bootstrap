@@ -10,8 +10,8 @@ source "$DOTFILES_DIR/system/lib/platform.sh"
 source "$DOTFILES_DIR/system/lib/package.sh"
 
 log_info "Dotfiles bootstrap starting"
-log_info "Repository: $DOTFILES_DIR"
-log_info "Platform: $(platform_os) $(platform_arch)"
+log_step "Repository: $DOTFILES_DIR"
+log_step "Platform: $(platform_os) $(platform_arch)"
 
 # 1. Xcode CLI
 if ! xcode-select -p &>/dev/null; then
@@ -61,14 +61,11 @@ else
   "$DOTFILES_DIR/system/themes/bin/theme" apply catppuccin-mocha 2>/dev/null || true
 fi
 
-log_info "Bootstrap complete!"
-log_info "Run these commands to finish setup:"
+log_ok "Bootstrap complete!"
 echo ""
 echo "  # Install macOS modules (optional):"
-echo "  dotfiles modules install"
-echo ""
+echo "    dotfiles modules install"
 echo "  # Set macOS defaults (optional):"
-echo "  dotfiles defaults"
-echo ""
+echo "    dotfiles defaults"
 echo "  # Restart your shell:"
-echo "  exec zsh"
+echo "    exec zsh"

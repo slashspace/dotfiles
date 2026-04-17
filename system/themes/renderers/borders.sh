@@ -20,7 +20,7 @@ export BORDERS_ACTIVE_COLOR="${BORDERS_ACTIVE_COLOR}"
 export BORDERS_INACTIVE_COLOR="${BORDERS_INACTIVE_COLOR}"
 EOF
 
-echo "Generated $OUTPUT"
+echo "  ✨ borders-colors.sh"
 
 if [[ "${1:-}" == "--apply" ]]; then
   if command -v /opt/homebrew/bin/borders &>/dev/null; then
@@ -29,6 +29,6 @@ if [[ "${1:-}" == "--apply" ]]; then
       "active_color=$BORDERS_ACTIVE_COLOR" \
       "inactive_color=$BORDERS_INACTIVE_COLOR" \
       "width=8.0" >/dev/null 2>&1 &
-    echo "Borders restarted with new colors."
+    echo "  🔄 borders restarted"
   fi
 fi

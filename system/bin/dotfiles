@@ -42,7 +42,7 @@ case "${1:-}" in
       shift
       exec "$cmd" "$@"
     else
-      echo "Error: subcommand '$1' not found" >&2
+      printf "\033[31m✗\033[0m  Subcommand not found: %s\n" "$1" >&2
       exit 1
     fi
     ;;

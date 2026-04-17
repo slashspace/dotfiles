@@ -62,4 +62,4 @@ mantle = "${THEME_MANTLE}"
 crust = "${THEME_CRUST}"
 PALETTE
 
-echo "Generated $OUTPUT"
+echo "  ✨ starship.toml"

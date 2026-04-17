@@ -52,4 +52,4 @@ export SHADOW_COLOR=\$BLACK
 export MIC_LEVEL=40
 EOF
 
-echo "Generated $OUTPUT"
+echo "  ✨ sketchybar-colors.sh"
