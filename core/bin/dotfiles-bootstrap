@@ -1,0 +1,74 @@
+#!/usr/bin/env bash
+# dotfiles bootstrap — One-time setup
+set -euo pipefail
+
+DOTFILES_DIR="${DOTFILES_DIR:-$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)}"
+cd "$DOTFILES_DIR"
+
+source "$DOTFILES_DIR/system/lib/log.sh"
+source "$DOTFILES_DIR/system/lib/platform.sh"
+source "$DOTFILES_DIR/system/lib/package.sh"
+
+log_info "Dotfiles bootstrap starting"
+log_info "Repository: $DOTFILES_DIR"
+log_info "Platform: $(platform_os) $(platform_arch)"
+
+# 1. Xcode CLI
+if ! xcode-select -p &>/dev/null; then
+  log_info "Installing Xcode Command Line Tools"
+  xcode-select --install
+  log_warn "Complete the Xcode install dialog and re-run this script."
+  exit 0
+fi
+
+# 2. Homebrew
+if ! command -v brew &>/dev/null; then
+  log_info "Installing Homebrew"
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  if [ -x /opt/homebrew/bin/brew ]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+  elif [ -x /usr/local/bin/brew ]; then
+    eval "$(/usr/local/bin/brew shellenv)"
+  fi
+fi
+
+# 3. Brew bundle
+log_info "Installing packages"
+pkg_bundle "$DOTFILES_DIR/system/packages/Brewfile"
+
+# 4. Sheldon (plugin manager)
+if ! command -v sheldon &>/dev/null; then
+  log_warn "Sheldon not found. Run 'brew install sheldon' and re-run bootstrap."
+fi
+log_info "Locking Sheldon plugins"
+sheldon lock --update
+
+# Build sketchybar helper
+if [[ -f "$DOTFILES_DIR/modules/sketchybar/helper/makefile" ]]; then
+  log_step "Building sketchybar helper"
+  make -C "$DOTFILES_DIR/modules/sketchybar/helper" 2>/dev/null || log_warn "Failed to build sketchybar helper"
+fi
+
+# 5. Stow core
+log_info "Stowing core packages"
+"$DOTFILES_DIR/system/bin/dotfiles-stow" apply --core
+
+# 6. Apply default theme
+log_info "Applying default theme"
+if command -v dotfiles &>/dev/null; then
+  dotfiles theme select catppuccin-mocha 2>/dev/null || true
+else
+  "$DOTFILES_DIR/system/themes/bin/theme" apply catppuccin-mocha 2>/dev/null || true
+fi
+
+log_info "Bootstrap complete!"
+log_info "Run these commands to finish setup:"
+echo ""
+echo "  # Install macOS modules (optional):"
+echo "  dotfiles modules install"
+echo ""
+echo "  # Set macOS defaults (optional):"
+echo "  dotfiles defaults"
+echo ""
+echo "  # Restart your shell:"
+echo "  exec zsh"

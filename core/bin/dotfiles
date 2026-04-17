@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+# dotfiles — Unified CLI entry point
+# Usage: dotfiles <command> [args...]
+set -euo pipefail
+
+BIN_DIR="$(cd "$(dirname "$0")" && pwd)"
+VERSION="1.0.0"
+
+usage() {
+  cat <<EOF
+dotfiles v${VERSION} — macOS development environment
+
+Usage:
+  dotfiles <command> [args...]
+
+Commands:
+  theme list                  List available themes
+  theme apply <name>          Apply a theme
+  theme select [name]         Select theme interactively
+  theme current               Show current theme
+  doctor                      Run health checks
+  stow apply --core           Symlink core packages
+  stow apply --modules        Symlink macOS modules
+  stow apply --all            Symlink everything
+  stow delete --core          Remove core symlinks
+  stow dry-run --core         Preview stow operations
+  bootstrap                   One-time setup
+  modules install             Install macOS modules
+  defaults                    Apply macOS system defaults
+
+Examples:
+  dotfiles theme apply dracula
+  dotfiles doctor
+  dotfiles stow apply --core
+EOF
+}
+
+case "${1:-}" in
+  theme|stow|doctor|bootstrap|modules|defaults)
+    cmd="$BIN_DIR/dotfiles-$1"
+    if [[ -x "$cmd" ]]; then
+      shift
+      exec "$cmd" "$@"
+    else
+      echo "Error: subcommand '$1' not found" >&2
+      exit 1
+    fi
+    ;;
+  help|--help|-h)
+    usage
+    ;;
+  "")
+    usage
+    ;;
+  *)
+    echo "Unknown command: $1" >&2
+    echo "Run 'dotfiles help' for usage." >&2
+    exit 1
+    ;;
+esac
