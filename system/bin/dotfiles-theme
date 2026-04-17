@@ -70,6 +70,15 @@ _apply() {
     tmux source-file "$GENERATED_DIR/tmux-colors.conf" 2>/dev/null || true
   fi
 
+  # 8. Symlink Ghostty colors and reload
+  if command -v ghostty &>/dev/null; then
+    local ghostty_colors="$HOME/.config/ghostty/colors.conf"
+    mkdir -p "$HOME/.config/ghostty"
+    ln -sf "$GENERATED_DIR/ghostty-colors.conf" "$ghostty_colors"
+    log_step "Reloading Ghostty colors"
+    # Ghostty auto-reloads when config changes
+  fi
+
   log_info "Theme '$theme_name' applied successfully"
 }
 
