@@ -100,6 +100,12 @@ _select() {
   echo "$theme_name"
 }
 
+_cmd_select() {
+  local name
+  name=$(_select)
+  [[ -n "$name" ]] && _apply "$name"
+}
+
 # Main
 if [[ $# -eq 0 ]]; then
   usage
@@ -117,18 +123,14 @@ case "$1" in
     if [[ $# -ge 2 ]]; then
       _apply "$2"
     else
-      local name
-      name=$(_select)
-      _apply "$name"
+      _cmd_select
     fi
     ;;
   apply)
     if [[ $# -ge 2 ]]; then
       _apply "$2"
     else
-      local name
-      name=$(_select)
-      _apply "$name"
+      _cmd_select
     fi
     ;;
   *)
