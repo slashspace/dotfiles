@@ -31,9 +31,10 @@ cask "nikitabobko/tap/aerospace"
 cask "ghostty"
 cask "karabiner-elements"
 
-# Optional: shell lint/format (recommended for editing support scripts)
-# brew "shellcheck"
-# brew "shfmt"
+# Shell lint/format (recommended for editing support scripts)
+brew "neovim"
+brew "shellcheck"
+brew "shfmt"
 
 # Optional: version/env management and shell enhancements (see docs/setup.md)
 # brew "mise"
