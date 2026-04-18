@@ -34,7 +34,7 @@ if [ "${SENDER:-}" != "front_app_switched" ]; then
           icon.color="$BLACK" \
           background.color="$GREEN" \
           background.border_color="$BLACK" \
-          background.corner_radius=6 \
+          background.corner_radius=4 \
           click_script="$click_script"
       else
         sketchybar --animate "$ANIM" "$DUR" --set "space.ws.${w}" \
@@ -43,7 +43,7 @@ if [ "${SENDER:-}" != "front_app_switched" ]; then
           icon.color="$GREY" \
           background.color="$BACKGROUND_2" \
           background.border_color="$BLACK" \
-          background.corner_radius=6 \
+          background.corner_radius=4 \
           click_script="$click_script"
       fi
     else
@@ -99,35 +99,5 @@ for i in 1 2 3 4 5; do
   fi
 done
 
-# 当前焦点工作区的根容器布局（h_* = 横向，v_* = 纵向）；app-only 刷新事件时跳过。
-if [ "${SENDER:-}" != "front_app_switched" ] && command -v aerospace &>/dev/null; then
-  root_layout=$(aerospace list-workspaces --focused --format '%{workspace-root-container-layout}' 2>/dev/null | head -1)
-  root_layout=$(echo "$root_layout" | xargs)
-  # Nerd Font 私有区 U+F07D / U+F07E：必须以 UTF-8 字节写入变量；
-  # 不要写字面量 \uf07d（会在 bar 上原样显示文本）。
-  # 在部分运行环境（如 SketchyBar 拉起的 bash）里，$'\x..' 比 printf '\u..' 更稳定。
-  _ic_h=$'\xef\x81\xbd'
-  _ic_v=$'\xef\x81\xbe'
-  layout_icon=""
-  case "$root_layout" in
-    h_accordion) layout_icon="$_ic_v" ;;
-    v_accordion) layout_icon="$_ic_h" ;;
-    h_tiles) layout_icon="$_ic_h" ;;
-    v_tiles) layout_icon="$_ic_v" ;;
-  esac
-  if [ -n "$layout_icon" ]; then
-    sketchybar --set space.layout \
-      drawing=on \
-      icon="$layout_icon" \
-      icon.color="$BLUE" \
-      background.drawing=on \
-      background.height=20 \
-      background.width=20 \
-      background.corner_radius=6 \
-      background.border_width=1 \
-      background.color="$BAR_COLOR" \
-      background.border_color="$BLACK"
-  else
-    sketchybar --set space.layout drawing=off background.drawing=off icon=""
-  fi
-fi
+# 布局指示器按当前需求保持隐藏。
+sketchybar --set space.layout drawing=off background.drawing=off icon=""
