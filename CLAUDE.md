@@ -35,7 +35,7 @@ brew bundle --file=~/dotfiles/system/packages/Brewfile
 | Layer | Purpose | Target |
 |-------|---------|--------|
 | `core/` | Cross-platform essentials (git, zsh, sheldon, nvim, tmux, starship) | `$HOME` or `$HOME/.config/...` |
-| `modules/` | macOS-specific (aerospace, ghostty, karabiner, sketchybar, borders, gitmux) | `$HOME/.config/...` |
+| `modules/` | macOS-specific (aerospace, ghostty, karabiner, sketchybar, borders) | `$HOME/.config/...` |
 | `system/` | Engine: bin/, themes/, lib/, packages/ | N/A |
 
 ### Stow Package Mapping (dotfiles-stow)
@@ -44,7 +44,7 @@ Each package maps a source directory to a target. Core packages live in `core/`,
 
 ### Theme Engine
 
-Themes in `system/themes/list/*.sh` export 29 `THEME_*` semantic color variables. The `dotfiles theme apply` command sources a theme, then runs all renderers in `system/themes/renderers/` which write tool-specific configs to `system/themes/generated/` (gitignored). Renderers cover: starship, sketchybar, tmux, borders, ghostty. The ghostty renderer writes to `modules/ghostty/themes/my-theme` instead of `system/themes/generated/`.
+Themes in `system/themes/list/*.sh` export 29 `THEME_*` semantic color variables. The `dotfiles theme apply` command sources a theme, then runs all renderers in `system/themes/renderers/` which write tool-specific configs to `system/themes/generated/` (gitignored). Renderers cover: starship, sketchybar, tmux, borders, ghostty, shell `theme-env.sh`, and gitmux. The ghostty renderer writes to `modules/ghostty/themes/my-theme` instead of `system/themes/generated/`. `gitmux.conf` is generated there and copied to `~/.gitmux.conf` (not stowed).
 
 ### Zsh Startup Chain
 

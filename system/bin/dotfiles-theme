@@ -52,6 +52,18 @@ _apply() {
     "$renderer"
   done
 
+  # 4. Install gitmux config (~/.gitmux.conf is no longer stowed)
+  _install_gitmux_conf() {
+    local src="$GENERATED_DIR/gitmux.conf"
+    [[ -f "$src" ]] || return 0
+    local dst="$HOME/.gitmux.conf"
+    if [[ -L "$dst" ]]; then
+      rm -f "$dst"
+    fi
+    install -m 0644 "$src" "$dst"
+  }
+  _install_gitmux_conf
+
   # 5. Persist current theme name
   echo "$theme_name" > "$CURRENT_FILE"
 
@@ -65,6 +77,7 @@ _apply() {
   if command -v tmux &>/dev/null && tmux has-session 2>/dev/null; then
     log_step "Reloading tmux colors"
     tmux source-file "$GENERATED_DIR/tmux-colors.conf" 2>/dev/null || true
+    tmux refresh-client -S 2>/dev/null || true
   fi
 
   # 8. Ghostty theme updated (Ghostty auto-reloads on config change)

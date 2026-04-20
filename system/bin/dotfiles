@@ -19,9 +19,9 @@ Commands:
   theme select [name]         Select theme interactively
   theme current               Show current theme
   doctor                      Run health checks
-  stow apply --core           Symlink core packages
-  stow apply --modules        Symlink macOS modules
-  stow apply --all            Symlink everything
+  stow apply --core [--adopt]   Symlink core packages (--adopt if conflicts)
+  stow apply --modules [--adopt] Symlink macOS modules
+  stow apply --all [--adopt]    Symlink everything
   stow delete --core          Remove core symlinks
   stow dry-run --core         Preview stow operations
   bootstrap                   One-time setup

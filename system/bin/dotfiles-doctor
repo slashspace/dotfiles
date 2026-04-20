@@ -88,6 +88,9 @@ fi
 check "Generated starship theme exists"    test -f "$DOTFILES_DIR/system/themes/generated/starship.toml"
 check "Generated tmux theme exists"        test -f "$DOTFILES_DIR/system/themes/generated/tmux-colors.conf"
 check "Generated sketchybar theme exists"  test -f "$DOTFILES_DIR/system/themes/generated/sketchybar-colors.sh"
+check "Generated shell theme env exists"   test -f "$DOTFILES_DIR/system/themes/generated/theme-env.sh"
+check "Generated gitmux config exists"     test -f "$DOTFILES_DIR/system/themes/generated/gitmux.conf"
+check "~/.gitmux.conf exists"              test -f "$HOME/.gitmux.conf"
 
 # --- References ---
 _section "🔗" "References"

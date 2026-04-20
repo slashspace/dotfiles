@@ -24,31 +24,35 @@ MACOS_PACKAGES=(
   "karabiner:$HOME/.config/karabiner"
   "sketchybar:$HOME/.config/sketchybar"
   "borders:$HOME/.config/borders"
-  "gitmux:$HOME"
 )
 
 usage() {
   cat <<'EOF'
 Usage:
-  dotfiles stow apply --core          Stow all core packages
-  dotfiles stow apply --modules       Stow all platform modules
-  dotfiles stow apply --all           Stow everything
-  dotfiles stow delete --core         Unstow all core packages
-  dotfiles stow delete --modules      Unstow all platform modules
-  dotfiles stow delete --all          Unstow everything
-  dotfiles stow dry-run --core        Preview core stow operations
-  dotfiles stow dry-run --modules     Preview module stow operations
-  dotfiles stow dry-run --all         Preview all stow operations
+  dotfiles stow apply --core [--adopt]
+  dotfiles stow apply --modules [--adopt]
+  dotfiles stow apply --all [--adopt]
+  dotfiles stow delete --core
+  dotfiles stow delete --modules
+  dotfiles stow delete --all
+  dotfiles stow dry-run --core [--adopt]
+  dotfiles stow dry-run --modules [--adopt]
+  dotfiles stow dry-run --all [--adopt]
+
+  --adopt  GNU stow --adopt: move blocking plain files into the package, then
+           symlink. Typical fix when Karabiner replaced karabiner.json with a
+           real file after an earlier stow.
 EOF
 }
 
 _stow_packages() {
   local action="$1"   # stow or delete
-  local flag="$2"     # -v for dry-run, empty for real
+  local flag="$2"     # -vn for dry-run, empty for real
+  local adopt="$3"   # non-empty => pass stow --adopt (apply/dry-run only)
   local packages=()
   local failed=0
 
-  case "$3" in
+  case "$4" in
     --core)
       packages=("${CORE_PACKAGES[@]}")
       ;;
@@ -97,11 +101,19 @@ _stow_packages() {
       stow_action="-D"
     fi
 
+    local adopt_args=()
+    if [[ -n "$adopt" && "$action" == "stow" ]]; then
+      adopt_args=(--adopt)
+    fi
+
     log_step "$action $name -> $target"
 
     local output
-    if ! output=$(stow --dir="$stow_dir" --target="$target" $stow_action $flag "$name" 2>&1); then
+    if ! output=$(stow --dir="$stow_dir" --target="$target" $stow_action $flag "${adopt_args[@]}" "$name" 2>&1); then
       log_error "Failed to $action $name: $output"
+      if [[ "$output" == *conflicts* || "$output" == *CONFLICT* ]]; then
+        log_warn "If a plain file blocks the symlink (common for karabiner.json), retry with: dotfiles stow $ACTION $SCOPE --adopt"
+      fi
       failed=1
     fi
   done
@@ -118,18 +130,45 @@ if [[ $# -lt 2 ]]; then
 fi
 
 ACTION="$1"
-SCOPE="$2"
-FLAG=""
+shift
 
+SCOPE=""
+ADOPT=""
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --core | --modules | --all)
+      SCOPE="$1"
+      shift
+      ;;
+    --adopt)
+      ADOPT=1
+      shift
+      ;;
+    *)
+      usage
+      exit 1
+      ;;
+  esac
+done
+
+if [[ -z "$SCOPE" ]]; then
+  usage
+  exit 1
+fi
+
+FLAG=""
 case "$ACTION" in
   apply)
-    _stow_packages "stow" "" "$SCOPE"
+    _stow_packages "stow" "" "$ADOPT" "$SCOPE"
     ;;
   delete)
-    _stow_packages "delete" "" "$SCOPE"
+    if [[ -n "$ADOPT" ]]; then
+      log_warn "--adopt is ignored for delete"
+    fi
+    _stow_packages "delete" "" "" "$SCOPE"
     ;;
   dry-run)
-    _stow_packages "stow" "-vn" "$SCOPE"
+    _stow_packages "stow" "-vn" "$ADOPT" "$SCOPE"
     ;;
   *)
     usage
