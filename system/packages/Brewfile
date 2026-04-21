@@ -22,6 +22,9 @@ brew "sheldon"
 brew "jq"
 brew "switchaudio-osx"
 
+# MCP / Python tooling
+brew "uv" # includes uvx for running Python MCP servers
+
 # Menu bar and tiling (optional: comment out if you install manually)
 brew "sketchybar"
 brew "borders" # JankyBorders: window focus borders (FelixKratz/formulae)

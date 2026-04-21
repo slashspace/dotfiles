@@ -1,0 +1,10 @@
+{
+  "$schema": "https://opencode.ai/tui.json",
+  "keybinds": {
+    "leader": "ctrl+o"
+  },
+  "scroll_acceleration": {
+    "enabled": true, // 启用 macOS 风格的滚动加速
+  },
+  "plugin": ["@mohak34/opencode-notifier@latest"],
+}

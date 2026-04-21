@@ -15,6 +15,7 @@ CORE_PACKAGES=(
   "tmux:$HOME/.config/tmux"
   "nvim:$HOME/.config/nvim"
   "starship:$HOME/.config/starship"
+  "opencode:$HOME/.config/opencode"
   "bin:$HOME/.local/bin"
 )
 
@@ -101,15 +102,15 @@ _stow_packages() {
       stow_action="-D"
     fi
 
-    local adopt_args=()
+    local adopt_arg=""
     if [[ -n "$adopt" && "$action" == "stow" ]]; then
-      adopt_args=(--adopt)
+      adopt_arg="--adopt"
     fi
 
     log_step "$action $name -> $target"
 
     local output
-    if ! output=$(stow --dir="$stow_dir" --target="$target" $stow_action $flag "${adopt_args[@]}" "$name" 2>&1); then
+    if ! output=$(stow --dir="$stow_dir" --target="$target" $stow_action $flag ${adopt_arg:+$adopt_arg} "$name" 2>&1); then
       log_error "Failed to $action $name: $output"
       if [[ "$output" == *conflicts* || "$output" == *CONFLICT* ]]; then
         log_warn "If a plain file blocks the symlink (common for karabiner.json), retry with: dotfiles stow $ACTION $SCOPE --adopt"
