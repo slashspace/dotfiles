@@ -1,7 +1,21 @@
 {
   "$schema": "https://opencode.ai/tui.json",
   "keybinds": {
-    "leader": "ctrl+o"
+    "leader": "ctrl+o",
+    "editor_open": "<leader>e",
+    "theme_list": "<leader>t",
+    "command_list": "<leader>p",
+    "agent_list": "<leader>a",
+    "status_view": "<leader>s",
+    "session_list": "<leader>l",
+    "session_export": "<leader>x",
+    "session_compact": "<leader>c",
+    "messages_copy": "<leader>y",
+    "messages_undo": "<leader>u",
+    "messages_page_up": "pageup,ctrl+u",
+    "messages_page_down": "pagedown,ctrl+d",
+    "session_interrupt": "escape",
+    "input_clear": "ctrl+c"
   },
   "scroll_acceleration": {
     "enabled": true, // 启用 macOS 风格的滚动加速
