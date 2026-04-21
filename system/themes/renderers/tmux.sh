@@ -41,6 +41,8 @@ set -g @thm_surface0 "${THEME_SURFACE0}"
 set -g @thm_base "${THEME_BASE}"
 set -g @thm_mantle "${THEME_MANTLE}"
 set -g @thm_crust "${THEME_CRUST}"
+set -g @floax-border-color "${THEME_MAUVE}"
+set -g @floax-text-color "${THEME_TEXT}"
 EOF
 
 echo "  ✨ tmux-colors.conf"

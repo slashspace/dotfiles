@@ -77,6 +77,9 @@ _apply() {
   if command -v tmux &>/dev/null && tmux has-session 2>/dev/null; then
     log_step "Reloading tmux colors"
     tmux source-file "$GENERATED_DIR/tmux-colors.conf" 2>/dev/null || true
+    # Floax reads these from tmux global env; refresh them on theme apply.
+    tmux setenv -g FLOAX_BORDER_COLOR "${THEME_MAUVE}" 2>/dev/null || true
+    tmux setenv -g FLOAX_TEXT_COLOR "${THEME_TEXT}" 2>/dev/null || true
     tmux refresh-client -S 2>/dev/null || true
   fi
 
