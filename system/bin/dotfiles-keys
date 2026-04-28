@@ -1,0 +1,111 @@
+#!/usr/bin/env bash
+# dotfiles-keys — Keymap quick-lookup via fzf
+# Usage:
+#   dotfiles keys           — fzf search across all tools
+#   dotfiles keys <tool>    — bat-rendered Markdown for one tool
+# Note: pbcopy (Enter to copy) is macOS-only, matching this repo's macOS scope.
+set -euo pipefail
+
+DOTFILES_DIR="${DOTFILES_DIR:-$HOME/dotfiles}"
+KEYMAP_DIR="$DOTFILES_DIR/docs/keymaps"
+THEME_ENV="$DOTFILES_DIR/system/themes/generated/theme-env.sh"
+
+# Source theme colors if available
+if [[ -f "$THEME_ENV" ]]; then
+  # shellcheck source=/dev/null
+  source "$THEME_ENV"
+fi
+BLUE="${THEME_BLUE:-#83a598}"
+
+# Convert hex color (#rrggbb) to ANSI 256-color escape for fzf --ansi
+# fzf --ansi accepts \e[38;2;R;G;Bm (truecolor)
+_ansi_blue() {
+  local hex="${BLUE#\#}"
+  local r=$((16#${hex:0:2}))
+  local g=$((16#${hex:2:2}))
+  local b=$((16#${hex:4:2}))
+  printf '\e[38;2;%d;%d;%dm' "$r" "$g" "$b"
+}
+RESET='\e[0m'
+ANSI_BLUE="$(_ansi_blue)"
+
+# --- Single-tool mode ---
+if [[ -n "${1:-}" ]]; then
+  tool="$1"
+  file="$KEYMAP_DIR/${tool}.md"
+  if [[ ! -f "$file" ]]; then
+    printf "No keymap found for: %s\n" "$tool" >&2
+    printf "Available tools:\n" >&2
+    for f in "$KEYMAP_DIR"/*.md; do basename "$f" .md; done >&2
+    exit 1
+  fi
+  if command -v bat &>/dev/null; then
+    bat --language=markdown --style=plain "$file"
+  else
+    cat "$file"
+  fi
+  exit 0
+fi
+
+# --- All-tools fzf mode ---
+if ! command -v fzf &>/dev/null; then
+  printf "fzf is required: brew install fzf\n" >&2
+  exit 1
+fi
+
+# Parse all keymap files into tab-delimited: colored_tool \t section \t shortcut_line
+# The colored_tool column is displayed in fzf; raw tool name is embedded for preview lookup.
+_parse_keymaps() {
+  local tool section colored_tool
+  for file in "$KEYMAP_DIR"/*.md; do
+    tool=$(basename "$file" .md)
+    colored_tool="${ANSI_BLUE}${tool}${RESET}"
+    section=""
+    while IFS= read -r line; do
+      [[ -z "$line" ]] && continue
+      [[ "$line" =~ ^#[^#] ]] && continue           # H1 — skip
+      if [[ "$line" =~ ^##[[:space:]](.+)$ ]]; then  # H2 — section
+        section="${BASH_REMATCH[1]}"
+        continue
+      fi
+      # Format: colored_tool TAB raw_tool TAB section TAB shortcut_line
+      printf "%s\t%s\t%s\t%s\n" "$colored_tool" "$tool" "$section" "$line"
+    done < "$file"
+  done
+}
+
+total=$(_parse_keymaps | wc -l | tr -d ' ')
+tool_count=$(ls "$KEYMAP_DIR"/*.md 2>/dev/null | wc -l | tr -d ' ')
+
+# Preview script: written to a temp file to avoid fzf quoting issues
+PREVIEW_SCRIPT=$(mktemp /tmp/dotfiles-keys-preview.XXXXXX)
+trap 'rm -f "$PREVIEW_SCRIPT"' EXIT
+cat > "$PREVIEW_SCRIPT" << 'PREVIEW'
+#!/usr/bin/env bash
+# Args passed by fzf: {2}=raw_tool {3}=section
+tool="$1"
+section="$2"
+keymap_dir="$3"
+file="$keymap_dir/${tool}.md"
+printf "[%s] %s\n\n" "$tool" "$section"
+# Print lines from the matching ## heading until the next heading or EOF
+awk -v sec="## $section" '
+  found && /^##/ { exit }
+  found { print }
+  $0 == sec { found=1 }
+' "$file" | head -20
+PREVIEW
+chmod +x "$PREVIEW_SCRIPT"
+
+_parse_keymaps | fzf \
+  --ansi \
+  --delimiter=$'\t' \
+  --with-nth='1,4' \
+  --header="${total} shortcuts across ${tool_count} tools  |  type to search  |  Enter to copy  |  Esc to quit" \
+  --header-first \
+  --layout=reverse \
+  --preview="$PREVIEW_SCRIPT {2} {3} '$KEYMAP_DIR'" \
+  --preview-window=right:40%:wrap \
+  --bind='enter:execute(printf "%s" {4} | pbcopy)+abort' \
+  --prompt="keys> " \
+  || true
