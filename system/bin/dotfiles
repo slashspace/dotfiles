@@ -27,6 +27,7 @@ Commands:
   bootstrap                   One-time setup
   modules install             Install macOS modules
   defaults                    Apply macOS system defaults
+  keys [tool]                 Search keymaps with fzf, or show one tool
 
 Examples:
   dotfiles theme apply dracula
@@ -36,7 +37,7 @@ EOF
 }
 
 case "${1:-}" in
-  theme|stow|doctor|bootstrap|modules|defaults)
+  theme|stow|doctor|bootstrap|modules|defaults|keys)
     cmd="$BIN_DIR/dotfiles-$1"
     if [[ -x "$cmd" ]]; then
       shift
