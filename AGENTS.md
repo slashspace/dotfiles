@@ -20,6 +20,8 @@ dotfiles theme list            # List available themes
 dotfiles theme apply <name>    # Apply theme
 dotfiles theme select          # Interactive selection
 dotfiles theme current         # Show current theme
+dotfiles keys                  # Search keymaps with fzf (prefix + ? in tmux)
+dotfiles keys <tool>           # Show keymap for a specific tool
 dotfiles doctor                # Run health checks
 dotfiles modules install       # Install macOS modules
 dotfiles defaults              # Apply macOS system defaults
@@ -36,11 +38,11 @@ brew bundle --file=~/dotfiles/system/packages/Brewfile
 |-------|---------|--------|
 | `core/` | Cross-platform essentials (git, zsh, sheldon, nvim, tmux, starship) | `$HOME` or `$HOME/.config/...` |
 | `modules/` | macOS-specific (aerospace, ghostty, karabiner, sketchybar, borders) | `$HOME/.config/...` |
-| `system/` | Engine: bin/, themes/, lib/, packages/ | N/A |
+| `system/` | Engine: bin/, themes/, lib/, packages/, keymaps/ | N/A |
 
 ### Stow Package Mapping (dotfiles-stow)
 
-Each package maps a source directory to a target. Core packages live in `core/`, macOS packages in `modules/`, system binaries in `system/bin/`. The `dotfiles stow` command handles per-package target directories (e.g., `nvim` → `$HOME/.config/nvim`, `bin` → `$HOME/.local/bin`).
+Each package maps a source directory to a target. Core packages live in `core/`, macOS packages in `modules/`, system binaries in `system/bin/`. The `dotfiles stow` command handles per-package target directories (e.g., `nvim` → `$HOME/.config/nvim`, `bin` → `$HOME/.local/bin`). `dotfiles stow apply` automatically handles conflicts with pre-existing files (GNU stow `--adopt` is enabled by default).
 
 ### Theme Engine
 

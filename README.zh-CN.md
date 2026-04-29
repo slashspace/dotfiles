@@ -28,7 +28,8 @@ dotfiles/
     ├── bin/             CLI 入口（dotfiles, dotfiles-theme, ...）
     ├── themes/          主题系统（可选）
     ├── lib/             共享库与 Zsh 模块
-    └── packages/        Brewfile 依赖声明
+    ├── packages/        Brewfile 依赖声明
+    └── keymaps/         快捷键数据文件
 ```
 
 ## 架构总览
@@ -311,7 +312,6 @@ cdd         返回上一个目录
 
 # fzf 工具
 fh          搜索命令历史
-nvimf       fzf 搜索文件并用 nvim 打开
 ```
 
 ### Tmux
@@ -409,6 +409,8 @@ dotfiles doctor                      # 运行健康检查
 dotfiles bootstrap                   # 一键安装
 dotfiles modules install             # 安装 macOS 模块
 dotfiles defaults                    # 设置 macOS 系统偏好
+dotfiles keys                        # 搜索快捷键（fzf）
+dotfiles keys <tool>                 # 显示指定工具的快捷键
 ```
 
 运行 `dotfiles stow apply --core` 后，所有命令都可在 `~/.local/bin/dotfiles` 中使用。

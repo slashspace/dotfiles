@@ -7,7 +7,7 @@
 set -euo pipefail
 
 DOTFILES_DIR="${DOTFILES_DIR:-$HOME/dotfiles}"
-KEYMAP_DIR="$DOTFILES_DIR/docs/keymaps"
+KEYMAP_DIR="$DOTFILES_DIR/system/keymaps"
 THEME_ENV="$DOTFILES_DIR/system/themes/generated/theme-env.sh"
 
 # Source theme colors if available
@@ -17,17 +17,19 @@ if [[ -f "$THEME_ENV" ]]; then
 fi
 BLUE="${THEME_BLUE:-#83a598}"
 
-# Convert hex color (#rrggbb) to ANSI 256-color escape for fzf --ansi
-# fzf --ansi accepts \e[38;2;R;G;Bm (truecolor)
+# Convert hex color (#rrggbb) to ANSI truecolor escape sequence
 _ansi_blue() {
   local hex="${BLUE#\#}"
   local r=$((16#${hex:0:2}))
   local g=$((16#${hex:2:2}))
   local b=$((16#${hex:4:2}))
-  printf '\e[38;2;%d;%d;%dm' "$r" "$g" "$b"
+  printf $'\e[38;2;%d;%d;%dm' "$r" "$g" "$b"
 }
-RESET='\e[0m'
+RESET=$'\e[0m'
 ANSI_BLUE="$(_ansi_blue)"
+
+# Pad width: longest tool name length + 1
+PAD=10
 
 # --- Single-tool mode ---
 if [[ -n "${1:-}" ]]; then
@@ -53,13 +55,13 @@ if ! command -v fzf &>/dev/null; then
   exit 1
 fi
 
-# Parse all keymap files into tab-delimited: colored_tool \t section \t shortcut_line
-# The colored_tool column is displayed in fzf; raw tool name is embedded for preview lookup.
+# Parse all keymap files into lines:
+#   display_line TAB raw_tool TAB section TAB shortcut_only
+# display_line = colored padded tool name + shortcut text (single column, no alignment issues)
 _parse_keymaps() {
-  local tool section colored_tool
+  local tool section shortcut display
   for file in "$KEYMAP_DIR"/*.md; do
     tool=$(basename "$file" .md)
-    colored_tool="${ANSI_BLUE}${tool}${RESET}"
     section=""
     while IFS= read -r line; do
       [[ -z "$line" ]] && continue
@@ -68,8 +70,9 @@ _parse_keymaps() {
         section="${BASH_REMATCH[1]}"
         continue
       fi
-      # Format: colored_tool TAB raw_tool TAB section TAB shortcut_line
-      printf "%s\t%s\t%s\t%s\n" "$colored_tool" "$tool" "$section" "$line"
+      # Build fixed-width tool prefix then append shortcut line
+      display=$(printf "${ANSI_BLUE}%-${PAD}s${RESET}%s" "$tool" "$line")
+      printf "%s\t%s\t%s\t%s\n" "$display" "$tool" "$section" "$line"
     done < "$file"
   done
 }
@@ -82,13 +85,12 @@ PREVIEW_SCRIPT=$(mktemp /tmp/dotfiles-keys-preview.XXXXXX)
 trap 'rm -f "$PREVIEW_SCRIPT"' EXIT
 cat > "$PREVIEW_SCRIPT" << 'PREVIEW'
 #!/usr/bin/env bash
-# Args passed by fzf: {2}=raw_tool {3}=section
+# Args: {2}=raw_tool {3}=section {4+}=keymap_dir
 tool="$1"
 section="$2"
 keymap_dir="$3"
 file="$keymap_dir/${tool}.md"
 printf "[%s] %s\n\n" "$tool" "$section"
-# Print lines from the matching ## heading until the next heading or EOF
 awk -v sec="## $section" '
   found && /^##/ { exit }
   found { print }
@@ -100,7 +102,7 @@ chmod +x "$PREVIEW_SCRIPT"
 _parse_keymaps | fzf \
   --ansi \
   --delimiter=$'\t' \
-  --with-nth='1,4' \
+  --with-nth=1 \
   --header="${total} shortcuts across ${tool_count} tools  |  type to search  |  Enter to copy  |  Esc to quit" \
   --header-first \
   --layout=reverse \

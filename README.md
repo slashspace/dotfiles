@@ -26,7 +26,8 @@ dotfiles/
     ├── bin/             CLI entry point (dotfiles, dotfiles-theme, ...)
     ├── themes/          Theme system (optional)
     ├── lib/             Shared libs & Zsh modules
-    └── packages/        Brewfile dependency manifest
+    ├── packages/        Brewfile dependency manifest
+    └── keymaps/         Keymap data files
 ```
 
 ## Architecture
@@ -242,6 +243,8 @@ dotfiles doctor                      # Run health checks
 dotfiles bootstrap                   # One-time setup
 dotfiles modules install             # Install macOS modules
 dotfiles defaults                    # Apply macOS system defaults
+dotfiles keys                        # Search keymaps with fzf
+dotfiles keys <tool>                 # Show keymap for a specific tool
 ```
 
 After running `dotfiles stow apply --core`, all commands are available at `~/.local/bin/dotfiles`.

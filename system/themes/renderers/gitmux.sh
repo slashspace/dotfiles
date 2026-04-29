@@ -36,7 +36,7 @@ tmux:
     deletions: "#[fg=${THEME_RED}]"
   layout: [branch, .., remote-branch, divergence, " - ", flags]
   options:
-    branch_max_len: 0
+    branch_max_len: 24
     branch_trim: right
     ellipsis: …
     hide_clean: false

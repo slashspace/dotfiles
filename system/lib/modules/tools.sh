@@ -33,11 +33,36 @@ if command -v fzf &>/dev/null; then
     --color=marker:${_muted},spinner:${_yellow},header:${_yellow} \
     --height=90% --reverse --border=rounded --padding=1 \
     --bind=ctrl-j:down,ctrl-k:up"
-  alias f='fzf'
+
+  alias f='fzf --preview "bat --style=numbers --color=always --line-range :500 {}"'
   alias fh="history 1 | sed -E 's/^[[:space:]]*[0-9]+[[:space:]]+//' | fzf"
-  alias fman="compgen -c | fzf | xargs man"
-  alias nlof="$DOTFILES_DIR/system/lib/scripts/fzf_listoldfiles.sh"
-  alias nvimf="$DOTFILES_DIR/system/lib/scripts/zoxide_openfiles_nvim.sh"
+
+  # directory: fuzzy jump (explore, not frecency)
+  alias fcd='cd $(fd --type d | fzf)'
+
+  # git: fuzzy branch switch
+  alias fgb='git branch | fzf | xargs git checkout'
+
+  # git: fuzzy log browser with diff preview
+  alias fgl='git log --oneline | fzf --preview "git show {1}" | awk "{print \$1}"'
+
+  # process: fuzzy kill
+  alias fkill='ps aux | fzf | awk "{print \$2}" | xargs kill -9'
+
+  # env: fuzzy search environment variables
+  alias fenv='env | fzf'
+
+  # network: fuzzy search open ports / listening processes
+  alias fport='lsof -i -P -n | fzf'
+
+  # tmux: fuzzy switch session
+  alias fts='tmux switch-client -t $(tmux list-sessions -F "#{session_name}" | fzf)'
+
+  # tmux: fuzzy switch window
+  alias ftw='tmux select-window -t $(tmux list-windows -F "#{window_index}: #{window_name}" | fzf | cut -d: -f1)'
+
+  # tmux: fuzzy switch pane (cross-window, shows current path)
+  alias ftp='tmux switch-client -t $(tmux list-panes -a -F "#{session_name}:#{window_index}.#{pane_index} #{pane_current_path}" | fzf | cut -d" " -f1)'
 fi
 
 # eza

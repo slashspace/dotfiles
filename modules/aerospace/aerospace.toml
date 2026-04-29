@@ -261,3 +261,6 @@ run = ['move-node-to-workspace 4']
 [[on-window-detected]]
 if.app-id = 'com.jdjr.huangjin'
 run = ['move-node-to-workspace 4']
+[[on-window-detected]]
+if.app-id = 'now.typeless.desktop'
+run = ['move-node-to-workspace 4']
