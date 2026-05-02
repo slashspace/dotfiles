@@ -15,7 +15,7 @@
     "messages_page_up": "pageup,ctrl+u",
     "messages_page_down": "pagedown,ctrl+d",
     "session_interrupt": "escape",
-    "input_clear": "ctrl+c"
+    "input_clear": "ctrl+c",
   },
   "scroll_acceleration": {
     "enabled": true, // 启用 macOS 风格的滚动加速

@@ -1,4 +1,5 @@
 {
+  "plugin": ["oh-my-openagent@latest"],
   "$schema": "https://opencode.ai/config.json",
   "autoupdate": true,
 
@@ -12,61 +13,57 @@
     "read": {
       ".env": "allow",
       ".env.*": "allow",
-      ".env-*": "allow"
+      ".env-*": "allow",
     },
     "external_directory": "allow",
     "bash": {
-      "git push": "allow",
-      "git push *": "allow",
+      "git add *": "deny",
+      "git commit *": "deny",
+      "git push *": "deny",
       "sudo *": "deny",
       "rm -rf /": "deny",
       "rm -rf /*": "deny",
       "rm -rf ~": "deny",
       "rm -rf ~/*": "deny",
-      ":(){:|:&};:": "deny"
-    }
+      ":(){:|:&};:": "deny",
+    },
   },
 
   // === MCP Servers ===
   "mcp": {
     "chrome-devtools": {
       "type": "local",
-      "command": ["npx", "-y", "chrome-devtools-mcp@latest"]
+      "command": ["npx", "-y", "chrome-devtools-mcp@latest"],
     },
     // Docs lookup for libraries - https://context7.com
     "context7": {
       "type": "remote",
       "url": "https://mcp.context7.com/mcp",
       "headers": {
-        "CONTEXT7_API_KEY": "{env:CONTEXT7_API_KEY}"
-      }
+        "CONTEXT7_API_KEY": "{env:CONTEXT7_API_KEY}",
+      },
     },
     // Web fetching - MCP official server (Python via uvx)
     "fetch": {
       "type": "local",
-      "command": ["uvx", "mcp-server-fetch"]
-    },
-    // Multi-step reasoning and planning
-    "sequential-thinking": {
-      "type": "local",
-      "command": ["npx", "-y", "@modelcontextprotocol/server-sequential-thinking"]
+      "command": ["uvx", "mcp-server-fetch"],
     },
     // File system access (scoped to home directory)
     "filesystem": {
       "type": "local",
       "command": ["npx", "-y", "@modelcontextprotocol/server-filesystem"],
-      "args": ["/Users/dingsheng"]
+      "args": ["/Users/dingsheng"],
     },
     // GitHub integration
     "github": {
       "type": "local",
       "command": ["npx", "-y", "@modelcontextprotocol/server-github"],
-      "env": ["GITHUB_TOKEN"]
+      "env": ["GITHUB_TOKEN"],
     },
     // Browser automation
     "playwright": {
       "type": "local",
-      "command": ["npx", "-y", "@executeautomation/playwright-mcp-server"]
-    }
-  }
+      "command": ["npx", "-y", "@executeautomation/playwright-mcp-server"],
+    },
+  },
 }

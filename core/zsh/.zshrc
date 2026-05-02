@@ -30,3 +30,10 @@ source "$DOTFILES_DIR/system/lib/modules/tools.sh"
 
 # --- Local overrides ---
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
+
+# bun completions
+[ -s "/Users/dingsheng/.bun/_bun" ] && source "/Users/dingsheng/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
