@@ -10,7 +10,20 @@ pcall(function()
   end
 end)
 
+-- Load generated theme globals (set by `dotfiles theme apply`)
+do
+  local dotfiles = vim.env.DOTFILES_DIR or (vim.env.HOME .. "/dotfiles")
+  local theme_file = dotfiles .. "/system/themes/generated/nvim-theme.lua"
+  local f = loadfile(theme_file)
+  if f then f() end
+end
+
 require("config.options")
 require("config.keymaps")
 require("config.lazy")
 require("config.vscode_keymaps")
+
+-- Apply colorscheme from theme engine (after plugins are loaded)
+if vim.g.theme_colorscheme then
+  vim.cmd.colorscheme(vim.g.theme_colorscheme)
+end

@@ -1,11 +1,11 @@
 {
-  "plugin": ["oh-my-openagent@latest"],
+  // "plugin": ["oh-my-openagent@latest"],
   "$schema": "https://opencode.ai/config.json",
   "autoupdate": true,
 
   // === 模型 ===
-  "model": "opencode/kimi-k2.6",
-  "small_model": "opencode/qwen3.6-plus", // 标题生成等轻量级任务配置单独的模型
+  "model": "opencode/kimi-k2.6", // 默认模型
+  "small_model": "opencode/minimax-m2.5", // 标题生成等轻量级任务配置单独的模型
 
   // === 权限 ===
   "permission": {

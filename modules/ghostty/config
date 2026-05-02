@@ -1,5 +1,5 @@
 # By default Reload config with shft + cmd + ,
-theme = my-theme
+theme = Gruvbox Dark
 background-opacity = 0.75
 background-blur-radius = 23
 
