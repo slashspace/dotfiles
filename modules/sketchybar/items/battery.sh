@@ -6,7 +6,8 @@ battery=(
 	label.drawing=on
 	update_freq=120
 	updates=on
-	padding_left=0
+	padding_left=6
+	padding_right=6
 )
 
 sketchybar --add item battery right \

@@ -72,9 +72,9 @@ on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
 # 'main' binding mode must be always presented
 [mode.main.binding]
-  # 切换显示模式: tiles(平铺)|accordion(手风琴)；随后刷新 sketchybar 布局指示（布局变化不会触发 exec-on-workspace-change）
-  alt-slash = ['layout tiles horizontal vertical', 'exec-and-forget /Users/dingsheng/dotfiles/modules/sketchybar/plugins/trigger_workspace_sketchybar.sh']
-  alt-comma = ['layout accordion horizontal vertical', 'exec-and-forget /Users/dingsheng/dotfiles/modules/sketchybar/plugins/trigger_workspace_sketchybar.sh']
+  # 切换显示模式: tiles(平铺)|accordion(手风琴)
+  alt-slash = ['layout tiles horizontal vertical']
+  alt-comma = ['layout accordion horizontal vertical']
 
   # 聚焦到 h(左)|j(下)|k(上)|l(右)
   alt-h = 'focus left'

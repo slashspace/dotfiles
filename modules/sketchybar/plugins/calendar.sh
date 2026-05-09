@@ -1,10 +1,16 @@
 #!/bin/bash
 
-# If you cant to show the time
-# sketchybar --set $NAME icon="$(date '+%a %d. %b')" label="$(date '+%H:%M')"
-# sketchybar --set $NAME icon="$(date '+%a %d. %b %Y %H:%M')"
-# sketchybar --set $NAME icon="$(date '+%a %d%b%y %H:%M')"
-sketchybar --set $NAME icon="$(date '+%a %y/%m/%d %H:%M')"
+weekday_num="$(date '+%u')"
 
-# In case you don't want to show the time
-# sketchybar --set $NAME icon="$(date '+%a %d. %b %Y')"
+case "$weekday_num" in
+  1) weekday="周一" ;;
+  2) weekday="周二" ;;
+  3) weekday="周三" ;;
+  4) weekday="周四" ;;
+  5) weekday="周五" ;;
+  6) weekday="周六" ;;
+  7) weekday="周日" ;;
+  *) weekday="" ;;
+esac
+
+sketchybar --set "$NAME" icon="$(date '+%-m月%-d日') ${weekday} $(date '+%H:%M')"

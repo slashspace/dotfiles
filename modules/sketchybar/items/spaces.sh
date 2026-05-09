@@ -34,28 +34,6 @@ for i in 0 1 2 3 4 5 6 7 8 9; do
     drawing=off
 done
 
-# 布局指示器保留占位定义，默认隐藏；当前按需求不显示 H/V。
-sketchybar --add item space.layout left \
-  --set space.layout \
-  width=0 \
-  icon.width=0 \
-  icon.align=center \
-  icon.font="$FONT:Bold:9.0" \
-  icon.color="$BLUE" \
-  icon.padding_left=0 \
-  icon.padding_right=0 \
-  label.drawing=off \
-  background.drawing=on \
-  background.height=20 \
-  background.width=20 \
-  background.corner_radius=4 \
-  background.border_width=1 \
-  background.color="$BAR_COLOR" \
-  background.border_color="$BLACK" \
-  background.padding_left=1 \
-  background.padding_right=1 \
-  drawing=off
-
 # 当前 workspace 应用列表：背景高度与 space.ws.* 一致（由 plugin 上色）
 for i in 1 2 3 4 5; do
   sketchybar --add item "space.app.${i}" left \

@@ -20,8 +20,6 @@ dotfiles theme list            # List available themes
 dotfiles theme apply <name>    # Apply theme
 dotfiles theme select          # Interactive selection
 dotfiles theme current         # Show current theme
-dotfiles keys                  # Search keymaps with fzf (prefix + ? in tmux)
-dotfiles keys <tool>           # Show keymap for a specific tool
 dotfiles doctor                # Run health checks
 dotfiles modules install       # Install macOS modules
 dotfiles defaults              # Apply macOS system defaults
@@ -38,7 +36,7 @@ brew bundle --file=~/dotfiles/system/packages/Brewfile
 |-------|---------|--------|
 | `core/` | Cross-platform essentials (git, zsh, sheldon, nvim, tmux, starship) | `$HOME` or `$HOME/.config/...` |
 | `modules/` | macOS-specific (aerospace, ghostty, karabiner, sketchybar, borders) | `$HOME/.config/...` |
-| `system/` | Engine: bin/, themes/, lib/, packages/, keymaps/ | N/A |
+| `system/` | Engine: bin/, themes/, lib/, packages/ | N/A |
 
 ### Stow Package Mapping (dotfiles-stow)
 

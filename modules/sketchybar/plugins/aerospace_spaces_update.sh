@@ -98,6 +98,3 @@ for i in 1 2 3 4 5; do
     sketchybar --set "space.app.${i}" drawing=off
   fi
 done
-
-# 布局指示器按当前需求保持隐藏。
-sketchybar --set space.layout drawing=off background.drawing=off icon=""

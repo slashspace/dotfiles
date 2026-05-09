@@ -7,7 +7,7 @@ volume_slider=(
   updates=on
   label.drawing=off
   icon.drawing=off
-  padding_left=0
+  padding_left=6
   slider.highlight_color=$BLUE
   slider.background.height=5
   slider.background.corner_radius=3
@@ -18,7 +18,8 @@ volume_slider=(
 
 volume_icon=(
   click_script="$PLUGIN_DIR/volume_click.sh"
-  padding_left=8
+  padding_left=6
+  padding_right=6
   icon=$VOLUME_100
   icon.width=0
   icon.align=left
@@ -27,11 +28,6 @@ volume_icon=(
   label.width=25
   label.align=left
   label.font="$FONT:Regular:14.0"
-)
-
-status_bracket=(
-  background.color=$BACKGROUND_1
-  background.border_color=$BACKGROUND_2
 )
 
 # Check if the current audio output is AirPods
@@ -51,6 +47,3 @@ sketchybar --add slider volume right \
   \
   --add item volume_icon right \
   --set volume_icon "${volume_icon[@]}"
-
-sketchybar --add bracket status brew github.bell wifi volume_icon \
-  --set status "${status_bracket[@]}"

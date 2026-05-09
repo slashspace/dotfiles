@@ -82,17 +82,17 @@ fi
 
 # zoxide
 if command -v zoxide &>/dev/null; then
-  eval "$(zoxide init zsh)"
-  alias cd='z'
-  alias cdd='z -'
-fi
-
-# sketchybar brew wrapper
-if command -v sketchybar &>/dev/null; then
-  function brew() {
-    command brew "$@"
-    if [[ $* =~ "upgrade" ]] || [[ $* =~ "update" ]] || [[ $* =~ "outdated" ]] || [[ $* =~ "list" ]] || [[ $* =~ "install" ]] || [[ $* =~ "uninstall" ]] || [[ $* =~ "bundle" ]] || [[ $* =~ "doctor" ]] || [[ $* =~ "info" ]] || [[ $* =~ "cleanup" ]]; then
-      sketchybar --trigger brew_update
+  eval "$(zoxide init zsh --no-cmd)"
+  z() { __zoxide_z "$@" }
+  zi() { __zoxide_zi "$@" }
+  cd() {
+    if [[ $# -eq 0 ]]; then
+      builtin cd ~
+    elif [[ -d "$1" ]] || [[ "$1" = '-' ]] || [[ "$1" =~ ^[-+][0-9]+$ ]]; then
+      builtin cd "$@"
+    else
+      __zoxide_z "$@"
     fi
   }
+  alias cdd='cd -'
 fi
