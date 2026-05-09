@@ -2,104 +2,127 @@
   "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-openagent/dev/assets/oh-my-opencode.schema.json",
   "agents": {
     "sisyphus": {
-      "model": "github-copilot/claude-sonnet-4.6",
+      "model": "xiaomi-token-plan-sgp/mimo-v2.5-pro",
       "fallback_models": [
         {
+          "model": "xiaomi-token-plan-sgp/mimo-v2.5"
+        },
+        {
+          "model": "github-copilot/claude-sonnet-4.6"
+        },
+        {
           "model": "opencode-go/kimi-k2.6"
+        }
+      ]
+    },
+    "hephaestus": {
+      "model": "xiaomi-token-plan-sgp/mimo-v2.5-pro",
+      "fallback_models": [
+        {
+          "model": "xiaomi-token-plan-sgp/mimo-v2.5"
         },
         {
           "model": "github-copilot/gpt-5.4"
         }
       ]
     },
-    "hephaestus": {
-      "model": "github-copilot/gpt-5.4"
-    },
     "oracle": {
-      "model": "github-copilot/gemini-3.1-pro-preview",
+      "model": "xiaomi-token-plan-sgp/mimo-v2.5-pro",
       "fallback_models": [
         {
-          "model": "github-copilot/claude-sonnet-4.6"
+          "model": "xiaomi-token-plan-sgp/mimo-v2.5"
+        },
+        {
+          "model": "github-copilot/gemini-3.1-pro-preview"
         },
         {
           "model": "opencode-go/kimi-k2.6"
-        },
-        {
-          "model": "opencode-go/glm-5.1"
         }
       ]
     },
     "librarian": {
-      "model": "opencode-go/minimax-m2.7",
+      "model": "xiaomi-token-plan-sgp/mimo-v2.5",
       "fallback_models": [
+        {
+          "model": "opencode-go/minimax-m2.7"
+        },
         {
           "model": "opencode-go/kimi-k2.5"
         }
       ]
     },
     "explore": {
-      "model": "opencode-go/minimax-m2.7",
+      "model": "xiaomi-token-plan-sgp/mimo-v2.5",
       "fallback_models": [
+        {
+          "model": "opencode-go/minimax-m2.7"
+        },
         {
           "model": "opencode-go/kimi-k2.5"
         }
       ]
     },
     "multimodal-looker": {
-      "model": "github-copilot/gemini-3.1-pro-preview",
+      "model": "xiaomi-token-plan-sgp/mimo-v2.5-pro",
       "fallback_models": [
         {
-          "model": "opencode-go/kimi-k2.5"
+          "model": "xiaomi-token-plan-sgp/mimo-v2.5"
+        },
+        {
+          "model": "github-copilot/gemini-3.1-pro-preview"
         }
       ]
     },
     "prometheus": {
-      "model": "github-copilot/claude-sonnet-4.6",
+      "model": "xiaomi-token-plan-sgp/mimo-v2.5-pro",
       "fallback_models": [
         {
-          "model": "github-copilot/gemini-3.1-pro-preview"
+          "model": "xiaomi-token-plan-sgp/mimo-v2.5"
         },
-        {
-          "model": "opencode-go/kimi-k2.6"
-        },
-        {
-          "model": "opencode-go/glm-5.1"
-        }
-      ]
-    },
-    "metis": {
-      "model": "github-copilot/claude-sonnet-4.6",
-      "fallback_models": [
-        {
-          "model": "github-copilot/gemini-3.1-pro-preview"
-        },
-        {
-          "model": "opencode-go/glm-5.1"
-        }
-      ]
-    },
-    "momus": {
-      "model": "github-copilot/gemini-3.1-pro-preview",
-      "fallback_models": [
         {
           "model": "github-copilot/claude-sonnet-4.6"
         },
         {
           "model": "opencode-go/kimi-k2.6"
+        }
+      ]
+    },
+    "metis": {
+      "model": "xiaomi-token-plan-sgp/mimo-v2.5-pro",
+      "fallback_models": [
+        {
+          "model": "xiaomi-token-plan-sgp/mimo-v2.5"
         },
         {
-          "model": "opencode-go/glm-5.1"
+          "model": "github-copilot/claude-sonnet-4.6"
+        },
+        {
+          "model": "github-copilot/gemini-3.1-pro-preview"
+        }
+      ]
+    },
+    "momus": {
+      "model": "xiaomi-token-plan-sgp/mimo-v2.5-pro",
+      "fallback_models": [
+        {
+          "model": "xiaomi-token-plan-sgp/mimo-v2.5"
+        },
+        {
+          "model": "github-copilot/gemini-3.1-pro-preview"
+        },
+        {
+          "model": "opencode-go/kimi-k2.6"
         }
       ]
     },
     "atlas": {
-      "model": "github-copilot/claude-sonnet-4.6",
+      "model": "xiaomi-token-plan-sgp/mimo-v2.5-pro",
       "fallback_models": [
         {
-          "model": "opencode-go/kimi-k2.5"
+          "model": "xiaomi-token-plan-sgp/mimo-v2.5"
         },
         {
-          "model": "github-copilot/gpt-5.4"
+          "model": "github-copilot/claude-sonnet-4.6"
         },
         {
           "model": "opencode-go/minimax-m2.7"
@@ -107,13 +130,13 @@
       ]
     },
     "sisyphus-junior": {
-      "model": "github-copilot/claude-sonnet-4.6",
+      "model": "xiaomi-token-plan-sgp/mimo-v2.5-pro",
       "fallback_models": [
         {
-          "model": "opencode-go/kimi-k2.5"
+          "model": "xiaomi-token-plan-sgp/mimo-v2.5"
         },
         {
-          "model": "github-copilot/gpt-5.4"
+          "model": "github-copilot/claude-sonnet-4.6"
         },
         {
           "model": "opencode-go/minimax-m2.7"
@@ -123,57 +146,60 @@
   },
   "categories": {
     "visual-engineering": {
-      "model": "github-copilot/gemini-3.1-pro-preview",
+      "model": "xiaomi-token-plan-sgp/mimo-v2.5-pro",
       "fallback_models": [
         {
-          "model": "github-copilot/claude-sonnet-4.6"
-        },
-        {
-          "model": "opencode-go/kimi-k2.6"
-        }
-      ]
-    },
-    "ultrabrain": {
-      "model": "github-copilot/gemini-3.1-pro-preview",
-      "fallback_models": [
-        {
-          "model": "github-copilot/claude-sonnet-4.6"
-        },
-        {
-          "model": "opencode-go/kimi-k2.6"
-        }
-      ]
-    },
-    "deep": {
-      "model": "github-copilot/gpt-5.4",
-      "fallback_models": [
-        {
-          "model": "github-copilot/claude-sonnet-4.6"
+          "model": "xiaomi-token-plan-sgp/mimo-v2.5"
         },
         {
           "model": "github-copilot/gemini-3.1-pro-preview"
         }
       ]
     },
-    "artistry": {
-      "model": "github-copilot/gemini-3.1-pro-preview",
+    "ultrabrain": {
+      "model": "xiaomi-token-plan-sgp/mimo-v2.5-pro",
       "fallback_models": [
         {
-          "model": "github-copilot/claude-sonnet-4.6"
+          "model": "xiaomi-token-plan-sgp/mimo-v2.5"
+        },
+        {
+          "model": "github-copilot/gemini-3.1-pro-preview"
+        }
+      ]
+    },
+    "deep": {
+      "model": "xiaomi-token-plan-sgp/mimo-v2.5-pro",
+      "fallback_models": [
+        {
+          "model": "xiaomi-token-plan-sgp/mimo-v2.5"
         },
         {
           "model": "github-copilot/gpt-5.4"
+        },
+        {
+          "model": "github-copilot/claude-sonnet-4.6"
+        }
+      ]
+    },
+    "artistry": {
+      "model": "xiaomi-token-plan-sgp/mimo-v2.5-pro",
+      "fallback_models": [
+        {
+          "model": "xiaomi-token-plan-sgp/mimo-v2.5"
+        },
+        {
+          "model": "github-copilot/gemini-3.1-pro-preview"
         }
       ]
     },
     "quick": {
-      "model": "github-copilot/gpt-5.4-mini",
+      "model": "xiaomi-token-plan-sgp/mimo-v2.5",
       "fallback_models": [
         {
-          "model": "github-copilot/claude-haiku-4.5"
+          "model": "github-copilot/gpt-5.4-mini"
         },
         {
-          "model": "github-copilot/gemini-3-flash-preview"
+          "model": "github-copilot/claude-haiku-4.5"
         },
         {
           "model": "opencode-go/minimax-m2.7"
@@ -181,13 +207,13 @@
       ]
     },
     "unspecified-low": {
-      "model": "github-copilot/claude-sonnet-4.6",
+      "model": "xiaomi-token-plan-sgp/mimo-v2.5",
       "fallback_models": [
         {
-          "model": "opencode-go/kimi-k2.5"
+          "model": "github-copilot/claude-sonnet-4.6"
         },
         {
-          "model": "github-copilot/gemini-3-flash-preview"
+          "model": "opencode-go/kimi-k2.5"
         },
         {
           "model": "opencode-go/minimax-m2.7"
@@ -195,27 +221,27 @@
       ]
     },
     "unspecified-high": {
-      "model": "github-copilot/claude-sonnet-4.6",
+      "model": "xiaomi-token-plan-sgp/mimo-v2.5-pro",
       "fallback_models": [
         {
+          "model": "xiaomi-token-plan-sgp/mimo-v2.5"
+        },
+        {
+          "model": "github-copilot/claude-sonnet-4.6"
+        },
+        {
           "model": "opencode-go/kimi-k2.6"
-        },
-        {
-          "model": "github-copilot/gemini-3.1-pro-preview"
-        },
-        {
-          "model": "opencode-go/minimax-m2.7"
         }
       ]
     },
     "writing": {
-      "model": "github-copilot/gemini-3-flash-preview",
+      "model": "xiaomi-token-plan-sgp/mimo-v2.5",
       "fallback_models": [
         {
           "model": "opencode-go/kimi-k2.5"
         },
         {
-          "model": "github-copilot/claude-sonnet-4.6"
+          "model": "github-copilot/gemini-3-flash-preview"
         },
         {
           "model": "opencode-go/minimax-m2.7"
