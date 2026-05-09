@@ -31,6 +31,7 @@ for i in 0 1 2 3 4 5 6 7 8 9; do
     background.border_width=1 \
     background.padding_left=4 \
     background.padding_right=4 \
+    padding_right=5 \
     drawing=off
 done
 
@@ -45,5 +46,7 @@ for i in 1 2 3 4 5; do
     icon.background.height=20 \
     icon.background.width=20 \
     icon.background.image.scale=0.65 \
+    padding_left=5 \
+    padding_right=5 \
     drawing=off
 done
