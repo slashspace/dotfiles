@@ -3,7 +3,7 @@ theme = Gruvbox Dark
 background-opacity = 0.75
 background-blur-radius = 23
 
-font-family = MonoLisa EEEEEgg1static
+font-family = MonoLisa Variable
 font-size = 15
 
 # 光标
