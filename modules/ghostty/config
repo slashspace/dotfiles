@@ -1,5 +1,5 @@
 # By default Reload config with shft + cmd + ,
-theme = Kanagawa Wave
+theme = my-theme
 background-opacity = 0.75
 background-blur-radius = 23
 

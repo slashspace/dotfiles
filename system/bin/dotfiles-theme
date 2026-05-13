@@ -49,7 +49,11 @@ _apply() {
 
   # 3. Run all renderers
   for renderer in "$THEMES_DIR"/renderers/*.sh; do
-    "$renderer"
+    if [[ "$(basename "$renderer")" == "borders.sh" ]]; then
+      "$renderer" --apply
+    else
+      "$renderer"
+    fi
   done
 
   # 4. Install gitmux config (~/.gitmux.conf is no longer stowed)
