@@ -7,12 +7,12 @@ set -euo pipefail
 
 OUTPUT="${DOTFILES_DIR}/system/themes/generated/borders-colors.sh"
 
-_blue="${THEME_BLUE#\#}"
-_surface1="${THEME_SURFACE1#\#}"
+_cursor="${THEME_CURSOR#\#}"
+_surface2="${THEME_SURFACE2#\#}"
 
-BORDERS_ACTIVE_COLOR="0xff${_blue}"
-BORDERS_INACTIVE_COLOR="0xff${_surface1}"
-BORDERS_WIDTH="${THEME_BORDERS_WIDTH:-4.0}"
+BORDERS_ACTIVE_COLOR="0xff${_cursor}"
+BORDERS_INACTIVE_COLOR="0xff${_surface2}"
+BORDERS_WIDTH="${THEME_BORDERS_WIDTH:-5.0}"
 
 cat > "$OUTPUT" <<EOF
 #!/bin/bash

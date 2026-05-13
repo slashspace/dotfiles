@@ -1,8 +1,36 @@
 #!/bin/bash
 # JankyBorders configuration
-# Colors are set by the theme system via CLI args when borders is launched
+# Colors are set by the theme system via generated env vars, then passed to
+# JankyBorders when this config file is executed.
 # See: system/themes/renderers/borders.sh
+
+set -euo pipefail
+
 DOTFILES_DIR="${DOTFILES_DIR:-$HOME/dotfiles}"
+
+if [[ -f "$DOTFILES_DIR/system/themes/palette.sh" ]]; then
+  # shellcheck disable=SC1091
+  source "$DOTFILES_DIR/system/themes/palette.sh"
+fi
+
 if [[ -f "$DOTFILES_DIR/system/themes/generated/borders-colors.sh" ]]; then
+  # shellcheck disable=SC1091
   source "$DOTFILES_DIR/system/themes/generated/borders-colors.sh"
 fi
+
+_active_hex="${THEME_CURSOR:-${THEME_SKY:-${THEME_BLUE:-#89b4fa}}}"
+_inactive_hex="${THEME_SURFACE2:-#585b70}"
+
+: "${BORDERS_ACTIVE_COLOR:=0xff${_active_hex#\#}}"
+: "${BORDERS_INACTIVE_COLOR:=0xff${_inactive_hex#\#}}"
+: "${BORDERS_WIDTH:=5.0}"
+
+options=(
+  "style=round"
+  "hidpi=on"
+  "active_color=${BORDERS_ACTIVE_COLOR}"
+  "inactive_color=${BORDERS_INACTIVE_COLOR}"
+  "width=${BORDERS_WIDTH}"
+)
+
+exec borders "${options[@]}"
