@@ -81,6 +81,38 @@ _apply() {
   if command -v tmux &>/dev/null && tmux has-session 2>/dev/null; then
     log_step "Reloading tmux colors"
     tmux source-file "$GENERATED_DIR/tmux-colors.conf" 2>/dev/null || true
+    # catppuccin/tmux caches module colors/status strings with set -ogqF.
+    # Clear them before re-sourcing plugin config so theme changes propagate.
+    for opt in \
+      @catppuccin_directory_color \
+      @catppuccin_gitmux_color \
+      @catppuccin_date_time_color \
+      @catppuccin_status_directory_icon_bg \
+      @catppuccin_status_gitmux_icon_bg \
+      @catppuccin_status_date_time_icon_bg \
+      @catppuccin_status_directory_icon_fg \
+      @catppuccin_status_gitmux_icon_fg \
+      @catppuccin_status_date_time_icon_fg \
+      @catppuccin_status_directory_text_fg \
+      @catppuccin_status_gitmux_text_fg \
+      @catppuccin_status_date_time_text_fg \
+      @catppuccin_status_directory_text_bg \
+      @catppuccin_status_gitmux_text_bg \
+      @catppuccin_status_date_time_text_bg \
+      @catppuccin_status_directory \
+      @catppuccin_status_gitmux \
+      @catppuccin_status_date_time; do
+      tmux set -gu "$opt" 2>/dev/null || true
+    done
+    if [[ -f "$HOME/.config/tmux/plugins/tmux/catppuccin_options_tmux.conf" ]]; then
+      tmux source-file "$HOME/.config/tmux/plugins/tmux/catppuccin_options_tmux.conf" 2>/dev/null || true
+    fi
+    if [[ -f "$HOME/.config/tmux/plugins/tmux/catppuccin_tmux.conf" ]]; then
+      tmux source-file "$HOME/.config/tmux/plugins/tmux/catppuccin_tmux.conf" 2>/dev/null || true
+    fi
+    if [[ -f "$DOTFILES_DIR/core/tmux/tmux.conf" ]]; then
+      tmux source-file "$DOTFILES_DIR/core/tmux/tmux.conf" 2>/dev/null || true
+    fi
     # Floax reads these from tmux global env; refresh them on theme apply.
     tmux setenv -g FLOAX_BORDER_COLOR "${THEME_MAUVE}" 2>/dev/null || true
     tmux setenv -g FLOAX_TEXT_COLOR "${THEME_TEXT}" 2>/dev/null || true
