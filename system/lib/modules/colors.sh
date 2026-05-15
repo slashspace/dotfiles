@@ -7,6 +7,9 @@ if [[ -f "$THEME_ENV_FILE" ]]; then
   # shellcheck source=/dev/null
   source "$THEME_ENV_FILE"
 else
+  # First-boot fallback: load the default palette so shells always have THEME_*.
+  set -a
   # shellcheck source=/dev/null
-  source "$DOTFILES_DIR/system/themes/schema.sh"
+  source "$DOTFILES_DIR/system/themes/palettes/catppuccin-purple.sh"
+  set +a
 fi
