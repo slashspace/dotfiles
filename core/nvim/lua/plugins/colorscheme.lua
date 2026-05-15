@@ -48,4 +48,10 @@ return {
       return { variant = vim.g.theme_style or "moon" }
     end,
   },
+  {
+    "joegoggin/matrix.nvim",
+    name = "matrix",
+    lazy = false,
+    priority = 1000,
+  },
 }
