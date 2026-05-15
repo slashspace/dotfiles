@@ -22,7 +22,6 @@ autoload -Uz compinit && compinit -d "$ZSH_COMPDUMP"
 # --- Modules ---
 source "$DOTFILES_DIR/system/lib/modules/alias.sh"
 source "$DOTFILES_DIR/system/lib/modules/history.sh"
-source "$DOTFILES_DIR/system/lib/modules/colors.sh"
 source "$DOTFILES_DIR/system/lib/modules/tools.sh"
 
 # --- Theme (optional) ---

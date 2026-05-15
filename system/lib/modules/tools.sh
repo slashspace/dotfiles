@@ -19,18 +19,7 @@ if command -v fzf &>/dev/null; then
     --preview 'bat -n --color=always {}'
     --bind 'ctrl-/:change-preview-window(down|hidden|)'"
   export FZF_COMPLETION_TRIGGER='::'
-  # FZF colors derived from theme palette (fall back to defaults when no theme active)
-  _fg="${THEME_FG:-#ffffff}"
-  _bg="${THEME_BG:-#0D1116}"
-  _green="${THEME_SUCCESS:-#37f499}"
-  _red="${THEME_ERROR:-#f16c75}"
-  _yellow="${THEME_WARNING:-#f5c542}"
-  _muted="${THEME_OUTLINE:-#6b7a8d}"
   export FZF_DEFAULT_OPTS=" \
-    --color=fg:${_fg},bg:${_bg},hl:${_green} \
-    --color=fg+:${_fg},bg+:${_bg},hl+:${_green} \
-    --color=info:${_muted},prompt:${_red},pointer:${_yellow} \
-    --color=marker:${_muted},spinner:${_yellow},header:${_yellow} \
     --height=90% --reverse --border=rounded --padding=1 \
     --bind=ctrl-j:down,ctrl-k:up"
 
