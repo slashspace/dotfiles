@@ -12,26 +12,26 @@ sketchybar --add item spaces.manager left \
   drawing=off
 sketchybar --subscribe spaces.manager aerospace_workspace_change front_app_switched
 
-# One item per workspace digit 0–9 (left to right); icon and style set by plugin.
+# One item per workspace digit 0–9 (left to right). Plugin only swaps colors;
+# size/shape/gap are fixed here so layout never shifts when switching workspaces.
 for i in 0 1 2 3 4 5 6 7 8 9; do
   sketchybar --add item "space.ws.${i}" left \
     --set "space.ws.${i}" \
     icon="" \
-    width=20 \
-    icon.width=20 \
+    width=24 \
+    icon.width=24 \
     icon.align=center \
-    icon.font="$FONT:Semibold:12.0" \
+    icon.font="$FONT:Bold:13.0" \
     icon.padding_left=0 \
     icon.padding_right=0 \
     label.drawing=off \
     background.drawing=on \
-    background.height=20 \
-    background.width=20 \
-    background.corner_radius=4 \
-    background.border_width=1 \
-    background.padding_left=4 \
-    background.padding_right=4 \
-    padding_right=5 \
+    background.height=22 \
+    background.corner_radius=11 \
+    background.border_width=0 \
+    background.padding_left=3 \
+    background.padding_right=3 \
+    padding_right=2 \
     drawing=off
 done
 

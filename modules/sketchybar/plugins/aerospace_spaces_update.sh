@@ -27,50 +27,40 @@ if [ "${SENDER:-}" != "front_app_switched" ]; then
   for w in 0 1 2 3 4 5 6 7 8 9; do
     click_script="/opt/homebrew/bin/aerospace workspace ${w} 2>/dev/null || /usr/local/bin/aerospace workspace ${w}"
     if echo "$on_monitor" | grep -q "^${w}$"; then
-      # 检查 workspace 是否有窗口（非空）
       win_count=0
       if command -v aerospace &>/dev/null; then
         win_count=$(aerospace list-windows --workspace "$w" 2>/dev/null | wc -l | tr -d ' ')
       fi
 
       if [ -n "$focused_ws" ] && [ "$w" = "$focused_ws" ]; then
-        # 1) 当前激活：长方形 + 主题主色
+        # 1) 激活：实心胶囊
         sketchybar --animate "$ANIM" "$DUR" --set "space.ws.${w}" \
           drawing=on \
           icon="$w" \
           icon.color="$BLACK" \
           background.color="$MAGENTA" \
           background.border_color="$MAGENTA" \
-          background.height=22 \
-          background.corner_radius=6 \
-          width=36 \
-          icon.width=36 \
+          background.border_width=0 \
           click_script="$click_script"
       elif [ "$win_count" -gt 0 ]; then
-        # 2) 非激活但非空：柔和填充 + 高亮文字
+        # 2) 非空：透明胶囊 + 主色描边
         sketchybar --animate "$ANIM" "$DUR" --set "space.ws.${w}" \
           drawing=on \
           icon="$w" \
           icon.color="$MAGENTA" \
-          background.color="$BACKGROUND_1" \
+          background.color="$TRANSPARENT" \
           background.border_color="$MAGENTA" \
-          background.height=20 \
-          background.corner_radius=4 \
-          width=20 \
-          icon.width=20 \
+          background.border_width=2 \
           click_script="$click_script"
       else
-        # 3) 空 workspace：透明底 + 更明显的边框/文字
+        # 3) 空：仅数字 + 极淡灰底
         sketchybar --animate "$ANIM" "$DUR" --set "space.ws.${w}" \
           drawing=on \
           icon="$w" \
           icon.color="$WHITE" \
-          background.color="$TRANSPARENT" \
-          background.border_color="$GREY" \
-          background.height=20 \
-          background.corner_radius=4 \
-          width=20 \
-          icon.width=20 \
+          background.color="$BACKGROUND_1" \
+          background.border_color="$TRANSPARENT" \
+          background.border_width=0 \
           click_script="$click_script"
       fi
     else
