@@ -30,4 +30,22 @@ return {
       return { theme = vim.g.theme_style or "wave" }
     end,
   },
+  {
+    "folke/tokyonight.nvim",
+    name = "tokyonight",
+    lazy = false,
+    priority = 1000,
+    opts = function()
+      return { style = vim.g.theme_style or "moon" }
+    end,
+  },
+  {
+    "rose-pine/neovim",
+    name = "rose-pine",
+    lazy = false,
+    priority = 1000,
+    opts = function()
+      return { variant = vim.g.theme_style or "moon" }
+    end,
+  },
 }

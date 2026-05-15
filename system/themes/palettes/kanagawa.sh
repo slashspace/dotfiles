@@ -1,0 +1,35 @@
+# Theme: Kanagawa Wave
+# Colors from Ghostty built-in "Kanagawa Wave"
+
+# ─── Semantic ───
+THEME_BG="#1f1f28"
+THEME_BG_ALT="#16161d"
+THEME_SHADOW="#0d0d12"
+THEME_FG="#dcd7ba"
+THEME_PRIMARY="#957fb8"     # violet
+THEME_SECONDARY="#7e9cd8"   # blue
+THEME_TERTIARY="#7aa89f"    # teal
+THEME_ACCENT="#938aa9"      # indigo
+THEME_HOVER="#9cabca"       # light blue
+THEME_SURFACE="#2a2a37"
+THEME_OUTLINE="#54546d"
+THEME_SUCCESS="#98bb6c"
+THEME_WARNING="#e6c384"
+THEME_ERROR="#e82424"
+THEME_ORANGE="#ffa066"
+
+# ─── ANSI 16 ───
+THEME_BLACK="#090618";   THEME_BLACKB="#727169"
+THEME_RED="#c34043";     THEME_REDB="#e82424"
+THEME_GREEN="#76946a";   THEME_GREENB="#98bb6c"
+THEME_YELLOW="#c0a36e";  THEME_YELLOWB="#e6c384"
+THEME_BLUE="#7e9cd8";    THEME_BLUEB="#7fb4ca"
+THEME_MAGENTA="#957fb8"; THEME_MAGENTAB="#938aa9"
+THEME_CYAN="#6a9589";    THEME_CYANB="#7aa89f"
+THEME_WHITE="#c8c093";   THEME_WHITEB="#dcd7ba"
+
+# ─── Metadata ───
+THEME_DISPLAY_NAME="Kanagawa Wave"
+THEME_GHOSTTY_BUILTIN="Kanagawa Wave"
+THEME_NVIM_COLORSCHEME="kanagawa"
+THEME_NVIM_STYLE="wave"

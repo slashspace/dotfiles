@@ -51,7 +51,7 @@ log_info "Stowing macOS modules"
 "$DOTFILES_DIR/system/bin/dotfiles-stow" apply --modules
 
 # 6. Apply default theme
-theme_apply catppuccin-purple || log_warn "Default theme not applied"
+theme_apply catppuccin-mocha || log_warn "Default theme not applied"
 
 log_ok "Bootstrap complete!"
 echo ""
