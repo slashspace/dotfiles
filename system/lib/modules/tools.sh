@@ -37,7 +37,7 @@ if command -v fzf &>/dev/null; then
   alias f='fzf --preview "bat --style=numbers --color=always --line-range :500 {}"'
   alias fh="history 1 | sed -E 's/^[[:space:]]*[0-9]+[[:space:]]+//' | fzf"
 
-  # directory: fuzzy jump (explore, not frecency)
+  # directory: fuzzy jump
   alias fcd='cd $(fd --type d | fzf)'
 
   # git: fuzzy branch switch
@@ -49,20 +49,8 @@ if command -v fzf &>/dev/null; then
   # process: fuzzy kill
   alias fkill='ps aux | fzf | awk "{print \$2}" | xargs kill -9'
 
-  # env: fuzzy search environment variables
-  alias fenv='env | fzf'
-
-  # network: fuzzy search open ports / listening processes
-  alias fport='lsof -i -P -n | fzf'
-
   # tmux: fuzzy switch session
   alias fts='tmux switch-client -t $(tmux list-sessions -F "#{session_name}" | fzf)'
-
-  # tmux: fuzzy switch window
-  alias ftw='tmux select-window -t $(tmux list-windows -F "#{window_index}: #{window_name}" | fzf | cut -d: -f1)'
-
-  # tmux: fuzzy switch pane (cross-window, shows current path)
-  alias ftp='tmux switch-client -t $(tmux list-panes -a -F "#{session_name}:#{window_index}.#{pane_index} #{pane_current_path}" | fzf | cut -d" " -f1)'
 fi
 
 # eza

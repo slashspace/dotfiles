@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# dotfiles stow — GNU Stow package manager with per-package target mapping
+# dotfiles stow — GNU Stow package manager
 set -euo pipefail
 
 DOTFILES_DIR="${DOTFILES_DIR:-$HOME/dotfiles}"
@@ -7,156 +7,81 @@ DOTFILES_DIR="${DOTFILES_DIR:-$HOME/dotfiles}"
 # shellcheck source=../../system/lib/log.sh
 source "$DOTFILES_DIR/system/lib/log.sh"
 
-# Package registry: "name:target"
-CORE_PACKAGES=(
-  "git:$HOME"
-  "zsh:$HOME"
-  "sheldon:$HOME/.config/sheldon"
-  "tmux:$HOME/.config/tmux"
-  "nvim:$HOME/.config/nvim"
-  "starship:$HOME/.config/starship"
-  "opencode:$HOME/.config/opencode"
-  "bin:$HOME/.local/bin"
+# Registry: "source_root:name:target"
+CORE=(
+  "core:git:$HOME"
+  "core:zsh:$HOME"
+  "core:sheldon:$HOME/.config/sheldon"
+  "core:tmux:$HOME/.config/tmux"
+  "core:nvim:$HOME/.config/nvim"
+  "core:starship:$HOME/.config/starship"
+  "core:opencode:$HOME/.config/opencode"
+  "system:bin:$HOME/.local/bin"
 )
 
-MACOS_PACKAGES=(
-  "aerospace:$HOME/.config/aerospace"
-  "ghostty:$HOME/.config/ghostty"
-  "karabiner:$HOME/.config/karabiner"
-  "sketchybar:$HOME/.config/sketchybar"
-  "borders:$HOME/.config/borders"
+MODULES=(
+  "modules:aerospace:$HOME/.config/aerospace"
+  "modules:ghostty:$HOME/.config/ghostty"
+  "modules:karabiner:$HOME/.config/karabiner"
+  "modules:sketchybar:$HOME/.config/sketchybar"
+  "modules:borders:$HOME/.config/borders"
 )
 
 usage() {
   cat <<'EOF'
 Usage:
-  dotfiles stow apply --core
-  dotfiles stow apply --modules
-  dotfiles stow apply --all
-  dotfiles stow delete --core
-  dotfiles stow delete --modules
-  dotfiles stow delete --all
-  dotfiles stow dry-run --core
-  dotfiles stow dry-run --modules
-  dotfiles stow dry-run --all
+  dotfiles stow apply   --core | --modules | --all
+  dotfiles stow delete  --core | --modules | --all
+  dotfiles stow dry-run --core | --modules | --all
 EOF
 }
 
-_stow_packages() {
-  local action="$1"   # stow or delete
-  local flag="$2"     # -vn for dry-run, empty for real
-  local packages=()
-  local failed=0
+_run() {
+  local action="$1" flag="$2" scope="$3"
+  local packages=() failed=0
 
-  case "$3" in
-    --core)
-      packages=("${CORE_PACKAGES[@]}")
-      ;;
-    --modules)
-      packages=("${MACOS_PACKAGES[@]}")
-      ;;
-    --all)
-      packages=("${CORE_PACKAGES[@]}" "${MACOS_PACKAGES[@]}")
-      ;;
-    *)
-      usage
-      exit 1
-      ;;
+  case "$scope" in
+    --core)    packages=("${CORE[@]}") ;;
+    --modules) packages=("${MODULES[@]}") ;;
+    --all)     packages=("${CORE[@]}" "${MODULES[@]}") ;;
+    *) usage; exit 1 ;;
   esac
 
-  for entry in "${packages[@]}"; do
-    local name="${entry%%:*}"
-    local target="${entry#*:}"
+  local stow_action="-S"
+  [[ "$action" == "delete" ]] && stow_action="-D"
+  local adopt=""
+  [[ "$action" == "stow" ]] && adopt="--adopt"
 
-    # Determine the stow dir based on which package this is
-    local stow_dir=""
-    if [[ "$name" == "bin" ]]; then
-      stow_dir="$DOTFILES_DIR/system"
-    else
-      for c in "${CORE_PACKAGES[@]}"; do
-        if [[ "$c" == "$name:"* ]]; then
-          stow_dir="$DOTFILES_DIR/core"
-          break
-        fi
-      done
-      if [[ -z "$stow_dir" ]]; then
-        stow_dir="$DOTFILES_DIR/modules"
-      fi
-    fi
+  for entry in "${packages[@]}"; do
+    local root="${entry%%:*}" rest="${entry#*:}"
+    local name="${rest%%:*}" target="${rest#*:}"
+    local stow_dir="$DOTFILES_DIR/$root"
 
     if [[ ! -d "$stow_dir/$name" ]]; then
-      log_warn "Package directory not found: $stow_dir/$name"
+      log_warn "Missing: $stow_dir/$name"
       continue
     fi
 
-    # Ensure target directory exists
     mkdir -p "$target"
-
-    local stow_action="-S"
-    if [[ "$action" == "delete" ]]; then
-      stow_action="-D"
-    fi
-
-    local adopt_arg=""
-    if [[ "$action" == "stow" ]]; then
-      adopt_arg="--adopt"
-    fi
-
     log_step "$action $name -> $target"
 
     local output
-    if ! output=$(stow --dir="$stow_dir" --target="$target" $stow_action $flag ${adopt_arg:+$adopt_arg} "$name" 2>&1); then
+    if ! output=$(stow --dir="$stow_dir" --target="$target" $stow_action $flag ${adopt:+$adopt} "$name" 2>&1); then
       log_error "Failed to $action $name: $output"
       failed=1
     fi
   done
 
-  if [[ $failed -ne 0 ]]; then
-    log_error "One or more packages failed to $action"
-    return 1
-  fi
+  [[ $failed -eq 0 ]] || { log_error "One or more packages failed"; return 1; }
 }
 
-if [[ $# -lt 2 ]]; then
-  usage
-  exit 1
-fi
+[[ $# -ge 2 ]] || { usage; exit 1; }
+ACTION="$1"; shift
+SCOPE="${1:-}"
 
-ACTION="$1"
-shift
-
-SCOPE=""
-while [[ $# -gt 0 ]]; do
-  case "$1" in
-    --core | --modules | --all)
-      SCOPE="$1"
-      shift
-      ;;
-    *)
-      usage
-      exit 1
-      ;;
-  esac
-done
-
-if [[ -z "$SCOPE" ]]; then
-  usage
-  exit 1
-fi
-
-FLAG=""
 case "$ACTION" in
-  apply)
-    _stow_packages "stow" "" "$SCOPE"
-    ;;
-  delete)
-    _stow_packages "delete" "" "$SCOPE"
-    ;;
-  dry-run)
-    _stow_packages "stow" "-vn" "$SCOPE"
-    ;;
-  *)
-    usage
-    exit 1
-    ;;
+  apply)   _run stow   ""   "$SCOPE" ;;
+  delete)  _run delete ""   "$SCOPE" ;;
+  dry-run) _run stow   "-vn" "$SCOPE" ;;
+  *) usage; exit 1 ;;
 esac
