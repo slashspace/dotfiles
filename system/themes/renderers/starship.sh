@@ -38,7 +38,7 @@ read_only_style = "#${ERROR}"
 
 [git_branch]
 symbol = " "
-style = "bold #${OUTLINE}"
+style = "bold #${PRIMARY}"
 format = "[\$symbol\$branch](\$style) "
 
 [git_status]

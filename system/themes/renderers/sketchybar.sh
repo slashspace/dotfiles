@@ -25,7 +25,7 @@ BG0O50=$(color_hex_to_argb "$THEME_BG" 80)
 BG0O60=$(color_hex_to_argb "$THEME_BG" 99)
 BG0O70=$(color_hex_to_argb "$THEME_BG" b2)
 BG0O80=$(color_hex_to_argb "$THEME_BG" cc)
-BG0O85=$(color_hex_to_argb "$THEME_BG" 55)
+BG0O85=$(color_hex_to_argb "$THEME_BG" d9)
 
 # Translucent surface accents.
 BG1=$(color_hex_to_argb "$THEME_OUTLINE" 60)
