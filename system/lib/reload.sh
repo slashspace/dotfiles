@@ -18,7 +18,16 @@ reload_sketchybar() {
 
 reload_ghostty() {
   command -v ghostty &>/dev/null || return 0
-  log_step "Ghostty config updated (reload on next launch)"
+  # Trigger Ghostty's built-in reload_config action via Cmd+Shift+,
+  osascript -e '
+    tell application "System Events"
+      if exists process "Ghostty" then
+        tell process "Ghostty"
+          keystroke "," using {command down, shift down}
+        end tell
+      end if
+    end tell' 2>/dev/null || true
+  log_step "Ghostty config reloaded"
 }
 
 # tmux / catppuccin requires clearing cached `set -ogqF` values before re-sourcing
