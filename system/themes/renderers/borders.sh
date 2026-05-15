@@ -1,17 +1,15 @@
 #!/bin/bash
-# Renderer:Borders (window border coloring)
-# Reads THEME_XX env vars and generates a shell script exporting border colors.
-# Pass --apply to also restart the borders process.
-
+# Renderer: borders (window border coloring). With --apply, restarts the daemon.
 set -euo pipefail
+
+DOTFILES_DIR="${DOTFILES_DIR:-$HOME/dotfiles}"
+# shellcheck source=../../lib/color.sh
+source "$DOTFILES_DIR/system/lib/color.sh"
 
 OUTPUT="${DOTFILES_DIR}/system/themes/generated/borders-colors.sh"
 
-_cursor="${THEME_CURSOR#\#}"
-_surface2="${THEME_SURFACE2#\#}"
-
-BORDERS_ACTIVE_COLOR="0xff${_cursor}"
-BORDERS_INACTIVE_COLOR="0xff${_surface2}"
+BORDERS_ACTIVE_COLOR=$(color_hex_to_argb "$THEME_PRIMARY")
+BORDERS_INACTIVE_COLOR="${THEME_BORDERS_INACTIVE_COLOR:-0x00000000}"
 BORDERS_WIDTH="${THEME_BORDERS_WIDTH:-5.0}"
 
 cat > "$OUTPUT" <<EOF
@@ -26,7 +24,7 @@ echo "  ✨ borders-colors.sh"
 
 if [[ "${1:-}" == "--apply" ]]; then
   if command -v /opt/homebrew/bin/borders &>/dev/null; then
-    pkill -x borders >/dev/null 2>&1 || true
+    /usr/bin/pkill -x borders >/dev/null 2>&1 || true
     nohup /opt/homebrew/bin/borders \
       "active_color=$BORDERS_ACTIVE_COLOR" \
       "inactive_color=$BORDERS_INACTIVE_COLOR" \

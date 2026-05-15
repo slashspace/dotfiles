@@ -60,7 +60,7 @@ defaults=(
 sketchybar --default "${defaults[@]}"
 
 ###############################################################################
-# Items: active / experimental / legacy 由 load_items.sh 统一加载，见 items/README.md
+# Items 由 load_items.sh 统一加载
 ###############################################################################
 source "$CONFIG_DIR/load_items.sh"
 

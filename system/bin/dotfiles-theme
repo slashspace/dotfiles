@@ -1,205 +1,54 @@
 #!/usr/bin/env bash
-# dotfiles-theme — Theme management CLI
+# dotfiles-theme — Pick a theme via fzf; current theme is marked ●.
 set -euo pipefail
 
 DOTFILES_DIR="${DOTFILES_DIR:-$HOME/dotfiles}"
 THEMES_DIR="$DOTFILES_DIR/system/themes"
-GENERATED_DIR="$THEMES_DIR/generated"
-CURRENT_FILE="$GENERATED_DIR/.current-theme"
+CURRENT_FILE="$THEMES_DIR/generated/.current-theme"
 
-# shellcheck source=../../lib/log.sh
-source "$DOTFILES_DIR/system/lib/log.sh"
-
-_list() {
-  for f in "$THEMES_DIR"/list/*.sh; do
-    basename "$f" .sh
-  done
-}
-
-_current() {
-  if [[ -f "$CURRENT_FILE" ]]; then
-    cat "$CURRENT_FILE"
-  else
-    echo "(none)"
-  fi
-}
-
-_apply() {
-  local theme_name="$1"
-  local theme_file="$THEMES_DIR/list/${theme_name}.sh"
-
-  if [[ ! -f "$theme_file" ]]; then
-    log_error "Theme not found: $theme_name"
-    echo "Available themes:"
-    _list
-    exit 1
-  fi
-
-  log_info "Applying theme: $theme_name"
-
-  # 1. Source theme file (loads THEME_XX variables)
-  # shellcheck disable=SC1090
-  source "$theme_file"
-
-  # 2. Ensure generated directory exists
-  mkdir -p "$GENERATED_DIR"
-
-  # Export THEME_NAME for renderers that need it
-  export THEME_NAME="$theme_name"
-
-  # 3. Run all renderers
-  for renderer in "$THEMES_DIR"/renderers/*.sh; do
-    if [[ "$(basename "$renderer")" == "borders.sh" ]]; then
-      "$renderer" --apply
-    else
-      "$renderer"
-    fi
-  done
-
-  # 4. Install gitmux config (~/.gitmux.conf is no longer stowed)
-  _install_gitmux_conf() {
-    local src="$GENERATED_DIR/gitmux.conf"
-    [[ -f "$src" ]] || return 0
-    local dst="$HOME/.gitmux.conf"
-    if [[ -L "$dst" ]]; then
-      rm -f "$dst"
-    fi
-    install -m 0644 "$src" "$dst"
-  }
-  _install_gitmux_conf
-
-  # 5. Persist current theme name
-  echo "$theme_name" > "$CURRENT_FILE"
-
-  # 6. Reload sketchybar
-  if command -v sketchybar &>/dev/null; then
-    log_step "Reloading sketchybar"
-    sketchybar --reload 2>/dev/null || true
-  fi
-
-  # 7. Reload tmux
-  if command -v tmux &>/dev/null && tmux has-session 2>/dev/null; then
-    log_step "Reloading tmux colors"
-    tmux source-file "$GENERATED_DIR/tmux-colors.conf" 2>/dev/null || true
-    # catppuccin/tmux caches module colors/status strings with set -ogqF.
-    # Clear them before re-sourcing plugin config so theme changes propagate.
-    for opt in \
-      @catppuccin_directory_color \
-      @catppuccin_gitmux_color \
-      @catppuccin_date_time_color \
-      @catppuccin_status_directory_icon_bg \
-      @catppuccin_status_gitmux_icon_bg \
-      @catppuccin_status_date_time_icon_bg \
-      @catppuccin_status_directory_icon_fg \
-      @catppuccin_status_gitmux_icon_fg \
-      @catppuccin_status_date_time_icon_fg \
-      @catppuccin_status_directory_text_fg \
-      @catppuccin_status_gitmux_text_fg \
-      @catppuccin_status_date_time_text_fg \
-      @catppuccin_status_directory_text_bg \
-      @catppuccin_status_gitmux_text_bg \
-      @catppuccin_status_date_time_text_bg \
-      @catppuccin_status_directory \
-      @catppuccin_status_gitmux \
-      @catppuccin_status_date_time; do
-      tmux set -gu "$opt" 2>/dev/null || true
-    done
-    if [[ -f "$HOME/.config/tmux/plugins/tmux/catppuccin_options_tmux.conf" ]]; then
-      tmux source-file "$HOME/.config/tmux/plugins/tmux/catppuccin_options_tmux.conf" 2>/dev/null || true
-    fi
-    if [[ -f "$HOME/.config/tmux/plugins/tmux/catppuccin_tmux.conf" ]]; then
-      tmux source-file "$HOME/.config/tmux/plugins/tmux/catppuccin_tmux.conf" 2>/dev/null || true
-    fi
-    if [[ -f "$DOTFILES_DIR/core/tmux/tmux.conf" ]]; then
-      tmux source-file "$DOTFILES_DIR/core/tmux/tmux.conf" 2>/dev/null || true
-    fi
-    # Floax reads these from tmux global env; refresh them on theme apply.
-    tmux setenv -g FLOAX_BORDER_COLOR "${THEME_MAUVE}" 2>/dev/null || true
-    tmux setenv -g FLOAX_TEXT_COLOR "${THEME_TEXT}" 2>/dev/null || true
-    tmux refresh-client -S 2>/dev/null || true
-  fi
-
-  # 8. Ghostty theme updated (Ghostty auto-reloads on config change)
-  if command -v ghostty &>/dev/null; then
-    log_step "Ghostty config updated (reload on next launch)"
-  fi
-
-  log_step ""
-  log_step "To see all changes take effect:"
-  log_step "  - Restart shell: exec zsh"
-  if command -v tmux &>/dev/null; then
-    log_step "  - Restart tmux server: tmux kill-server"
-  fi
-  if command -v ghostty &>/dev/null; then
-    log_step "  - Restart Ghostty (or open a new window)"
-  fi
-
-  log_info "Theme '$theme_name' applied successfully"
-}
-
-_select() {
-  if ! command -v fzf &>/dev/null; then
-    log_error "fzf is required for theme selection"
-    exit 1
-  fi
-
-  local theme_name
-  theme_name=$(_list | fzf --height=40% --reverse --header="Select a theme" --prompt="Theme > ")
-
-  if [[ -z "$theme_name" ]]; then
-    log_warn "No theme selected"
-    exit 0
-  fi
-
-  echo "$theme_name"
-}
-
-_cmd_select() {
-  local name
-  name=$(_select)
-  [[ -n "$name" ]] && _apply "$name"
-}
+# shellcheck source=../lib/theme.sh
+source "$DOTFILES_DIR/system/lib/theme.sh"
 
 usage() {
   cat <<'EOF'
 Usage:
-  dotfiles theme list                  List available themes
-  dotfiles theme current               Show current theme name
-  dotfiles theme select [name]         Select theme interactively (fzf) or by name
-  dotfiles theme apply [name]          Apply theme (select if no name given)
+  dotfiles theme [switch]   Pick a theme via fzf (current marked with ●)
 EOF
 }
 
-# Main
-case "${1:-}" in
-  list)
-    _list
-    ;;
-  current)
-    _current
-    ;;
-  select)
-    if [[ $# -ge 2 ]]; then
-      _apply "$2"
-    else
-      _cmd_select
-    fi
-    ;;
-  apply)
-    if [[ $# -ge 2 ]]; then
-      _apply "$2"
-    else
-      _cmd_select
-    fi
-    ;;
-  help|--help|-h)
-    usage
-    ;;
-  "")
-    usage
-    ;;
+_switch() {
+  if ! command -v fzf &>/dev/null; then
+    log_error "fzf is required for theme switching"
+    exit 1
+  fi
+
+  local current=""
+  [[ -f "$CURRENT_FILE" ]] && current=$(cat "$CURRENT_FILE")
+
+  local picked
+  picked=$(
+    for f in "$THEMES_DIR"/palettes/*.sh; do
+      [[ -f "$f" ]] || continue
+      local name; name=$(basename "$f" .sh)
+      if [[ "$name" == "$current" ]]; then
+        printf '● %s\n' "$name"
+      else
+        printf '  %s\n' "$name"
+      fi
+    done | fzf --ansi --height=40% --reverse \
+      --header="Select a theme  (● = current)" --prompt="Theme > " \
+      | sed -E 's/^[● ] *//'
+  )
+  [[ -n "$picked" ]] || { log_warn "No theme selected"; exit 0; }
+  theme_apply "$picked"
+}
+
+case "${1:-switch}" in
+  switch)            _switch ;;
+  help|--help|-h)    usage ;;
   *)
     echo "Unknown theme command: $1" >&2
+    usage
     exit 1
     ;;
 esac

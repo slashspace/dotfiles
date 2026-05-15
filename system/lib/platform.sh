@@ -10,22 +10,6 @@ platform_os() {
   esac
 }
 
-platform_distro() {
-  if [[ "$(platform_os)" != "linux" ]]; then
-    echo ""
-    return
-  fi
-  if [[ -f /etc/os-release ]]; then
-    # shellcheck disable=SC1091
-    source /etc/os-release
-    echo "${ID}"
-  elif command -v lsb_release &>/dev/null; then
-    lsb_release -is | tr '[:upper:]' '[:lower:]'
-  else
-    echo "unknown"
-  fi
-}
-
 platform_arch() {
   case "$(uname -m)" in
     arm64|aarch64) echo "arm64" ;;

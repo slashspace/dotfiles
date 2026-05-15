@@ -11,17 +11,13 @@ macOS dotfiles managed with **GNU Stow** for symlink management and a custom **t
 ```bash
 # Unified CLI (after stow)
 dotfiles                       # Show help
-dotfiles bootstrap             # One-time setup
+dotfiles bootstrap             # One-time setup (brew + stow + default theme)
 dotfiles stow apply --core     # Symlink core packages
 dotfiles stow apply --modules  # Symlink macOS modules
+dotfiles stow apply --all      # Symlink everything
 dotfiles stow dry-run --core   # Preview stow operations
 dotfiles stow delete --core    # Remove symlinks
-dotfiles theme list            # List available themes
-dotfiles theme apply <name>    # Apply theme
-dotfiles theme select          # Interactive selection
-dotfiles theme current         # Show current theme
-dotfiles doctor                # Run health checks
-dotfiles modules install       # Install macOS modules
+dotfiles theme                 # Pick a theme via fzf (current marked ●)
 dotfiles defaults              # Apply macOS system defaults
 
 # Install/update dependencies
@@ -44,7 +40,24 @@ Each package maps a source directory to a target. Core packages live in `core/`,
 
 ### Theme Engine
 
-Themes in `system/themes/list/*.sh` export 29 `THEME_*` semantic color variables. The `dotfiles theme apply` command sources a theme, then runs all renderers in `system/themes/renderers/` which write tool-specific configs to `system/themes/generated/` (gitignored). Renderers cover: starship, sketchybar, tmux, borders, ghostty, shell `theme-env.sh`, and gitmux. The ghostty renderer writes to `modules/ghostty/themes/my-theme` instead of `system/themes/generated/`. `gitmux.conf` is generated there and copied to `~/.gitmux.conf` (not stowed).
+Inspired by [mango-waybar](https://codeberg.org/theblackdon/mango-waybar):
+themes in `system/themes/palettes/` declare a 15-color semantic layer
+(`THEME_BG / THEME_FG / THEME_PRIMARY / …`) plus a 16-color ANSI layer
+(`THEME_BLACK / THEME_RED / … / THEME_WHITEB`) and a small metadata layer
+(`THEME_GHOSTTY_BUILTIN`, `THEME_NVIM_COLORSCHEME`, etc.).
+
+`dotfiles theme` sources the chosen palette with `set -a` (auto-export), then
+runs every script in `system/themes/renderers/` in a subshell. Each renderer
+reads `THEME_*` and writes one tool-specific file into
+`system/themes/generated/` (gitignored). Renderers cover: starship,
+sketchybar, tmux (catppuccin/tmux `@thm_*` namespace), borders, ghostty,
+shell `theme-env.sh`, nvim, gitmux. The ghostty renderer points the config at
+a built-in theme when `THEME_GHOSTTY_BUILTIN` is set; otherwise it generates
+`modules/ghostty/themes/my-theme`. `gitmux.conf` is generated and copied to
+`~/.gitmux.conf` (not stowed). Live-reload logic for sketchybar/tmux/ghostty
+lives in `system/lib/reload.sh`.
+
+See `system/themes/README.md` for details on adding palettes and renderers.
 
 ### Zsh Startup Chain
 
@@ -53,8 +66,8 @@ Themes in `system/themes/list/*.sh` export 29 `THEME_*` semantic color variables
 ### Shared Libraries
 
 - `system/lib/log.sh` — Logging helpers (`log_info`, `log_warn`, `log_error`, `log_step`)
-- `system/lib/platform.sh` — OS/arch detection (`platform_os`, `platform_arch`, `platform_distro`)
-- `system/lib/package.sh` — Package manager abstraction (Homebrew/apt/pacman)
+- `system/lib/platform.sh` — OS/arch detection (`platform_os`, `platform_arch`)
+- `system/lib/package.sh` — Package manager abstraction (`pkg_manager`, `pkg_bundle`)
 
 ## Local Overrides
 
@@ -70,6 +83,10 @@ Themes in `system/themes/list/*.sh` export 29 `THEME_*` semantic color variables
 
 ## Adding New Themes
 
-1. Create `system/themes/list/<name>.sh` sourcing `palette.sh` and overriding all `THEME_*` variables
-2. Test with `dotfiles theme apply <name>`
-3. Verify generated files in `system/themes/generated/`
+1. Copy any file in `system/themes/palettes/<name>.sh`, edit the
+   `THEME_*` color values and metadata
+   (`THEME_DISPLAY_NAME` / `THEME_GHOSTTY_BUILTIN` /
+    `THEME_NVIM_COLORSCHEME` / `THEME_NVIM_STYLE`).
+2. Test with `dotfiles theme` (pick the new entry in fzf).
+3. Verify generated files in `system/themes/generated/`.
+4. See `system/themes/README.md` for the full contract.

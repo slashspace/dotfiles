@@ -35,7 +35,7 @@ dotfiles/
 - `modules/` 放 macOS 专属、可选安装的模块。
 - `system/bin/dotfiles` 是主 CLI。
 - `dotfiles stow` 会按包名把文件链接到真实目标目录，而不是统一丢到一个路径。
-- 主题系统是可选的；如果不运行 `dotfiles theme apply`，各工具就使用默认配置。
+- 主题系统是可选的；如果不运行 `dotfiles theme`，各工具就使用默认配置。
 
 ## 快速开始
 
@@ -55,62 +55,33 @@ dotfiles bootstrap
 
 它会在需要时安装 Xcode CLI Tools 和 Homebrew，然后执行 `brew bundle`、锁定 Sheldon 插件、stow 核心包，并应用默认主题。
 
-### 3. 安装可选 macOS 模块
-
-```bash
-dotfiles modules install
-```
-
-会 stow 这些模块：
-
-- `aerospace`
-- `ghostty`
-- `karabiner`
-- `sketchybar`
-- `borders`
-
-### 4. 应用 macOS 默认设置
+### 3. 应用 macOS 默认设置（可选）
 
 ```bash
 dotfiles defaults
 ```
 
-### 5. 检查并重启 shell
+### 4. 重启 shell
 
 ```bash
-dotfiles doctor
 exec zsh
 ```
 
 ## 常用命令
 
 ```bash
-dotfiles theme list
-dotfiles theme apply <name>
-dotfiles theme select [name]
-dotfiles theme current
-
-dotfiles stow apply --core
-dotfiles stow apply --modules
-dotfiles stow apply --all
-dotfiles stow delete --core
-dotfiles stow dry-run --core
-
-dotfiles bootstrap
-dotfiles modules install
-dotfiles defaults
-dotfiles doctor
+dotfiles bootstrap              # 一次性初始化
+dotfiles stow apply|delete|dry-run --core|--modules|--all
+dotfiles theme                  # fzf 选择主题（当前主题标 ●）
+dotfiles defaults               # 应用 macOS 系统默认值
 ```
 
-执行 `dotfiles stow apply --core` 之后，CLI 会出现在 `~/.local/bin/dotfiles`。
+执行 `dotfiles bootstrap`（或 `dotfiles stow apply --core`）之后，CLI 会出现在 `~/.local/bin/dotfiles`。
 
 ## 主题工作流
 
 ```bash
-dotfiles theme list
-dotfiles theme current
-dotfiles theme apply catppuccin-mocha
-dotfiles theme select
+dotfiles theme   # fzf 选择，当前主题以 ● 标注
 ```
 
 说明：
@@ -121,9 +92,9 @@ dotfiles theme select
 
 可用主题：
 
-`catppuccin-mocha`、`catppuccin-macchiato`、`dracula`、`gruvbox-dark`、`tokyo-night`、`kanagawa`、`nord`、`rose-pine`、`everforest`、`solarized-dark`、`retro-phosphor`
+`catppuccin-pink`、`catppuccin-purple`、`gruvbox`、`monochrome`
 
-自定义主题放在 `system/themes/list/`，并导出 `system/themes/palette.sh` 中定义的 `THEME_*` 变量。
+自定义主题放在 `system/themes/palettes/`，并导出 `system/themes/schema.sh` 中描述的 `THEME_*` 变量。完整指南见 `system/themes/README.md`。
 
 ## 本地覆盖
 

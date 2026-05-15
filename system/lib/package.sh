@@ -17,17 +17,6 @@ pkg_manager() {
   fi
 }
 
-# Install a single package
-pkg_install() {
-  local pkg="$1"
-  case "$(pkg_manager)" in
-    brew)   brew install "$pkg" ;;
-    apt)    sudo apt install -y "$pkg" ;;
-    pacman) sudo pacman -S --noconfirm "$pkg" ;;
-    *)      echo "Unsupported package manager" >&2; return 1 ;;
-  esac
-}
-
 # Install all packages from a bundle file
 pkg_bundle() {
   local bundle_file="$1"

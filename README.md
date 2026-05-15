@@ -33,7 +33,7 @@ dotfiles/
 - `modules/` contains optional macOS-only integrations.
 - `system/bin/dotfiles` is the main CLI.
 - `dotfiles stow` maps each package to its real target path instead of assuming everything goes to one directory.
-- The theme system is optional. If you do not run `dotfiles theme apply`, tools use their default configs.
+- The theme system is optional. If you do not run `dotfiles theme`, tools use their default configs.
 
 ## Quick Start
 
@@ -53,62 +53,33 @@ dotfiles bootstrap
 
 This installs Xcode CLI tools if needed, installs Homebrew if needed, runs `brew bundle`, locks Sheldon plugins, stows core packages, and applies the default theme.
 
-### 3. Install optional macOS modules
-
-```bash
-dotfiles modules install
-```
-
-This stows:
-
-- `aerospace`
-- `ghostty`
-- `karabiner`
-- `sketchybar`
-- `borders`
-
-### 4. Apply macOS defaults
+### 3. Apply macOS defaults (optional)
 
 ```bash
 dotfiles defaults
 ```
 
-### 5. Verify and restart shell
+### 4. Restart shell
 
 ```bash
-dotfiles doctor
 exec zsh
 ```
 
 ## Commands
 
 ```bash
-dotfiles theme list
-dotfiles theme apply <name>
-dotfiles theme select [name]
-dotfiles theme current
-
-dotfiles stow apply --core
-dotfiles stow apply --modules
-dotfiles stow apply --all
-dotfiles stow delete --core
-dotfiles stow dry-run --core
-
-dotfiles bootstrap
-dotfiles modules install
-dotfiles defaults
-dotfiles doctor
+dotfiles bootstrap              # One-time setup
+dotfiles stow apply|delete|dry-run --core|--modules|--all
+dotfiles theme                  # Pick a theme via fzf (current marked ●)
+dotfiles defaults               # Apply macOS system defaults
 ```
 
-After `dotfiles stow apply --core`, the CLI is available at `~/.local/bin/dotfiles`.
+After `dotfiles bootstrap` (or `dotfiles stow apply --core`), the CLI is available at `~/.local/bin/dotfiles`.
 
 ## Theme Workflow
 
 ```bash
-dotfiles theme list
-dotfiles theme current
-dotfiles theme apply catppuccin-mocha
-dotfiles theme select
+dotfiles theme   # fzf picker; current theme marked with ●
 ```
 
 Notes:
@@ -119,9 +90,9 @@ Notes:
 
 Available themes:
 
-`catppuccin-mocha`, `catppuccin-macchiato`, `dracula`, `gruvbox-dark`, `tokyo-night`, `kanagawa`, `nord`, `rose-pine`, `everforest`, `solarized-dark`, `retro-phosphor`
+`catppuccin-pink`, `catppuccin-purple`, `gruvbox`, `monochrome`
 
-Custom themes live in `system/themes/list/` and should export the `THEME_*` variables defined in `system/themes/palette.sh`.
+Custom themes live in `system/themes/palettes/` and should export the `THEME_*` variables described in `system/themes/schema.sh`. See `system/themes/README.md` for the full guide.
 
 ## Local Overrides
 

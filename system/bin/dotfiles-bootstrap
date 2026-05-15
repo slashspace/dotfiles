@@ -8,6 +8,7 @@ cd "$DOTFILES_DIR"
 source "$DOTFILES_DIR/system/lib/log.sh"
 source "$DOTFILES_DIR/system/lib/platform.sh"
 source "$DOTFILES_DIR/system/lib/package.sh"
+source "$DOTFILES_DIR/system/lib/theme.sh"
 
 log_info "Dotfiles bootstrap starting"
 log_step "Repository: $DOTFILES_DIR"
@@ -43,22 +44,17 @@ fi
 log_info "Locking Sheldon plugins"
 sheldon lock --update
 
-# 5. Stow core
+# 5. Stow core + modules
 log_info "Stowing core packages"
 "$DOTFILES_DIR/system/bin/dotfiles-stow" apply --core
+log_info "Stowing macOS modules"
+"$DOTFILES_DIR/system/bin/dotfiles-stow" apply --modules
 
 # 6. Apply default theme
-log_info "Applying default theme"
-if command -v dotfiles &>/dev/null; then
-  dotfiles theme apply catppuccin-mocha 2>/dev/null || true
-else
-  "$DOTFILES_DIR/system/themes/bin/theme" apply catppuccin-mocha 2>/dev/null || true
-fi
+theme_apply catppuccin-purple || log_warn "Default theme not applied"
 
 log_ok "Bootstrap complete!"
 echo ""
-echo "  # Install macOS modules (optional):"
-echo "    dotfiles modules install"
 echo "  # Set macOS defaults (optional):"
 echo "    dotfiles defaults"
 echo "  # Restart your shell:"
