@@ -48,62 +48,6 @@ if command -v fzf &>/dev/null; then
 
   # process: fuzzy kill
   alias fkill='ps aux | fzf | awk "{print \$2}" | xargs kill -9'
-
-  # tmux: list+preview+actions switcher (lazygit-style)
-  ft() {
-    [[ -z "$TMUX" ]] && { command tmux 2>/dev/null || return 1; }
-
-    local cur_session
-    cur_session=$(tmux display-message -p '#{session_name}')
-
-    local list_cmd preview_cmd helper
-    helper="${DOTFILES_DIR:-$HOME/dotfiles}/system/lib/modules/_ft_helper.sh"
-
-    list_cmd="$helper list \"$cur_session\""
-    preview_cmd="$helper preview {1}"
-
-    while true; do
-      local out key sel
-      out=$(eval "$list_cmd" | fzf \
-        --ansi --no-sort --prompt='session > ' \
-        --header='enter switch · ctrl-x kill · ctrl-n new · ctrl-r rename · tab windows' \
-        --preview "$preview_cmd" --preview-window=right,55%,border-left \
-        --expect=ctrl-x,ctrl-n,ctrl-r,tab \
-        --bind 'ctrl-/:change-preview-window(down,70%|hidden|right,55%)') || return
-      key=$(printf '%s\n' "$out" | head -1)
-      sel=$(printf '%s\n' "$out" | sed -n '2p' | awk '{print $1}')
-
-      case "$key" in
-        ctrl-x)
-          [[ -n "$sel" ]] && tmux kill-session -t "$sel" 2>/dev/null
-          ;;
-        ctrl-n)
-          local name
-          read -r "name?new session name: "
-          [[ -n "$name" ]] && tmux new-session -d -s "$name" && tmux switch-client -t "$name" && return
-          ;;
-        ctrl-r)
-          [[ -z "$sel" ]] && continue
-          local newname
-          read -r "newname?rename '$sel' to: "
-          [[ -n "$newname" ]] && tmux rename-session -t "$sel" "$newname"
-          ;;
-        tab)
-          [[ -z "$sel" ]] && continue
-          local w
-          w=$(tmux list-windows -t "$sel" -F '#{window_index}: #{window_name} (#{window_panes}p)' \
-            | fzf --prompt="window @ $sel > " --preview "tmux capture-pane -ep -t '$sel:{1}' 2>/dev/null | tail -200" \
-                  --preview-window=right,55%,border-left) || continue
-          tmux switch-client -t "$sel:${w%%:*}"
-          return
-          ;;
-        "")
-          [[ -n "$sel" ]] && tmux switch-client -t "$sel"
-          return
-          ;;
-      esac
-    done
-  }
 fi
 
 # eza
