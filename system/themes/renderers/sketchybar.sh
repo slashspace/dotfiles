@@ -18,6 +18,7 @@ YELLOW=$(color_hex_to_argb "$THEME_WARNING")
 ORANGE=$(color_hex_to_argb "$THEME_ORANGE")
 MAGENTA=$(color_hex_to_argb "$THEME_PRIMARY")
 GREY=$(color_hex_to_argb "$THEME_OUTLINE")
+SHADOW=$(color_hex_to_argb "$THEME_SHADOW")
 
 # Translucent bar background — several alpha levels.
 BG0=$(color_hex_to_argb "$THEME_BG")
@@ -43,6 +44,7 @@ export YELLOW=${YELLOW}
 export ORANGE=${ORANGE}
 export MAGENTA=${MAGENTA}
 export GREY=${GREY}
+export SHADOW=${SHADOW}
 export TRANSPARENT=0x00000000
 export BG0=${BG0}
 export BG0O50=${BG0O50}
@@ -59,8 +61,8 @@ export BACKGROUND_2=\$BG2
 export ICON_COLOR=\$WHITE
 export LABEL_COLOR=\$WHITE
 export POPUP_BACKGROUND_COLOR=\$BAR_COLOR
-export POPUP_BORDER_COLOR=\$WHITE
-export SHADOW_COLOR=\$BLACK
+export POPUP_BORDER_COLOR=\$GREY
+export SHADOW_COLOR=\$SHADOW
 export MIC_LEVEL=40
 EOF
 
