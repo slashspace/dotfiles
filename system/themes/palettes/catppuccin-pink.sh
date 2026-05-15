@@ -30,6 +30,6 @@ THEME_WHITE="#bac2de";   THEME_WHITEB="#a6adc8"
 
 # ─── Metadata ───
 THEME_DISPLAY_NAME="Catppuccin Pink"
-THEME_GHOSTTY_BUILTIN="catppuccin-mocha"
+THEME_GHOSTTY_BUILTIN="Catppuccin Mocha"
 THEME_NVIM_COLORSCHEME="catppuccin"
 THEME_NVIM_STYLE="mocha"

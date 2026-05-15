@@ -1,21 +1,17 @@
 #!/bin/bash
-# Renderer: Starship prompt — emits a self-contained TOML config.
+# Renderer: Starship prompt — minimal two-line config with theme colors.
 set -euo pipefail
 
 DOTFILES_DIR="${DOTFILES_DIR:-$HOME/dotfiles}"
 OUTPUT="${DOTFILES_DIR}/system/themes/generated/starship.toml"
 
-# Strip leading # — starship accepts both forms; this matches mango's style.
 _c() { printf '%s' "${1#\#}"; }
 
 PRIMARY=$(_c "$THEME_PRIMARY")
 SECONDARY=$(_c "$THEME_SECONDARY")
-TERTIARY=$(_c "$THEME_TERTIARY")
 SUCCESS=$(_c "$THEME_SUCCESS")
 WARNING=$(_c "$THEME_WARNING")
 ERROR=$(_c "$THEME_ERROR")
-ORANGE=$(_c "$THEME_ORANGE")
-HOVER=$(_c "$THEME_HOVER")
 OUTLINE=$(_c "$THEME_OUTLINE")
 
 cat > "$OUTPUT" <<EOF
@@ -24,11 +20,8 @@ add_newline = true
 command_timeout = 1500
 scan_timeout = 50
 
-format = """
-\$directory\$git_branch\$git_status\$git_state\$cmd_duration
+format = """\$directory\$git_branch\$git_status\$cmd_duration
 \$character"""
-
-right_format = """\$nodejs\$python\$rust\$golang\$java\$docker_context\$time"""
 
 [character]
 success_symbol = "[❯](bold #${PRIMARY})"
@@ -45,55 +38,41 @@ read_only_style = "#${ERROR}"
 
 [git_branch]
 symbol = " "
-style = "bold #${PRIMARY}"
+style = "bold #${OUTLINE}"
 format = "[\$symbol\$branch](\$style) "
 
 [git_status]
-style = "bold #${WARNING}"
+style = "#${WARNING}"
 format = '([\[\$all_status\$ahead_behind\]](\$style) )'
 conflicted = "="
 ahead = "⇡\${count}"
 behind = "⇣\${count}"
 diverged = "⇕⇡\${ahead_count}⇣\${behind_count}"
 untracked = "?"
-stashed = "≡"
 modified = "!"
 staged = "+"
-renamed = "»"
 deleted = "✘"
-
-[git_state]
-style = "bold #${ORANGE}"
 
 [cmd_duration]
 min_time = 2000
-style = "italic #${HOVER}"
+style = "italic #${OUTLINE}"
 format = " [\$duration](\$style)"
 
 [time]
-disabled = false
-time_format = "%H:%M"
-style = "#${OUTLINE}"
-format = "[ \$time](\$style)"
+disabled = true
 
 [nodejs]
-symbol = " "
-style = "#${SUCCESS}"
+disabled = true
 [python]
-symbol = " "
-style = "#${WARNING}"
+disabled = true
 [rust]
-symbol = " "
-style = "#${ORANGE}"
+disabled = true
 [golang]
-symbol = " "
-style = "#${TERTIARY}"
+disabled = true
 [java]
-symbol = " "
-style = "#${ERROR}"
+disabled = true
 [docker_context]
-symbol = " "
-style = "#${SECONDARY}"
+disabled = true
 EOF
 
 echo "  ✨ starship.toml"
