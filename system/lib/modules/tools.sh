@@ -49,8 +49,21 @@ if command -v fzf &>/dev/null; then
   # process: fuzzy kill
   alias fkill='ps aux | fzf | awk "{print \$2}" | xargs kill -9'
 
-  # tmux: fuzzy switch session
-  alias fts='tmux switch-client -t $(tmux list-sessions -F "#{session_name}" | fzf)'
+  # tmux: unified fuzzy switcher (sessions + windows + panes)
+  ft() {
+    [[ -z "$TMUX" ]] && { command tmux 2>/dev/null || return 1; }
+    local sel
+    sel=$({
+      tmux list-sessions -F '[S] #{session_name}'
+      tmux list-windows -a -F '[W] #{session_name}:#{window_index} #{window_name}'
+      tmux list-panes  -a -F '[P] #{session_name}:#{window_index}.#{pane_index} #{pane_current_path}'
+    } | fzf --prompt='tmux> ' --header='[S]ession  [W]indow  [P]ane') || return
+    case "$sel" in
+      "[S] "*) tmux switch-client -t "${sel#\[S\] }" ;;
+      "[W] "*) local w="${sel#\[W\] }"; tmux switch-client -t "${w%% *}" ;;
+      "[P] "*) local p="${sel#\[P\] }"; tmux switch-client -t "${p%% *}" ;;
+    esac
+  }
 fi
 
 # eza
