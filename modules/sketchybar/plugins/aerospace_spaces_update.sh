@@ -33,32 +33,32 @@ if [ "${SENDER:-}" != "front_app_switched" ]; then
       fi
 
       if [ -n "$focused_ws" ] && [ "$w" = "$focused_ws" ]; then
-        # 1) 激活：实心胶囊
+        # 1) 激活：实心圆角方块
         sketchybar --animate "$ANIM" "$DUR" --set "space.ws.${w}" \
           drawing=on \
           icon="$w" \
           icon.color="$BLACK" \
           background.color="$MAGENTA" \
-          background.border_color="$MAGENTA" \
+          background.border_color="$TRANSPARENT" \
           background.border_width=0 \
           click_script="$click_script"
       elif [ "$win_count" -gt 0 ]; then
-        # 2) 非空：透明胶囊 + 主色描边
-        sketchybar --animate "$ANIM" "$DUR" --set "space.ws.${w}" \
-          drawing=on \
-          icon="$w" \
-          icon.color="$MAGENTA" \
-          background.color="$TRANSPARENT" \
-          background.border_color="$MAGENTA" \
-          background.border_width=2 \
-          click_script="$click_script"
-      else
-        # 3) 空：仅数字 + 极淡灰底
+        # 2) 非空：仅亮色数字
         sketchybar --animate "$ANIM" "$DUR" --set "space.ws.${w}" \
           drawing=on \
           icon="$w" \
           icon.color="$WHITE" \
-          background.color="$BACKGROUND_1" \
+          background.color="$TRANSPARENT" \
+          background.border_color="$TRANSPARENT" \
+          background.border_width=0 \
+          click_script="$click_script"
+      else
+        # 3) 空：暗灰数字
+        sketchybar --animate "$ANIM" "$DUR" --set "space.ws.${w}" \
+          drawing=on \
+          icon="$w" \
+          icon.color="$GREY" \
+          background.color="$TRANSPARENT" \
           background.border_color="$TRANSPARENT" \
           background.border_width=0 \
           click_script="$click_script"

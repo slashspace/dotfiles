@@ -26,12 +26,12 @@ for i in 0 1 2 3 4 5 6 7 8 9; do
     icon.padding_right=0 \
     label.drawing=off \
     background.drawing=on \
-    background.height=22 \
-    background.corner_radius=11 \
+    background.height=20 \
+    background.corner_radius=5 \
     background.border_width=0 \
-    background.padding_left=3 \
-    background.padding_right=3 \
-    padding_right=2 \
+    background.padding_left=2 \
+    background.padding_right=2 \
+    padding_right=3 \
     drawing=off
 done
 
