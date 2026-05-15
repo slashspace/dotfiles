@@ -49,15 +49,19 @@ if command -v fzf &>/dev/null; then
   # process: fuzzy kill
   alias fkill='ps aux | fzf | awk "{print \$2}" | xargs kill -9'
 
-  # tmux: unified fuzzy switcher (sessions + windows + panes)
+  # tmux: unified fuzzy switcher — ctrl-s/w/p toggles between sessions/windows/panes
   ft() {
     [[ -z "$TMUX" ]] && { command tmux 2>/dev/null || return 1; }
+    local s_cmd='tmux list-sessions -F "[S] #{session_name}"'
+    local w_cmd='tmux list-windows -a -F "[W] #{session_name}:#{window_index} #{window_name}"'
+    local p_cmd='tmux list-panes  -a -F "[P] #{session_name}:#{window_index}.#{pane_index} #{pane_current_path}"'
     local sel
-    sel=$({
-      tmux list-sessions -F '[S] #{session_name}'
-      tmux list-windows -a -F '[W] #{session_name}:#{window_index} #{window_name}'
-      tmux list-panes  -a -F '[P] #{session_name}:#{window_index}.#{pane_index} #{pane_current_path}'
-    } | fzf --prompt='tmux> ' --header='[S]ession  [W]indow  [P]ane') || return
+    sel=$(eval "$s_cmd" | fzf \
+      --prompt='session> ' \
+      --header='ctrl-s sessions · ctrl-w windows · ctrl-p panes' \
+      --bind "ctrl-s:change-prompt(session> )+reload($s_cmd)" \
+      --bind "ctrl-w:change-prompt(window> )+reload($w_cmd)" \
+      --bind "ctrl-p:change-prompt(pane> )+reload($p_cmd)") || return
     case "$sel" in
       "[S] "*) tmux switch-client -t "${sel#\[S\] }" ;;
       "[W] "*) local w="${sel#\[W\] }"; tmux switch-client -t "${w%% *}" ;;
