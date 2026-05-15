@@ -41,7 +41,7 @@ for i in 1 2 3 4 5; do
     --set "space.app.${i}" \
     label.font="$FONT:Regular:14.0" \
     label.color="$WHITE" \
-    label.highlight_color="$GREEN" \
+    label.highlight_color="$MAGENTA" \
     icon.background.drawing=on \
     icon.background.height=20 \
     icon.background.width=20 \
