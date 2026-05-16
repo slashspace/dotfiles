@@ -1,0 +1,27 @@
+---
+interface Props {
+  title?: string;
+  label?: string;
+  class?: string;
+}
+
+const { title = "~/dotfiles", label = "Terminal preview", class: className = "" } = Astro.props;
+---
+
+<section
+  class:list={[
+    "overflow-hidden rounded-[1.75rem] border border-white/10 bg-[#0b0b12]/90 shadow-glow backdrop-blur-xl",
+    className,
+  ]}
+  aria-label={label}
+>
+  <div class="flex h-11 items-center gap-2 border-b border-white/10 bg-white/[0.04] px-4">
+    <span class="h-3 w-3 rounded-full bg-[#f5c2e7]" aria-hidden="true"></span>
+    <span class="h-3 w-3 rounded-full bg-[#f9e2af]" aria-hidden="true"></span>
+    <span class="h-3 w-3 rounded-full bg-[#a6e3a1]" aria-hidden="true"></span>
+    <span class="ml-3 truncate font-mono text-xs text-cozy-muted">{title}</span>
+  </div>
+  <div class="p-5 font-mono text-sm leading-7 text-cozy-text sm:p-6">
+    <slot />
+  </div>
+</section>

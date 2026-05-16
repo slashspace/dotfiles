@@ -1,0 +1,29 @@
+---
+import CopyButton from "./CopyButton.astro";
+import TerminalCard from "./TerminalCard.astro";
+import { installCommand } from "../data/site";
+---
+
+<section id="install" class="site-container section-shell">
+  <div class="grid items-center gap-8 lg:grid-cols-[0.85fr_1.15fr]">
+    <div>
+      <p class="font-mono text-sm font-bold text-cozy-pink">install</p>
+      <h2 class="mt-3 text-4xl font-black tracking-[-0.04em] text-cozy-strong sm:text-5xl">
+        Up and running with one cozy command path
+      </h2>
+      <p class="mt-5 leading-8 text-cozy-muted">
+        Requires macOS and Homebrew. Designed for personal use, shared for inspiration.
+      </p>
+      <div class="mt-7">
+        <CopyButton
+          text={installCommand}
+          label="Copy full install command"
+          class="bg-gradient-to-r from-cozy-pink to-cozy-mauve text-cozy-bg hover:text-cozy-bg"
+        />
+      </div>
+    </div>
+    <TerminalCard title="quick start" label="Dotfiles quick start commands">
+      <pre class="whitespace-pre-wrap text-sm leading-7">{installCommand}</pre>
+    </TerminalCard>
+  </div>
+</section>

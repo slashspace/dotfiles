@@ -1,0 +1,92 @@
+@import "tailwindcss";
+
+@theme {
+  --color-cozy-bg: #11111b;
+  --color-cozy-bg-alt: #181825;
+  --color-cozy-surface: #1e1e2e;
+  --color-cozy-raised: #313244;
+  --color-cozy-text: #cdd6f4;
+  --color-cozy-strong: #f5e0dc;
+  --color-cozy-muted: #a6adc8;
+  --color-cozy-pink: #f5c2e7;
+  --color-cozy-mauve: #cba6f7;
+  --color-cozy-blue: #89b4fa;
+  --color-cozy-teal: #94e2d5;
+  --color-cozy-green: #a6e3a1;
+  --color-cozy-yellow: #f9e2af;
+  --font-sans: Inter, ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --shadow-glow: 0 24px 80px rgba(203, 166, 247, 0.18);
+}
+
+:root {
+  color-scheme: dark;
+  --bg: #11111b;
+  --bg-alt: #181825;
+  --surface: #1e1e2e;
+  --surface-raised: #313244;
+  --border: rgba(205, 214, 244, 0.14);
+  --text: #cdd6f4;
+  --text-strong: #f5e0dc;
+  --text-muted: #a6adc8;
+  --pink: #f5c2e7;
+  --mauve: #cba6f7;
+  --blue: #89b4fa;
+  --teal: #94e2d5;
+  --green: #a6e3a1;
+  --yellow: #f9e2af;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-width: 320px;
+  overflow-x: hidden;
+  background:
+    radial-gradient(circle at top left, rgba(245, 194, 231, 0.16), transparent 32rem),
+    radial-gradient(circle at 85% 10%, rgba(137, 180, 250, 0.14), transparent 30rem),
+    linear-gradient(180deg, var(--bg), var(--bg-alt) 55%, var(--bg));
+  color: var(--text);
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+}
+
+::selection {
+  background: rgba(203, 166, 247, 0.38);
+  color: var(--text-strong);
+}
+
+:focus-visible {
+  outline: 3px solid rgba(245, 194, 231, 0.78);
+  outline-offset: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+@layer components {
+  .site-container {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .section-shell {
+    @apply py-16 sm:py-20 lg:py-24;
+  }
+
+  .glass-card {
+    @apply border border-white/10 bg-cozy-surface/70 shadow-glow backdrop-blur-xl;
+  }
+
+  .pill-button {
+    @apply inline-flex min-h-11 items-center justify-center rounded-full px-5 py-2.5 text-sm font-bold transition duration-200;
+  }
+}

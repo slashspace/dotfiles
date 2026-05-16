@@ -118,6 +118,16 @@ dotfiles theme   # fzf 选择，当前主题以 ● 标注
 
 - 仅支持 macOS。SketchyBar 刻意保持精简：工作区、日期时间、电池、Wi-Fi、音量。
 
+## 网站
+
+介绍网站位于 `site/`。
+
+```bash
+cd site
+npm install
+npm run dev
+```
+
 ## 卸载
 
 ```bash

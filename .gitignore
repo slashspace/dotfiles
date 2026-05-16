@@ -1,5 +1,8 @@
 *.log
 .superpowers/
+site/node_modules/
+site/dist/
+site/.astro/
 system/themes/generated/
 modules/ghostty/themes/my-theme
 modules/karabiner/automatic_backups/
