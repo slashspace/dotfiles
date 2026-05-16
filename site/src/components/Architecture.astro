@@ -1,0 +1,31 @@
+---
+import { architecture } from "../data/site";
+---
+
+<section id="architecture" class="site-container section-shell">
+  <div class="max-w-3xl">
+    <p class="font-mono text-sm font-bold text-cozy-pink">architecture</p>
+    <h2 class="mt-3 text-4xl font-black tracking-[-0.04em] text-cozy-strong sm:text-5xl">
+      Not a dotfiles dump — a small system
+    </h2>
+  </div>
+  <div class="mt-10 grid gap-5 lg:grid-cols-3">
+    {
+      architecture.map((layer) => (
+        <article class="glass-card rounded-[2rem] p-6">
+          <p class="font-mono text-2xl font-black text-cozy-pink">{layer.name}</p>
+          <h3 class="mt-3 text-xl font-black text-cozy-strong">{layer.title}</h3>
+          <div class="mt-5 flex flex-wrap gap-2">
+            {
+              layer.items.map((item) => (
+                <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 font-mono text-xs text-cozy-muted">
+                  {item}
+                </span>
+              ))
+            }
+          </div>
+        </article>
+      ))
+    }
+  </div>
+</section>

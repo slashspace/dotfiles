@@ -117,6 +117,16 @@ Managed via Homebrew in `system/packages/Brewfile`.
 
 - macOS only. SketchyBar is intentionally minimal (workspace, calendar, battery, Wi-Fi, volume).
 
+## Website
+
+The introduction site lives in `site/`.
+
+```bash
+cd site
+npm install
+npm run dev
+```
+
 ## Uninstall
 
 ```bash

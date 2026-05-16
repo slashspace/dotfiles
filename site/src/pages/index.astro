@@ -1,0 +1,26 @@
+---
+import Architecture from "../components/Architecture.astro";
+import CliPreview from "../components/CliPreview.astro";
+import FeatureGrid from "../components/FeatureGrid.astro";
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+import Hero from "../components/Hero.astro";
+import QuickStart from "../components/QuickStart.astro";
+import StatsStrip from "../components/StatsStrip.astro";
+import ThemeGallery from "../components/ThemeGallery.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout>
+  <Header />
+  <main>
+    <Hero />
+    <StatsStrip />
+    <FeatureGrid />
+    <ThemeGallery />
+    <Architecture />
+    <CliPreview />
+    <QuickStart />
+  </main>
+  <Footer />
+</BaseLayout>
