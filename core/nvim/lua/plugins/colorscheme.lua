@@ -22,6 +22,17 @@ return {
     end,
   },
   {
+    "rebelot/kanagawa.nvim",
+    name = "kanagawa",
+    lazy = false,
+    priority = 1000,
+    opts = function()
+      return {
+        theme = vim.g.theme_style or "dragon",
+      }
+    end,
+  },
+  {
     "lifepillar/vim-solarized8",
     name = "solarized8",
     lazy = false,

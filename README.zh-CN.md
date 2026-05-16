@@ -92,7 +92,7 @@ dotfiles theme   # fzf 选择，当前主题以 ● 标注
 
 可用主题：
 
-`catppuccin-mocha`、`dracula`、`everforest`、`gruvbox`、`matrix`、
+`catppuccin-mocha`、`dracula`、`everforest`、`gruvbox`、`kanagawa-dragon`、`matrix`、
 `monokai-pro`、`nord`、`one-dark`、`solarized-dark`
 
 自定义主题放在 `system/themes/palettes/`，并导出 `system/themes/README.md` 中描述的 `THEME_*` 变量。
@@ -117,16 +117,6 @@ dotfiles theme   # fzf 选择，当前主题以 ● 标注
 ## 备注
 
 - 仅支持 macOS。SketchyBar 刻意保持精简：工作区、日期时间、电池、Wi-Fi、音量。
-
-## 网站
-
-介绍网站位于 `site/`。
-
-```bash
-cd site
-npm install
-npm run dev
-```
 
 ## 卸载
 

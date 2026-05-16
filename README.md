@@ -90,7 +90,7 @@ Notes:
 
 Available themes:
 
-`catppuccin-mocha`, `dracula`, `everforest`, `gruvbox`, `matrix`,
+`catppuccin-mocha`, `dracula`, `everforest`, `gruvbox`, `kanagawa-dragon`, `matrix`,
 `monokai-pro`, `nord`, `one-dark`, `solarized-dark`
 
 Custom themes live in `system/themes/palettes/` and must export the `THEME_*`
@@ -116,16 +116,6 @@ Managed via Homebrew in `system/packages/Brewfile`.
 ## Notes
 
 - macOS only. SketchyBar is intentionally minimal (workspace, calendar, battery, Wi-Fi, volume).
-
-## Website
-
-The introduction site lives in `site/`.
-
-```bash
-cd site
-npm install
-npm run dev
-```
 
 ## Uninstall
 

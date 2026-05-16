@@ -1,0 +1,43 @@
+# Theme: Kanagawa Dragon
+# Colors from Kanagawa's darker Dragon variant.
+
+# --- Semantic ---
+THEME_BG="#181616"
+THEME_BG_ALT="#12120f"
+THEME_SHADOW="#0d0c0c"
+THEME_FG="#c5c9c5"
+THEME_PRIMARY="#8992a7"   # dragon violet/blue
+THEME_SECONDARY="#8a9a7b" # dragon green
+THEME_TERTIARY="#7aa89f"  # teal
+THEME_ACCENT="#c4b28a"    # yellow
+THEME_HOVER="#a292a3"     # pink/purple
+THEME_SURFACE="#24201f"
+THEME_OUTLINE="#545464"
+THEME_SUCCESS="#87a987"
+THEME_WARNING="#c4b28a"
+THEME_ERROR="#c4746e"
+THEME_ORANGE="#b98d7b"
+
+# --- ANSI 16 ---
+THEME_BLACK="#0d0c0c"
+THEME_BLACKB="#625e5a"
+THEME_RED="#c4746e"
+THEME_REDB="#e46876"
+THEME_GREEN="#8a9a7b"
+THEME_GREENB="#87a987"
+THEME_YELLOW="#c4b28a"
+THEME_YELLOWB="#e6c384"
+THEME_BLUE="#8ba4b0"
+THEME_BLUEB="#7fb4ca"
+THEME_MAGENTA="#a292a3"
+THEME_MAGENTAB="#957fb8"
+THEME_CYAN="#8ea4a2"
+THEME_CYANB="#7aa89f"
+THEME_WHITE="#c5c9c5"
+THEME_WHITEB="#dcd7ba"
+
+# --- Metadata ---
+THEME_DISPLAY_NAME="Kanagawa Dragon"
+THEME_GHOSTTY_BUILTIN="Kanagawa Dragon"
+THEME_NVIM_COLORSCHEME="kanagawa"
+THEME_NVIM_STYLE="dragon"
