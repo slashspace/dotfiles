@@ -34,17 +34,17 @@ import { githubUrl, installCommand } from "../data/site";
 
     <div class="relative">
       <div class="absolute -inset-8 -z-10 rounded-full bg-cozy-mauve/20 blur-3xl" aria-hidden="true"></div>
-      <TerminalCard title="cozy@macbook ~/dotfiles" label="Dotfiles bootstrap terminal preview">
-        <div class="text-cozy-pink">~/dotfiles ❯ dotfiles bootstrap</div>
-        <div class="mt-3 grid gap-1 text-cozy-muted">
+      <TerminalCard title="dotfiles" label="Dotfiles bootstrap terminal preview">
+        <div><span class="terminal-accent">~/dotfiles ❯</span> dotfiles bootstrap</div>
+        <div class="terminal-muted mt-3 grid gap-1">
           <span>✓ Homebrew bundle checked</span>
           <span>✓ GNU Stow links applied</span>
           <span>✓ Catppuccin palette rendered</span>
-          <span class="text-cozy-green">✓ Ghostty · tmux · Neovim · SketchyBar updated</span>
+          <span class="terminal-success">✓ Ghostty · tmux · Neovim · SketchyBar updated</span>
         </div>
-        <div class="mt-6 rounded-2xl border border-white/10 bg-white/[0.03] p-4 text-xs">
-          <div class="text-cozy-blue">dotfiles v1.0.0 — macOS development environment</div>
-          <div class="mt-3 text-cozy-muted">bootstrap · defaults · stow · theme</div>
+        <div class="terminal-panel mt-6 p-4 text-xs">
+          <div class="terminal-accent">dotfiles v1.0.0 — macOS development environment</div>
+          <div class="terminal-muted mt-3">bootstrap · defaults · stow · theme</div>
         </div>
       </TerminalCard>
     </div>

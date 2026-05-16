@@ -9,13 +9,13 @@ import { cliCommands, cliHelp } from "../data/site";
       {
         cliCommands.map((command) => (
           <div>
-            <span class="text-cozy-pink">❯</span> <span>{command}</span>
+            <span class="terminal-accent">❯</span> <span>{command}</span>
           </div>
         ))
       }
     </TerminalCard>
     <TerminalCard title="dotfiles help" label="Dotfiles help output">
-      <pre class="whitespace-pre-wrap text-xs leading-6 text-cozy-muted sm:text-sm">{cliHelp}</pre>
+      <pre class="terminal-muted whitespace-pre-wrap text-xs leading-6 sm:text-sm">{cliHelp}</pre>
     </TerminalCard>
   </div>
 </section>

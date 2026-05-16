@@ -1,4 +1,5 @@
 ---
+import TerminalCard from "./TerminalCard.astro";
 import { themes } from "../data/site";
 
 const defaultThemeSlug = "gruvbox";
@@ -11,7 +12,33 @@ const getPreviewColors = (theme: (typeof themes)[number]) => ({
   accent: theme.slug === defaultThemeSlug ? theme.swatches[0] : theme.swatches[3],
 });
 
-const defaultPreview = getPreviewColors(defaultTheme);
+const getSiteColors = (theme: (typeof themes)[number]) => {
+  const preview = getPreviewColors(theme);
+
+  return {
+    bg: `color-mix(in srgb, ${theme.bg} 92%, black)`,
+    bgAlt: theme.bg,
+    surface: `color-mix(in srgb, ${theme.bg} 88%, ${theme.fg} 6%)`,
+    surfaceRaised: `color-mix(in srgb, ${theme.bg} 76%, ${theme.fg} 12%)`,
+    border: `color-mix(in srgb, ${theme.fg} 14%, transparent)`,
+    text: theme.fg,
+    textStrong: `color-mix(in srgb, ${theme.fg} 92%, white)`,
+    textMuted: `color-mix(in srgb, ${theme.fg} 70%, transparent)`,
+    pink: preview.accent,
+    mauve: preview.primary,
+    blue: preview.secondary,
+    teal: preview.tertiary,
+    green: preview.tertiary,
+    yellow: preview.primary,
+    glowShadow: `0 24px 80px color-mix(in srgb, ${preview.primary} 18%, transparent)`,
+    terminalBg: theme.bg,
+    terminalFg: theme.fg,
+    terminalPrimary: preview.primary,
+    terminalSecondary: preview.secondary,
+    terminalTertiary: preview.tertiary,
+    terminalAccent: preview.accent,
+  };
+};
 ---
 
 <section id="themes" class="site-container section-shell">
@@ -19,64 +46,31 @@ const defaultPreview = getPreviewColors(defaultTheme);
     <div class="max-w-3xl">
       <p class="font-mono text-sm font-bold text-cozy-pink">themes</p>
       <h2 class="mt-3 text-4xl font-black tracking-[-0.04em] text-cozy-strong sm:text-5xl">
-        One palette, many tools
+        One palette, everywhere
       </h2>
       <p class="mt-4 leading-8 text-cozy-muted">
-        Ten palettes render the same desktop workflow across SketchyBar, Ghostty,
-        tmux, Starship, Borders, Gitmux, and Neovim.
+        Switch a palette once and the whole page follows: site chrome, terminal
+        previews, tmux tabs, and generated tool configs all share one theme model.
       </p>
     </div>
   </div>
 
-  <div class="mt-10 overflow-hidden rounded-[2rem] border border-white/10 bg-cozy-surface/70 p-3 shadow-glow backdrop-blur-xl sm:p-4 lg:p-5">
-    <div
-      id="theme-preview-stage"
-      class="theme-preview-stage"
-      style={`--theme-bg:${defaultTheme.bg};--theme-fg:${defaultTheme.fg};--theme-primary:${defaultPreview.primary};--theme-secondary:${defaultPreview.secondary};--theme-tertiary:${defaultPreview.tertiary};--theme-accent:${defaultPreview.accent};`}
+  <div class="mt-10 rounded-[2rem] border border-white/10 bg-cozy-surface/70 p-3 shadow-glow backdrop-blur-xl sm:p-4 lg:p-5">
+    <TerminalCard
+      title="dotfiles"
+      label="Theme terminal preview"
+      class="theme-terminal-card"
+      bodyClass="theme-terminal-body"
     >
-      <div class="theme-desktop" aria-label="Theme desktop preview">
-        <div class="theme-sketchybar" aria-hidden="true">
-          <div class="theme-spaces">
-            <span>0</span>
-            <span>1</span>
-            <span>2</span>
-            <span>3</span>
-            <span>4</span>
-            <span>5</span>
-            <span>6</span>
-            <span>7</span>
-            <span>8</span>
-            <span class="theme-active-space">9</span>
-            <span class="hidden sm:inline">Ghostty</span>
-          </div>
-          <div class="theme-status">
-            <span class="hidden md:inline">WiFi</span>
-            <span class="hidden md:inline">Audio</span>
-            <span>Sat 22:20</span>
-            <span class="theme-active-space">74</span>
-          </div>
-        </div>
-
-        <div class="theme-ghostty">
-          <div class="theme-tabs">
-            <span class="theme-tab-pill">▣ dotfiles</span>
-            <span>zsh <span class="theme-tab-index">1</span></span>
-            <span class="hidden sm:inline">zsh 2</span>
-            <span class="theme-tab-right">main..origin/main - +1</span>
-          </div>
-          <div class="theme-terminal">
-            <span class="theme-path">…/dotfiles</span> <span class="theme-branch">main</span> [!]<br />
-            <span class="theme-cursor">❯</span> dotfiles theme<br />
-            <span class="theme-muted">● <span id="theme-preview-name">{defaultTheme.name}</span></span>
-          </div>
-        </div>
-      </div>
-    </div>
+      <span class="terminal-accent">…/dotfiles</span> <span class="terminal-accent">main</span> [!]<br />
+      <span class="terminal-accent">❯</span> dotfiles theme<br />
+      <span class="terminal-muted">● <span id="theme-preview-name">{defaultTheme.name}</span></span>
+    </TerminalCard>
 
     <div class="mt-4 flex flex-wrap gap-2" aria-label="Theme preview controls">
       {
         themes.map((theme) => {
-          const preview = getPreviewColors(theme);
+          const colors = getSiteColors(theme);
 
           return (
             <button
@@ -84,12 +78,27 @@ const defaultPreview = getPreviewColors(defaultTheme);
               class="theme-chip"
               data-theme-chip
               data-name={theme.name}
-              data-bg={theme.bg}
-              data-fg={theme.fg}
-              data-primary={preview.primary}
-              data-secondary={preview.secondary}
-              data-tertiary={preview.tertiary}
-              data-accent={preview.accent}
+              data-bg={colors.bg}
+              data-bg-alt={colors.bgAlt}
+              data-surface={colors.surface}
+              data-surface-raised={colors.surfaceRaised}
+              data-border={colors.border}
+              data-text={colors.text}
+              data-text-strong={colors.textStrong}
+              data-text-muted={colors.textMuted}
+              data-pink={colors.pink}
+              data-mauve={colors.mauve}
+              data-blue={colors.blue}
+              data-teal={colors.teal}
+              data-green={colors.green}
+              data-yellow={colors.yellow}
+              data-glow-shadow={colors.glowShadow}
+              data-terminal-bg={colors.terminalBg}
+              data-terminal-fg={colors.terminalFg}
+              data-terminal-primary={colors.terminalPrimary}
+              data-terminal-secondary={colors.terminalSecondary}
+              data-terminal-tertiary={colors.terminalTertiary}
+              data-terminal-accent={colors.terminalAccent}
               aria-pressed={theme.slug === defaultThemeSlug ? "true" : "false"}
             >
               <span class="theme-chip-swatches" aria-hidden="true">
@@ -105,140 +114,61 @@ const defaultPreview = getPreviewColors(defaultTheme);
 </section>
 
 <script>
-  const stage = document.getElementById("theme-preview-stage");
+  const root = document.documentElement;
   const activeName = document.getElementById("theme-preview-name");
   const chips = Array.from(document.querySelectorAll<HTMLButtonElement>("[data-theme-chip]"));
+  const variableMap = {
+    bg: "--bg",
+    bgAlt: "--bg-alt",
+    surface: "--surface",
+    surfaceRaised: "--surface-raised",
+    border: "--border",
+    text: "--text",
+    textStrong: "--text-strong",
+    textMuted: "--text-muted",
+    pink: "--pink",
+    mauve: "--mauve",
+    blue: "--blue",
+    teal: "--teal",
+    green: "--green",
+    yellow: "--yellow",
+    glowShadow: "--glow-shadow",
+    terminalBg: "--terminal-bg",
+    terminalFg: "--terminal-fg",
+    terminalPrimary: "--terminal-primary",
+    terminalSecondary: "--terminal-secondary",
+    terminalTertiary: "--terminal-tertiary",
+    terminalAccent: "--terminal-accent",
+  };
 
   chips.forEach((chip) => {
     chip.addEventListener("click", () => {
-      if (!stage || !activeName) return;
-
       chips.forEach((item) => item.setAttribute("aria-pressed", "false"));
       chip.setAttribute("aria-pressed", "true");
-      stage.style.setProperty("--theme-bg", chip.dataset.bg ?? "");
-      stage.style.setProperty("--theme-fg", chip.dataset.fg ?? "");
-      stage.style.setProperty("--theme-primary", chip.dataset.primary ?? "");
-      stage.style.setProperty("--theme-secondary", chip.dataset.secondary ?? "");
-      stage.style.setProperty("--theme-tertiary", chip.dataset.tertiary ?? "");
-      stage.style.setProperty("--theme-accent", chip.dataset.accent ?? "");
-      activeName.textContent = chip.dataset.name ?? "";
+
+      Object.entries(variableMap).forEach(([dataKey, variableName]) => {
+        const value = chip.dataset[dataKey];
+
+        if (value) {
+          root.style.setProperty(variableName, value);
+        }
+      });
+
+      if (activeName) {
+        activeName.textContent = chip.dataset.name ?? "";
+      }
     });
   });
 </script>
 
 <style>
-  .theme-preview-stage {
-    border-radius: 1.5rem;
-    background:
-      radial-gradient(circle at 12% 20%, color-mix(in srgb, var(--theme-accent) 24%, transparent), transparent 22rem),
-      radial-gradient(circle at 74% 18%, color-mix(in srgb, var(--theme-secondary) 24%, transparent), transparent 24rem),
-      radial-gradient(circle at 84% 58%, color-mix(in srgb, var(--theme-tertiary) 18%, transparent), transparent 20rem),
-      color-mix(in srgb, var(--theme-bg) 92%, black);
-    padding: clamp(0.55rem, 1.8vw, 1rem);
-    transition: background 220ms ease;
+  .theme-terminal-card {
+    min-height: 22rem;
   }
 
-  .theme-desktop {
-    aspect-ratio: 16 / 9;
-    min-height: 18rem;
-    color: var(--theme-fg);
-  }
-
-  .theme-sketchybar,
-  .theme-tabs,
-  .theme-terminal {
-    font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
-  }
-
-  .theme-sketchybar {
-    display: flex;
-    height: 2rem;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.75rem;
-    font-size: clamp(0.56rem, 1.2vw, 0.82rem);
-    font-weight: 800;
-    opacity: 0.94;
-  }
-
-  .theme-spaces,
-  .theme-status {
-    display: flex;
-    align-items: center;
-    gap: clamp(0.32rem, 1.05vw, 0.82rem);
-    white-space: nowrap;
-  }
-
-  .theme-active-space,
-  .theme-tab-index {
-    border-radius: 0.42rem;
-    background: var(--theme-primary);
-    color: var(--theme-bg);
-    padding: 0.05rem 0.4rem;
-  }
-
-  .theme-ghostty {
-    height: calc(100% - 2rem);
-    overflow: hidden;
-    border: 1px solid color-mix(in srgb, var(--theme-primary) 72%, transparent);
-    border-radius: 1.05rem;
-    background:
-      linear-gradient(rgba(0, 0, 0, 0.34), rgba(0, 0, 0, 0.34)),
-      radial-gradient(circle at 18% 26%, color-mix(in srgb, var(--theme-accent) 18%, transparent), transparent 25%),
-      radial-gradient(circle at 70% 20%, color-mix(in srgb, var(--theme-secondary) 18%, transparent), transparent 23%),
-      radial-gradient(circle at 42% 70%, color-mix(in srgb, var(--theme-tertiary) 13%, transparent), transparent 30%),
-      var(--theme-bg);
-    box-shadow:
-      0 0 0 1px rgba(255, 255, 255, 0.04),
-      inset 0 0 4rem rgba(0, 0, 0, 0.42);
-    transition: background 220ms ease, border-color 220ms ease;
-  }
-
-  .theme-tabs {
-    display: flex;
-    height: 2.25rem;
-    align-items: center;
-    gap: clamp(0.65rem, 1.6vw, 1.2rem);
-    border-bottom: 1px solid color-mix(in srgb, var(--theme-primary) 50%, transparent);
-    background: rgba(0, 0, 0, 0.22);
-    padding: 0 0.7rem;
-    font-size: clamp(0.58rem, 1.2vw, 0.84rem);
-    font-weight: 800;
-  }
-
-  .theme-tab-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.42rem;
-    border-radius: 0.6rem;
-    background: color-mix(in srgb, var(--theme-primary) 17%, transparent);
-    padding: 0.18rem 0.62rem;
-  }
-
-  .theme-tab-right {
-    margin-left: auto;
-    max-width: 42%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    color: color-mix(in srgb, var(--theme-fg) 80%, transparent);
-  }
-
-  .theme-terminal {
-    padding: clamp(0.7rem, 1.8vw, 1.15rem) 0.75rem;
-    font-size: clamp(0.68rem, 1.35vw, 0.98rem);
-    font-weight: 800;
-    line-height: 1.7;
-  }
-
-  .theme-path,
-  .theme-branch,
-  .theme-cursor {
-    color: var(--theme-primary);
-  }
-
-  .theme-muted {
-    color: color-mix(in srgb, var(--theme-fg) 72%, transparent);
+  :global(.theme-terminal-body) {
+    min-height: 19.5rem;
+    font-size: clamp(0.95rem, 1.75vw, 1.35rem);
   }
 
   .theme-chip {
@@ -246,21 +176,21 @@ const defaultPreview = getPreviewColors(defaultTheme);
     min-height: 2.45rem;
     align-items: center;
     gap: 0.55rem;
-    border: 1px solid rgba(205, 214, 244, 0.16);
+    border: 1px solid var(--border);
     border-radius: 999px;
-    background: rgba(24, 24, 37, 0.86);
+    background: color-mix(in srgb, var(--surface) 86%, transparent);
     padding: 0.48rem 0.72rem;
     color: var(--text);
     font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
     font-size: 0.72rem;
     font-weight: 800;
-    transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+    transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease, background 160ms ease, color 160ms ease;
   }
 
   .theme-chip:hover,
   .theme-chip[aria-pressed="true"] {
-    border-color: rgba(245, 194, 231, 0.72);
-    box-shadow: 0 0 0 2px rgba(245, 194, 231, 0.14);
+    border-color: color-mix(in srgb, var(--pink) 72%, transparent);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--pink) 14%, transparent);
     color: var(--text-strong);
   }
 
@@ -280,8 +210,12 @@ const defaultPreview = getPreviewColors(defaultTheme);
   }
 
   @media (max-width: 640px) {
-    .theme-desktop {
-      min-height: 15rem;
+    .theme-terminal-card {
+      min-height: 17rem;
+    }
+
+    :global(.theme-terminal-body) {
+      min-height: 14.5rem;
     }
 
     .theme-chip {

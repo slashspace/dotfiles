@@ -1,0 +1,51 @@
+<div class="sketchybar-preview" aria-hidden="true">
+  <div class="sketchybar-spaces">
+    <span>0</span>
+    <span>1</span>
+    <span>2</span>
+    <span>3</span>
+    <span>4</span>
+    <span>5</span>
+    <span>6</span>
+    <span>7</span>
+    <span>8</span>
+    <span class="sketchybar-active">9</span>
+    <span class="hidden sm:inline">Ghostty</span>
+  </div>
+  <div class="sketchybar-status">
+    <span class="hidden md:inline">WiFi</span>
+    <span class="hidden md:inline">Audio</span>
+    <span>Sat 22:20</span>
+    <span class="sketchybar-active">74</span>
+  </div>
+</div>
+
+<style>
+  .sketchybar-preview {
+    display: flex;
+    height: 2rem;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    color: var(--terminal-fg);
+    font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: clamp(0.56rem, 1.2vw, 0.82rem);
+    font-weight: 800;
+    opacity: 0.94;
+  }
+
+  .sketchybar-spaces,
+  .sketchybar-status {
+    display: flex;
+    align-items: center;
+    gap: clamp(0.32rem, 1.05vw, 0.82rem);
+    white-space: nowrap;
+  }
+
+  .sketchybar-active {
+    border-radius: 0.42rem;
+    background: var(--terminal-primary);
+    color: var(--terminal-bg);
+    padding: 0.05rem 0.4rem;
+  }
+</style>
