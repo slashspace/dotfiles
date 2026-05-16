@@ -20,10 +20,6 @@ dotfiles stow delete --core    # Remove symlinks
 dotfiles theme                 # Pick a theme via fzf (current marked ●)
 dotfiles defaults              # Apply macOS system defaults
 
-# Repo maintenance (run from repo root, not stowed)
-./scripts/lint                 # shellcheck + shfmt across the repo
-./scripts/check                # Verify Brewfile + outdated formulae
-
 # Install/update dependencies
 brew bundle --file=~/dotfiles/system/packages/Brewfile
 ```

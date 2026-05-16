@@ -74,10 +74,6 @@ dotfiles bootstrap              # 一次性初始化
 dotfiles stow apply|delete|dry-run --core|--modules|--all
 dotfiles theme                  # fzf 选择主题（当前主题标 ●）
 dotfiles defaults               # 应用 macOS 系统默认值
-
-# 仓库维护（在仓库根目录执行）
-./scripts/lint                  # shellcheck + shfmt 全仓检查
-./scripts/check                 # 检查 Brewfile 状态和待升级的包
 ```
 
 执行 `dotfiles bootstrap`（或 `dotfiles stow apply --core`）之后，CLI 会出现在 `~/.local/bin/dotfiles`。
