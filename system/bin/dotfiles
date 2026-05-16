@@ -8,10 +8,12 @@ BIN_DIR="$(cd "$(dirname "$0")" && pwd)"
 VERSION="1.0.0"
 
 list_subcommands() {
-  local f
+  local f name desc
   for f in "$BIN_DIR"/dotfiles-*; do
     [[ -x "$f" ]] || continue
-    basename "$f" | sed 's/^dotfiles-//'
+    name="${f##*/dotfiles-}"
+    desc="$(sed -n '2s/^# dotfiles [^ ]* — //p' "$f")"
+    printf '%s\t%s\n' "$name" "$desc"
   done | sort
 }
 
@@ -20,10 +22,10 @@ usage() {
   echo "Usage: dotfiles <command> [args...]"
   echo ""
   echo "Commands:"
-  local sub
-  for sub in $(list_subcommands); do
-    printf '  %s\n' "$sub"
-  done
+  local name desc
+  while IFS=$'\t' read -r name desc; do
+    printf '  %-12s %s\n' "$name" "$desc"
+  done < <(list_subcommands)
   echo ""
   echo "Run 'dotfiles <command> --help' for command-specific help."
 }

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# dotfiles-theme — Pick a theme via fzf; current theme is marked ●.
+# dotfiles theme — Pick a theme via fzf; current theme is marked ●.
 set -euo pipefail
 
 DOTFILES_DIR="${DOTFILES_DIR:-$HOME/dotfiles}"
