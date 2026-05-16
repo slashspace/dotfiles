@@ -22,30 +22,54 @@ return {
     end,
   },
   {
-    "rebelot/kanagawa.nvim",
-    name = "kanagawa",
+    "lifepillar/vim-solarized8",
+    name = "solarized8",
+    lazy = false,
+    priority = 1000,
+  },
+  {
+    "Mofiqul/dracula.nvim",
+    name = "dracula",
+    lazy = false,
+    priority = 1000,
+  },
+  {
+    "shaunsingh/nord.nvim",
+    name = "nord",
+    lazy = false,
+    priority = 1000,
+  },
+  {
+    "neanias/everforest-nvim",
+    name = "everforest",
     lazy = false,
     priority = 1000,
     opts = function()
-      return { theme = vim.g.theme_style or "wave" }
+      return {
+        background = vim.g.theme_style or "hard",
+      }
     end,
   },
   {
-    "folke/tokyonight.nvim",
-    name = "tokyonight",
+    "loctvl842/monokai-pro.nvim",
+    name = "monokai-pro",
     lazy = false,
     priority = 1000,
     opts = function()
-      return { style = vim.g.theme_style or "moon" }
+      return {
+        filter = vim.g.theme_style or "classic",
+      }
     end,
   },
   {
-    "rose-pine/neovim",
-    name = "rose-pine",
+    "navarasu/onedark.nvim",
+    name = "onedark",
     lazy = false,
     priority = 1000,
     opts = function()
-      return { variant = vim.g.theme_style or "moon" }
+      return {
+        style = vim.g.theme_style or "dark",
+      }
     end,
   },
   {

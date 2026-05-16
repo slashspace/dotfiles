@@ -1,0 +1,43 @@
+# Theme: Dracula
+# Colors from the official Dracula palette.
+
+# --- Semantic ---
+THEME_BG="#282a36"
+THEME_BG_ALT="#21222c"
+THEME_SHADOW="#191a21"
+THEME_FG="#f8f8f2"
+THEME_PRIMARY="#bd93f9"   # purple
+THEME_SECONDARY="#8be9fd" # cyan
+THEME_TERTIARY="#50fa7b"  # green
+THEME_ACCENT="#ff79c6"    # pink
+THEME_HOVER="#ffb86c"     # orange
+THEME_SURFACE="#44475a"
+THEME_OUTLINE="#6272a4"
+THEME_SUCCESS="#50fa7b"
+THEME_WARNING="#f1fa8c"
+THEME_ERROR="#ff5555"
+THEME_ORANGE="#ffb86c"
+
+# --- ANSI 16 ---
+THEME_BLACK="#21222c"
+THEME_BLACKB="#6272a4"
+THEME_RED="#ff5555"
+THEME_REDB="#ff6e6e"
+THEME_GREEN="#50fa7b"
+THEME_GREENB="#69ff94"
+THEME_YELLOW="#f1fa8c"
+THEME_YELLOWB="#ffffa5"
+THEME_BLUE="#bd93f9"
+THEME_BLUEB="#d6acff"
+THEME_MAGENTA="#ff79c6"
+THEME_MAGENTAB="#ff92df"
+THEME_CYAN="#8be9fd"
+THEME_CYANB="#a4ffff"
+THEME_WHITE="#f8f8f2"
+THEME_WHITEB="#ffffff"
+
+# --- Metadata ---
+THEME_DISPLAY_NAME="Dracula"
+THEME_GHOSTTY_BUILTIN="Dracula"
+THEME_NVIM_COLORSCHEME="dracula"
+THEME_NVIM_STYLE=""

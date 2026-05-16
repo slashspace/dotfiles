@@ -90,7 +90,8 @@ Notes:
 
 Available themes:
 
-`catppuccin-mocha`, `gruvbox`, `kanagawa`, `matrix`, `rose-pine`, `tokyo-night`
+`catppuccin-mocha`, `dracula`, `everforest`, `gruvbox`, `matrix`,
+`monokai-pro`, `nord`, `one-dark`, `solarized-dark`
 
 Custom themes live in `system/themes/palettes/` and must export the `THEME_*`
 variables described in `system/themes/README.md`.

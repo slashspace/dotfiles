@@ -1,0 +1,43 @@
+# Theme: Monokai Pro
+# Colors from the Monokai Pro classic palette.
+
+# --- Semantic ---
+THEME_BG="#2d2a2e"
+THEME_BG_ALT="#221f22"
+THEME_SHADOW="#19171a"
+THEME_FG="#fcfcfa"
+THEME_PRIMARY="#ab9df2"   # purple
+THEME_SECONDARY="#78dce8" # cyan
+THEME_TERTIARY="#a9dc76"  # green
+THEME_ACCENT="#ffd866"    # yellow
+THEME_HOVER="#ff6188"     # pink/red
+THEME_SURFACE="#403e41"
+THEME_OUTLINE="#727072"
+THEME_SUCCESS="#a9dc76"
+THEME_WARNING="#ffd866"
+THEME_ERROR="#ff6188"
+THEME_ORANGE="#fc9867"
+
+# --- ANSI 16 ---
+THEME_BLACK="#403e41"
+THEME_BLACKB="#727072"
+THEME_RED="#ff6188"
+THEME_REDB="#ff6188"
+THEME_GREEN="#a9dc76"
+THEME_GREENB="#a9dc76"
+THEME_YELLOW="#ffd866"
+THEME_YELLOWB="#ffd866"
+THEME_BLUE="#78dce8"
+THEME_BLUEB="#78dce8"
+THEME_MAGENTA="#ab9df2"
+THEME_MAGENTAB="#ab9df2"
+THEME_CYAN="#78dce8"
+THEME_CYANB="#78dce8"
+THEME_WHITE="#fcfcfa"
+THEME_WHITEB="#ffffff"
+
+# --- Metadata ---
+THEME_DISPLAY_NAME="Monokai Pro"
+THEME_GHOSTTY_BUILTIN="Monokai Pro"
+THEME_NVIM_COLORSCHEME="monokai-pro"
+THEME_NVIM_STYLE="classic"

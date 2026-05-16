@@ -1,0 +1,43 @@
+# Theme: Everforest Dark Hard
+# Colors from the Everforest dark hard palette.
+
+# --- Semantic ---
+THEME_BG="#2b3339"
+THEME_BG_ALT="#1e2326"
+THEME_SHADOW="#171b1d"
+THEME_FG="#d3c6aa"
+THEME_PRIMARY="#a7c080"   # green
+THEME_SECONDARY="#7fbbb3" # blue/aqua
+THEME_TERTIARY="#83c092"  # aqua
+THEME_ACCENT="#dbbc7f"    # yellow
+THEME_HOVER="#d699b6"     # purple
+THEME_SURFACE="#323c41"
+THEME_OUTLINE="#859289"
+THEME_SUCCESS="#a7c080"
+THEME_WARNING="#dbbc7f"
+THEME_ERROR="#e67e80"
+THEME_ORANGE="#e69875"
+
+# --- ANSI 16 ---
+THEME_BLACK="#4b565c"
+THEME_BLACKB="#859289"
+THEME_RED="#e67e80"
+THEME_REDB="#e67e80"
+THEME_GREEN="#a7c080"
+THEME_GREENB="#a7c080"
+THEME_YELLOW="#dbbc7f"
+THEME_YELLOWB="#dbbc7f"
+THEME_BLUE="#7fbbb3"
+THEME_BLUEB="#7fbbb3"
+THEME_MAGENTA="#d699b6"
+THEME_MAGENTAB="#d699b6"
+THEME_CYAN="#83c092"
+THEME_CYANB="#83c092"
+THEME_WHITE="#d3c6aa"
+THEME_WHITEB="#e4e1cd"
+
+# --- Metadata ---
+THEME_DISPLAY_NAME="Everforest Dark"
+THEME_GHOSTTY_BUILTIN="Everforest Dark Hard"
+THEME_NVIM_COLORSCHEME="everforest"
+THEME_NVIM_STYLE="hard"

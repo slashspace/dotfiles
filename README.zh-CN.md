@@ -92,7 +92,8 @@ dotfiles theme   # fzf 选择，当前主题以 ● 标注
 
 可用主题：
 
-`catppuccin-mocha`、`gruvbox`、`kanagawa`、`matrix`、`rose-pine`、`tokyo-night`
+`catppuccin-mocha`、`dracula`、`everforest`、`gruvbox`、`matrix`、
+`monokai-pro`、`nord`、`one-dark`、`solarized-dark`
 
 自定义主题放在 `system/themes/palettes/`，并导出 `system/themes/README.md` 中描述的 `THEME_*` 变量。
 

@@ -1,0 +1,43 @@
+# Theme: Nord
+# Colors from the official Nord palette.
+
+# --- Semantic ---
+THEME_BG="#2e3440"
+THEME_BG_ALT="#242933"
+THEME_SHADOW="#1f242d"
+THEME_FG="#d8dee9"
+THEME_PRIMARY="#88c0d0"   # frost cyan
+THEME_SECONDARY="#81a1c1" # frost blue
+THEME_TERTIARY="#8fbcbb"  # frost teal
+THEME_ACCENT="#5e81ac"    # blue
+THEME_HOVER="#b48ead"     # purple
+THEME_SURFACE="#3b4252"
+THEME_OUTLINE="#4c566a"
+THEME_SUCCESS="#a3be8c"
+THEME_WARNING="#ebcb8b"
+THEME_ERROR="#bf616a"
+THEME_ORANGE="#d08770"
+
+# --- ANSI 16 ---
+THEME_BLACK="#3b4252"
+THEME_BLACKB="#4c566a"
+THEME_RED="#bf616a"
+THEME_REDB="#bf616a"
+THEME_GREEN="#a3be8c"
+THEME_GREENB="#a3be8c"
+THEME_YELLOW="#ebcb8b"
+THEME_YELLOWB="#ebcb8b"
+THEME_BLUE="#81a1c1"
+THEME_BLUEB="#5e81ac"
+THEME_MAGENTA="#b48ead"
+THEME_MAGENTAB="#b48ead"
+THEME_CYAN="#88c0d0"
+THEME_CYANB="#8fbcbb"
+THEME_WHITE="#e5e9f0"
+THEME_WHITEB="#eceff4"
+
+# --- Metadata ---
+THEME_DISPLAY_NAME="Nord"
+THEME_GHOSTTY_BUILTIN="Nord"
+THEME_NVIM_COLORSCHEME="nord"
+THEME_NVIM_STYLE=""
