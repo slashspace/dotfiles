@@ -1,18 +1,18 @@
 # Theme: Kanagawa Dragon
-# Colors from Kanagawa's darker Dragon variant.
+# Colors from Ghostty built-in "Kanagawa Dragon".
 
 # --- Semantic ---
 THEME_BG="#181616"
 THEME_BG_ALT="#12120f"
 THEME_SHADOW="#0d0c0c"
 THEME_FG="#c5c9c5"
-THEME_PRIMARY="#8992a7"   # dragon violet/blue
+THEME_PRIMARY="#c8c093"   # cursor / pale yellow
 THEME_SECONDARY="#8a9a7b" # dragon green
 THEME_TERTIARY="#7aa89f"  # teal
 THEME_ACCENT="#c4b28a"    # yellow
 THEME_HOVER="#a292a3"     # pink/purple
 THEME_SURFACE="#24201f"
-THEME_OUTLINE="#545464"
+THEME_OUTLINE="#a6a69c"
 THEME_SUCCESS="#87a987"
 THEME_WARNING="#c4b28a"
 THEME_ERROR="#c4746e"
@@ -33,8 +33,8 @@ THEME_MAGENTA="#a292a3"
 THEME_MAGENTAB="#957fb8"
 THEME_CYAN="#8ea4a2"
 THEME_CYANB="#7aa89f"
-THEME_WHITE="#c5c9c5"
-THEME_WHITEB="#dcd7ba"
+THEME_WHITE="#c8c093"
+THEME_WHITEB="#c5c9c5"
 
 # --- Metadata ---
 THEME_DISPLAY_NAME="Kanagawa Dragon"

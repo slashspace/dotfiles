@@ -64,7 +64,7 @@ export const themes = [
     label: "ink",
     bg: "#181616",
     fg: "#c5c9c5",
-    swatches: ["#8992a7", "#8a9a7b", "#7aa89f", "#c4b28a", "#c4746e"],
+    swatches: ["#c8c093", "#8a9a7b", "#7aa89f", "#c4b28a", "#c4746e"],
   },
   {
     name: "Matrix",
