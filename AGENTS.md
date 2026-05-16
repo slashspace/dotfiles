@@ -68,8 +68,9 @@ See `system/themes/README.md` for details on adding palettes and renderers.
 ### Shared Libraries
 
 - `system/lib/log.sh` — Logging helpers (`log_info`, `log_warn`, `log_error`, `log_step`, `log_ok`)
+- `system/lib/color.sh` — Color helpers (`color_no_hash`, hex/rgb conversion)
 - `system/lib/theme.sh` — `theme_apply`, `theme_list`, `current_theme_get/set`
-- `system/lib/reload.sh` — Live-reload helpers for sketchybar/tmux/Ghostty
+- `system/lib/reload.sh` — Live-reload helpers for sketchybar/borders/tmux/Ghostty
 
 ## Local Overrides
 
@@ -79,7 +80,7 @@ See `system/themes/README.md` for details on adding palettes and renderers.
 ## Adding New Modules
 
 1. Create directory in `modules/<name>/` with config files relative to their `$HOME/.config/...` target
-2. Register in `MACOS_PACKAGES` array in `system/bin/dotfiles-stow` as `"name:$TARGET_PATH"`
+2. Register in `MODULES` array in `system/bin/dotfiles-stow` as `"modules:name:$TARGET_PATH"`
 3. Add dependencies to `system/packages/Brewfile`
 4. Run `dotfiles stow apply --modules`
 

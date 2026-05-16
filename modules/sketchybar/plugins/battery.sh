@@ -1,6 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-source "$CONFIG_DIR/colors.sh"
+source "${DOTFILES_DIR:-$HOME/dotfiles}/system/themes/generated/sketchybar-colors.sh"
 
 BATTERY_INFO="$(pmset -g batt)"
 PERCENTAGE="$(pmset -g batt | grep -Eo "\d+%" | cut -d% -f1)"

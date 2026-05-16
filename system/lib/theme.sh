@@ -53,11 +53,7 @@ theme_apply() {
   export THEME_NAME="$theme_name"
 
   for renderer in "$THEMES_DIR"/renderers/*.sh; do
-    if [[ "$(basename "$renderer")" == "borders.sh" ]]; then
-      "$renderer" --apply
-    else
-      "$renderer"
-    fi
+    "$renderer"
   done
 
   # gitmux.conf must live at $HOME (gitmux has no XDG support)
@@ -71,6 +67,7 @@ theme_apply() {
   current_theme_set "$theme_name"
 
   reload_sketchybar
+  reload_borders
   reload_tmux
   reload_ghostty
   print_restart_hints

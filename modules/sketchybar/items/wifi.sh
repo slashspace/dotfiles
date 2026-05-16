@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Filename: ~/dotfiles/sketchybar/felixkratz-linkarzu/items/wifi.sh
 

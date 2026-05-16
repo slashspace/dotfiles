@@ -117,9 +117,7 @@ dotfiles theme   # fzf 选择，当前主题以 ● 标注
 
 ## 备注
 
-- SketchyBar 目前刻意保持精简：工作区、日期时间、电池、Wi-Fi、音量。
-- `gitmux` 供 tmux 使用，但它不是一个 stow 模块目录。
-- 仅支持 macOS。
+- 仅支持 macOS。SketchyBar 刻意保持精简：工作区、日期时间、电池、Wi-Fi、音量。
 
 ## 卸载
 

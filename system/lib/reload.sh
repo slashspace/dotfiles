@@ -16,6 +16,20 @@ reload_sketchybar() {
   sketchybar --reload 2>/dev/null || true
 }
 
+reload_borders() {
+  command -v borders &>/dev/null || return 0
+  local generated="${DOTFILES_DIR:-$HOME/dotfiles}/system/themes/generated/borders-colors.sh"
+  [[ -f "$generated" ]] || return 0
+  # shellcheck disable=SC1090
+  source "$generated"
+  /usr/bin/pkill -x borders >/dev/null 2>&1 || true
+  nohup borders \
+    "active_color=$BORDERS_ACTIVE_COLOR" \
+    "inactive_color=$BORDERS_INACTIVE_COLOR" \
+    "width=$BORDERS_WIDTH" >/dev/null 2>&1 &
+  log_step "borders restarted"
+}
+
 reload_ghostty() {
   command -v ghostty &>/dev/null || return 0
   # Trigger Ghostty's built-in reload_config action via Cmd+Shift+,

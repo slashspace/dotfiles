@@ -4,7 +4,7 @@
 
 export PATH="/usr/local/bin:/opt/homebrew/bin:$PATH"
 
-source "$CONFIG_DIR/colors.sh"
+source "${DOTFILES_DIR:-$HOME/dotfiles}/system/themes/generated/sketchybar-colors.sh"
 
 ANIM="sin"
 DUR="10"

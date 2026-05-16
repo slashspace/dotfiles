@@ -14,6 +14,12 @@ color_strip_hash() {
   printf '%s' "$hex" | tr '[:upper:]' '[:lower:]'
 }
 
+# Alias: returns the hex without leading '#', case-preserved.
+# Useful for renderers that need bare RRGGBB (starship, gitmux, nvim).
+color_no_hash() {
+  printf '%s' "${1#\#}"
+}
+
 color_hex_to_rgb() {
   local hex
   hex=$(color_strip_hash "$1")

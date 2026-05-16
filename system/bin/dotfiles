@@ -1,50 +1,43 @@
 #!/usr/bin/env bash
-# dotfiles — Unified CLI entry point
+# dotfiles — Unified CLI entry point.
+# Subcommands are auto-discovered: any executable file named `dotfiles-<name>`
+# in this directory is reachable as `dotfiles <name>`.
 set -euo pipefail
 
 BIN_DIR="$(cd "$(dirname "$0")" && pwd)"
 VERSION="1.0.0"
 
+list_subcommands() {
+  local f
+  for f in "$BIN_DIR"/dotfiles-*; do
+    [[ -x "$f" ]] || continue
+    basename "$f" | sed 's/^dotfiles-//'
+  done | sort
+}
+
 usage() {
-  cat <<HELP
-dotfiles v${VERSION} — macOS development environment
-
-Usage:
-  dotfiles <command> [args...]
-
-Commands:
-  bootstrap                   One-time setup (brew + stow + default theme)
-  stow apply|delete|dry-run --core|--modules|--all
-                              Manage symlinks
-  theme                       Pick a theme via fzf (current marked ●)
-  defaults                    Apply macOS system defaults
-  lint                        Run shellcheck + shfmt on all scripts
-  check                       Verify Brewfile + show outdated formulae
-
-Examples:
-  dotfiles bootstrap
-  dotfiles theme
-  dotfiles stow apply --all
-  dotfiles lint
-HELP
+  printf 'dotfiles v%s — macOS development environment\n\n' "$VERSION"
+  echo "Usage: dotfiles <command> [args...]"
+  echo ""
+  echo "Commands:"
+  local sub
+  for sub in $(list_subcommands); do
+    printf '  %s\n' "$sub"
+  done
+  echo ""
+  echo "Run 'dotfiles <command> --help' for command-specific help."
 }
 
 case "${1:-}" in
-  theme|stow|bootstrap|defaults|lint|check)
-    sub="$1"
-    cmd="$BIN_DIR/dotfiles-$sub"
-    if [[ -x "$cmd" ]]; then
-      shift
-      exec "$cmd" "$@"
-    else
-      printf "\033[31m✗\033[0m  Subcommand not found: %s\n" "$sub" >&2
-      exit 1
-    fi
-    ;;
-  help|--help|-h|"")
+  ""|help|--help|-h)
     usage
     ;;
   *)
+    cmd="$BIN_DIR/dotfiles-$1"
+    if [[ -x "$cmd" ]]; then
+      shift
+      exec "$cmd" "$@"
+    fi
     echo "Unknown command: $1" >&2
     echo "Run 'dotfiles help' for usage." >&2
     exit 1

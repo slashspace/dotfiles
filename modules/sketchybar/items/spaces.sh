@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # AeroSpace workspace strip: fixed 0–9 slots; current workspace highlighted in place.
 # Click a slot to switch to that workspace. Refreshes on workspace change.
 

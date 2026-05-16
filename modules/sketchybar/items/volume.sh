@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Filename: ~/dotfiles/sketchybar/felixkratz/items/volume.sh
 

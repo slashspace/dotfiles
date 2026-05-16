@@ -116,9 +116,7 @@ Managed via Homebrew in `system/packages/Brewfile`.
 
 ## Notes
 
-- SketchyBar is intentionally minimal: workspace strip, calendar, battery, Wi-Fi, and volume.
-- `gitmux` is used by tmux, but it is not a stowed module.
-- Platform support is macOS only.
+- macOS only. SketchyBar is intentionally minimal (workspace, calendar, battery, Wi-Fi, volume).
 
 ## Uninstall
 

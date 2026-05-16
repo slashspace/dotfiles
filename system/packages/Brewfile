@@ -40,8 +40,3 @@ cask "nikitabobko/tap/aerospace"
 # GUI apps
 cask "ghostty"
 cask "karabiner-elements"
-
-# Optional extras
-# brew "mise"
-# brew "atuin"
-# brew "direnv"
