@@ -48,7 +48,7 @@ color_hex_to_argb() {
 color_with_alpha() {
   local hex="$1"
   local alpha_dec="${2:-255}"
-  if [[ ! "$alpha_dec" =~ ^[0-9]+$ ]] || (( alpha_dec < 0 || alpha_dec > 255 )); then
+  if [[ ! "$alpha_dec" =~ ^[0-9]+$ ]] || ((alpha_dec < 0 || alpha_dec > 255)); then
     printf 'color_with_alpha: alpha must be decimal 0..255, got %q\n' "$2" >&2
     return 1
   fi

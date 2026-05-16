@@ -11,13 +11,13 @@ if [[ ! -f $HISTFILE ]]; then
   chmod 600 $HISTFILE
 fi
 
-setopt appendhistory       # append, do not overwrite
-setopt extendedhistory     # store timestamps
-setopt sharehistory        # share across sessions
-setopt incappendhistory    # write incrementally, not at exit
-setopt histignoredups      # drop consecutive duplicates
-setopt histignorespace     # ignore commands starting with a space
-setopt autocd              # `dirname` -> `cd dirname`
+setopt appendhistory    # append, do not overwrite
+setopt extendedhistory  # store timestamps
+setopt sharehistory     # share across sessions
+setopt incappendhistory # write incrementally, not at exit
+setopt histignoredups   # drop consecutive duplicates
+setopt histignorespace  # ignore commands starting with a space
+setopt autocd           # `dirname` -> `cd dirname`
 
 # Up/Down: prefix-based history search
 autoload -Uz history-search-end

@@ -20,7 +20,7 @@ current_theme_get() {
 # Persist the active theme name.
 current_theme_set() {
   mkdir -p "$GENERATED_DIR"
-  printf '%s\n' "$1" > "$CURRENT_FILE"
+  printf '%s\n' "$1" >"$CURRENT_FILE"
 }
 
 # List palette names (sorted).

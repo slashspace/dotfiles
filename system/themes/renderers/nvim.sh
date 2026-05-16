@@ -21,6 +21,6 @@ fi
   if [[ -n "$style" ]]; then
     echo "vim.g.theme_style = \"${style}\""
   fi
-} > "$OUTPUT"
+} >"$OUTPUT"
 
 printf "  ✨ nvim-theme.lua\n"

@@ -34,16 +34,19 @@ _switch() {
         printf '  %s\n' "$name"
       fi
     done < <(theme_list) | fzf --ansi --height=40% --reverse \
-      --header="Select a theme  (● = current)" --prompt="Theme > " \
-      | sed -E 's/^[● ] *//'
+      --header="Select a theme  (● = current)" --prompt="Theme > " |
+      sed -E 's/^[● ] *//'
   )
-  [[ -n "$picked" ]] || { log_warn "No theme selected"; exit 0; }
+  [[ -n "$picked" ]] || {
+    log_warn "No theme selected"
+    exit 0
+  }
   theme_apply "$picked"
 }
 
 case "${1:-switch}" in
-  switch)            _switch ;;
-  help|--help|-h)    usage ;;
+  switch) _switch ;;
+  help | --help | -h) usage ;;
   *)
     echo "Unknown theme command: $1" >&2
     usage

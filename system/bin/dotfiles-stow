@@ -41,10 +41,13 @@ _run() {
   local packages=() failed=0
 
   case "$scope" in
-    --core)    packages=("${CORE[@]}") ;;
+    --core) packages=("${CORE[@]}") ;;
     --modules) packages=("${MODULES[@]}") ;;
-    --all)     packages=("${CORE[@]}" "${MODULES[@]}") ;;
-    *) usage; exit 1 ;;
+    --all) packages=("${CORE[@]}" "${MODULES[@]}") ;;
+    *)
+      usage
+      exit 1
+      ;;
   esac
 
   local stow_action="-S"
@@ -72,16 +75,26 @@ _run() {
     fi
   done
 
-  [[ $failed -eq 0 ]] || { log_error "One or more packages failed"; return 1; }
+  [[ $failed -eq 0 ]] || {
+    log_error "One or more packages failed"
+    return 1
+  }
 }
 
-[[ $# -ge 2 ]] || { usage; exit 1; }
-ACTION="$1"; shift
+[[ $# -ge 2 ]] || {
+  usage
+  exit 1
+}
+ACTION="$1"
+shift
 SCOPE="${1:-}"
 
 case "$ACTION" in
-  apply)   _run stow   ""   "$SCOPE" ;;
-  delete)  _run delete ""   "$SCOPE" ;;
-  dry-run) _run stow   "-vn" "$SCOPE" ;;
-  *) usage; exit 1 ;;
+  apply) _run stow "" "$SCOPE" ;;
+  delete) _run delete "" "$SCOPE" ;;
+  dry-run) _run stow "-vn" "$SCOPE" ;;
+  *)
+    usage
+    exit 1
+    ;;
 esac

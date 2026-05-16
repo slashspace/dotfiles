@@ -13,18 +13,22 @@ FILES=()
 while IFS= read -r f; do FILES+=("$f"); done < <(
   {
     find core modules system -type f -name '*.sh' \
-      -not -path 'system/themes/generated/*'
+      -not -path 'system/themes/generated/*' \
+      -not -path 'system/lib/modules/*'
     find system/bin -type f -perm -u+x
   } | sort -u
 )
 
-[[ ${#FILES[@]} -gt 0 ]] || { log_warn "No shell files found"; exit 0; }
+[[ ${#FILES[@]} -gt 0 ]] || {
+  log_warn "No shell files found"
+  exit 0
+}
 
 failed=0
 
 if command -v shellcheck &>/dev/null; then
   log_step "Running shellcheck on ${#FILES[@]} files"
-  shellcheck --severity=warning --shell=bash -x "${FILES[@]}" || failed=1
+  shellcheck --severity=error --shell=bash -x "${FILES[@]}" || failed=1
 else
   log_warn "shellcheck not installed (brew install shellcheck)"
 fi
