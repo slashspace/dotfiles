@@ -1,6 +1,7 @@
 ---
 import CopyButton from "./CopyButton.astro";
 import TerminalCard from "./TerminalCard.astro";
+import ThemeDock from "./ThemeDock.astro";
 import { githubUrl, installCommand } from "../data/site";
 ---
 
@@ -47,6 +48,9 @@ import { githubUrl, installCommand } from "../data/site";
           <div class="terminal-muted mt-3">bootstrap · defaults · stow · theme</div>
         </div>
       </TerminalCard>
+      <div class="mt-4">
+        <ThemeDock />
+      </div>
     </div>
   </div>
 </section>

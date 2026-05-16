@@ -1,226 +1,74 @@
 ---
 import TerminalCard from "./TerminalCard.astro";
-import { themes } from "../data/site";
+import { defaultTheme } from "../data/themeControls";
 
-const defaultThemeSlug = "gruvbox";
-const defaultTheme = themes.find((theme) => theme.slug === defaultThemeSlug) ?? themes[0];
-
-const getPreviewColors = (theme: (typeof themes)[number]) => ({
-  primary: theme.slug === defaultThemeSlug ? theme.swatches[3] : theme.swatches[0],
-  secondary: theme.swatches[1],
-  tertiary: theme.swatches[2],
-  accent: theme.slug === defaultThemeSlug ? theme.swatches[0] : theme.swatches[3],
-});
-
-const getSiteColors = (theme: (typeof themes)[number]) => {
-  const preview = getPreviewColors(theme);
-
-  return {
-    bg: `color-mix(in srgb, ${theme.bg} 92%, black)`,
-    bgAlt: theme.bg,
-    surface: `color-mix(in srgb, ${theme.bg} 88%, ${theme.fg} 6%)`,
-    surfaceRaised: `color-mix(in srgb, ${theme.bg} 76%, ${theme.fg} 12%)`,
-    border: `color-mix(in srgb, ${theme.fg} 14%, transparent)`,
-    text: theme.fg,
-    textStrong: `color-mix(in srgb, ${theme.fg} 92%, white)`,
-    textMuted: `color-mix(in srgb, ${theme.fg} 70%, transparent)`,
-    pink: preview.accent,
-    mauve: preview.primary,
-    blue: preview.secondary,
-    teal: preview.tertiary,
-    green: preview.tertiary,
-    yellow: preview.primary,
-    glowShadow: `0 24px 80px color-mix(in srgb, ${preview.primary} 18%, transparent)`,
-    terminalBg: theme.bg,
-    terminalFg: theme.fg,
-    terminalPrimary: preview.primary,
-    terminalSecondary: preview.secondary,
-    terminalTertiary: preview.tertiary,
-    terminalAccent: preview.accent,
-  };
-};
+const renderTargets = ["Ghostty", "tmux", "Neovim", "SketchyBar", "Starship", "Borders", "Gitmux"];
 ---
 
 <section id="themes" class="site-container section-shell">
-  <div class="flex flex-col justify-between gap-4 lg:flex-row lg:items-end">
-    <div class="max-w-3xl">
+  <div class="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+    <div>
       <p class="font-mono text-sm font-bold text-cozy-pink">themes</p>
       <h2 class="mt-3 text-4xl font-black tracking-[-0.04em] text-cozy-strong sm:text-5xl">
         One palette, everywhere
       </h2>
       <p class="mt-4 leading-8 text-cozy-muted">
-        Switch a palette once and the whole page follows: site chrome, terminal
-        previews, tmux tabs, and generated tool configs all share one theme model.
+        The theme dock lives above the fold. This section explains what happens
+        after a palette is selected: semantic colors flow into renderers and every
+        tool receives a matching config.
       </p>
-    </div>
-  </div>
 
-  <div class="mt-10 rounded-[2rem] border border-white/10 bg-cozy-surface/70 p-3 shadow-glow backdrop-blur-xl sm:p-4 lg:p-5">
-    <TerminalCard
-      title="dotfiles"
-      label="Theme terminal preview"
-      class="theme-terminal-card"
-      bodyClass="theme-terminal-body"
-    >
+      <div class="mt-7 rounded-[2rem] border border-white/10 bg-cozy-surface/70 p-5 shadow-glow backdrop-blur-xl">
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <p class="font-mono text-xs font-black uppercase tracking-[0.2em] text-cozy-muted">active palette</p>
+            <h3 class="mt-2 text-2xl font-black text-cozy-strong" data-active-theme-name>{defaultTheme.name}</h3>
+            <p class="mt-1 font-mono text-sm text-cozy-muted" data-active-theme-label>{defaultTheme.label}</p>
+          </div>
+          <div class="theme-summary-swatches" aria-hidden="true">
+            <span style="background: var(--terminal-primary)"></span>
+            <span style="background: var(--terminal-secondary)"></span>
+            <span style="background: var(--terminal-tertiary)"></span>
+            <span style="background: var(--terminal-accent)"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <TerminalCard title="theme pipeline" label="Theme renderer pipeline" bodyClass="theme-pipeline-body">
       <span class="terminal-accent">…/dotfiles</span> <span class="terminal-accent">main</span> [!]<br />
       <span class="terminal-accent">❯</span> dotfiles theme<br />
-      <span class="terminal-muted">● <span id="theme-preview-name">{defaultTheme.name}</span></span>
+      <span class="terminal-muted">palette: <span data-active-theme-name>{defaultTheme.name}</span></span><br />
+      <br />
+      <span class="terminal-muted">render targets</span><br />
+      <div class="mt-3 flex flex-wrap gap-2">
+        {
+          renderTargets.map((target) => (
+            <span data-render-target class="terminal-panel rounded-full px-3 py-1 text-xs">
+              {target}
+            </span>
+          ))
+        }
+      </div>
     </TerminalCard>
-
-    <div class="mt-4 flex flex-wrap gap-2" aria-label="Theme preview controls">
-      {
-        themes.map((theme) => {
-          const colors = getSiteColors(theme);
-
-          return (
-            <button
-              type="button"
-              class="theme-chip"
-              data-theme-chip
-              data-name={theme.name}
-              data-bg={colors.bg}
-              data-bg-alt={colors.bgAlt}
-              data-surface={colors.surface}
-              data-surface-raised={colors.surfaceRaised}
-              data-border={colors.border}
-              data-text={colors.text}
-              data-text-strong={colors.textStrong}
-              data-text-muted={colors.textMuted}
-              data-pink={colors.pink}
-              data-mauve={colors.mauve}
-              data-blue={colors.blue}
-              data-teal={colors.teal}
-              data-green={colors.green}
-              data-yellow={colors.yellow}
-              data-glow-shadow={colors.glowShadow}
-              data-terminal-bg={colors.terminalBg}
-              data-terminal-fg={colors.terminalFg}
-              data-terminal-primary={colors.terminalPrimary}
-              data-terminal-secondary={colors.terminalSecondary}
-              data-terminal-tertiary={colors.terminalTertiary}
-              data-terminal-accent={colors.terminalAccent}
-              aria-pressed={theme.slug === defaultThemeSlug ? "true" : "false"}
-            >
-              <span class="theme-chip-swatches" aria-hidden="true">
-                {theme.swatches.slice(0, 3).map((swatch) => <span style={`background:${swatch}`} />)}
-              </span>
-              <span>{theme.name}</span>
-            </button>
-          );
-        })
-      }
-    </div>
   </div>
 </section>
 
-<script>
-  const root = document.documentElement;
-  const activeName = document.getElementById("theme-preview-name");
-  const chips = Array.from(document.querySelectorAll<HTMLButtonElement>("[data-theme-chip]"));
-  const variableMap = {
-    bg: "--bg",
-    bgAlt: "--bg-alt",
-    surface: "--surface",
-    surfaceRaised: "--surface-raised",
-    border: "--border",
-    text: "--text",
-    textStrong: "--text-strong",
-    textMuted: "--text-muted",
-    pink: "--pink",
-    mauve: "--mauve",
-    blue: "--blue",
-    teal: "--teal",
-    green: "--green",
-    yellow: "--yellow",
-    glowShadow: "--glow-shadow",
-    terminalBg: "--terminal-bg",
-    terminalFg: "--terminal-fg",
-    terminalPrimary: "--terminal-primary",
-    terminalSecondary: "--terminal-secondary",
-    terminalTertiary: "--terminal-tertiary",
-    terminalAccent: "--terminal-accent",
-  };
-
-  chips.forEach((chip) => {
-    chip.addEventListener("click", () => {
-      chips.forEach((item) => item.setAttribute("aria-pressed", "false"));
-      chip.setAttribute("aria-pressed", "true");
-
-      Object.entries(variableMap).forEach(([dataKey, variableName]) => {
-        const value = chip.dataset[dataKey];
-
-        if (value) {
-          root.style.setProperty(variableName, value);
-        }
-      });
-
-      if (activeName) {
-        activeName.textContent = chip.dataset.name ?? "";
-      }
-    });
-  });
-</script>
-
 <style>
-  .theme-terminal-card {
-    min-height: 22rem;
+  .theme-summary-swatches {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(2.25rem, 1fr));
+    gap: 0.45rem;
+    min-width: min(14rem, 100%);
   }
 
-  :global(.theme-terminal-body) {
-    min-height: 19.5rem;
-    font-size: clamp(0.95rem, 1.75vw, 1.35rem);
-  }
-
-  .theme-chip {
-    display: inline-flex;
-    min-height: 2.45rem;
-    align-items: center;
-    gap: 0.55rem;
+  .theme-summary-swatches span {
+    height: 2.4rem;
     border: 1px solid var(--border);
     border-radius: 999px;
-    background: color-mix(in srgb, var(--surface) 86%, transparent);
-    padding: 0.48rem 0.72rem;
-    color: var(--text);
-    font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
-    font-size: 0.72rem;
-    font-weight: 800;
-    transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease, background 160ms ease, color 160ms ease;
   }
 
-  .theme-chip:hover,
-  .theme-chip[aria-pressed="true"] {
-    border-color: color-mix(in srgb, var(--pink) 72%, transparent);
-    box-shadow: 0 0 0 2px color-mix(in srgb, var(--pink) 14%, transparent);
-    color: var(--text-strong);
-  }
-
-  .theme-chip:hover {
-    transform: translateY(-1px);
-  }
-
-  .theme-chip-swatches {
-    display: flex;
-    gap: 0.18rem;
-  }
-
-  .theme-chip-swatches span {
-    height: 0.58rem;
-    width: 0.58rem;
-    border-radius: 999px;
-  }
-
-  @media (max-width: 640px) {
-    .theme-terminal-card {
-      min-height: 17rem;
-    }
-
-    :global(.theme-terminal-body) {
-      min-height: 14.5rem;
-    }
-
-    .theme-chip {
-      flex: 1 1 calc(50% - 0.5rem);
-      justify-content: center;
-    }
+  :global(.theme-pipeline-body) {
+    min-height: 17rem;
   }
 </style>
