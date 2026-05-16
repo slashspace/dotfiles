@@ -72,8 +72,10 @@ dotfiles bootstrap              # One-time setup
 dotfiles stow apply|delete|dry-run --core|--modules|--all
 dotfiles theme                  # Pick a theme via fzf (current marked ●)
 dotfiles defaults               # Apply macOS system defaults
-dotfiles lint                   # shellcheck + shfmt across the repo
-dotfiles check                  # Verify Brewfile + outdated formulae
+
+# Repo maintenance (run from repo root)
+./scripts/lint                  # shellcheck + shfmt across the repo
+./scripts/check                 # Verify Brewfile + outdated formulae
 ```
 
 After `dotfiles bootstrap` (or `dotfiles stow apply --core`), the CLI is available at `~/.local/bin/dotfiles`.

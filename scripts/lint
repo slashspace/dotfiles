@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
-# dotfiles lint — Run shellcheck and shfmt -d across all repo shell scripts.
+# scripts/lint — Run shellcheck and shfmt -d across all repo shell scripts.
 set -euo pipefail
 
-DOTFILES_DIR="${DOTFILES_DIR:-$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)}"
+DOTFILES_DIR="${DOTFILES_DIR:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}"
 cd "$DOTFILES_DIR"
 
 # shellcheck source=../lib/log.sh

@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
-# dotfiles check — Verify Brewfile dependencies and report outdated formulae.
+# scripts/check — Verify Brewfile dependencies and report outdated formulae.
 set -euo pipefail
 
-DOTFILES_DIR="${DOTFILES_DIR:-$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)}"
+DOTFILES_DIR="${DOTFILES_DIR:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}"
 BREWFILE="$DOTFILES_DIR/system/packages/Brewfile"
 
 # shellcheck source=../lib/log.sh
