@@ -22,20 +22,18 @@ _switch() {
     exit 1
   fi
 
-  local current=""
-  [[ -f "$CURRENT_FILE" ]] && current=$(cat "$CURRENT_FILE")
+  local current
+  current=$(current_theme_get)
 
   local picked
   picked=$(
-    for f in "$THEMES_DIR"/palettes/*.sh; do
-      [[ -f "$f" ]] || continue
-      local name; name=$(basename "$f" .sh)
+    while IFS= read -r name; do
       if [[ "$name" == "$current" ]]; then
         printf '● %s\n' "$name"
       else
         printf '  %s\n' "$name"
       fi
-    done | fzf --ansi --height=40% --reverse \
+    done < <(theme_list) | fzf --ansi --height=40% --reverse \
       --header="Select a theme  (● = current)" --prompt="Theme > " \
       | sed -E 's/^[● ] *//'
   )

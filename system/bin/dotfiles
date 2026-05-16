@@ -18,22 +18,26 @@ Commands:
                               Manage symlinks
   theme                       Pick a theme via fzf (current marked ●)
   defaults                    Apply macOS system defaults
+  lint                        Run shellcheck + shfmt on all scripts
+  check                       Verify Brewfile + show outdated formulae
 
 Examples:
   dotfiles bootstrap
   dotfiles theme
   dotfiles stow apply --all
+  dotfiles lint
 HELP
 }
 
 case "${1:-}" in
-  theme|stow|bootstrap|defaults)
-    cmd="$BIN_DIR/dotfiles-$1"
+  theme|stow|bootstrap|defaults|lint|check)
+    sub="$1"
+    cmd="$BIN_DIR/dotfiles-$sub"
     if [[ -x "$cmd" ]]; then
       shift
       exec "$cmd" "$@"
     else
-      printf "\033[31m✗\033[0m  Subcommand not found: %s\n" "$1" >&2
+      printf "\033[31m✗\033[0m  Subcommand not found: %s\n" "$sub" >&2
       exit 1
     fi
     ;;

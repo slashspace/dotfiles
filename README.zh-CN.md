@@ -74,6 +74,8 @@ dotfiles bootstrap              # 一次性初始化
 dotfiles stow apply|delete|dry-run --core|--modules|--all
 dotfiles theme                  # fzf 选择主题（当前主题标 ●）
 dotfiles defaults               # 应用 macOS 系统默认值
+dotfiles lint                   # shellcheck + shfmt 全仓检查
+dotfiles check                  # 检查 Brewfile 状态和待升级的包
 ```
 
 执行 `dotfiles bootstrap`（或 `dotfiles stow apply --core`）之后，CLI 会出现在 `~/.local/bin/dotfiles`。
@@ -92,9 +94,9 @@ dotfiles theme   # fzf 选择，当前主题以 ● 标注
 
 可用主题：
 
-`catppuccin-pink`、`catppuccin-purple`、`gruvbox`、`monochrome`
+`catppuccin-mocha`、`gruvbox`、`kanagawa`、`matrix`、`rose-pine`、`tokyo-night`
 
-自定义主题放在 `system/themes/palettes/`，并导出 `system/themes/schema.sh` 中描述的 `THEME_*` 变量。完整指南见 `system/themes/README.md`。
+自定义主题放在 `system/themes/palettes/`，并导出 `system/themes/README.md` 中描述的 `THEME_*` 变量。
 
 ## 本地覆盖
 

@@ -19,6 +19,8 @@ dotfiles stow dry-run --core   # Preview stow operations
 dotfiles stow delete --core    # Remove symlinks
 dotfiles theme                 # Pick a theme via fzf (current marked ●)
 dotfiles defaults              # Apply macOS system defaults
+dotfiles lint                  # shellcheck + shfmt across the repo
+dotfiles check                 # Verify Brewfile + outdated formulae
 
 # Install/update dependencies
 brew bundle --file=~/dotfiles/system/packages/Brewfile
@@ -65,9 +67,9 @@ See `system/themes/README.md` for details on adding palettes and renderers.
 
 ### Shared Libraries
 
-- `system/lib/log.sh` — Logging helpers (`log_info`, `log_warn`, `log_error`, `log_step`)
-- `system/lib/platform.sh` — OS/arch detection (`platform_os`, `platform_arch`)
-- `system/lib/package.sh` — Package manager abstraction (`pkg_manager`, `pkg_bundle`)
+- `system/lib/log.sh` — Logging helpers (`log_info`, `log_warn`, `log_error`, `log_step`, `log_ok`)
+- `system/lib/theme.sh` — `theme_apply`, `theme_list`, `current_theme_get/set`
+- `system/lib/reload.sh` — Live-reload helpers for sketchybar/tmux/Ghostty
 
 ## Local Overrides
 

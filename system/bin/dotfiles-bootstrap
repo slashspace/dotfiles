@@ -6,13 +6,16 @@ DOTFILES_DIR="${DOTFILES_DIR:-$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd
 cd "$DOTFILES_DIR"
 
 source "$DOTFILES_DIR/system/lib/log.sh"
-source "$DOTFILES_DIR/system/lib/platform.sh"
-source "$DOTFILES_DIR/system/lib/package.sh"
 source "$DOTFILES_DIR/system/lib/theme.sh"
+
+if [[ "$(uname -s)" != "Darwin" ]]; then
+  log_error "This bootstrap supports macOS only (detected: $(uname -s))"
+  exit 1
+fi
 
 log_info "Dotfiles bootstrap starting"
 log_step "Repository: $DOTFILES_DIR"
-log_step "Platform: $(platform_os) $(platform_arch)"
+log_step "Platform: macOS $(uname -m)"
 
 # 1. Xcode CLI
 if ! xcode-select -p &>/dev/null; then
@@ -35,7 +38,7 @@ fi
 
 # 3. Brew bundle
 log_info "Installing packages"
-pkg_bundle "$DOTFILES_DIR/system/packages/Brewfile"
+brew bundle --file="$DOTFILES_DIR/system/packages/Brewfile"
 
 # 4. Sheldon (plugin manager)
 if ! command -v sheldon &>/dev/null; then

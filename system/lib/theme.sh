@@ -12,6 +12,26 @@ source "$DOTFILES_DIR/system/lib/log.sh"
 # shellcheck source=./reload.sh
 source "$DOTFILES_DIR/system/lib/reload.sh"
 
+# Read the active theme name (empty if none applied yet).
+current_theme_get() {
+  [[ -f "$CURRENT_FILE" ]] && cat "$CURRENT_FILE" || true
+}
+
+# Persist the active theme name.
+current_theme_set() {
+  mkdir -p "$GENERATED_DIR"
+  printf '%s\n' "$1" > "$CURRENT_FILE"
+}
+
+# List palette names (sorted).
+theme_list() {
+  local f
+  for f in "$THEMES_DIR"/palettes/*.sh; do
+    [[ -f "$f" ]] || continue
+    basename "$f" .sh
+  done
+}
+
 # Run all renderers for a palette name.
 # Usage: theme_apply <name>
 theme_apply() {
@@ -48,7 +68,7 @@ theme_apply() {
     install -m 0644 "$gitmux_src" "$gitmux_dst"
   fi
 
-  echo "$theme_name" > "$CURRENT_FILE"
+  current_theme_set "$theme_name"
 
   reload_sketchybar
   reload_tmux

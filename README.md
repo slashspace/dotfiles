@@ -72,6 +72,8 @@ dotfiles bootstrap              # One-time setup
 dotfiles stow apply|delete|dry-run --core|--modules|--all
 dotfiles theme                  # Pick a theme via fzf (current marked ●)
 dotfiles defaults               # Apply macOS system defaults
+dotfiles lint                   # shellcheck + shfmt across the repo
+dotfiles check                  # Verify Brewfile + outdated formulae
 ```
 
 After `dotfiles bootstrap` (or `dotfiles stow apply --core`), the CLI is available at `~/.local/bin/dotfiles`.
@@ -90,9 +92,10 @@ Notes:
 
 Available themes:
 
-`catppuccin-pink`, `catppuccin-purple`, `gruvbox`, `monochrome`
+`catppuccin-mocha`, `gruvbox`, `kanagawa`, `matrix`, `rose-pine`, `tokyo-night`
 
-Custom themes live in `system/themes/palettes/` and should export the `THEME_*` variables described in `system/themes/schema.sh`. See `system/themes/README.md` for the full guide.
+Custom themes live in `system/themes/palettes/` and must export the `THEME_*`
+variables described in `system/themes/README.md`.
 
 ## Local Overrides
 

@@ -7,31 +7,54 @@ source "$DOTFILES_DIR/system/lib/log.sh"
 
 log_info "Setting macOS defaults"
 
-# Keyboard: fast key repeat
+# ── Keyboard ────────────────────────────────────────────────────────────────
 defaults write NSGlobalDomain KeyRepeat -int 2
 defaults write NSGlobalDomain InitialKeyRepeat -int 15
+# Disable press-and-hold for accents (so vim hjkl repeat works in any app)
+defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
+# Disable smart quotes / dashes / autocorrect (annoying when coding)
+defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
+defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
+defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
+defaults write NSGlobalDomain NSAutomaticCapitalizationEnabled -bool false
+defaults write NSGlobalDomain NSAutomaticPeriodSubstitutionEnabled -bool false
 
-# Show hidden files in Finder
+# ── Finder ──────────────────────────────────────────────────────────────────
 defaults write com.apple.finder AppleShowAllFiles -bool true
-
-# Show path bar in Finder
 defaults write com.apple.finder ShowPathbar -bool true
+defaults write com.apple.finder ShowStatusBar -bool true
+# Always show file extensions
+defaults write NSGlobalDomain AppleShowAllExtensions -bool true
+# Disable extension-change warning
+defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
+# Avoid creating .DS_Store on network/USB volumes
+defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
+defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
 
-# Dock: auto-hide, remove delay
+# ── Dock ────────────────────────────────────────────────────────────────────
 defaults write com.apple.dock autohide -bool true
 defaults write com.apple.dock autohide-delay -float 0
 defaults write com.apple.dock autohide-time-modifier -float 0.5
-
-# Disable Dock bouncing
 defaults write com.apple.dock launchanim -bool false
+defaults write com.apple.dock tilesize -int 44
+defaults write com.apple.dock show-recents -bool false
+defaults write com.apple.dock mru-spaces -bool false
 
-# Show battery percentage
+# ── Menu bar ────────────────────────────────────────────────────────────────
 defaults write com.apple.menuextra.battery ShowPercent -string "YES"
 
-# Save screenshots to Downloads
+# ── Screenshots ─────────────────────────────────────────────────────────────
 defaults write com.apple.screencapture location -string "$HOME/Downloads"
-
-# Disable shadow in screenshots
 defaults write com.apple.screencapture disable-shadow -bool true
+defaults write com.apple.screencapture type -string "png"
+defaults write com.apple.screencapture include-date -bool true
 
-log_info "macOS defaults set. Some changes require logout/restart."
+# ── Misc UX ─────────────────────────────────────────────────────────────────
+# Faster window resize / sheet animations
+defaults write NSGlobalDomain NSWindowResizeTime -float 0.001
+defaults write NSGlobalDomain NSAutomaticWindowAnimationsEnabled -bool false
+
+# Restart affected services so changes show up without logout
+killall Finder Dock SystemUIServer 2>/dev/null || true
+
+log_info "macOS defaults applied. A logout may be required for a few items."

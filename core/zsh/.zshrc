@@ -28,11 +28,7 @@ source "$DOTFILES_DIR/system/lib/modules/tools.sh"
 # If a theme has been applied, the starship config points to the generated file
 
 # --- Local overrides ---
+# Machine-specific config (PATH additions, secrets, language SDKs like
+# bun/nvm/rbenv, work-only aliases) belongs in ~/.zshrc.local — it is sourced
+# last so it can override anything defined above.
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
-
-# bun completions
-[ -s "/Users/dingsheng/.bun/_bun" ] && source "/Users/dingsheng/.bun/_bun"
-
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"

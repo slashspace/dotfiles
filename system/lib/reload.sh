@@ -30,45 +30,28 @@ reload_ghostty() {
   log_step "Ghostty config reloaded"
 }
 
-# tmux / catppuccin requires clearing cached `set -ogqF` values before re-sourcing
-# the plugin config — otherwise theme changes don't propagate to status modules.
+# tmux: re-source the generated colors file and the tmux conf so any catppuccin
+# `set -ogqF` cached values get re-evaluated against the new THEME_* env. We
+# avoid hard-coding the catppuccin option list by killing the catppuccin cache
+# (an empty `set -gu` over a glob is not supported, so we let the plugin reload
+# regenerate values via tmux source-file).
 reload_tmux() {
   command -v tmux &>/dev/null || return 0
   tmux has-session 2>/dev/null || return 0
   log_step "Reloading tmux colors"
 
   local generated="${DOTFILES_DIR:-$HOME/dotfiles}/system/themes/generated/tmux-colors.conf"
-  tmux source-file "$generated" 2>/dev/null || true
+  [[ -f "$generated" ]] && tmux source-file "$generated" 2>/dev/null || true
 
-  local opt
-  for opt in \
-    @catppuccin_directory_color \
-    @catppuccin_gitmux_color \
-    @catppuccin_date_time_color \
-    @catppuccin_status_directory_icon_bg \
-    @catppuccin_status_gitmux_icon_bg \
-    @catppuccin_status_date_time_icon_bg \
-    @catppuccin_status_directory_icon_fg \
-    @catppuccin_status_gitmux_icon_fg \
-    @catppuccin_status_date_time_icon_fg \
-    @catppuccin_status_directory_text_fg \
-    @catppuccin_status_gitmux_text_fg \
-    @catppuccin_status_date_time_text_fg \
-    @catppuccin_status_directory_text_bg \
-    @catppuccin_status_gitmux_text_bg \
-    @catppuccin_status_date_time_text_bg \
-    @catppuccin_status_directory \
-    @catppuccin_status_gitmux \
-    @catppuccin_status_date_time; do
-    tmux set -gu "$opt" 2>/dev/null || true
+  # Re-export THEME_* into tmux's global env so plugins that read them via
+  # `#{?#{e|>:...}}` style expansions see fresh values.
+  local var
+  for var in $(compgen -v THEME_); do
+    tmux setenv -g "$var" "${!var}" 2>/dev/null || true
   done
 
-  local catppuccin_root="$HOME/.config/tmux/plugins/tmux"
-  [[ -f "$catppuccin_root/catppuccin_options_tmux.conf" ]] && \
-    tmux source-file "$catppuccin_root/catppuccin_options_tmux.conf" 2>/dev/null || true
-  [[ -f "$catppuccin_root/catppuccin_tmux.conf" ]] && \
-    tmux source-file "$catppuccin_root/catppuccin_tmux.conf" 2>/dev/null || true
-
+  # Re-source the user tmux.conf — this re-runs catppuccin's setup with the
+  # refreshed THEME_* env, so we don't need to enumerate every @catppuccin_* opt.
   local tmux_conf="${DOTFILES_DIR:-$HOME/dotfiles}/core/tmux/tmux.conf"
   [[ -f "$tmux_conf" ]] && tmux source-file "$tmux_conf" 2>/dev/null || true
 
