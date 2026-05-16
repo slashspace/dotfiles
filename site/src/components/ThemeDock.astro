@@ -111,8 +111,8 @@ import { defaultTheme, defaultThemeSlug, getSiteColors } from "../data/themeCont
 <style>
   .theme-dock {
     border: 1px solid var(--border);
-    border-radius: 1.5rem;
-    background: color-mix(in srgb, var(--surface) 78%, transparent);
+    border-radius: 2.5rem;
+    background: color-mix(in srgb, var(--surface) 65%, transparent);
     padding: 1rem;
     box-shadow: var(--glow-shadow);
     backdrop-filter: blur(18px);
@@ -141,9 +141,11 @@ import { defaultTheme, defaultThemeSlug, getSiteColors } from "../data/themeCont
   .theme-dock-chips {
     display: flex;
     gap: 0.5rem;
-    overflow-x: auto;
+    overflow: visible;
     padding-bottom: 0.15rem;
     scrollbar-width: thin;
+    position: relative;
+    z-index: 10;
   }
 
   .theme-chip {
@@ -168,6 +170,8 @@ import { defaultTheme, defaultThemeSlug, getSiteColors } from "../data/themeCont
     border-color: color-mix(in srgb, var(--pink) 72%, transparent);
     box-shadow: 0 0 0 2px color-mix(in srgb, var(--pink) 14%, transparent);
     color: var(--text-strong);
+    position: relative;
+    z-index: 20;
   }
 
   .theme-chip:hover {
