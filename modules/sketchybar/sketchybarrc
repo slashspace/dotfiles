@@ -56,9 +56,15 @@ defaults=(
 )
 sketchybar --default "${defaults[@]}"
 
-# ── Items (auto-discover *.sh in items/) ──────────────────────────────────
-for item in "$ITEM_DIR"/*.sh; do
-  source "$item"
+# ── Items (explicit order so right-side placement stays stable) ───────────
+for item in \
+  "$ITEM_DIR/spaces.sh" \
+  "$ITEM_DIR/calendar.sh" \
+  "$ITEM_DIR/battery.sh" \
+  "$ITEM_DIR/volume.sh" \
+  "$ITEM_DIR/wifi.sh"
+do
+  [[ -f "$item" ]] && source "$item"
 done
 
 sketchybar --hotload on
