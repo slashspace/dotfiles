@@ -65,14 +65,24 @@ reload_tmux() {
   done
 
   # catppuccin/tmux caches expanded status modules in @catppuccin_status_*.
-  # Re-source the plugin itself so module badge colors rebuild from fresh @thm_*.
-  local catppuccin_plugin="$HOME/.config/tmux/plugins/catppuccin-tmux/catppuccin.tmux"
-  [[ -f "$catppuccin_plugin" ]] && tmux source-file "$catppuccin_plugin" 2>/dev/null || true
+  # Re-source whichever plugin path TPM installed so module badge colors rebuild
+  # from the fresh @thm_* and @catppuccin_* values.
+  local catppuccin_plugin
+  for catppuccin_plugin in \
+    "$HOME/.config/tmux/plugins/tmux/catppuccin.tmux" \
+    "$HOME/.config/tmux/plugins/catppuccin-tmux/catppuccin.tmux"
+  do
+    [[ -f "$catppuccin_plugin" ]] && tmux source-file "$catppuccin_plugin" 2>/dev/null || true
+  done
 
   # Re-source the user tmux.conf — this re-runs catppuccin's setup with the
   # refreshed THEME_* env, so we don't need to enumerate every @catppuccin_* opt.
   local tmux_conf="${DOTFILES_DIR:-$HOME/dotfiles}/core/tmux/tmux.conf"
   [[ -f "$tmux_conf" ]] && tmux source-file "$tmux_conf" 2>/dev/null || true
+
+  # Source generated colors one last time so any theme-owned overrides of
+  # @catppuccin_status_* survive tmux.conf / TPM reinitialization order.
+  [[ -f "$generated" ]] && tmux source-file "$generated" 2>/dev/null || true
 
   # Floax reads these from tmux global env; refresh on theme apply.
   tmux setenv -g FLOAX_BORDER_COLOR "${THEME_PRIMARY:-}" 2>/dev/null || true
