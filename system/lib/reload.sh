@@ -64,6 +64,11 @@ reload_tmux() {
     tmux setenv -g "$var" "${!var}" 2>/dev/null || true
   done
 
+  # catppuccin/tmux caches expanded status modules in @catppuccin_status_*.
+  # Re-source the plugin itself so module badge colors rebuild from fresh @thm_*.
+  local catppuccin_plugin="$HOME/.config/tmux/plugins/catppuccin-tmux/catppuccin.tmux"
+  [[ -f "$catppuccin_plugin" ]] && tmux source-file "$catppuccin_plugin" 2>/dev/null || true
+
   # Re-source the user tmux.conf — this re-runs catppuccin's setup with the
   # refreshed THEME_* env, so we don't need to enumerate every @catppuccin_* opt.
   local tmux_conf="${DOTFILES_DIR:-$HOME/dotfiles}/core/tmux/tmux.conf"
