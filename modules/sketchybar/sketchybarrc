@@ -16,9 +16,9 @@ PADDINGS=1
 # ── Bar appearance ────────────────────────────────────────────────────────
 bar=(
   height=45
-  color=$BAR_COLOR
-  border_width=2
-  border_color=$BAR_BORDER_COLOR
+  color=$TRANSPARENT
+  border_width=0
+  border_color=$TRANSPARENT
   shadow=off
   position=top
   sticky=on
