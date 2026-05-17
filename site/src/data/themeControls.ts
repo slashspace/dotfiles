@@ -6,10 +6,10 @@ export const defaultTheme = themes.find((theme) => theme.slug === defaultThemeSl
 export type Theme = (typeof themes)[number];
 
 export const getPreviewColors = (theme: Theme) => ({
-  primary: theme.slug === defaultThemeSlug ? theme.swatches[3] : theme.swatches[0],
+  primary: theme.swatches[0],
   secondary: theme.swatches[1],
   tertiary: theme.swatches[2],
-  accent: theme.slug === defaultThemeSlug ? theme.swatches[0] : theme.swatches[3],
+  accent: theme.swatches[3],
 });
 
 export const getSiteColors = (theme: Theme) => {
