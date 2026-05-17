@@ -56,17 +56,16 @@ on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 #                 See:
 #                 https://nikitabobko.github.io/AeroSpace/guide#assign-workspaces-to-monitors
 [gaps]
-  inner.horizontal = 10
-  inner.vertical = 10
-  outer.top = [
-    { monitor."built-in" = 10 },
-    { monitor."^LG Ultra HD$"= 48 },
-    48
+  inner.horizontal = 5
+  inner.vertical = 5
+  outer.top = 2
+  outer.right= 2
+  outer.left = 2
+  outer.bottom = [
+    { monitor."built-in" = 40 },
+    { monitor."^LG Ultra HD$"= 40 },
+    40
   ]
-  # gaps between tiles
-  outer.right= 10
-  outer.bottom = 10
-  outer.left = 10
 
 # 'main' binding mode declaration
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
