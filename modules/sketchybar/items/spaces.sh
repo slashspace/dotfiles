@@ -12,10 +12,10 @@ sketchybar --add item spaces.manager left \
   drawing=off
 sketchybar --subscribe spaces.manager aerospace_workspace_change front_app_switched
 
-# One item per workspace digit 0–9 (left to right). Plugin only swaps colors;
+# One item per workspace digit 0–9 (center to right). Plugin only swaps colors;
 # size/shape/gap are fixed here so layout never shifts when switching workspaces.
 for i in 0 1 2 3 4 5 6 7 8 9; do
-  sketchybar --add item "space.ws.${i}" left \
+  sketchybar --add item "space.ws.${i}" center \
     --set "space.ws.${i}" \
     icon="" \
     width=24 \
@@ -35,7 +35,7 @@ for i in 0 1 2 3 4 5 6 7 8 9; do
     drawing=off
 done
 
-# 当前 workspace 应用列表：背景高度与 space.ws.* 一致（由 plugin 上色）
+# 当前 workspace 应用列表：放在左侧
 for i in 1 2 3 4 5; do
   sketchybar --add item "space.app.${i}" left \
     --set "space.app.${i}" \
