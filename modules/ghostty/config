@@ -1,7 +1,7 @@
 # By default Reload config with shft + cmd + ,
 theme = Kanagawa Dragon
-background-opacity = 0.75
-background-blur-radius = 23
+background-opacity = 0.65
+background-blur-radius = 10
 
 font-family = MonoLisa Variable
 font-size = 15
