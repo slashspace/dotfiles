@@ -13,9 +13,9 @@
     },
     "external_directory": "allow",
     "bash": {
-      "git add *": "deny",
-      "git commit *": "deny",
-      "git push *": "deny",
+      "git add *": "ask",
+      "git commit *": "ask",
+      "git push *": "ask",
       "sudo *": "deny",
       "rm -rf /": "deny",
       "rm -rf /*": "deny",
@@ -27,10 +27,6 @@
 
   // === MCP Servers ===
   "mcp": {
-    "chrome-devtools": {
-      "type": "local",
-      "command": ["npx", "-y", "chrome-devtools-mcp@latest"],
-    },
     // Docs lookup for libraries - https://context7.com
     "context7": {
       "type": "remote",
@@ -39,27 +35,11 @@
         "CONTEXT7_API_KEY": "{env:CONTEXT7_API_KEY}",
       },
     },
-    // Web fetching - MCP official server (Python via uvx)
-    "fetch": {
-      "type": "local",
-      "command": ["uvx", "mcp-server-fetch"],
-    },
-    // File system access (scoped to home directory)
-    "filesystem": {
-      "type": "local",
-      "command": ["npx", "-y", "@modelcontextprotocol/server-filesystem"],
-      "args": ["/Users/dingsheng"],
-    },
     // GitHub integration
     "github": {
       "type": "local",
       "command": ["npx", "-y", "@modelcontextprotocol/server-github"],
       "env": ["GITHUB_TOKEN"],
-    },
-    // Browser automation
-    "playwright": {
-      "type": "local",
-      "command": ["npx", "-y", "@executeautomation/playwright-mcp-server"],
     },
     "openpets": {
       "type": "local",

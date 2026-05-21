@@ -129,3 +129,7 @@ rm -f ~/.zshrc.local ~/.gitconfig.local
 ## License
 
 MIT
+
+## Related Links
+
+- [linux.do](https://linux.do)
