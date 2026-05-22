@@ -1,5 +1,7 @@
 # dotfiles 使用指南
 
+![dotfiles 预览](https://github.com/d3george/github-static/blob/main/dotfiles/screenshot.png)
+
 这是一个面向 macOS 的 dotfiles 仓库，使用 GNU Stow 管理符号链接。`core/` 放核心工具配置，`modules/` 放可选桌面模块，`system/` 放共享脚本和主题工具。
 
 [English](README.md)

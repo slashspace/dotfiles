@@ -1,5 +1,7 @@
 # dotfiles
 
+![dotfiles preview](https://github.com/d3george/github-static/blob/main/dotfiles/screenshot.png)
+
 macOS dotfiles managed with GNU Stow. Core tools live in `core/`, optional desktop modules live in `modules/`, and shared scripts/theme tooling live in `system/`.
 
 ## Structure
