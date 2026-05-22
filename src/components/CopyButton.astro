@@ -1,0 +1,45 @@
+---
+interface Props {
+  text: string;
+  label?: string;
+  class?: string;
+}
+
+const { text, label = "Copy", class: className = "" } = Astro.props;
+---
+
+<button
+  type="button"
+  class:list={[
+    "pill-button bg-white/8 text-cozy-text ring-1 ring-white/10 hover:bg-white/12 hover:text-cozy-strong",
+    className,
+  ]}
+  data-copy-button
+  data-copy-text={text}
+>
+  <span data-copy-label>{label}</span>
+</button>
+
+<script is:inline>
+  if (!window.__dotfilesCopySetup) {
+    window.__dotfilesCopySetup = true;
+    document.addEventListener("click", async (event) => {
+      const button = event.target.closest("[data-copy-button]");
+      if (!button) return;
+
+      const label = button.querySelector("[data-copy-label]");
+      const original = label ? label.textContent : "";
+      const text = button.getAttribute("data-copy-text") || "";
+
+      try {
+        await navigator.clipboard.writeText(text);
+        if (label) label.textContent = "Copied";
+        window.setTimeout(() => {
+          if (label) label.textContent = original;
+        }, 1400);
+      } catch {
+        if (label) label.textContent = original;
+      }
+    });
+  }
+</script>

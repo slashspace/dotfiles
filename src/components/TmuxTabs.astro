@@ -1,0 +1,56 @@
+---
+interface Props {
+  title?: string;
+  rightTitle?: string;
+}
+
+const { title = "dotfiles", rightTitle = "main..origin/main - +1" } = Astro.props;
+---
+
+<div class="tmux-tabs" aria-hidden="true">
+  <span class="tmux-tab-pill">▣ {title}</span>
+  <span>zsh <span class="tmux-tab-index">1</span></span>
+  <span class="hidden sm:inline">zsh 2</span>
+  <span class="tmux-tab-right">{rightTitle}</span>
+</div>
+
+<style>
+  .tmux-tabs {
+    display: flex;
+    height: 2.45rem;
+    align-items: center;
+    gap: clamp(0.65rem, 1.6vw, 1.2rem);
+    border-bottom: 1px solid color-mix(in srgb, var(--terminal-primary) 50%, transparent);
+    background: rgba(0, 0, 0, 0.22);
+    padding: 0 0.85rem;
+    color: var(--terminal-fg);
+    font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: clamp(0.68rem, 1.15vw, 0.88rem);
+    font-weight: 800;
+  }
+
+  .tmux-tab-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.42rem;
+    border-radius: 0.65rem;
+    background: color-mix(in srgb, var(--terminal-primary) 17%, transparent);
+    padding: 0.2rem 0.68rem;
+  }
+
+  .tmux-tab-index {
+    border-radius: 0.45rem;
+    background: var(--terminal-primary);
+    color: var(--terminal-bg);
+    padding: 0.04rem 0.42rem;
+  }
+
+  .tmux-tab-right {
+    margin-left: auto;
+    max-width: 43%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: color-mix(in srgb, var(--terminal-fg) 80%, transparent);
+  }
+</style>

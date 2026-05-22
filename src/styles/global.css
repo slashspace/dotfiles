@@ -1,0 +1,100 @@
+@import "tailwindcss";
+
+@theme {
+  --color-cozy-bg: var(--bg);
+  --color-cozy-bg-alt: var(--bg-alt);
+  --color-cozy-surface: var(--surface);
+  --color-cozy-raised: var(--surface-raised);
+  --color-cozy-text: var(--text);
+  --color-cozy-strong: var(--text-strong);
+  --color-cozy-muted: var(--text-muted);
+  --color-cozy-pink: var(--pink);
+  --color-cozy-mauve: var(--mauve);
+  --color-cozy-blue: var(--blue);
+  --color-cozy-teal: var(--teal);
+  --color-cozy-green: var(--green);
+  --color-cozy-yellow: var(--yellow);
+  --font-sans: Inter, ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --shadow-glow: var(--glow-shadow);
+}
+
+:root {
+  color-scheme: dark;
+  --bg: #1d2021;
+  --bg-alt: #282828;
+  --surface: #282828;
+  --surface-raised: #3c3836;
+  --border: color-mix(in srgb, #ebdbb2 14%, transparent);
+  --text: #ebdbb2;
+  --text-strong: #fbf1c7;
+  --text-muted: #a89984;
+  --pink: #d3869b;
+  --mauve: #b16286;
+  --blue: #83a598;
+  --teal: #8ec07c;
+  --green: #b8bb26;
+  --yellow: #fabd2f;
+  --glow-shadow: 0 24px 80px color-mix(in srgb, #fabd2f 18%, transparent);
+  --terminal-bg: #282828;
+  --terminal-fg: #ebdbb2;
+  --terminal-primary: #fabd2f;
+  --terminal-secondary: #83a598;
+  --terminal-tertiary: #8ec07c;
+  --terminal-accent: #d3869b;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-width: 320px;
+  overflow-x: hidden;
+  background:
+    radial-gradient(circle at top left, color-mix(in srgb, var(--pink) 16%, transparent), transparent 32rem),
+    radial-gradient(circle at 85% 10%, color-mix(in srgb, var(--blue) 14%, transparent), transparent 30rem),
+    linear-gradient(180deg, var(--bg), var(--bg-alt) 55%, var(--bg));
+  color: var(--text);
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  transition: background 220ms ease, color 220ms ease;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--mauve) 38%, transparent);
+  color: var(--text-strong);
+}
+
+:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--pink) 78%, transparent);
+  outline-offset: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+@layer components {
+  .site-container {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .section-shell {
+    @apply py-16 sm:py-20 lg:py-24;
+  }
+
+  .glass-card {
+    @apply border border-white/10 bg-cozy-surface/70 shadow-glow backdrop-blur-xl;
+  }
+
+  .pill-button {
+    @apply inline-flex min-h-11 items-center justify-center rounded-full px-5 py-2.5 text-sm font-bold transition duration-200;
+  }
+}

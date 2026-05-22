@@ -1,0 +1,82 @@
+---
+import TmuxTabs from "./TmuxTabs.astro";
+
+interface Props {
+  title?: string;
+  rightTitle?: string;
+  label?: string;
+  class?: string;
+  bodyClass?: string;
+  showTabs?: boolean;
+}
+
+const {
+  title = "dotfiles",
+  rightTitle = "main..origin/main - +1",
+  label = "Terminal preview",
+  class: className = "",
+  bodyClass = "",
+  showTabs = true,
+} = Astro.props;
+---
+
+<section
+  class:list={[
+    "terminal-ghostty overflow-hidden rounded-[1.25rem] shadow-glow backdrop-blur-xl",
+    className,
+  ]}
+  aria-label={label}
+>
+  {showTabs && <TmuxTabs title={title} rightTitle={rightTitle} />}
+  <div class:list={["terminal-body", bodyClass]}>
+    <slot />
+  </div>
+</section>
+
+<style>
+  .terminal-ghostty {
+    border: 1px solid color-mix(in srgb, var(--terminal-primary) 74%, transparent);
+    background:
+      linear-gradient(rgba(0, 0, 0, 0.34), rgba(0, 0, 0, 0.34)),
+      radial-gradient(circle at 18% 24%, color-mix(in srgb, var(--terminal-accent) 18%, transparent), transparent 24rem),
+      radial-gradient(circle at 74% 18%, color-mix(in srgb, var(--terminal-secondary) 18%, transparent), transparent 24rem),
+      radial-gradient(circle at 42% 72%, color-mix(in srgb, var(--terminal-tertiary) 13%, transparent), transparent 28rem),
+      var(--terminal-bg);
+    color: var(--terminal-fg);
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 0.04),
+      0 24px 80px color-mix(in srgb, var(--terminal-primary) 16%, transparent),
+      inset 0 0 4rem rgba(0, 0, 0, 0.42);
+    transition: background 220ms ease, border-color 220ms ease, box-shadow 220ms ease, color 220ms ease;
+  }
+
+  .terminal-body {
+    font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+
+  .terminal-body {
+    min-height: 12rem;
+    padding: clamp(1rem, 2vw, 1.45rem);
+    font-size: clamp(0.82rem, 1.18vw, 0.98rem);
+    font-weight: 800;
+    line-height: 1.7;
+  }
+
+  :global(.terminal-accent) {
+    color: var(--terminal-primary);
+  }
+
+  :global(.terminal-muted) {
+    color: color-mix(in srgb, var(--terminal-fg) 72%, transparent);
+  }
+
+  :global(.terminal-success) {
+    color: var(--terminal-tertiary);
+  }
+
+  :global(.terminal-panel) {
+    border: 1px solid color-mix(in srgb, var(--terminal-fg) 14%, transparent);
+    border-radius: 1rem;
+    background: rgba(255, 255, 255, 0.035);
+  }
+</style>
