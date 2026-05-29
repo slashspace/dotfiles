@@ -1,5 +1,5 @@
 {
-  "plugin": ["oh-my-openagent@latest", "@open-pets/opencode@2.0.7"],
+  "plugin": ["oh-my-openagent@latest"],
   "$schema": "https://opencode.ai/config.json",
   "autoupdate": true,
 
@@ -40,11 +40,6 @@
       "type": "local",
       "command": ["npx", "-y", "@modelcontextprotocol/server-github"],
       "env": ["GITHUB_TOKEN"],
-    },
-    "openpets": {
-      "type": "local",
-      "command": [],
-      "enabled": true,
     },
   },
 }

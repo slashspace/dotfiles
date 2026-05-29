@@ -17,3 +17,5 @@ core/opencode/package-lock.json
 core/opencode/.opencode/
 
 .DS_Store
+.playwright
+.playwright-cli
