@@ -1,11 +1,30 @@
 {
-  "plugin": ["oh-my-openagent@latest"],
+  // "plugin": ["oh-my-openagent@latest"],
   "$schema": "https://opencode.ai/config.json",
+  // 自动更新
   "autoupdate": true,
+  // 大仓库的 snapshot 索引本身开销很大，如果不需要 undo 功能可以关掉。
+  "snapshot": false,
 
-  // === 权限 ===
+  "model": "zhipuai-coding-plan/glm-5.1",
+  // 只用于标题生成和摘要，关键指标是便宜
+  "small_model": "zhipuai-coding-plan/glm-4.5-air",
+
+  "compaction": {
+    "auto": true,
+    // 删除旧的工具输出（tool results），这是最直接的 token 节省手段。上下文满了自动压缩时，旧的 tool result 会被裁掉，只保留摘要。
+    "prune": true,
+    "reserved": 10000,
+  },
+
+  "agent": {
+    "build": {
+      // 限制 agentic 迭代轮次，防止 agent 无限循环消耗 token。
+      "steps": 25,
+    },
+  },
+
   "permission": {
-    // .env reads without prompts
     "read": {
       ".env": "allow",
       ".env.*": "allow",
@@ -13,8 +32,8 @@
     },
     "external_directory": "allow",
     "bash": {
-      "git add *": "ask",
-      "git commit *": "ask",
+      // "git add *": "ask",
+      // "git commit *": "ask",
       "git push *": "ask",
       "sudo *": "deny",
       "rm -rf /": "deny",
@@ -25,9 +44,13 @@
     },
   },
 
-  // === MCP Servers ===
+  // 每个工具的描述都占 system prompt token。不需要的工具直接关
+  "tools": {
+    "websearch": false,
+    "todowrite": false,
+  },
+
   "mcp": {
-    // Docs lookup for libraries - https://context7.com
     "context7": {
       "type": "remote",
       "url": "https://mcp.context7.com/mcp",
@@ -35,7 +58,6 @@
         "CONTEXT7_API_KEY": "{env:CONTEXT7_API_KEY}",
       },
     },
-    // GitHub integration
     "github": {
       "type": "local",
       "command": ["npx", "-y", "@modelcontextprotocol/server-github"],
