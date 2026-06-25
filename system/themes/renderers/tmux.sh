@@ -34,9 +34,11 @@ set -g @thm_lavender  "${THEME_ACCENT}"
 
 # Explicit module colors so catppuccin/tmux doesn't keep stale literals from
 # the previous theme inside @catppuccin_*_color options.
+set -g @catppuccin_session_color "${THEME_PRIMARY}"
 set -g @catppuccin_directory_color "${THEME_WARNING}"
 set -g @catppuccin_gitmux_color "${THEME_SUCCESS}"
 set -g @catppuccin_date_time_color "${THEME_SECONDARY}"
+set -g @catppuccin_status_session "#[fg=${THEME_PRIMARY}]#[bg=default] #[fg=${THEME_SHADOW},bg=${THEME_PRIMARY}] #[fg=${THEME_FG},bg=${THEME_SURFACE}]#S#[fg=${THEME_SURFACE}]#[bg=default] "
 set -g @catppuccin_status_directory "#[fg=${THEME_WARNING}]#[bg=default] #[fg=${THEME_SHADOW},bg=${THEME_WARNING}] #[fg=${THEME_FG},bg=${THEME_SURFACE}]#{E:@catppuccin_directory_text}#[fg=${THEME_SURFACE}]#[bg=default] "
 set -g @catppuccin_status_gitmux "#[fg=${THEME_SUCCESS}]#[bg=default] #[fg=${THEME_SHADOW},bg=${THEME_SUCCESS}]󰊢 #[fg=${THEME_FG},bg=${THEME_SURFACE}]#{E:@catppuccin_gitmux_text}#[fg=${THEME_SURFACE}]#[bg=default] "
 set -g @catppuccin_status_date_time "#[fg=${THEME_SECONDARY}]#[bg=default] #[fg=${THEME_SHADOW},bg=${THEME_SECONDARY}]󰃰 #[fg=${THEME_FG},bg=${THEME_SURFACE}]#{E:@catppuccin_date_time_text}#[fg=${THEME_SURFACE}]#[bg=default] "

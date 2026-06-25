@@ -191,7 +191,11 @@ run = 'layout floating'
 if.app-name-regex-substring = 'Clash'
 run = 'layout floating'
 
-# 当打开 代码编辑器时，移动到工作区 0
+[[on-window-detected]]
+if.app-id = 'com.slashspace.mojian-notes'
+run = 'layout floating'
+
+# 当打开 代码编辑器时，移动到工作区 0ss
 [[on-window-detected]]
 if.app-name-regex-substring = 'Cursor'
 run = "move-node-to-workspace 0"

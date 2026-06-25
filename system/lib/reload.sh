@@ -17,6 +17,9 @@ reload_sketchybar() {
 }
 
 reload_borders() {
+  # Disabled: borders service intentionally not started. Re-enable by removing
+  # this early return (and relaunching via `dotfiles theme`).
+  return 0
   command -v borders &>/dev/null || return 0
   local generated="${DOTFILES_DIR:-$HOME/dotfiles}/system/themes/generated/borders-colors.sh"
   [[ -f "$generated" ]] || return 0

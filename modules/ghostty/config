@@ -1,5 +1,5 @@
 # By default Reload config with shft + cmd + ,
-theme = GitHub Dark
+theme = Atom One Dark
 background-opacity = 0.75
 background-blur-radius = 20
 

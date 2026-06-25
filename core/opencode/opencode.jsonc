@@ -6,7 +6,7 @@
   // 大仓库的 snapshot 索引本身开销很大，如果不需要 undo 功能可以关掉。
   "snapshot": false,
 
-  "model": "zhipuai-coding-plan/glm-5.1",
+  "model": "zhipuai-coding-plan/glm-5.2",
   // 只用于标题生成和摘要，关键指标是便宜
   "small_model": "zhipuai-coding-plan/glm-4.5-air",
 
@@ -62,6 +62,22 @@
       "type": "local",
       "command": ["npx", "-y", "@modelcontextprotocol/server-github"],
       "env": ["GITHUB_TOKEN"],
+    },
+
+    "web-search-prime": {
+      "type": "remote",
+      "url": "https://open.bigmodel.cn/api/mcp/web_search_prime/mcp",
+      "headers": {
+        "Authorization": "{env:ZHIPU_API_KEY}",
+      },
+    },
+    "zai-mcp-server": {
+      "type": "local",
+      "command": ["npx", "-y", "@z_ai/mcp-server"],
+      "environment": {
+        "Z_AI_API_KEY": "{env:ZHIPU_API_KEY}",
+        "Z_AI_MODE": "ZHIPU",
+      },
     },
   },
 }
