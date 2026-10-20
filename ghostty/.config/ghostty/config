@@ -1,10 +1,13 @@
 # By default Reload config with shft + cmd + ,
 # Active theme. Alternatives in themes/: tokyonight, rosepine-custom.
-config-file = themes/rosepine-custom
+# config-file = themes/rosepine-custom
+config-file = themes/earthen-dark
+# config-file = themes/tokyonight
+
 background-opacity = 0.88
 background-blur-radius = 25
 
-font-family = MonoLisa Nerd Font Mono
+font-family = MonoLisa Variable
 font-size = 15
 cursor-style = block
 cursor-style-blink = false

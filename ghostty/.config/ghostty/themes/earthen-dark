@@ -1,0 +1,28 @@
+# Earthen Dark — minimalist natural (matched to Zed Earthen Dark)
+# Linen ash background, sage accents, clay/stone ANSI
+
+palette = 0=#1A1714
+palette = 1=#D09080
+palette = 2=#8FAA8C
+palette = 3=#D4B080
+palette = 4=#8AA0AC
+palette = 5=#C0A0A0
+palette = 6=#8AB0A4
+palette = 7=#D0C8BC
+palette = 8=#6E6860
+palette = 9=#E0A898
+palette = 10=#A8C2A4
+palette = 11=#E8C898
+palette = 12=#A2B8C4
+palette = 13=#D8B8B8
+palette = 14=#A2C8BC
+palette = 15=#E8E2D8
+
+background = #1A1714
+foreground = #D0C8BC
+
+cursor-color = #D0C8BC
+cursor-text = #1A1714
+
+selection-background = #3A4236
+selection-foreground = #E8E2D8

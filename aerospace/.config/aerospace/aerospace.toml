@@ -57,13 +57,13 @@ on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 #                 See:
 #                 https://nikitabobko.github.io/AeroSpace/guide#assign-workspaces-to-monitors
 [gaps]
-  inner.horizontal = 15
-  inner.vertical = 15
-  outer.left = 30
-  outer.right = 30
-  outer.bottom = 30
-  # SketchyBar is 40px at the top, so this stays 40 on every monitor.
-  outer.top = 40
+  # Built-in display is small; external monitors keep the wider gaps.
+  inner.horizontal = [{ monitor."Built-in Retina Display" = 8 }, 15]
+  inner.vertical = [{ monitor."Built-in Retina Display" = 8 }, 15]
+  outer.left = [{ monitor."Built-in Retina Display" = 8 }, 30]
+  outer.right = [{ monitor."Built-in Retina Display" = 8 }, 30]
+  outer.bottom = [{ monitor."Built-in Retina Display" = 8 }, 30]
+  outer.top= [{ monitor."Built-in Retina Display" = 15 }, 40]
 
 # 'main' binding mode declaration
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
