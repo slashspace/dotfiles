@@ -1,0 +1,7 @@
+^/install\.sh
+^/Brewfile
+^/AGENTS\.md
+^/\.editorconfig
+^/\.stow-local-ignore
+^/README.*
+^/LICENSE.*

@@ -1,0 +1,115 @@
+// Zed keymap, aligned with the Neovim leader and pane bindings.
+[
+  {
+    "context": "EmptyPane || SharedScreen || vim_operator == none && !VimWaiting && vim_mode != insert ",
+    "bindings": {
+      "ctrl-e h": "tab_switcher::ToggleAll",
+      "space s t": "tab_switcher::Toggle",
+      "space p f": "file_finder::Toggle",
+      "space p s": "pane::DeploySearch",
+      "ctrl-o p": "projects::OpenRecent",
+      "space e e": "workspace::ToggleRightDock"
+    }
+  },
+  {
+    "context": "Editor && VimControl && !VimWaiting && !menu",
+    "bindings": {
+      "ctrl-w z": "workspace::ToggleZoom"
+    }
+  },
+  {
+    "context": "Editor && vim_mode == insert && !VimWaiting && !menu ",
+    "bindings": {
+      "ctrl-h": "editor::ShowSignatureHelp"
+    }
+  },
+  {
+    "context": "Editor && vim_mode == normal && !VimWaiting && !menu ",
+    "bindings": {
+      "ctrl-6": "pane::AlternateFile",
+      "ctrl-w f": "workspace::NewCenterTerminal",
+      "shift-k": "editor::Hover",
+      "ctrl-c": ["editor::Cancel", "menu::Cancel"],
+      "ctrl-h": "workspace::ActivatePaneLeft",
+      "ctrl-l": "workspace::ActivatePaneRight",
+      "ctrl-k": "workspace::ActivatePaneUp",
+      "ctrl-j": "workspace::ActivatePaneDown",
+      "space p f": "file_finder::Toggle",
+      "space p s": "pane::DeploySearch",
+      "space e e": "workspace::ToggleRightDock",
+      "space s t": "tab_switcher::Toggle",
+      "space f p": "projects::OpenRecent",
+      "ctrl-o p": "projects::OpenRecent",
+      "ctrl-e h": "tab_switcher::ToggleAll"
+    }
+  },
+  {
+    "context": "Editor && vim_mode == visual && !VimWaiting && !menu ",
+    "bindings": {
+      "=": "editor::Format",
+      "shift-j": "editor::MoveLineDown",
+      "shift-k": "editor::MoveLineUp"
+    }
+  },
+  {
+    "context": "Editor && (vim_mode == normal || vim_mode == visual) && !VimWaiting && !menu",
+    "bindings": {
+      "g ]": "editor::GoToDiagnostic",
+      "g [": "editor::GoToPreviousDiagnostic",
+      "g r": "editor::FindAllReferences",
+      "space v c a": "editor::ToggleCodeActions",
+      "space m p": "editor::Format",
+      "space v": "editor::GoToDefinitionSplit",
+      "space r n": "editor::Rename",
+      "space g d": "editor::ToggleSelectedDiffHunks",
+      "space t i": "editor::ToggleInlayHints",
+      "space c z": "workspace::ToggleCenteredLayout",
+      "space m P": "markdown::OpenPreviewToTheSide",
+      "space f p": "projects::OpenRecent",
+      "g f": "editor::OpenExcerpts"
+    }
+  },
+  {
+    "context": "Editor",
+    "bindings": {
+      "ctrl-c": ["workspace::SendKeystrokes", "escape"],
+      "ctrl-[": ["workspace::SendKeystrokes", "escape"],
+      "ctrl-j": "menu::SelectNext",
+      "ctrl-k": "menu::SelectPrevious"
+    }
+  },
+  {
+    "context": "ProjectPanel && not_editing",
+    "bindings": {
+      "a": "project_panel::NewFile",
+      "A": "project_panel::NewDirectory",
+      "r": "project_panel::Rename",
+      "d": "project_panel::Delete",
+      "x": "project_panel::Cut",
+      "c": "project_panel::Copy",
+      "p": "project_panel::Paste",
+      "q": "workspace::ToggleRightDock",
+      "ctrl-h": "workspace::ActivatePaneLeft",
+      "ctrl-l": "workspace::ActivatePaneRight",
+      "ctrl-k": "workspace::ActivatePaneUp",
+      "ctrl-j": "workspace::ActivatePaneDown",
+      "space": null
+    }
+  },
+  {
+    "context": "Terminal",
+    "bindings": {
+      "ctrl-h": "workspace::ActivatePaneLeft",
+      "ctrl-l": "workspace::ActivatePaneRight",
+      "ctrl-k": "workspace::ActivatePaneUp",
+      "ctrl-j": "workspace::ActivatePaneDown",
+      "ctrl-w f": "workspace::NewCenterTerminal"
+    }
+  },
+  {
+    "context": "(Editor && showing_completions)",
+    "bindings": {
+      "ctrl-y": "editor::ConfirmCompletion"
+    }
+  }
+]

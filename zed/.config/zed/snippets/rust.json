@@ -1,0 +1,18 @@
+{
+  "println Debug": {
+    "prefix": "dp",
+    "body": ["println!(\"${1:value}: {:?}\", ${1:value});", "$0"]
+  },
+
+  "println Pretty Debug": {
+    "prefix": "dpp",
+    "body": ["println!(\"${1:value}: {:#?}\", ${1:value});", "$0"]
+  },
+
+  "Debug print expression": {
+    "prefix": "dbg!",
+    "body": ["dbg!($0)"],
+    "description": "Insert dbg! macro"
+  }
+}
+。
