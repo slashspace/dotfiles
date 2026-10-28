@@ -1,7 +1,7 @@
 #!/bin/bash
 
 mic=(
-  update_freq=3
+  update_freq=10
   script="$PLUGIN_DIR/mic.sh"
   click_script="$PLUGIN_DIR/mic_click.sh"
   label.drawing=off

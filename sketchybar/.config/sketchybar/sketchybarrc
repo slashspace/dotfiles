@@ -56,6 +56,9 @@ sketchybar --add bracket workspaces space.1 space.2 space.3 space.4 space.5 spac
 
 source "$ITEM_DIR/front_app.sh"
 
+##### Center #####
+source "$ITEM_DIR/cliamp.sh"
+
 ##### Right Items #####
 source "$ITEM_DIR/clock.sh"
 
