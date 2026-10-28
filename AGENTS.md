@@ -21,8 +21,7 @@ macOS dotfiles. Each top-level directory is a GNU Stow package whose contents mi
 | `zed` | `~/.config/zed` |
 | `fastfetch` | `~/.config/fastfetch` |
 | `atuin` | `~/.config/atuin` |
-| `mpd` | `~/.config/mpd` |
-| `rmpc` | `~/.config/rmpc` |
+| `cliamp` | `~/.config/cliamp` |
 | `mactop` | `~/.mactop` |
 
 Root files (`install.sh`, `Brewfile`, README) are not packages. `.stow-local-ignore` lists them.
@@ -34,14 +33,14 @@ brew bundle --file=~/dotfiles/Brewfile
 cd ~/dotfiles
 stow -R -t ~ zsh git sheldon nvim starship herdr opencode \
   ghostty aerospace karabiner sketchybar borders zed \
-  fastfetch atuin mpd rmpc mactop
+  fastfetch atuin cliamp mactop
 ```
 
 `install.sh` does Xcode CLT, Homebrew, `brew bundle`, Sheldon lock, stow, and macOS defaults.
 
 ## Theme
 
-Ghostty themes live in `ghostty/.config/ghostty/themes/` (`rosepine`, `rosepine-custom`, `tokyonight`). `config` points at `themes/rosepine`. Neovim's active colorscheme is solarized-osaka. Starship uses the `solarized_osaka` palette. SketchyBar uses its own bar colors. Borders stay on Rose Pine. Herdr uses Catppuccin.
+Ghostty themes live in `ghostty/.config/ghostty/themes/` (`polycarbonate-gruvbox-dark`, `polycarbonate-sha1`, `polycarbonate-ayu-dark`, `polycarbonate-one-dark`). `config` points at `themes/polycarbonate-gruvbox-dark`. Neovim's active colorscheme is solarized-osaka. Starship uses the `solarized_osaka` palette. SketchyBar uses its own bar colors. Borders stay on Rose Pine. Herdr uses Catppuccin.
 
 ## Shell
 

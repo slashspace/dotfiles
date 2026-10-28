@@ -12,7 +12,7 @@ for i in "${!SPACE_ICONS[@]}"; do
     icon.padding_right=7
     icon.y_offset=1
     label.drawing=off
-    background.color=0xff939ab7
+    background.color=$WHITE
     background.corner_radius=3
     background.padding_left=5
     background.padding_right=5

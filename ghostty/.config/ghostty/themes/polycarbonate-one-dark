@@ -1,0 +1,28 @@
+# Polycarbonate One Dark — matched to the Zed theme of the same name.
+# Background stays black so Ghostty's background-opacity reads as the same glass.
+
+background = #000000
+foreground = #acb2be
+
+cursor-color = #74ade8
+cursor-text = #1e222a
+
+selection-background = #3e4452
+selection-foreground = #dce0e5
+
+palette = 0=#3e4452
+palette = 1=#d07277
+palette = 2=#a1c181
+palette = 3=#dfc184
+palette = 4=#74ade8
+palette = 5=#b477cf
+palette = 6=#6eb4bf
+palette = 7=#acb2be
+palette = 8=#878e98
+palette = 9=#be5046
+palette = 10=#a1c181
+palette = 11=#dec184
+palette = 12=#73ade9
+palette = 13=#b477cf
+palette = 14=#6eb4bf
+palette = 15=#dce0e5

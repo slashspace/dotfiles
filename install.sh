@@ -33,7 +33,7 @@ echo "Stowing packages..."
 stow -R -t "$HOME" \
   zsh git sheldon nvim starship herdr opencode \
   ghostty aerospace karabiner sketchybar borders zed \
-  fastfetch atuin mpd rmpc mactop
+  fastfetch atuin cliamp mactop
 
 echo "Applying macOS defaults..."
 defaults write NSGlobalDomain KeyRepeat -int 2

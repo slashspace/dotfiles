@@ -25,9 +25,6 @@ brew "mactop"
 # Editor / multiplexer
 brew "neovim"
 brew "herdr"
-brew "mpd"
-brew "mpc"
-brew "rmpc"
 
 # Helpers
 brew "jq"

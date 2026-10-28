@@ -1,11 +1,13 @@
 # By default Reload config with shft + cmd + ,
-# Active theme. Alternatives in themes/: tokyonight, rosepine-custom.
-# config-file = themes/rosepine-custom
-config-file = themes/earthen-dark
-# config-file = themes/tokyonight
+# Active theme. Alternatives live next to this file in themes/.
+# config-file = themes/polycarbonate-gruvbox-dark
+config-file = themes/polycarbonate-sha1
+# config-file = themes/polycarbonate-ayu-dark
+# config-file = themes/polycarbonate-one-dark
 
-background-opacity = 0.88
-background-blur-radius = 25
+# macos-glass-clear keeps the wallpaper's luminance, so the sun stays brighter than the text.
+background-opacity = 0.7
+background-blur = 20
 
 font-family = MonoLisa Variable
 font-size = 15
@@ -14,7 +16,7 @@ cursor-style-blink = false
 cursor-color = cell-foreground
 cursor-text = cell-background
 unfocused-split-opacity = 0.55
-split-divider-color = #524f67
+split-divider-color = #665c54
 
 macos-titlebar-style = hidden
 macos-option-as-alt = true

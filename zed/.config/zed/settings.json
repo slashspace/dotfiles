@@ -7,16 +7,6 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
-  "languages": {
-    "Rust": {
-      "show_edit_predictions": true,
-    },
-  },
-  "show_edit_predictions": false,
-  "inlay_hints": {
-    "enabled": true,
-  },
-
   "format_on_save": "on",
   "hard_tabs": false,
   "auto_indent": "preserve_indent",
@@ -150,10 +140,6 @@
   },
   "terminal": {
     "flexible": true,
-    "show_count_badge": false,
-    "dock": "bottom",
-    "font_size": 14.0,
-    "font_family": "JetBrainsMono Nerd Font",
     "scrollbar": {
       "show": "auto",
     },
@@ -173,30 +159,21 @@
     "status_style": "label_color",
     "default_width": 400.0,
   },
-  "theme": {
-    "mode": "dark",
-    "light": "Earthen Light",
-    "dark": "Earthen Dark",
-  },
-  "icon_theme": {
-    "mode": "dark",
-    "light": "Seti Icon Theme",
-    "dark": "Seti Icon Theme",
-  },
+  "theme": "Polycarbonate One Dark",
   "title_bar": {
-    // "show_user_menu": false,
+    "show_user_menu": false,
     // "show_menus": true,
     "show_branch_status_icon": true,
   },
   "status_bar": {
-    // "show_active_file": true,
+    "show_active_file": true,
   },
   "toolbar": {
     "quick_actions": false,
     "breadcrumbs": false,
   },
   "tab_bar": {
-    "show_nav_history_buttons": false,
+    // "show_nav_history_buttons": false,
   },
   "project_panel": {
     "dock": "right",
@@ -263,50 +240,7 @@
         "check": {
           "command": "clippy",
         },
-        "inlayHints": {
-          "maxLength": null,
-          "lifetimeElisionHints": {
-            "enable": "skip_trivial",
-            "useParameterNames": true,
-          },
-        },
       },
     },
   },
-  // "theme_overrides": {
-  //   "Rosé Pine": {
-  //     "background": "#000000",
-  //     "editor.background": "#000000",
-  //     "editor.foreground": "#e0def4",
-  //     "editor.gutter.background": "#000000",
-  //     "tab_bar.background": "#000000",
-  //     "title_bar.background": "#000000",
-  //     "status_bar.background": "#000000",
-  //     "toolbar.background": "#000000",
-  //     "panel.background": "#000000",
-  //     "terminal.background": "#000000",
-  //     "terminal.foreground": "#e0def4",
-  //     "element.background": "#26233a",
-  //     "text": "#e0def4",
-  //     "text.muted": "#6e6a86",
-  //     "text.accent": "#c4a7e7",
-  //     "players": [{ "selection": "#2a2837" }],
-  //     "terminal.ansi.black": "#26233a",
-  //     "terminal.ansi.red": "#eb6f92",
-  //     "terminal.ansi.green": "#9ccfd8",
-  //     "terminal.ansi.yellow": "#f6c177",
-  //     "terminal.ansi.blue": "#31748f",
-  //     "terminal.ansi.magenta": "#c4a7e7",
-  //     "terminal.ansi.cyan": "#ebbcba",
-  //     "terminal.ansi.white": "#e0def4",
-  //     "terminal.ansi.bright_black": "#6e6a86",
-  //     "terminal.ansi.bright_red": "#eb6f92",
-  //     "terminal.ansi.bright_green": "#9ccfd8",
-  //     "terminal.ansi.bright_yellow": "#f6c177",
-  //     "terminal.ansi.bright_blue": "#31748f",
-  //     "terminal.ansi.bright_magenta": "#c4a7e7",
-  //     "terminal.ansi.bright_cyan": "#ebbcba",
-  //     "terminal.ansi.bright_white": "#e0def4",
-  //   },
-  // },
 }

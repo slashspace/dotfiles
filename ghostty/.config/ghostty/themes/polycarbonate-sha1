@@ -1,0 +1,28 @@
+# Polycarbonate sha1 — matched to the Zed theme of the same name.
+# Background stays black so Ghostty's background-opacity reads as the same glass.
+
+background = #000000
+foreground = #bfbdb6
+
+cursor-color = #59c2ff
+cursor-text = #1c1b19
+
+selection-background = #3a3936
+selection-foreground = #bfbdb6
+
+palette = 0=#3a3936
+palette = 1=#ff8f3f
+palette = 2=#95e6cb
+palette = 3=#ffb353
+palette = 4=#59c2ff
+palette = 5=#d2a6ff
+palette = 6=#44bbcc
+palette = 7=#a6a5a0
+palette = 8=#8c8b88
+palette = 9=#fe8f40
+palette = 10=#95e6cb
+palette = 11=#ffb353
+palette = 12=#59c2ff
+palette = 13=#d2a6ff
+palette = 14=#44bbcc
+palette = 15=#bfbdb6

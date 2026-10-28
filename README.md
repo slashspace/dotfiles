@@ -27,8 +27,7 @@ dotfiles/
 ├── zed/            ~/.config/zed
 ├── fastfetch/      ~/.config/fastfetch
 ├── atuin/          ~/.config/atuin
-├── mpd/            ~/.config/mpd
-├── rmpc/           ~/.config/rmpc
+├── cliamp/         ~/.config/cliamp
 └── mactop/         ~/.mactop
 ```
 
@@ -49,40 +48,130 @@ To link packages without the rest of the installer:
 cd ~/dotfiles
 stow -R -t ~ zsh git sheldon nvim starship herdr opencode \
   ghostty aerospace karabiner sketchybar borders zed \
-  fastfetch atuin mpd rmpc mactop
+  fastfetch atuin cliamp mactop
 ```
 
 ## Theme
 
-Ghostty keeps three static themes in `ghostty/.config/ghostty/themes/`: `rosepine` (active), `rosepine-custom`, and `tokyonight`. Switch by editing `config-file` in `ghostty/.config/ghostty/config`.
+Ghostty themes live in `ghostty/.config/ghostty/themes/` and match Zed's four Polycarbonate themes: `polycarbonate-gruvbox-dark` (active), `polycarbonate-sha1`, `polycarbonate-ayu-dark`, and `polycarbonate-one-dark`. Switch by editing `config-file` in `ghostty/.config/ghostty/config`.
 
 Neovim's active colorscheme is solarized-osaka. Starship uses the `solarized_osaka` palette. SketchyBar uses the bar colors shipped with that config. Window borders stay on Rose Pine. Herdr uses Catppuccin.
 
-## Editor keys
+## Daily keys
 
-Neovim and Zed share one leader, Space. Neovim is the fuller set. Zed mirrors the motions that Zed can express. Leader is Space in both.
+Neovim and Zed share `Space` as leader. `Space p f` means Space, then `p`, then `f`. A `+` means hold the keys together.
+
+### Windows (AeroSpace)
+
+Apps land on a workspace by themselves: Zed on `0`, browsers on `1`, notes on `2`, chat on `3`, Ghostty on `9`.
+
+| Action | Keys |
+|--------|------|
+| Focus left/down/up/right | `Alt+h` `j` `k` `l` |
+| Move window | `Alt+Shift+h` `j` `k` `l` |
+| Go to workspace 1–9, 0 | `Alt+1` … `Alt+9`, `Alt+0` |
+| Send the window there | Add `Shift` to the above |
+| Back to the previous workspace | `Alt+Tab` |
+| Send to the other monitor | `Alt+Shift+Tab` |
+| Tiles / accordion | `Alt+/`, `Alt+,` |
+| Resize | `Alt+Shift+r`, then `h` `j` `k` `l`, `b` to balance, `Esc` to leave |
+
+After editing the config, run `aerospace reload-config`.
+
+### Ghostty
+
+The prefix is `Ctrl+Space`, then the next key. If macOS still uses `Ctrl+Space` for “select the previous input source”, Ghostty never sees it. Reload the current window with `Shift+Cmd+,`.
+
+| Action | Keys |
+|--------|------|
+| New tab / go to tab n | prefix then `c`, or `1`–`9` |
+| Split right / down | prefix then `\`, `-` |
+| Focus split left/down/up/right | prefix then `h` `j` `k` `l` |
+| Equalize splits | prefix then `e` |
+| Close surface / new window | prefix then `x`, `n` |
+| Quick terminal | prefix then `,` |
+
+### Herdr
+
+The prefix is the default `Ctrl+b`.
+
+| Action | Keys |
+|--------|------|
+| Settings / reload | prefix then `;`, `r` |
+| Go to | prefix then `s` |
+| New workspace / rename it | prefix then `Shift+w`, `$` |
+| Rename tab | prefix then `,` |
+| Vertical split / zoom | prefix then `\|`, `m` |
+| Resize mode | prefix then `Shift+r` |
+| Previous / next workspace | `Ctrl+k`, `Ctrl+j` |
+
+### Neovim and Zed
+
+Both are normal mode. In Neovim, `Space p k` searches every keymap. In Zed, wait half a second after `Space`, `g`, or `z` and the next keys are listed.
 
 | Action | Neovim | Zed |
 |--------|--------|-----|
 | Find file | `Space p f` | `Space p f` |
 | Search text | `Space p s` | `Space p s` |
-| Recent files | `Space p r` | `Ctrl+o p` or `Space f p` |
+| Recent files | `Space p r` | `Ctrl+o` then `p`, or `Space f p` |
+| Current directory | `-` | |
+| File tree | `Space e e` | `Space e e` toggles the right dock |
 | Hover | `K` | `Shift+k` |
 | Signature help | `Ctrl+h` in insert | `Ctrl+h` in insert |
+| Definition | `g d` | `g d`; `Space v` opens it in a split |
+| References | `g R` | `g r` |
 | Rename | `Space r n` | `Space r n` |
 | Code action | `Space v c a` | `Space v c a` |
-| Format | `Space m p` | `Space m p` or `=` in visual |
-| Go to definition | `g d` | `g d` (Zed default); `Space v` opens it in a split |
-| References | `g R` | `g r` |
+| Format | `Space m p` | `Space m p` |
 | Diagnostics | `Space x w` | `g ]` / `g [` |
-| Move line | `J` / `K` in visual | `Shift+j` / `Shift+k` in visual |
-| Pane left/down/up/right | `Ctrl+w` then `h j k l` | `Ctrl+h j k l` |
-| Vertical / horizontal split | `Space s v` / `Space s h` | Zed default splits; `Ctrl+w f` opens a terminal |
-| File tree | `Space e e` (mini.files) or `-` (Oil) | `Space e e` toggles the right dock |
+| Fold toggle | `za` | `z a` |
+| Fold close / open | `zc` / `zo` | `z c` / `z o` |
+| Fold all / open all | `zM` / `zR` | `z Shift+m` / `z Shift+r` |
+| Half-page down/up | `Ctrl+d` / `Ctrl+u` | |
+| Clear search highlight | `Ctrl+c` | |
+| Pane left/down/up/right | `Ctrl+w` then `h` `j` `k` `l` | `Ctrl+h` `j` `k` `l` |
+| Split vertical / horizontal | `Space s v` / `Space s h` | |
+| Equalize / close split | `Space s e` / `Space s x` | |
+| Terminal | | `Ctrl+w` then `f` |
+| Move lines | `J` / `K` in visual | `Shift+j` / `Shift+k` in visual |
+| All tabs | | `Ctrl+e` then `h` |
+| Harpoon | `Space a` to mark, `Ctrl+y` `Ctrl+i` `Ctrl+n` `Ctrl+s` jump to 1–4 | |
+| lazygit / undo history | `Space l g` / `Space u` | |
 
-Neovim-only: `Space a` adds the file to Harpoon, then `Ctrl+y` `Ctrl+i` `Ctrl+n` `Ctrl+s` jump to marks 1–4, `Ctrl+e` opens the list. `Space l g` opens lazygit. `Space u` toggles undo history. `Space p k` searches keymaps.
+In the Zed project panel: `a` new file, `A` new directory, `r` rename, `d` delete, `q` close. Folds stay inert until `document_folding_ranges` in `settings.json` is `always` instead of `off`.
 
-In the Zed project panel: `a` new file, `A` new directory, `r` rename, `d` delete, `x` cut, `c` copy, `p` paste, `q` closes the dock.
+In Zed normal mode, which-key appears in the corner only when the key is the start of a two-key sequence. `d`, `c`, and `y` wait for a motion, so they do not open it. These prefixes stay until the next key or `Esc`. `Space` no longer moves right on its own, so it stays the same way `g` does.
+
+| Key | What follows |
+|-----|----------------|
+| `Space` | Find file, file tree, format, rename |
+| `g` | Go to, references, diagnostics |
+| `z` | Folds, scroll the cursor to top/center/bottom |
+| `Ctrl+w` | Splits and focus |
+| `[` / `]` | Sections, diagnostics, hunks |
+| `Shift+z` | `Shift+z` again saves and closes, `Shift+q` closes without saving |
+
+These disappear after about a second, because the key is already a complete action:
+
+| Key | What the key alone does | The extra binding |
+|-----|-------------------------|-------------------|
+| `Ctrl+o` | Jump back | `Ctrl+o` then `p` opens recent projects |
+| `Ctrl+e` | Scroll the view down one line | `Ctrl+e` then `h` opens all tabs |
+
+### Shell
+
+| Action | Command or keys |
+|--------|-----------------|
+| History | `Ctrl+R` |
+| Pick a file, branch, or commit in a repo | `Ctrl+G` |
+| Change directory | `z name`, or `cd name` |
+| Previous directory | `cdd` |
+| List / hidden / three-level tree | `ls`, `la`, `tree` |
+| View a file | `cat`, `catt` to page |
+| Git short status / stage / commit / push / pull | `gs`, `ga`, `gc "message"`, `gp`, `gl` |
+| Diff / staged diff / graph | `gd`, `gds`, `glog` |
+| Branch UI | `lg` |
+| Clear | `c` |
 
 ## fastfetch
 
@@ -92,22 +181,15 @@ Prints a system summary in the terminal. Run `fastfetch`. It does not start with
 
 Replaces `Ctrl+R` history search. Open a new shell, then press `Ctrl+R`, type, and Enter to run the selected command. `atuin search` opens the same search. `atuin import auto` pulls in existing shell history once. `atuin login` is only needed if you want to sync history to an Atuin account.
 
-## mpd
+## cliamp
 
-Music Player Daemon. Put audio files in `~/.config/mpd/music`, then:
+Terminal player. It is not part of the Brewfile:
 
 ```bash
-mpd ~/.config/mpd/mpd.conf
-mpc update
-mpc ls
-mpc add <file>
-mpc play
-mpc status
-mpc next
-mpc stop
+brew install bjarneo/cliamp/cliamp
 ```
 
-`pkill mpd` stops it. Start it again with the same `mpd` command. `rmpc` is the full-screen player for that daemon: start mpd, then run `rmpc`.
+Preferences live in `cliamp/.config/cliamp/config.toml` and are linked to `~/.config/cliamp/config.toml`. Play a local folder with `cliamp ~/Music`. Press `q` to quit and `?` for keys. `cliamp setup` rewrites that file; if it inserts a token, keep the value in `~/.zshrc.local` as `${VAR}` and do not commit the token.
 
 ## fzf-git
 
@@ -145,7 +227,6 @@ Managed via Homebrew in `Brewfile`.
 | Shell | starship, sheldon, eza, bat, zoxide, atuin, fastfetch |
 | Editor | neovim, herdr, zed |
 | Desktop | aerospace, ghostty, karabiner-elements, sketchybar, borders |
-| Music | mpd, mpc, rmpc |
 | Monitor | mactop |
 | Dev tools | shellcheck, shfmt |
 
@@ -155,7 +236,7 @@ Managed via Homebrew in `Brewfile`.
 cd ~/dotfiles
 stow -D -t ~ zsh git sheldon nvim starship herdr opencode \
   ghostty aerospace karabiner sketchybar borders zed \
-  fastfetch atuin mpd rmpc mactop
+  fastfetch atuin cliamp mactop
 ```
 
 ## License

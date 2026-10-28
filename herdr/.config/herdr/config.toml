@@ -6,30 +6,24 @@ onboarding = false
 # Missing also shows onboarding; set false after you've chosen. onboarding = false
 
 [theme]
-# name = "tokyo-night"
-
-# Override individual color tokens on top of the base theme.
-# Accepts: hex (#rrggbb), named colors, rgb(r,g,b), or panel_bg = "reset"
-name = "catppuccin"
+# Follow Ghostty's palette, so this tracks whichever Polycarbonate theme is active.
+# Herdr colors are opaque hex or fully transparent. They cannot do Zed's faint white wash.
+name = "terminal"
 auto_switch = false
+
 [theme.custom]
-panel_bg = "transparent" # overall panel / chrome background
-selection_bg = "#1e1e2a"
-surface0     = "#11111B"     # lowest elevated surface
-surface1     = "#181825"     # higher surface
-surface_dim  = "#040404"     # dimmed surface
-# overlay0     = "#FF9D65"
-overlay1     = "#A5D4DF"
-
-accent = "#828698" # main hl, borders, focus
-
-red = "#ff6188"
-green = "#a6e3a1"
-yellow = "#FFC009"
-blue = ""
-mauve = ""
-teal = ""
-peach = ""
+panel_bg = "transparent"
+sidebar_bg = "transparent"
+surface0 = "transparent"
+surface1 = "transparent"
+# Polycarbonate sha1 neutrals. `surface_dim` is the active-tab label and the sidebar rule.
+# `text` is the active workspace and agent name. Inactive labels stay on the dimmer gray.
+accent = "transparent"
+surface_dim = "#a6a5a0"
+text = "#bfbdb6"
+subtext0 = "#8c8b88"
+selection_bg = "transparent"
+active_row_bg = "transparent"
 
 [terminal]
 # auto_switch = false
@@ -101,7 +95,7 @@ rename_tab = "prefix+,"
 split_vertical = "prefix+|"
 # split_horizontal = "prefix+minus"
 # close_pane = "prefix+x"
-zoom = "prefix+m"       
+zoom = "prefix+m"
 resize_mode = "prefix+R"
 # resize_pane_left  = "ctrl+shift+alt+left"
 # resize_pane_down  = "ctrl+shift+alt+down"
@@ -160,7 +154,7 @@ navigate_workspace_down = "ctrl+j"
 # Sidebar width (auto-scaled based on workspace names, this sets the default)
 sidebar_width = 17
 
-window_title = "{hostname}: {workspace}" 
+window_title = "{hostname}: {workspace}"
 pane_gaps = false
 pane_outer_borders = false
 status_indicators = "symbols"
@@ -225,6 +219,7 @@ show_agent_labels_on_pane_borders = true
 # delivery = "off"
 
 # Play sounds when agents change state in background workspaces
+delivery = "system"
 [ui.sound]
 # enabled = true
 # Optional custom mp3 sound files. Relative paths are resolved from this config file's directory.
@@ -237,7 +232,7 @@ show_agent_labels_on_pane_borders = true
 # [ui.sound.agents]
 # droid = "off"
 
-enabled = false
+enabled = true
 [session]
 # Resume supported AI-agent panes into their native conversation sessions after
 # a Herdr server restart. Requires official integrations that report session refs.

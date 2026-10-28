@@ -13,9 +13,10 @@ wifi=(
     padding_left=0
     padding_right=0
     background.drawing=off
-    icon.color=0xff58d1fc
+    icon.color=$GREEN
     update_freq=10
 )
 
 sketchybar --add item wifi right \
-           --set wifi "${wifi[@]}"
+           --set wifi "${wifi[@]}" \
+           --subscribe wifi wifi_change

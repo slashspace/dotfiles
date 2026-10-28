@@ -7,27 +7,28 @@ export BAR_COLOR=0x40000000
 export ITEM_BG_COLOR=0x33000000
 export ACCENT_COLOR=0x33ffffff
 
-### Catppuccin
-export BLACK=0xff181926
-export WHITE=0xffcad3f5
-export RED=0xffed8796
-export GREEN=0xffa6da95
-export BLUE=0xff8aadf4
-export YELLOW=0xffeed49f
-export ORANGE=0xfff5a97f
-export MAGENTA=0xffc6a0f6
-export GREY=0xff939ab7
+# Shared Polycarbonate neutrals: midpoint of sha1, Ayu, Gruvbox, and One Dark.
+# Text stays gray. Status hues are the midpoint of the same four palettes.
+export BLACK=0xff1d1e1f
+export WHITE=0xffc5c2b7
+export GREY=0xff8c8a87
+export RED=0xfff2764a
+export GREEN=0xff9bd085
+export BLUE=0xff6bb5df
+export YELLOW=0xfff6b956
+export ORANGE=0xfff49850
+export MAGENTA=0xffca92da
 export TRANSPARENT=0x00000000
-export BG0=0xff1e1e2e
-export BG1=0x603c3e4f
-export BG2=0x60494d64
+export BG0=0xff000000
+export BG1=0x601d1e1f
+export BG2=0x608c8a87
 
 # Battery Colors
-export BATTERY_1=0xffa6da95
-export BATTERY_2=0xffeed49f
-export BATTERY_3=0xfff5a97f
-export BATTERY_4=0xffee99a0
-export BATTERY_5=0xffed8796
+export BATTERY_1=$GREEN
+export BATTERY_2=$YELLOW
+export BATTERY_3=$YELLOW
+export BATTERY_4=$ORANGE
+export BATTERY_5=$RED
 
 # General bar colors
 export BAR_COLOR=$BG0

@@ -1,0 +1,28 @@
+# Polycarbonate Ayu Dark — matched to the Zed theme of the same name.
+# Background stays black so Ghostty's background-opacity reads as the same glass.
+
+background = #000000
+foreground = #bfbdb6
+
+cursor-color = #5ac1fe
+cursor-text = #1c1b19
+
+selection-background = #3a3936
+selection-foreground = #bfbdb6
+
+palette = 0=#3a3936
+palette = 1=#ff8f3f
+palette = 2=#a9d94b
+palette = 3=#ffb353
+palette = 4=#5ac1fe
+palette = 5=#d2a6ff
+palette = 6=#95e6cb
+palette = 7=#a6a5a0
+palette = 8=#8c8b88
+palette = 9=#fe8f40
+palette = 10=#aad84c
+palette = 11=#feb454
+palette = 12=#39bae6
+palette = 13=#d2a6ff
+palette = 14=#95e6cb
+palette = 15=#bfbdb6

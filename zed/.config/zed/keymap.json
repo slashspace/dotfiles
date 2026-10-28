@@ -54,6 +54,7 @@
   {
     "context": "Editor && (vim_mode == normal || vim_mode == visual) && !VimWaiting && !menu",
     "bindings": {
+      "space": null,
       "g ]": "editor::GoToDiagnostic",
       "g [": "editor::GoToPreviousDiagnostic",
       "g r": "editor::FindAllReferences",

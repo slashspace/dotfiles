@@ -155,10 +155,6 @@ if command -v lazygit &>/dev/null; then
   alias lg='lazygit'
 fi
 
-if command -v mpd &>/dev/null; then
-  alias mpds='mpd ~/.config/mpd/mpd.conf'
-fi
-
 if command -v bat &>/dev/null; then
   alias cat='bat --paging=never --style=plain'
   alias catt='bat'

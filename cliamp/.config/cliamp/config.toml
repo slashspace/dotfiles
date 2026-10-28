@@ -1,0 +1,22 @@
+# Preferences only. If cliamp setup writes a provider secret, store the
+# value in ~/.zshrc.local and reference it here as ${VAR}.
+
+volume = -6
+initial_directory = "~/Music"
+visualizer = "ClassicPeak"
+vis_rows = 5
+
+theme = ""
+eq_preset = "Custom"
+eq = [-7, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+show_metadata = true
+[podcast]
+country = "cn"
+
+[radio]
+country = "CN"
+
+[netease]
+enabled      = true
+cookies_from = "safari"
+user_id      = "472557116"
