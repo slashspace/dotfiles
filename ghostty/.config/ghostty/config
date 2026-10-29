@@ -1,7 +1,8 @@
 # By default Reload config with shft + cmd + ,
 # Active theme. Alternatives live next to this file in themes/.
 # config-file = themes/polycarbonate-gruvbox-dark
-config-file = themes/linkarzu
+# config-file = themes/linkarzu
+config-file = themes/polycarbonate-eldritch
 # config-file = themes/polycarbonate-ayu-dark
 # config-file = themes/polycarbonate-one-dark
 

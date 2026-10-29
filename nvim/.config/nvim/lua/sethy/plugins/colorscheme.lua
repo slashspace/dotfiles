@@ -338,4 +338,77 @@ return {
             -- vim.cmd.colorscheme("catppuccin")
         end,
     },
+    -- NOTE: eldritch, recolored to the bar and Ghostty palette
+    {
+        "eldritch-theme/eldritch.nvim",
+        lazy = false,
+        priority = 1000,
+        config = function()
+            require("eldritch").setup({
+                transparent = true,
+                terminal_colors = true,
+                styles = {
+                    comments = { italic = true },
+                    keywords = { italic = false },
+                    functions = {},
+                    variables = {},
+                    sidebars = "dark",
+                    floats = "dark",
+                },
+                sidebars = { "qf", "help" },
+                dim_inactive = false,
+                lualine_bold = true,
+                on_colors = function(colors)
+                    colors.bg = "#0a0a0a"
+                    colors.bg_dark = "#1f1f1f"
+                    colors.bg_highlight = "#1f1f1f"
+                    colors.bg_visual = "#3d3d3d"
+                    colors.bg_search = "#3d3d3d"
+                    colors.bg_popup = "#1f1f1f"
+                    colors.bg_sidebar = "#1f1f1f"
+                    colors.bg_float = "#1f1f1f"
+                    colors.bg_statusline = "#1f1f1f"
+                    colors.border = "#3d3d3d"
+                    colors.fg = "#ffffff"
+                    colors.fg_dark = "#b7bfce"
+                    colors.fg_float = "#ffffff"
+                    colors.comment = "#b7bfce"
+                    colors.fg_gutter = "#525252"
+                    colors.terminal_black = "#3d3d3d"
+                    colors.cyan = "#04d1f9"
+                    colors.green = "#37f499"
+                    colors.yellow = "#f1fc79"
+                    colors.red = "#f16c75"
+                    colors.purple = "#987afb"
+                    colors.magenta = "#fca6ff"
+                    colors.pink = "#fca6ff"
+                    colors.orange = "#e58f2a"
+                    colors.git.add = "#37f499"
+                    colors.git.change = "#04d1f9"
+                    colors.git.delete = "#f16c75"
+                    colors.gitSigns.add = "#37f499"
+                    colors.gitSigns.change = "#04d1f9"
+                    colors.gitSigns.delete = "#f16c75"
+                end,
+                on_highlights = function(hl, _)
+                    hl.Cursor = { fg = "#0a0a0a", bg = "#f94dff" }
+                    hl.Visual = { bg = "#3d3d3d" }
+                    hl.Search = { fg = "#0a0a0a", bg = "#f1fc79" }
+                    hl.IncSearch = { fg = "#0a0a0a", bg = "#fca6ff" }
+                    local headings = {
+                        { "1", "#fca6ff" },
+                        { "2", "#987afb" },
+                        { "3", "#04d1f9" },
+                        { "4", "#37f499" },
+                        { "5", "#f1fc79" },
+                        { "6", "#f16c75" },
+                    }
+                    for _, heading in ipairs(headings) do
+                        hl["Headline" .. heading[1] .. "Fg"] = { fg = heading[2], bold = true }
+                        hl["Headline" .. heading[1] .. "Bg"] = { fg = "#0a0a0a", bg = heading[2], bold = true }
+                    end
+                end,
+            })
+        end,
+    },
 }

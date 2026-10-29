@@ -6,7 +6,7 @@ initial_directory = "~/Music"
 visualizer = "ClassicPeak"
 vis_rows = 5
 
-theme = ""
+theme = "osaka-jade"
 eq_preset = "Custom"
 eq = [-7, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 show_metadata = true

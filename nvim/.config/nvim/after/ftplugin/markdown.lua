@@ -432,13 +432,13 @@ vim.keymap.set("n", "<leader>h6", function() toggle_heading(6) end, { buffer = t
 -- highlights for markdown files to render highlights properly
 -- thx to Linkarzu for this
 
-local color1_bg = "#ff757f"
-local color2_bg = "#4fd6be"
-local color3_bg = "#7dcfff"
-local color4_bg = "#ff9e64"
-local color5_bg = "#7aa2f7"
-local color6_bg = "#c0caf5"
-local color_fg = "#1F2335"
+local color1_bg = "#fca6ff"
+local color2_bg = "#987afb"
+local color3_bg = "#04d1f9"
+local color4_bg = "#37f499"
+local color5_bg = "#f1fc79"
+local color6_bg = "#f16c75"
+local color_fg = "#0a0a0a"
 
 vim.cmd(
     string.format([[highlight @markup.heading.1.markdown cterm=bold gui=bold guifg=%s guibg=%s]], color_fg, color1_bg)
