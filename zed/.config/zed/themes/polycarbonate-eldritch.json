@@ -37,17 +37,17 @@
         "scrollbar.track.border": "#0000",
         "scrollbar.thumb.background": "#FFF3",
         "scrollbar.thumb.hover_background": "#FFF4",
-        "search.match_background": "#9071f444",
-        "search.active_match_background": "#37f49966",
-        "editor.invisible": "#7081d0",
-        "predictive": "#7081d0",
+        "search.match_background": "#76639e55",
+        "search.active_match_background": "#37f49955",
+        "editor.invisible": "#8b9ae0",
+        "predictive": "#8b9ae0",
         "text.accent": "#a48cf2",
         "icon.accent": "#37f499",
         "players": [
           {
             "cursor": "#37f499ff",
             "background": "#37f499ff",
-            "selection": "#37f49944"
+            "selection": "#76639e80"
           },
           {
             "cursor": "#f9515dff",
@@ -93,12 +93,12 @@
             "color": "#f16c75"
           },
           "comment": {
-            "color": "#7081d0",
+            "color": "#8b9ae0",
             "font_style": "italic",
             "background_color": "#0001"
           },
           "comment.doc": {
-            "color": "#7081d0",
+            "color": "#8b9ae0",
             "font_style": "italic"
           },
           "constant": {
@@ -129,7 +129,7 @@
             "font_style": "italic"
           },
           "keyword": {
-            "color": "#37f499"
+            "color": "#2fe08f"
           },
           "label": {
             "color": "#04d1f9"
@@ -147,7 +147,7 @@
             "color": "#f16c75"
           },
           "operator": {
-            "color": "#37f499"
+            "color": "#2fe08f"
           },
           "predictive": {
             "color": "#646990",
@@ -181,16 +181,16 @@
             "color": "#04d1f9"
           },
           "selector": {
-            "color": "#f1fc79"
+            "color": "#c9db6e"
           },
           "selector.pseudo": {
             "color": "#04d1f9"
           },
           "string": {
-            "color": "#f1fc79"
+            "color": "#c9db6e"
           },
           "string.doc": {
-            "color": "#7081d0",
+            "color": "#8b9ae0",
             "font_style": "italic",
             "background_color": "#0001"
           },
@@ -210,14 +210,14 @@
             "color": "#04d1f9"
           },
           "text.literal": {
-            "color": "#f1fc79"
+            "color": "#c9db6e"
           },
           "title": {
             "color": "#a48cf2",
             "font_weight": 700
           },
           "type": {
-            "color": "#f7c67f"
+            "color": "#e8b86a"
           },
           "variable": {
             "color": "#04d1f9"
