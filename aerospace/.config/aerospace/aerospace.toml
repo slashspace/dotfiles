@@ -29,7 +29,7 @@ enable-normalization-flatten-containers = true
 enable-normalization-opposite-orientation-for-nested-containers = true
 
 # 默认显示模式 : tiles(平铺)|accordion(手风琴)
-default-root-container-layout = 'accordion'
+default-root-container-layout = 'tiles'
 
 # 手风琴模式下，设置手风琴的间距: 0 表示禁用
 accordion-padding = 0
@@ -57,12 +57,14 @@ on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 #                 See:
 #                 https://nikitabobko.github.io/AeroSpace/guide#assign-workspaces-to-monitors
 [gaps]
-  # Built-in display stays tight. Other monitors use the same outer inset on every side.
+  # Built-in display stays tight.
+  # External top stays 50 so windows clear the menu bar. The margin that
+  # shows under the bar is about 12. Left, right, and bottom match that.
   inner.horizontal = [{ monitor."Built-in Retina Display" = 8 }, 15]
   inner.vertical = [{ monitor."Built-in Retina Display" = 8 }, 15]
-  outer.left = [{ monitor."Built-in Retina Display" = 8 }, 30]
-  outer.right = [{ monitor."Built-in Retina Display" = 8 }, 30]
-  outer.bottom = [{ monitor."Built-in Retina Display" = 8 }, 30]
+  outer.left = [{ monitor."Built-in Retina Display" = 8 }, 12]
+  outer.right = [{ monitor."Built-in Retina Display" = 8 }, 12]
+  outer.bottom = [{ monitor."Built-in Retina Display" = 8 }, 12]
   outer.top= [{ monitor."Built-in Retina Display" = 12 }, 50]
 
 # 'main' binding mode declaration
@@ -120,6 +122,8 @@ on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
   # [WARNING]: 组合快捷键
   # alt + shift + r 进入 resize 模式
   alt-shift-r = 'mode resize'
+  # alt + shift + ; 进入 service 模式
+  alt-shift-semicolon = 'mode service'
 
 # resize 模式: 按完 alt+shift+r后再按 h/j/k/l/b
 [mode.resize.binding]
@@ -142,8 +146,6 @@ on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
   esc = 'mode main'
 
 # service 模式: 按完 alt+shift+; 后再按 esc/r/f/backspace/h/j/k/l/b/minus/equal
-# alt + shift + ; 进入 service 模式
-alt-shift-semicolon = 'mode service'
 [mode.service.binding]
   # 重新加载配置
   esc = ['reload-config', 'mode main']
@@ -154,7 +156,7 @@ alt-shift-semicolon = 'mode service'
   # 关闭除当前窗口外的所有窗口
   backspace = ['close-all-windows-but-current', 'mode main']
 
-  # 将当前窗口与左侧窗口合并
+  # 将聚焦窗口与 h(左)|j(下)|k(上)|l(右) 方向的邻居窗口编成一组
   alt-shift-h = ['join-with left', 'mode main']
   alt-shift-j = ['join-with down', 'mode main']
   alt-shift-k = ['join-with up', 'mode main']
