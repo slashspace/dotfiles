@@ -11,6 +11,8 @@ export BLUE=0xff04d1f9
 export YELLOW=0xfff1fc79
 export ORANGE=0xff987afb
 export MAGENTA=0xfffca6ff
+# Eldritch purples, matching the timer countdown text.
+export PURPLE=0xffa48cf2
 export BG1=0x603d3d3d
 export BG2=0x601f1f1f
 
