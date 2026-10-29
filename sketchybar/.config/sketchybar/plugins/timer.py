@@ -54,9 +54,9 @@ def ensure_venv():
     os.execv(str(python), [str(python), *sys.argv])
 
 
-# define colours:
-WHITE = str("0xffcad3f5")
-RED = str("0xffed8796")
+# define colours (Eldritch purples):
+PURPLE = str("0xffa48cf2")
+MAGENTA = str("0xfff265b5")
 PID_FILE = "/tmp/sketchybar_timer.pid"
 READY_FILE = "/tmp/sketchybar_timer.ready"
 STANDING_SEQUENCE_STOP_HOUR = 20
@@ -262,7 +262,7 @@ def stopwatch(start_time):
         current_time = int(time.time())
         delta = current_time - start_time
 
-        set_timer_label("Timer: " + format_seconds(delta), WHITE)
+        set_timer_label("Timer: " + format_seconds(delta), PURPLE)
 
         time.sleep(1)
 
@@ -317,9 +317,9 @@ def count_down(start_time, end_time, label="Timer"):
 
         # highlight the text if remaining time is less than 60sec:
         if delta < 60:
-            color = RED
+            color = MAGENTA
         else:
-            color = WHITE
+            color = PURPLE
 
         set_timer_label(label + ": " + format_seconds(delta), color)
 
@@ -357,7 +357,7 @@ def format_seconds(seconds):
 
 
 def finish_event(message="Time Up!", clear_label=True):
-    set_timer_label(message, WHITE)
+    set_timer_label(message, MAGENTA)
 
     for i in range(2):
         os.system("afplay /System/Library/Sounds/Blow.aiff")
