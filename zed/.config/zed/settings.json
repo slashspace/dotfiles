@@ -10,6 +10,8 @@
   "format_on_save": "on",
   "hard_tabs": false,
   "auto_indent": "preserve_indent",
+  // 注释行按 o / 回车换行时，新行不自动续上注释前缀
+  "extend_comment_on_newline": false,
   "document_folding_ranges": "off",
   "diff_view_style": "split",
   "ui_font_family": "IBM Plex Mono",
