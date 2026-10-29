@@ -64,28 +64,14 @@ sketchybar --add item cliamp.prev center \
                  padding_left=-140 \
                  padding_right=4 \
                  label.color="$GREY" \
-                 label.font="$FONT:Regular:8.0" \
+                 label.font="$FONT:Regular:10.0" \
                  label.align=center \
                  label.width=140 \
-                 label.max_chars=16 \
+                 label.max_chars=13 \
                  label.padding_left=0 \
                  label.padding_right=0 \
                  y_offset=-8 \
                  scroll_texts=off \
-                 drawing=off \
-                 click_script="$PLUGIN_DIR/cliamp.sh popup" \
-           --add item cliamp.vis center \
-           --set cliamp.vis \
-                 icon.drawing=off \
-                 label.drawing=off \
-                 background.drawing=on \
-                 background.color="$TRANSPARENT" \
-                 background.border_width=0 \
-                 background.height=32 \
-                 background.corner_radius=0 \
-                 padding_left=4 \
-                 padding_right=0 \
-                 y_offset=0 \
                  drawing=off \
                  click_script="$PLUGIN_DIR/cliamp.sh popup" \
            --add item cliamp.card popup.cliamp.title \
@@ -100,7 +86,7 @@ sketchybar --add item cliamp.prev center \
                  padding_left=0 \
                  padding_right=0 \
                  click_script="rm -f \"\$HOME/.cache/sketchybar/cliamp-popup.on\"; sketchybar --set cliamp.title popup.drawing=off" \
-           --add bracket cliamp.group cliamp.prev cliamp.play cliamp.next cliamp.title cliamp.lyric cliamp.vis \
+           --add bracket cliamp.group cliamp.prev cliamp.play cliamp.next cliamp.title cliamp.lyric \
            --set cliamp.group \
                  background.drawing=off \
                  drawing=off

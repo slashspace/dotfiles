@@ -19,7 +19,6 @@ hide() {
              --set cliamp.next drawing=off \
              --set cliamp.title drawing=off popup.drawing=off \
              --set cliamp.lyric drawing=off \
-             --set cliamp.vis drawing=off \
              --set cliamp.group drawing=off
 }
 
@@ -29,22 +28,24 @@ show() {
              --set cliamp.next drawing=on \
              --set cliamp.title drawing=on \
              --set cliamp.lyric drawing=on \
-             --set cliamp.vis drawing=on \
              --set cliamp.group drawing=on
 }
 
-ensure_vis() {
-  local bin="$CACHE_DIR/cliamp-vis"
-  local pidfile="$CACHE_DIR/cliamp-vis.pid"
-  local pid
-  pid="$(cat "$pidfile" 2>/dev/null || true)"
-  if [ -n "$pid" ] && kill -0 "$pid" 2>/dev/null; then
+# Soften lyric line changes: fade the text in over ~200ms instead of
+# popping it in. Alpha steps over $GREY (b7bfce); keep in sync with colors.sh.
+fade_lyric() {
+  local text="$1"
+  if [ -z "$text" ]; then
+    sketchybar --set cliamp.lyric drawing=off
     return
   fi
-  [ -x "$bin" ] || return 0
-  mkdir -p "$CACHE_DIR"
-  nohup "$bin" >>"$CACHE_DIR/cliamp-vis.log" 2>&1 &
-  echo $! >"$pidfile"
+  (
+    sketchybar --set cliamp.lyric drawing=on label="$text" label.color=0x22b7bfce
+    for alpha in 0x55 0x88 0xbb 0xff; do
+      sketchybar --set cliamp.lyric label.color="$alpha"b7bfce
+      sleep 0.04
+    done
+  ) >/dev/null 2>&1 &
 }
 
 if [ "$1" = "popup" ]; then
@@ -64,7 +65,6 @@ if [ "$1" = "popup" ]; then
     touch "$CACHE_DIR/cliamp-popup.on"
     sketchybar --set cliamp.title popup.drawing=on
   fi
-  ensure_vis
   exit 0
 fi
 
@@ -120,7 +120,6 @@ LYRIC=$(jq -r --argjson pos "${POS:-0}" '
 
 if [ "$STATE" = "playing" ]; then
   rm -f "$CACHE_DIR/cliamp-bar.off"
-  ensure_vis
   snapshot=$'playing\x1f'"$LABEL"$'\x1f'"${LYRIC:- }"
 else
   touch "$CACHE_DIR/cliamp-bar.off"
@@ -134,15 +133,17 @@ printf '%s' "$snapshot" >"$CACHE_STATE"
 
 if [ "$STATE" = "playing" ]; then
   [ "${previous%%$'\x1f'*}" = "playing" ] || show
+  # With a lyric line below, lift the title to make room; otherwise keep it
+  # vertically centered in the bar.
+  if [ -n "$LYRIC" ]; then title_dy=4; else title_dy=0; fi
   sketchybar --set cliamp.play icon="$PAUSE" icon.color="$GREEN" \
-             --set cliamp.title label="$LABEL" y_offset=0 label.y_offset=4 \
-             --set cliamp.lyric label="${LYRIC:- }"
+             --set cliamp.title label="$LABEL" y_offset=0 label.y_offset="$title_dy"
+  fade_lyric "$LYRIC"
 else
   sketchybar --set cliamp.prev drawing=on \
              --set cliamp.play drawing=on icon="$PLAY" icon.color="$WHITE" \
              --set cliamp.next drawing=on \
              --set cliamp.title drawing=on label="$LABEL" y_offset=0 label.y_offset=0 \
              --set cliamp.lyric drawing=off \
-             --set cliamp.vis drawing=off \
              --set cliamp.group drawing=on
 fi
