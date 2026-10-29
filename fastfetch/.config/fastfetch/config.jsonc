@@ -2,24 +2,135 @@
   "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
   "logo": {
     "type": "builtin",
-    "source": "apple"
+    "source": "apple",
+    "padding": {
+      "top": 1,
+      "right": 2
+    }
+  },
+  "display": {
+    "separator": " "
   },
   "modules": [
-    "title",
-    "separator",
-    "os",
-    "host",
-    "kernel",
-    "uptime",
-    "packages",
-    "shell",
-    "display",
-    "cpu",
-    "gpu",
-    "memory",
-    "swap",
-    "battery",
-    "locale",
-    "colors"
+    "break",
+    {
+      "type": "custom",
+      "format": "┌─────────────Hardware─────────────┐",
+      "outputColor": "#04d1f9"
+    },
+    {
+      "type": "host",
+      "key": "  PC ",
+      "keyColor": "#f16c75"
+    },
+    {
+      "type": "cpu",
+      "key": "│ ├ CPU ",
+      "keyColor": "#f16c75"
+    },
+    {
+      "type": "gpu",
+      "key": "│ ├ GPU ",
+      "keyColor": "#f16c75"
+    },
+    {
+      "type": "disk",
+      "key": "│ ├ Disk ",
+      "folders": "/",
+      "format": "{size-used} / {size-total} ({size-percentage})",
+      "keyColor": "#f16c75"
+    },
+    {
+      "type": "swap",
+      "key": "│ ├ Swap ",
+      "keyColor": "#f16c75"
+    },
+    {
+      "type": "display",
+      "key": "│ ├ Display ",
+      "keyColor": "#f16c75",
+      "format": "{name}"
+    },
+    {
+      "type": "memory",
+      "key": "└ └ Memory ",
+      "keyColor": "#f16c75"
+    },
+    {
+      "type": "custom",
+      "format": "└──────────────────────────────────┘",
+      "outputColor": "#04d1f9"
+    },
+    {
+      "type": "custom",
+      "format": "┌─────────────Software─────────────┐",
+      "outputColor": "#04d1f9"
+    },
+    {
+      "type": "os",
+      "key": "  OS ",
+      "keyColor": "#37f499"
+    },
+    {
+      "type": "kernel",
+      "key": "│ ├ Kernel ",
+      "keyColor": "#37f499"
+    },
+    {
+      "type": "packages",
+      "key": "│ ├ Packages ",
+      "keyColor": "#37f499"
+    },
+    {
+      "type": "localip",
+      "key": "│ ├ IP ",
+      "keyColor": "#37f499"
+    },
+    {
+      "type": "shell",
+      "key": "└ └ Shell ",
+      "keyColor": "#37f499"
+    },
+    {
+      "type": "de",
+      "key": "  DE ",
+      "keyColor": "#04d1f9"
+    },
+    {
+      "type": "command",
+      "key": "│ ├ WM ",
+      "keyColor": "#04d1f9",
+      "text": "pgrep -x AeroSpace >/dev/null && echo AeroSpace || echo Quartz Compositor"
+    },
+    {
+      "type": "terminal",
+      "key": "│ ├ Term ",
+      "keyColor": "#04d1f9"
+    },
+    {
+      "type": "terminalfont",
+      "key": "└ └ Font ",
+      "keyColor": "#04d1f9"
+    },
+    {
+      "type": "custom",
+      "format": "└──────────────────────────────────┘",
+      "outputColor": "#04d1f9"
+    },
+    {
+      "type": "custom",
+      "format": "┌──────────────Uptime──────────────┐",
+      "outputColor": "#04d1f9"
+    },
+    {
+      "type": "uptime",
+      "key": "  Uptime",
+      "keyColor": "#fca6ff"
+    },
+    {
+      "type": "custom",
+      "format": "└──────────────────────────────────┘",
+      "outputColor": "#04d1f9"
+    }
   ]
 }

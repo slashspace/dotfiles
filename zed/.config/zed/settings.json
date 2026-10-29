@@ -159,7 +159,7 @@
     "status_style": "label_color",
     "default_width": 400.0,
   },
-  "theme": "Polycarbonate Gruvbox Dark",
+  "theme": "Polycarbonate One Dark",
   "title_bar": {
     "show_user_menu": false,
     // "show_menus": true,

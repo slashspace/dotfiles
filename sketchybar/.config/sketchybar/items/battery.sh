@@ -4,14 +4,13 @@ battery=(
   script="$PLUGIN_DIR/battery.sh"
   click_script="$PLUGIN_DIR/close_popups.sh"
   icon.font="$FONT:Regular:15.0"
-  background.color="$PURE_BLACK"
-  # icon.font.size=14
-  padding_right=0
-  padding_left=0
+  icon.padding_left=4
+  icon.padding_right=4
+  padding_right=14
+  padding_left=4
   update_freq=120
   updates=on
   background.drawing=off
-  script="$PLUGIN_DIR/battery.sh"
 )
 sketchybar --add item battery right \
            --set battery "${battery[@]}" \

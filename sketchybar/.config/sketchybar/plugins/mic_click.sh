@@ -19,14 +19,20 @@ toggle_mic_mute() {
     sketchybar --set mic icon= icon.drawing=on icon.color=$WHITE label.color=$WHITE
   fi
 
+  rm -f "${HOME}/.cache/sketchybar/apple-popup.on"
   sketchybar --set volume_icon popup.drawing=off \
-             --set mic popup.drawing=off
+             --set mic popup.drawing=off \
+             --set apple.logo popup.drawing=off \
+             --set timer popup.drawing=off
 }
 
 toggle_mics_dropdown() {
   source "$CONFIG_DIR/colors.sh"
 
-  sketchybar --set volume_icon popup.drawing=off
+  rm -f "${HOME}/.cache/sketchybar/apple-popup.on"
+  sketchybar --set volume_icon popup.drawing=off \
+             --set apple.logo popup.drawing=off \
+             --set timer popup.drawing=off
 
   args=(--remove '/mic.device\.*/' --set mic popup.drawing=toggle)
 
@@ -47,8 +53,7 @@ toggle_mics_dropdown() {
                                       label.padding_left=10 \
                                       label.padding_right=0 \
                                       label.color="$COLOR" \
-                                      background.color=$PURE_BLACK \
-                                      background.drawing=on \
+                                      background.drawing=off \
                    click_script="SwitchAudioSource -t input -s \"$device\" && sketchybar --set /mic.device\\.*/ label.color=$GREY --set \$NAME label.color=$WHITE --set mic popup.drawing=off")
       COUNTER=$((COUNTER + 1))
     done <<< "$(SwitchAudioSource -a -t input)"

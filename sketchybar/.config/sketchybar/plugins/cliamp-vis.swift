@@ -8,13 +8,14 @@ let barHidden = cacheDir.appendingPathComponent("cliamp-bar.off")
 let lyricsFile = cacheDir.appendingPathComponent("cliamp-lyrics.json")
 let barCount = 40
 
-let cyan = NSColor(srgbRed: 0.55, green: 0.87, blue: 0.78, alpha: 1)
-let orange = NSColor(srgbRed: 0.96, green: 0.64, blue: 0.29, alpha: 1)
-let peakColor = NSColor(srgbRed: 0.96, green: 0.73, blue: 0.34, alpha: 0.9)
-let white = NSColor(srgbRed: 0.77, green: 0.76, blue: 0.72, alpha: 1)
-let grey = NSColor(srgbRed: 0.55, green: 0.54, blue: 0.53, alpha: 1)
-let track = NSColor(srgbRed: 0.28, green: 0.28, blue: 0.28, alpha: 1)
-let black = NSColor(srgbRed: 0, green: 0, blue: 0, alpha: 1)
+let white = NSColor(srgbRed: 1, green: 1, blue: 1, alpha: 1)
+let grey = NSColor(srgbRed: 0.718, green: 0.749, blue: 0.808, alpha: 1)
+let black = NSColor(srgbRed: 0.039, green: 0.039, blue: 0.039, alpha: 1)
+let barBottom = NSColor(srgbRed: 0.216, green: 0.957, blue: 0.600, alpha: 1)
+let barTop = NSColor(srgbRed: 0.988, green: 0.651, blue: 1, alpha: 1)
+let peakColor = NSColor(srgbRed: 0.945, green: 0.988, blue: 0.475, alpha: 0.9)
+let progressColor = NSColor(srgbRed: 0.596, green: 0.478, blue: 0.984, alpha: 1)
+let track = NSColor(srgbRed: 0.239, green: 0.239, blue: 0.239, alpha: 1)
 
 var smooth = [Double]()
 var peaks = [Double]()
@@ -29,6 +30,8 @@ var duration = 0.0
 var positionAtPoll = 0.0
 var pollTime = Date.distantPast
 var lastPopupSignature = ""
+var lastSpectrumAt = Date.distantPast
+var lastSpectrumKey = ""
 var lyrics: [(start: Double, text: String)] = []
 
 func barWanted() -> Bool {
@@ -120,6 +123,8 @@ func bitmap(width: Int, height: Int, _ draw: (NSRect) -> Void) -> NSBitmapImageR
     )!
     NSGraphicsContext.saveGraphicsState()
     NSGraphicsContext.current = NSGraphicsContext(bitmapImageRep: rep)
+    NSColor.clear.setFill()
+    NSRect(x: 0, y: 0, width: width, height: height).fill()
     draw(NSRect(x: 0, y: 0, width: width, height: height))
     NSGraphicsContext.restoreGraphicsState()
     return rep
@@ -133,7 +138,7 @@ func fill(_ rect: NSRect, _ color: NSColor, radius: CGFloat = 1) {
 func drawBars(in canvas: NSRect, values: [Double], caps: [Double]) {
     let count = values.count
     guard count > 0 else { return }
-    let gap: CGFloat = canvas.width > 400 ? 5 : 3
+    let gap: CGFloat = 2
     let barW = max(2, (canvas.width - gap * CGFloat(count - 1)) / CGFloat(count))
     let used = barW * CGFloat(count) + gap * CGFloat(count - 1)
     var x = canvas.minX + (canvas.width - used) / 2
@@ -143,17 +148,17 @@ func drawBars(in canvas: NSRect, values: [Double], caps: [Double]) {
         if level < 0.05 {
             fill(
                 NSRect(x: x, y: canvas.minY, width: barW, height: 2),
-                cyan.withAlphaComponent(0.35),
+                barBottom.withAlphaComponent(0.35),
                 radius: 1
             )
         } else {
             let height = max(3, level * canvas.height)
             let split = height * 0.55
-            fill(NSRect(x: x, y: canvas.minY, width: barW, height: split), cyan, radius: 1)
+            fill(NSRect(x: x, y: canvas.minY, width: barW, height: split), barBottom, radius: 1)
             if height - split > 1 {
                 fill(
                     NSRect(x: x, y: canvas.minY + split, width: barW, height: height - split),
-                    orange,
+                    barTop,
                     radius: 1
                 )
             }
@@ -171,15 +176,26 @@ func drawProgress(in rect: NSRect, fraction: Double) {
     let played = max(0, min(1, fraction))
     let playedW = rect.width * CGFloat(played)
     if playedW > 1 {
-        fill(NSRect(x: rect.minX, y: rect.minY, width: playedW, height: rect.height), orange, radius: rect.height / 2)
+        fill(NSRect(x: rect.minX, y: rect.minY, width: playedW, height: rect.height), progressColor, radius: rect.height / 2)
     }
     let knob: CGFloat = rect.height + 7
     let knobX = rect.minX + playedW - knob / 2
     fill(
         NSRect(x: knobX, y: rect.midY - knob / 2, width: knob, height: knob),
-        orange,
+        progressColor,
         radius: knob / 2
     )
+}
+
+func drawBarImage(values: [Double]) -> NSBitmapImageRep {
+    bitmap(width: 256, height: 64) { _ in
+        drawBars(
+            in: NSRect(x: 4, y: 16, width: 248, height: 44),
+            values: values,
+            caps: peaks
+        )
+        drawProgress(in: NSRect(x: 4, y: 6, width: 248, height: 3), fraction: progressFraction())
+    }
 }
 
 func progressFraction() -> Double {
@@ -189,17 +205,6 @@ func progressFraction() -> Double {
         position += Date().timeIntervalSince(pollTime)
     }
     return min(1, max(0, position / duration))
-}
-
-func drawBarImage(values: [Double]) -> NSBitmapImageRep {
-    bitmap(width: 336, height: 64) { _ in
-        drawBars(
-            in: NSRect(x: 8, y: 16, width: 320, height: 44),
-            values: values,
-            caps: peaks
-        )
-        drawProgress(in: NSRect(x: 8, y: 6, width: 320, height: 3), fraction: progressFraction())
-    }
 }
 
 func drawString(_ text: String, _ rect: NSRect, _ color: NSColor, _ size: CGFloat) {
@@ -231,7 +236,21 @@ func lyricWindow() -> [(text: String, current: Bool)] {
 
 func drawPopupImage() -> NSBitmapImageRep {
     bitmap(width: 720, height: 360) { canvas in
-        fill(canvas, black, radius: 0)
+        NSColor.clear.setFill()
+        canvas.fill()
+        // 2x artwork: 9pt corner and a 2pt stroke, kept inside the image
+        // so the popup window does not draw a second rectangle over it.
+        let line: CGFloat = 4
+        let card = NSBezierPath(
+            roundedRect: canvas.insetBy(dx: line / 2, dy: line / 2),
+            xRadius: 18,
+            yRadius: 18
+        )
+        black.setFill()
+        card.fill()
+        white.setStroke()
+        card.lineWidth = line
+        card.stroke()
         var y = canvas.maxY - 32
         let title = trackTitle.isEmpty ? " " : trackTitle
         y -= 36
@@ -344,11 +363,29 @@ func refreshMetadata() {
     }
 }
 
+let spectrumInterval = 1.0 / 8.0
+
+func spectrumKey(_ values: [Double]) -> String {
+    func steps(_ samples: [Double]) -> String {
+        samples.map { String(Int(($0 * 16).rounded())) }.joined(separator: ",")
+    }
+    let percent = Int((progressFraction() * 100).rounded())
+    return steps(values) + "|" + steps(peaks) + "|\(percent)"
+}
+
 func render(bands: [Double]) {
     refreshMetadata()
     let values = levels(from: bands)
     if barWanted() {
-        publish(drawBarImage(values: values), item: "cliamp.vis", prefix: "cliamp-bar")
+        let now = Date()
+        if now.timeIntervalSince(lastSpectrumAt) >= spectrumInterval {
+            let key = spectrumKey(values)
+            if key != lastSpectrumKey {
+                lastSpectrumKey = key
+                lastSpectrumAt = now
+                publish(drawBarImage(values: values), item: "cliamp.vis", prefix: "cliamp-bar")
+            }
+        }
     }
     publishPopupIfNeeded()
 }
@@ -357,7 +394,7 @@ func streamOnce() -> Bool {
     var stoppedIdle = false
     let process = Process()
     process.executableURL = URL(fileURLWithPath: "/opt/homebrew/bin/cliamp")
-    process.arguments = ["visstream", "--fps", "12"]
+    process.arguments = ["visstream", "--fps", "8"]
     let pipe = Pipe()
     process.standardOutput = pipe
     process.standardError = FileHandle.nullDevice

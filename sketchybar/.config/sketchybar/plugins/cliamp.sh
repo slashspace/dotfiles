@@ -53,8 +53,14 @@ if [ "$1" = "popup" ]; then
     rm -f "$CACHE_DIR/cliamp-popup.on"
     sketchybar --set cliamp.title popup.drawing=off
   else
+    rm -f "$CACHE_DIR/apple-popup.on"
     sketchybar --set volume_icon popup.drawing=off \
-               --set mic popup.drawing=off
+               --set mic popup.drawing=off \
+               --set apple.logo popup.drawing=off \
+               --set timer popup.drawing=off \
+               --set cpu.graph popup.drawing=off \
+               --set ram.graph popup.drawing=off \
+               --set gpu.graph popup.drawing=off
     touch "$CACHE_DIR/cliamp-popup.on"
     sketchybar --set cliamp.title popup.drawing=on
   fi
@@ -129,7 +135,7 @@ printf '%s' "$snapshot" >"$CACHE_STATE"
 if [ "$STATE" = "playing" ]; then
   [ "${previous%%$'\x1f'*}" = "playing" ] || show
   sketchybar --set cliamp.play icon="$PAUSE" icon.color="$GREEN" \
-             --set cliamp.title label="$LABEL" y_offset=7 label.y_offset=1 \
+             --set cliamp.title label="$LABEL" y_offset=0 label.y_offset=4 \
              --set cliamp.lyric label="${LYRIC:- }"
 else
   sketchybar --set cliamp.prev drawing=on \

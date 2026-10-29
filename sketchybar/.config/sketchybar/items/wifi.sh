@@ -1,22 +1,23 @@
 #!/bin/bash
 
+source "$CONFIG_DIR/icons.sh"
+
 wifi=(
-    script="$PLUGIN_DIR/wifi.sh"
-    click_script="$PLUGIN_DIR/close_popups.sh"
-    icon=$WIFI_CONNECTED
-    label.drawing=off
-    background.color="$PURE_BLACK"
-    icon.font.size="$FONT:Regular:17.0"
-    icon.align=center
-    icon.padding_left=8
-    icon.padding_right=8
-    padding_left=0
-    padding_right=0
-    background.drawing=off
-    icon.color=$GREEN
-    update_freq=10
+  padding_left=4
+  padding_right=4
+  label.width=0
+  label.font="$FONT:Regular:12.0"
+  label.color="$WHITE"
+  label.padding_left=4
+  label.padding_right=6
+  icon="$WIFI_DISCONNECTED"
+  icon.color="$GREY"
+  icon.font="$FONT:Regular:14.0"
+  background.drawing=off
+  script="$PLUGIN_DIR/wifi.sh"
+  click_script="$PLUGIN_DIR/close_popups.sh"
 )
 
 sketchybar --add item wifi right \
            --set wifi "${wifi[@]}" \
-           --subscribe wifi wifi_change
+           --subscribe wifi wifi_change mouse.clicked

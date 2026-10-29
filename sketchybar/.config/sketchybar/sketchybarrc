@@ -1,72 +1,106 @@
 # https://github.com/FelixKratz/dotfiles
+# Bar geometry and the CPU/RAM/GPU graphs follow linkarzu's sketchybar layout.
 
 source "$CONFIG_DIR/colors.sh"
-source "$CONFIG_DIR/icons.sh" # Loads all defined icons
+source "$CONFIG_DIR/icons.sh"
 
 ITEM_DIR="$CONFIG_DIR/items"
 PLUGIN_DIR="$CONFIG_DIR/plugins"
 
 FONT="JetBrainsMono Nerd Font"
+PADDINGS=1
 
-##### Bar Appearance #####
-# Configuring the general appearance of the bar.
-# These are only some of the options available. For all options see:
-# https://felixkratz.github.io/SketchyBar/config/bar
-# If you are looking for other colors, see the color picker:
-# https://felixkratz.github.io/SketchyBar/config/tricks#color-picker
+USAGE_GRAPH_WIDTH_PERCENT=50
+USAGE_GRAPH_WIDTH=$(((75 * USAGE_GRAPH_WIDTH_PERCENT + 50) / 100))
+USAGE_GRAPH_COLOR=$MAGENTA
+USAGE_GRAPH_SECONDARY_COLOR=$BLUE
+USAGE_GRAPH_BORDER_COLOR=$GRAPH_BORDER_COLOR
+USAGE_TOP_FONT="$FONT:Bold:10"
+USAGE_PERCENT_FONT="$FONT:Bold:11"
+SHOW_CPU_PROCESS=off
+CPU_TOPPROC_MAX_CHARS=$(((USAGE_GRAPH_WIDTH - 9) / 3))
+((CPU_TOPPROC_MAX_CHARS < 1)) && CPU_TOPPROC_MAX_CHARS=1
+export CPU_TOPPROC_MAX_CHARS
+ACTIVITY_MONITOR_CLICK_SCRIPT="open -a 'Activity Monitor'"
+HELPER=git.felix.helper
 
-sketchybar --bar position=top height=40 blur_radius=0 color="$TRANSPARENT"
-
-##### Changing Defaults #####
-# We now change some default values, which are applied to all further items.
-# For a full list of all available item properties see:
-# https://felixkratz.github.io/SketchyBar/config/items
+bar=(
+  height=45
+  color=$BAR_COLOR
+  border_width=2
+  border_color=$BAR_BORDER_COLOR
+  shadow=off
+  position=top
+  sticky=on
+  padding_right=10
+  padding_left=10
+  y_offset=-5
+  margin=-2
+  topmost=window
+)
+sketchybar --bar "${bar[@]}"
 
 default=(
-        padding_left=3
-        padding_right=3
-
-        background.color="$ITEM_BG_COLOR"
-        background.corner_radius=5
-        background.height=25
-
-        icon.font="$FONT:Regular:15.0"
-        label.font="$FONT:Regular:14.0"
-
-        icon.color=$WHITE
-        icon.y_offset=1
-
-        label.color=$WHITE
-        label.y_offset=1
-
-        icon.padding_left=10
-        icon.padding_right=4
-
-        label.padding_left=4
-        label.padding_right=10
+  updates=when_shown
+  icon.font="$FONT:Bold:14.0"
+  icon.color=$ICON_COLOR
+  icon.padding_left=$PADDINGS
+  icon.padding_right=$PADDINGS
+  label.font="$FONT:Bold:13.0"
+  label.color=$LABEL_COLOR
+  label.padding_left=$PADDINGS
+  label.padding_right=$PADDINGS
+  padding_right=$PADDINGS
+  padding_left=$PADDINGS
+  background.height=26
+  background.corner_radius=9
+  background.border_width=2
+  popup.background.border_width=2
+  popup.background.corner_radius=9
+  popup.background.border_color=$POPUP_BORDER_COLOR
+  popup.background.color=$BAR_COLOR
+  popup.blur_radius=20
+  popup.background.shadow.drawing=on
+  scroll_texts=on
 )
 sketchybar --default "${default[@]}"
 sketchybar --add event aerospace_workspace_change
 
-##### Left Items #####
-source "$ITEM_DIR/space.sh"
-# adds layout background for workspaces
-sketchybar --add bracket workspaces space.1 space.2 space.3 space.4 space.5 space.6 space.7 space.8 space.9 space.0 \
-           --set workspaces background.color="$PURE_BLACK" \
+# The helper registers its Mach port only after GPU init, so it has to be up
+# before the graph items subscribe. It is compiled ahead of time.
+if [ -x "$CONFIG_DIR/helper/helper" ]; then
+  pkill -f "$CONFIG_DIR/helper/helper" >/dev/null 2>&1 || true
+  sleep 0.2
+  "$CONFIG_DIR/helper/helper" "$HELPER" >/dev/null 2>&1 &
+  sleep 0.8
+fi
 
+##### Left #####
+source "$ITEM_DIR/apple.sh"
 source "$ITEM_DIR/front_app.sh"
+source "$ITEM_DIR/mic.sh"
+source "$ITEM_DIR/timer.sh"
 
 ##### Center #####
 source "$ITEM_DIR/cliamp.sh"
 
-##### Right Items #####
-source "$ITEM_DIR/clock.sh"
-
+##### Right #####
+source "$ITEM_DIR/calendar.sh"
+source "$ITEM_DIR/dnd.sh"
 source "$ITEM_DIR/media_block.sh"
-          
-           
+source "$ITEM_DIR/cpu.sh"
+source "$ITEM_DIR/ram.sh"
+source "$ITEM_DIR/gpu.sh"
+source "$ITEM_DIR/disk.sh"
+source "$ITEM_DIR/notification.sh"
+
+sketchybar --add item toggler left \
+           --set toggler drawing=off updates=on script="$PLUGIN_DIR/toggle.sh" \
+           --subscribe toggler front_app_switched
+
+launchctl unload -F /System/Library/LaunchAgents/com.apple.OSDUIHelper.plist >/dev/null 2>&1 || true
+
 sketchybar --hotload on
-##### Force all scripts to run the first time (never do this in a script) #####
 sketchybar --update
 
 echo "sketchybar configuation loaded.."

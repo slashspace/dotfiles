@@ -1,42 +1,30 @@
 #!/bin/bash
 
-export PURE_WHITE=0xffffffff
-export PURE_BLACK=0xff000000
-
-export BAR_COLOR=0x40000000
-export ITEM_BG_COLOR=0x33000000
-export ACCENT_COLOR=0x33ffffff
-
-# Shared Polycarbonate neutrals: midpoint of sha1, Ayu, Gruvbox, and One Dark.
-# Text stays gray. Status hues are the midpoint of the same four palettes.
-export BLACK=0xff1d1e1f
-export WHITE=0xffc5c2b7
-export GREY=0xff8c8a87
-export RED=0xfff2764a
-export GREEN=0xff9bd085
-export BLUE=0xff6bb5df
-export YELLOW=0xfff6b956
-export ORANGE=0xfff49850
-export MAGENTA=0xffca92da
 export TRANSPARENT=0x00000000
-export BG0=0xff000000
-export BG1=0x601d1e1f
-export BG2=0x608c8a87
 
-# Battery Colors
+# linkarzu-colors. Text is white. Accents are the neon set from that theme.
+export WHITE=0xffffffff
+export GREY=0xffb7bfce
+export RED=0xfff16c75
+export GREEN=0xff37f499
+export BLUE=0xff04d1f9
+export YELLOW=0xfff1fc79
+export ORANGE=0xff987afb
+export MAGENTA=0xfffca6ff
+export BG1=0x603d3d3d
+export BG2=0x601f1f1f
+
 export BATTERY_1=$GREEN
 export BATTERY_2=$YELLOW
 export BATTERY_3=$YELLOW
 export BATTERY_4=$ORANGE
 export BATTERY_5=$RED
 
-# General bar colors
-export BAR_COLOR=$BG0
+export BAR_COLOR=0xcc0a0a0a
 export BAR_BORDER_COLOR=$BG2
 export BACKGROUND_1=$BG1
 export BACKGROUND_2=$BG2
-export ICON_COLOR=$WHITE # Color of all icons
-export LABEL_COLOR=$WHITE # Color of all labels
-export POPUP_BACKGROUND_COLOR=$BAR_COLOR
+export GRAPH_BORDER_COLOR=0xff525252
+export ICON_COLOR=$WHITE
+export LABEL_COLOR=$WHITE
 export POPUP_BORDER_COLOR=$WHITE
-export SHADOW_COLOR=$BLACK

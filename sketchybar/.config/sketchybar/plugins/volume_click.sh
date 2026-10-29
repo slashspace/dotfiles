@@ -9,14 +9,20 @@ toggle_mute() {
     osascript -e 'set volume output muted true'
   fi
 
+  rm -f "${HOME}/.cache/sketchybar/apple-popup.on"
   sketchybar --set volume_icon popup.drawing=off \
-             --set mic popup.drawing=off
+             --set mic popup.drawing=off \
+             --set apple.logo popup.drawing=off \
+             --set timer popup.drawing=off
 }
 
 toggle_dropdown() {
   source "$CONFIG_DIR/colors.sh"
 
-  sketchybar --set mic popup.drawing=off
+  rm -f "${HOME}/.cache/sketchybar/apple-popup.on"
+  sketchybar --set mic popup.drawing=off \
+             --set apple.logo popup.drawing=off \
+             --set timer popup.drawing=off
 
   args=(--remove '/volume.device\.*/' --set volume_icon popup.drawing=toggle)
 
@@ -37,8 +43,7 @@ toggle_dropdown() {
                                           label.padding_left=10 \
                                           label.padding_right=0 \
                                            label.color="$COLOR" \
-                                          background.color=$PURE_BLACK \
-                                          background.drawing=on \
+                                          background.drawing=off \
                    click_script="SwitchAudioSource -s \"$device\" && sketchybar --set /volume.device\\.*/ label.color=$GREY --set \$NAME label.color=$WHITE --set volume_icon popup.drawing=off")
       COUNTER=$((COUNTER + 1))
     done <<< "$(SwitchAudioSource -a -t output)"

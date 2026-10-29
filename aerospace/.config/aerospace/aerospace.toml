@@ -29,10 +29,10 @@ enable-normalization-flatten-containers = true
 enable-normalization-opposite-orientation-for-nested-containers = true
 
 # 默认显示模式 : tiles(平铺)|accordion(手风琴)
-default-root-container-layout = 'tiles'
+default-root-container-layout = 'accordion'
 
 # 手风琴模式下，设置手风琴的间距: 0 表示禁用
-accordion-padding = 30
+accordion-padding = 0
 
 # 默认显示方向 : horizontal(水平)|vertical(垂直)|auto(自动)
 # 'auto' 表示: 宽屏显示器(宽度大于高度)显示为水平方向，高屏显示器(高度大于宽度)显示为垂直方向
@@ -57,13 +57,13 @@ on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 #                 See:
 #                 https://nikitabobko.github.io/AeroSpace/guide#assign-workspaces-to-monitors
 [gaps]
-  # Built-in display is small; external monitors keep the wider gaps.
+  # Built-in display stays tight. Other monitors use the same outer inset on every side.
   inner.horizontal = [{ monitor."Built-in Retina Display" = 8 }, 15]
   inner.vertical = [{ monitor."Built-in Retina Display" = 8 }, 15]
   outer.left = [{ monitor."Built-in Retina Display" = 8 }, 30]
   outer.right = [{ monitor."Built-in Retina Display" = 8 }, 30]
   outer.bottom = [{ monitor."Built-in Retina Display" = 8 }, 30]
-  outer.top= [{ monitor."Built-in Retina Display" = 15 }, 40]
+  outer.top= [{ monitor."Built-in Retina Display" = 12 }, 50]
 
 # 'main' binding mode declaration
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes

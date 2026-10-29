@@ -1,7 +1,7 @@
 # By default Reload config with shft + cmd + ,
 # Active theme. Alternatives live next to this file in themes/.
 # config-file = themes/polycarbonate-gruvbox-dark
-config-file = themes/polycarbonate-sha1
+config-file = themes/linkarzu
 # config-file = themes/polycarbonate-ayu-dark
 # config-file = themes/polycarbonate-one-dark
 
@@ -11,12 +11,16 @@ background-blur = 20
 
 font-family = MonoLisa Variable
 font-size = 15
+
+custom-shader = shaders/bloom025.glsl
+custom-shader = shaders/cursor_blaze_no_trail.glsl
+custom-shader = shaders/cursor_smear.glsl
 cursor-style = block
 cursor-style-blink = false
-cursor-color = cell-foreground
-cursor-text = cell-background
+cursor-color = #f94dff
+cursor-text = #0a0a0a
 unfocused-split-opacity = 0.55
-split-divider-color = #665c54
+split-divider-color = #525252
 
 macos-titlebar-style = hidden
 macos-option-as-alt = true
@@ -25,8 +29,8 @@ mouse-hide-while-typing = true
 
 confirm-close-surface = false
 window-decoration = auto
-window-padding-x = 10
-window-padding-y = 10
+window-padding-x = 4,2
+window-padding-y = 6,0
 window-padding-balance = true
 
 auto-update = check
@@ -38,6 +42,7 @@ copy-on-select = clipboard
 
 # Prefix is ctrl+space. super+i stays a direct inspector toggle.
 keybind = super+i=inspector:toggle
+keybind = cmd+s=toggle_quick_terminal
 keybind = ctrl+space>,=toggle_quick_terminal
 keybind = ctrl+space>r=reload_config
 keybind = ctrl+space>x=close_surface

@@ -1,34 +1,35 @@
 #!/bin/bash
 
-# Filename: ~/github/dotfiles-latest/sketchybar/felixkratz/plugins/mic.sh
-
-# https://github.com/FelixKratz/SketchyBar/discussions/12#discussioncomment-1216899
-
+export PATH="/opt/homebrew/bin:$PATH"
 source "$CONFIG_DIR/colors.sh"
 
-# Attempt to get the current input device name
-MIC_NAME=$(SwitchAudioSource -t input -c)
-# I just want the first word, in case it's too long
-MIC_NAME=$(echo $MIC_NAME | awk '{print $1}')
+INPUT_NAME=$(SwitchAudioSource -t input -c 2>/dev/null | awk '{print $1}')
+OUTPUT_NAME=$(SwitchAudioSource -t output -c 2>/dev/null)
+MIC_VOLUME=$(osascript -e 'input volume of (get volume settings)' 2>/dev/null || echo 0)
 
-# When no microphone is connected, SwitchAudioSource gives me back random
-# characters and sketchybar shows "Warning: Malformed UTF-8 string"
-# Validate MIC_NAME as UTF-8, replace invalid sequences with a '?', then compare with original
-VALIDATED_MIC_NAME=$(echo "$MIC_NAME" | iconv -f UTF-8 -t UTF-8//IGNORE)
+case "$MIC_VOLUME" in
+  ''|*[!0-9]*) MIC_VOLUME=0 ;;
+esac
 
-# Get the current microphone volume
-MIC_VOLUME=$(osascript -e 'input volume of (get volume settings)')
+INPUT_NAME=$(printf '%s' "$INPUT_NAME" | awk '{print $1}')
+OUTPUT_NAME=$(printf '%s' "$OUTPUT_NAME" | awk '{print $1}')
+[ -n "$INPUT_NAME" ] || INPUT_NAME="Mic"
+[ -n "$OUTPUT_NAME" ] || OUTPUT_NAME=" "
 
-# Check if MIC_NAME is not meaningful
-# Remove MIC_NAME from label
-if [[ "$MIC_NAME" != "$VALIDATED_MIC_NAME" || -z "$MIC_NAME" ]]; then
-  sketchybar -m --set mic label="" icon= icon.color=$YELLOW label.color=$YELLOW
+# Upper line matches the bar in the reference: cyan while the mic is live,
+# red when it is muted, with the input level after the name.
+if [ "$MIC_VOLUME" -eq 0 ]; then
+  ICON=
+  COLOR=$RED
 else
-  if [[ $MIC_VOLUME -eq 0 ]]; then
-    sketchybar -m --set mic label="" icon= icon.color=$RED label.color=$RED
-  elif [[ $MIC_VOLUME -gt 0 && $MIC_VOLUME -lt 100 ]]; then
-    sketchybar -m --set mic label="" icon= icon.color=$ORANGE label.color=$ORANGE
-  elif [[ $MIC_VOLUME -eq 100 ]]; then
-    sketchybar -m --set mic label="" icon= icon.color=$WHITE label.color=$WHITE
-  fi
+  ICON=
+  COLOR=$BLUE
 fi
+MIC_LABEL="${INPUT_NAME}-${MIC_VOLUME}"
+
+# The output line is a zero-width overlay. Pull it left so it sits under the
+# mic name instead of spilling into the next item. 12pt ~7px, 8pt ~5px.
+OUTPUT_PADDING_LEFT=$((-((${#MIC_LABEL} * 7 + ${#OUTPUT_NAME} * 5) / 2 + 5)))
+
+sketchybar --set mic icon="$ICON" icon.color="$COLOR" label.color="$COLOR" label="$MIC_LABEL" \
+           --set mic.output label="$OUTPUT_NAME" padding_left="$OUTPUT_PADDING_LEFT"
